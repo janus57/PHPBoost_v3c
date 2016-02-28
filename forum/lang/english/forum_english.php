@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                              forum_english.php
- *                            -------------------
- *   begin                : November 21, 2006
- *   last modified		: August 30, 2009 - Forensic 
- *   copyright          : (C) 2005 Viarre R�gis
- *   email                : crowkait@phpboost.com
- *
- *  
- ###################################################
- *
- *   This program is a free software. You can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
@@ -33,7 +33,7 @@
 
 global $CONFIG;
 
-//Admin
+
 $LANG['parent_category'] = 'Parent category';
 $LANG['subcat'] = 'Subcategory';
 $LANG['url_explain'] = 'Transform the forum into weblink (http://...)';
@@ -81,13 +81,13 @@ $LANG['edit_mark_auth'] = 'Hide last edited time information';
 $LANG['track_topic_auth'] = 'Deactivate topics subscription limit';
 $LANG['forum_read_feed'] = 'Read the topic';
 	
-//Require
+
 $LANG['require_topic_p'] = 'Please enter the number of topics per page !';
 $LANG['require_nbr_msg_p'] = 'Please enter the number of posts per page !';
 $LANG['require_time_new_msg'] = 'Please enter a duration for the sighting of new messages !';
 $LANG['require_topic_track_max'] = 'Please enter the topics subscriptions limit !';
 	
-//Error
+
 $LANG['e_topic_lock_forum'] = 'Locked topic, you can\'t post';
 $LANG['e_cat_lock_forum'] = 'Locked category, you can\'t post new topic/post';
 $LANG['e_unexist_topic_forum'] = 'This topic doesn\'t exist';
@@ -95,7 +95,7 @@ $LANG['e_unexist_cat_forum'] = 'This category doesn\'t exist';
 $LANG['e_unable_cut_forum'] = 'You can\'t split this topic from this post';
 $LANG['e_cat_write'] = 'You aren\'t allowed to write in this category';
 
-//Alerts
+
 $LANG['alert_delete_topic'] = 'Are you sure you want to delete this topic ?';
 $LANG['alert_lock_topic'] = 'Are you sure you want to lock this topic ?';
 $LANG['alert_unlock_topic'] = 'Are you sure you want to unlock this topic ?';
@@ -105,13 +105,13 @@ $LANG['alert_history'] = 'Are you sure you want to delete history ?';
 $LANG['confirm_mark_as_read'] = 'Mark all topics as read ?';
 $LANG['contribution_alert_moderators_for_topics'] = 'thread not complying with the forum rules: %s';
 
-//Titres
+
 $LANG['title_forum'] = 'Forum';
 $LANG['title_topic'] = 'Threads';
 $LANG['title_post'] = 'Post';
 $LANG['title_search'] = 'Search';
 
-//Forum
+
 $LANG['forum_index'] = 'Index';
 $LANG['forum'] = 'Forum';
 $LANG['forum_s'] = 'Forums';
@@ -172,7 +172,7 @@ $LANG['change_status_to'] = 'Set status: %s';
 $LANG['change_status_to_default'] = 'Set default status';
 $LANG['move_to'] = 'Move to...';
 
-//Recherche
+
 $LANG['search_forum'] = 'Search on the forum';
 $LANG['relevance'] = 'Relevance';
 $LANG['no_result'] = 'No result';
@@ -180,7 +180,7 @@ $LANG['invalid_req'] = 'Invalid request';
 $LANG['keywords'] = 'Key Words (4 characters minimum)';
 $LANG['colorate_result'] = 'Color results';
 
-//Stats
+
 $LANG['stats'] = 'Statistics';
 $LANG['nbr_topics_day'] = 'Number of threads per day';
 $LANG['nbr_msg_day'] = 'Number of messages per day';
@@ -190,7 +190,7 @@ $LANG['forum_last_msg'] = 'The last 10 threads';
 $LANG['forum_popular'] = 'The 10 most famous threads';
 $LANG['forum_nbr_answers'] = 'The 10 threads with the highest number of answers';
 
-//History
+
 $LANG['history'] = 'Actions history';
 $LANG['history_member_concern'] = 'Member concern';
 $LANG['no_action'] = 'No action in database';
@@ -211,10 +211,10 @@ $LANG['solve_alert'] = 'Set alert status to solve';
 $LANG['wait_alert'] = 'Set alert status to standby';
 $LANG['del_alert'] = 'Delete alert';
 
-//Member messages
+
 $LANG['show_member_msg'] = 'Show all member\'s messages';
 
-//Poll
+
 $LANG['poll'] = 'Poll(s)';
 $LANG['mini_poll'] = 'Mini Poll';
 $LANG['poll_main'] = 'This is the place of polls for the site, use it to deliver your opinion, or to simply answer the polls.';
@@ -237,7 +237,7 @@ $LANG['multiple_answer'] = 'Multiple answer';
 $LANG['delete_poll'] = 'Delete poll';
 $LANG['require_title_poll'] = 'Please set a title for the poll!';
 
-//Post
+
 $LANG['forum_mail_title_new_post'] = 'New post on the forum';
 $LANG['forum_mail_new_post'] = 'Dear %s
 
@@ -258,7 +258,7 @@ If you no longer want to be informed on the answers of this thread, click on the
 
 ' . $CONFIG['sign'];
 
-//Alerts
+
 $LANG['alert_management'] = 'Alert management';
 $LANG['alert_concerned_topic'] = 'Concerned thread';
 $LANG['alert_concerned_cat'] = 'Concerned thread\'s category';

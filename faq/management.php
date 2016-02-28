@@ -1,29 +1,29 @@
 <?php
-/*##################################################
-*                               management.php
-*                            -------------------
-*   begin                : December 1, 2007
-*   copyright            : (C) 2007 Sautel Benoit
-*   email                : ben.popeye@phpboost.com
-*
-*
-###################################################
-*
-*   This program is free software; you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation; either version 2 of the License, or
-*   (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 include_once('../kernel/begin.php');
 include_once('faq_begin.php');
@@ -57,10 +57,10 @@ else
 	define('TITLE', $FAQ_LANG['category_management']);
 	$id_cat_for_bread_crumb = $id_faq;
 }
-//Generation of bread_crumb
+
 include_once('faq_bread_crumb.php');
 
-//checking authorization
+
 if (!$auth_write)
 {
 	$Errorh->handler('e_auth', E_USER_REDIRECT);
@@ -77,7 +77,7 @@ elseif ($cat_of_new_question >= 0 && $new)
 	$Bread_crumb->add($FAQ_LANG['category_management'], url('management.php?faq=' . $cat_of_new_question));
 	$Bread_crumb->add($FAQ_LANG['question_creation'], url('management.php?new=1&amp;idcat=' . $cat_of_new_question . '&amp;after=' . $new_after_id));
 }
-//Moving interface
+
 elseif ($id_move > 0)
 {
 	$Bread_crumb->add($FAQ_LANG['category_management'], url('management.php?faq=' . $cat_of_new_question));
@@ -181,7 +181,7 @@ else
 		'U_GO_BACK_TO_CAT' => url('faq.php' . ($id_faq > 0 ? '?id=' . $id_faq : ''), $id_faq > 0 ? 'faq-' . $id_faq . '+' . url_encode_rewrite($FAQ_CATS[$id_faq]['name']) . '.php' : 'faq.php')
 	));
 	
-	//Special authorization
+	
 	if (!empty($FAQ_CATS[$id_faq]['auth']))
 	{
 		$Template->assign_vars(array(
@@ -199,7 +199,7 @@ else
 		));
 	}
 
-	//Category properties
+	
 	$Template->assign_block_vars('category', array(
 		'READ_AUTH' => 	Authorizations::generate_select(AUTH_READ, !empty($FAQ_CATS[$id_faq]['auth']) ? $FAQ_CATS[$id_faq]['auth'] : $FAQ_CONFIG['global_auth']),
 		'WRITE_AUTH' => Authorizations::generate_select(AUTH_WRITE, !empty($FAQ_CATS[$id_faq]['auth']) ? $FAQ_CATS[$id_faq]['auth'] : $FAQ_CONFIG['global_auth']),
@@ -217,7 +217,7 @@ else
 		));
 	}
 	
-	//Questions management
+	
 	$result = $Sql->query_while("SELECT id, q_order, question, answer
 	FROM " . PREFIX . "faq
 	WHERE idcat = '" . $id_faq . "'

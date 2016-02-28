@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                              media.php
- *                            -------------------
- *   begin               	: October 20, 2008
- *   copyright        	: (C) 2007 Geoffrey ROGUELON
- *   email               	: liaght@gmail.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 require_once('media_begin.php');
@@ -35,10 +35,10 @@ $id_media = retrieve(GET, 'id', 0);
 $id_cat = retrieve(GET, 'cat', 0);
 $level = array(0 => '', 1 => ' class="modo"', 2 => ' class="admin"');
 
-// Display caterories and media files.
+
 if (empty($id_media) && $id_cat >= 0)
 {
-	//if the category doesn't exist or is not visible
+	
 	if (empty($MEDIA_CATS[$id_cat]) || $MEDIA_CATS[$id_cat]['visible'] === false || !$User->check_auth($MEDIA_CATS[$id_cat]['auth'], MEDIA_AUTH_READ))
 	{
 		$Errorh->handler('e_unexist_cat', E_USER_REDIRECT);
@@ -52,7 +52,7 @@ if (empty($id_media) && $id_cat >= 0)
 	require_once('../kernel/header.php');
 
 	$i = 1;
-	//List of children categories
+	
 	foreach ($MEDIA_CATS as $id => $array)
 	{
 		if ($id != 0 && $array['visible'] && $array['id_parent'] == $id_cat && $User->check_auth($array['auth'], MEDIA_AUTH_READ))
@@ -91,7 +91,7 @@ if (empty($id_media) && $id_cat >= 0)
 		'C_SUB_CATS' => $i > 1
 	));
 
-	//Contenu de la catégorie
+	
 	if ($MEDIA_CATS[$id_cat]['num_media'] > 0)
 	{
 		$get_sort = retrieve(GET, 'sort', '');
@@ -160,11 +160,11 @@ if (empty($id_media) && $id_cat >= 0)
 			'A_BLOCK' => ($MEDIA_CATS[$id_cat]['active'] & (MEDIA_DL_DATE + MEDIA_DL_COUNT + MEDIA_DL_COM + MEDIA_DL_NOTE + MEDIA_DL_USER)) !== 0
 		));
 
-		//On crée une pagination si le nombre de fichiers est trop important.
+		
 		import('util/pagination');
 		$Pagination = new Pagination();
 
-		//Notes
+		
 		import('content/note');
 		import('content/comments');
 
@@ -210,7 +210,7 @@ if (empty($id_media) && $id_cat >= 0)
 		));
 	}
 }
-// Display the media file.
+
 elseif ($id_media > 0)
 {
 	$result = $Sql->query_while("SELECT v.*, mb.login, mb.level	FROM " . PREFIX . "media AS v LEFT JOIN " . DB_TABLE_MEMBER . " AS mb ON v.iduser = mb.user_id	WHERE id = '" . $id_media . "'", __LINE__, __FILE__);
@@ -234,10 +234,10 @@ elseif ($id_media > 0)
 	define('TITLE', $media['name']);
 	require_once('../kernel/header.php');
 
-	//MAJ du compteur.
+	
 	$Sql->query_inject("UPDATE " . LOW_PRIORITY . " " . PREFIX . "media SET counter = counter + 1 WHERE id = " . $id_media, __LINE__, __FILE__);
 
-	//Affichage notation.
+	
 	import('content/note');
 	$Note = new Note('media', $id_media, url('media.php?id=' . $id_media, 'media-' . $id_media . '-' . $media['idcat'] . '+' . url_encode_rewrite($media['name']) . '.php'), $MEDIA_CONFIG['note_max'], '', NOTE_NODISPLAY_NBRNOTES);
 	
@@ -286,7 +286,7 @@ elseif ($id_media > 0)
 
 	$Template->set_filenames(array('media_format' => (empty($mime_type_tpl[$media['mime_type']]) ? 'media/format/media_other.tpl' : 'media/' . $mime_type_tpl[$media['mime_type']])));
 
-	//Affichage commentaires.
+	
 	if (isset($_GET['com']) && ($MEDIA_CATS[$media['idcat']]['active'] & (MEDIA_DV_COM + MEDIA_DL_COM)) !== 0)
 	{
 		$Template->assign_vars(array('COMMENTS' => display_comments('media', $id_media, url('media.php?id=' . $id_media . '&amp;com=%s', 'media-' . $id_media . '-' . $media['idcat'] . '+' . url_encode_rewrite($media['name']) . '.php?com=%s'))));

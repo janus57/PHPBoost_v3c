@@ -1,52 +1,52 @@
 <?php
-/*##################################################
- *                               admin_members_config.php
- *                            -------------------
- *   begin                : April 15, 2006
- *   copyright          : (C) 2006 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
-if (!empty($_POST['msg_mbr'])) //Message aux membres.
+if (!empty($_POST['msg_mbr'])) 
 {
 	$config_member['activ_register'] = retrieve(POST, 'activ_register', 0);
 	$config_member['msg_mbr'] = stripslashes(strparse(retrieve(POST, 'contents', '', TSTRING_AS_RECEIVED)));
 	$config_member['msg_register'] = $CONFIG_USER['msg_register'];
-	$config_member['activ_mbr'] = retrieve(POST, 'activ_mbr', 0); //désactivé par defaut. 
-	$config_member['verif_code'] = (isset($_POST['verif_code']) && @extension_loaded('gd')) ? numeric($_POST['verif_code']) : 0; //désactivé par defaut. 
+	$config_member['activ_mbr'] = retrieve(POST, 'activ_mbr', 0); 
+	$config_member['verif_code'] = (isset($_POST['verif_code']) && @extension_loaded('gd')) ? numeric($_POST['verif_code']) : 0; 
 	$config_member['verif_code_difficulty'] = retrieve(POST, 'verif_code_difficulty', 2);
 	$config_member['delay_unactiv_max'] = retrieve(POST, 'delay_unactiv_max', 0); 
-	$config_member['force_theme'] = retrieve(POST, 'force_theme', 0); //Désactivé par défaut.
-	$config_member['activ_up_avatar'] = retrieve(POST, 'activ_up_avatar', 0); //Désactivé par défaut.
+	$config_member['force_theme'] = retrieve(POST, 'force_theme', 0); 
+	$config_member['activ_up_avatar'] = retrieve(POST, 'activ_up_avatar', 0); 
 	$config_member['width_max'] = retrieve(POST, 'width_max', 120);
 	$config_member['height_max'] = retrieve(POST, 'height_max', 120);
 	$config_member['weight_max'] = retrieve(POST, 'weight_max', 20);
 	$config_member['activ_avatar'] = retrieve(POST, 'activ_avatar', 0);
 	$config_member['avatar_url'] = retrieve(POST, 'avatar_url', '');
 	
-	$Sql->query_inject("UPDATE " . DB_TABLE_CONFIGS . " SET value = '" . addslashes(serialize($config_member)) . "' WHERE name = 'member'", __LINE__, __FILE__); //MAJ	
+	$Sql->query_inject("UPDATE " . DB_TABLE_CONFIGS . " SET value = '" . addslashes(serialize($config_member)) . "' WHERE name = 'member'", __LINE__, __FILE__); 
 	
 	###### Régénération du cache $CONFIG_USER #######
 	$Cache->Generate_file('member');

@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                                stats.php
- *                            -------------------
- *   begin                : March 28, 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 require_once('../forum/forum_begin.php');
@@ -88,7 +88,7 @@ if (is_array($CAT_FORUM))
 	$auth_cats = !empty($auth_cats) ? " AND c.id NOT IN (" . trim($auth_cats, ',') . ")" : '';
 }
 
-//Dernières réponses	
+
 $result = $Sql->query_while("SELECT t.id, t.title, c.id as cid, c.auth
 FROM " . PREFIX . "forum_topics t
 LEFT JOIN " . PREFIX . "forum_cats c ON c.id = t.idcat
@@ -104,7 +104,7 @@ while ($row = $Sql->fetch_assoc($result))
 }
 $Sql->query_close($result);
 
-//Les plus vus	
+
 $result = $Sql->query_while("SELECT t.id, t.title, c.id as cid, c.auth
 FROM " . PREFIX . "forum_topics t
 LEFT JOIN " . PREFIX . "forum_cats c ON c.id = t.idcat
@@ -120,7 +120,7 @@ while ($row = $Sql->fetch_assoc($result))
 }
 $Sql->query_close($result);
 
-//Les plus répondus	
+
 $result = $Sql->query_while("SELECT t.id, t.title, c.id as cid, c.auth
 FROM " . PREFIX . "forum_topics t
 LEFT JOIN " . PREFIX . "forum_cats c ON c.id = t.idcat
@@ -136,7 +136,7 @@ while ($row = $Sql->fetch_assoc($result))
 }	
 $Sql->query_close($result);
 	
-//Listes les utilisateurs en lignes.
+
 list($users_list, $total_admin, $total_modo, $total_member, $total_visit, $total_online) = forum_list_user_online("AND s.session_script LIKE '/forum/%'");
 
 $Template->assign_vars(array(

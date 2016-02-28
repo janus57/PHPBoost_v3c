@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                                alert.php
- *                            -------------------
- *   begin                : August 7, 2006
- *   copyright            : (C) 2006 Viarre Régis / Sautel Benoît
- *   email                : crowkait@phpboost.com / ben.popeye@phpboost.com
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 require_once('../forum/forum_begin.php');
@@ -47,7 +47,7 @@ require_once('../kernel/header.php');
 if (empty($alert) && empty($alert_post) || empty($topic['idcat'])) 
 	redirect(HOST . DIR . '/forum/index' . url('.php'));  
 
-if (!$User->check_level(MEMBER_LEVEL)) //Si c'est un invité
+if (!$User->check_level(MEMBER_LEVEL)) 
     $Errorh->handler('e_auth', E_USER_REDIRECT); 
 	
 $Template->set_filenames(array(
@@ -56,12 +56,12 @@ $Template->set_filenames(array(
 	'forum_bottom'=> 'forum/forum_bottom.tpl'
 ));
 	
-//On fait un formulaire d'alerte
+
 if (!empty($alert) && empty($alert_post))
 {
-	//On vérifie qu'une alerte sur le même sujet n'ait pas été postée
+	
 	$nbr_alert = $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "forum_alerts WHERE idtopic = '" . $alert ."' AND status = 0", __LINE__, __FILE__);
-	if (empty($nbr_alert)) //On affiche le formulaire
+	if (empty($nbr_alert)) 
 	{
 		$Template->assign_vars(array(
 			'KERNEL_EDITOR' => display_editor(),
@@ -79,7 +79,7 @@ if (!empty($alert) && empty($alert_post))
 			'ID_ALERT' => $alert,
 		));	
 	}
-	else //Une alerte a déjà été postée
+	else 
 	{
 		$Template->assign_vars(array(
 			'L_ALERT' => $LANG['alert_topic'],
@@ -93,7 +93,7 @@ if (!empty($alert) && empty($alert_post))
 	}
 }
 
-//Si on enregistre une alerte
+
 if (!empty($alert_post))
 {
 	$Template->assign_vars(array(
@@ -102,14 +102,14 @@ if (!empty($alert_post))
 		'URL_TOPIC' => 'topic' . url('.php?id=' . $alert_post, '-' . $alert_post . '-' . url_encode_rewrite($topic_name) . '.php')
 	));
 	
-	//On vérifie qu'une alerte sur le même sujet n'ait pas été postée
+	
 	$nbr_alert = $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "forum_alerts WHERE idtopic = '" . $alert_post ."' AND status = 0", __LINE__, __FILE__);
-	if (empty($nbr_alert)) //On enregistre
+	if (empty($nbr_alert)) 
 	{
 		$alert_title = retrieve(POST, 'title', '');
 		$alert_contents = retrieve(POST, 'contents', '', TSTRING_PARSE);
 		
-		//Instanciation de la class du forum.
+		
 		include_once('../forum/forum.class.php');
 		$Forumfct = new Forum;
 
@@ -119,7 +119,7 @@ if (!empty($alert_post))
 			'MSG' => str_replace('%title', $topic_name, $LANG['alert_success'])
 		));
 	}
-	else //Une alerte a déjà été postée
+	else 
 	{
 		$Template->assign_block_vars('alert_confirm', array(
 			'MSG' => $LANG['alert_topic_already_done']
@@ -128,7 +128,7 @@ if (!empty($alert_post))
 	
 }
 
-//Listes les utilisateurs en lignes.
+
 list($users_list, $total_admin, $total_modo, $total_member, $total_visit, $total_online) = forum_list_user_online("AND s.session_script = '/forum/%'");
 	
 $Template->assign_vars(array(

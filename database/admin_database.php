@@ -1,37 +1,37 @@
 <?php
-/*##################################################
- *                              admin_database.php
- *                            -------------------
- *   begin                : August 06, 2006
- *   copyright            : (C) 2006-2007 Sautel Benoit / Viarre Régis
- *   email                : ben.popeye@phpboost.com / crowkait@phpboost.com
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 
-//On regarde si on doit lire un fichier
+
 $read_file = retrieve(GET, 'read_file', '', TSTRING_UNCHANGE);
 if (!empty($read_file) && substr($read_file, -4) == '.sql')
 {
-	//Si le fichier existe on le lit
+	
 	if (is_file('../cache/backup/' . $read_file))
 	{
 		header('Content-Type: text/sql');
@@ -40,7 +40,7 @@ if (!empty($read_file) && substr($read_file, -4) == '.sql')
 	}
 	exit;
 }
-load_module_lang('database'); //Chargement de la langue du module.
+load_module_lang('database'); 
 define('TITLE', $LANG['database_management']);
 require_once('../admin/admin_header.php');
 
@@ -50,7 +50,7 @@ $tables_backup = !empty($_POST['backup']) ? true : false;
 $table = retrieve(GET, 'table', '');
 $action = retrieve(GET, 'action', '');
 
-if ($action == 'backup_table' && !empty($table)) //Sauvegarde pour une table unique.
+if ($action == 'backup_table' && !empty($table)) 
 {	
 	$tables_backup = true;
 	$_POST['table_' . $table] = 'on';
@@ -60,7 +60,7 @@ $Template->set_filenames(array(
 	'admin_database_management'=> 'database/admin_database_management.tpl'
 ));
 
-//outils de sauvegarde de la base de données
+
 import('db/backup');
 $backup = new Backup();
 
@@ -88,24 +88,24 @@ if (!empty($_GET['query']))
 		'C_DATABASE_QUERY' => true
 	));
 
-	if (!empty($query)) //On exécute une requête
+	if (!empty($query)) 
 	{
-		$Session->csrf_get_protect(); //Protection csrf
+		$Session->csrf_get_protect(); 
 		
 		$Template->assign_vars(array(
 			'C_QUERY_RESULT' => true
 		));
 	
 		$lower_query = strtolower($query);		
-		if (strtolower(substr($query, 0, 6)) == 'select') //il s'agit d'une requête de sélection
+		if (strtolower(substr($query, 0, 6)) == 'select') 
 		{
-			//On éxécute la requête
+			
 			$result = $Sql->query_while (str_replace('phpboost_', PREFIX, $query), __LINE__, __FILE__);			
 			$i = 1;
 			while ($row = $Sql->fetch_assoc($result))
 			{
 				$Template->assign_block_vars('line', array());
-				//Premier passage: on liste le nom des champs sélectionnés
+				
 				if ($i == 1)
 				{
 					foreach ($row as $field_name => $field_value)
@@ -115,7 +115,7 @@ if (!empty($_GET['query']))
 						));
 					$Template->assign_block_vars('line', array());
 				}
-				//On parse les valeurs de sortie
+				
 				foreach ($row as $field_name => $field_value)
 				$Template->assign_block_vars('line.field', array(
 					'FIELD' => strprotect($field_value),
@@ -126,7 +126,7 @@ if (!empty($_GET['query']))
 				$i++;
 			}
 		}
-		elseif (substr($lower_query, 0, 11) == 'insert into' || substr($lower_query, 0, 6) == 'update' || substr($lower_query, 0, 11) == 'delete from' || substr($lower_query, 0, 11) == 'alter table'  || substr($lower_query, 0, 8) == 'truncate' || substr($lower_query, 0, 10) == 'drop table') //Requêtes d'autres types
+		elseif (substr($lower_query, 0, 11) == 'insert into' || substr($lower_query, 0, 6) == 'update' || substr($lower_query, 0, 11) == 'delete from' || substr($lower_query, 0, 11) == 'alter table'  || substr($lower_query, 0, 8) == 'truncate' || substr($lower_query, 0, 10) == 'drop table') 
 		{
 			$result = $Sql->query_inject($query, __LINE__, __FILE__);
 			$affected_rows = @$Sql->affected_rows($result, "");			
@@ -146,14 +146,14 @@ if (!empty($_GET['query']))
 }
 elseif ($action == 'restore')
 {
-	//Suppression d'un fichier
+	
 	if (!empty($_GET['del']))
 	{
-		$Session->csrf_get_protect(); //Protection csrf
+		$Session->csrf_get_protect(); 
 		
 		$file = strprotect($_GET['del']);
 		$file_path = '../cache/backup/' . $file;
-		//Si le fichier existe
+		
 		if (preg_match('`[^/]+\.sql$`', $file) && is_file($file_path))
 		{
 			if (@unlink($file_path))
@@ -167,16 +167,16 @@ elseif ($action == 'restore')
 	
 	$post_file = isset($_FILES['file_sql']) ? $_FILES['file_sql'] : '';
 	
-	if (!empty($_GET['file'])) //Restauration d'un fichier sur le ftp
+	if (!empty($_GET['file'])) 
 	{
-		$Session->csrf_get_protect(); //Protection csrf
+		$Session->csrf_get_protect(); 
 		
 		$file = strprotect($_GET['file']);
 		$file_path = '../cache/backup/' . $file;
 		if (preg_match('`[^/]+\.sql$`', $file) && is_file($file_path))
 		{
 			$Sql->parse($file_path);
-			//On optimise et répare les tables
+			
 			$tables_list = $backup->get_tables_list();
 			$Sql->optimize_tables($tables_list);
 			$Sql->repair_tables($tables_list);
@@ -185,7 +185,7 @@ elseif ($action == 'restore')
 			redirect(HOST . DIR . url('/database/admin_database.php?action=restore&error=success', '', '&'));
 		}
 	}
-	//Fichier envoyé par post
+	
 	elseif (!empty($post_file))
 	{
 		if ($post_file['size'] < 10485760 && preg_match('`[^/]+\.sql$`', $post_file['name']))
@@ -202,7 +202,7 @@ elseif ($action == 'restore')
 				
 				redirect(HOST . DIR . url('/database/admin_database.php?action=restore&error=success', '', '&'));
 			}
-			elseif (is_file($file_path))//Le fichier existe déjà, on ne peut pas le copier
+			elseif (is_file($file_path))
 				redirect(HOST . DIR . url('/database/admin_database.php?action=restore&error=file_already_exists', '', '&'));
 			else
 				redirect(HOST . DIR . url('/database/admin_database.php?action=restore&error=upload_failure', '', '&'));
@@ -283,16 +283,16 @@ elseif ($action == 'restore')
 }
 else
 {
-	//Sauvegarde
+	
 	if ($action == 'backup')
 	{
-		//Type de sauvegarde (1 => tout, 2 => données, 3 => structure)
+		
 		$backup_type = (!empty($_POST['backup_type']) && $_POST['backup_type'] != 'all') ? ($_POST['backup_type'] == 'data' ? 2 : 3 ) : 1;
 		
-		//Listage des tables sélectionnées
+		
 		$selected_tables = array();
 		
-		//Erreur, la liste des fichiers est vide
+		
 		if (!isset($_POST['table_list']) || count($_POST['table_list']) == 0)
 			redirect(HOST . DIR . url('/database/admin_database.php?error=empty_list'));
 
@@ -302,41 +302,41 @@ else
 				$selected_tables[] = $properties['name'];
 		}
 
-		if (count($selected_tables) == $backup->get_tables_number()) //On doit tout sauvegarder
+		if (count($selected_tables) == $backup->get_tables_number()) 
 		{
-			//Structure, données ?
+			
 			if ($backup_type != 2)
 			{
-				//Suppression éventuelle des tables
+				
 				$backup->generate_drop_table_query();
 				$backup->concatenate_to_query("\n\n");
-				//Création de la structure des tables
+				
 				$backup->generate_create_table_query();
 				$backup->concatenate_to_query("\n\n");
 			}
 
 			if ($backup_type != 3)
 			{
-				//Insertion des données dans les tables
+				
 				$backup->generate_insert_values_query();
 			}
 		}
-		else //Sauvegarde des tables sélectionnées
+		else 
 		{
-			//structure, données ?
+			
 			if ($backup_type != 2)
 			{
-				//Suppression éventuelle des tables
+				
 				$backup->generate_drop_table_query($selected_tables);
 				$backup->concatenate_to_query("\n\n");
-				//Création de la structure des tables
+				
 				$backup->generate_create_table_query($selected_tables);
 				$backup->concatenate_to_query("\n\n");
 			}
 
 			if ($backup_type != 3)
 			{
-				//Insertion des données dans les tables
+				
 				$backup->generate_insert_values_query($selected_tables);
 			}
 		}
@@ -344,12 +344,12 @@ else
 		$file_name = 'backup_' . $Sql->get_data_base_name() . '_' . str_replace('/', '-', gmdate_format('y-m-d-H-i-s')) . '.sql';
 		$file_path = PATH_TO_ROOT . '/cache/backup/' . $file_name;
 
-		$backup->export_file($file_path); //Exportation de la bdd.
+		$backup->export_file($file_path); 
 		
 		redirect(HOST . DIR . url('/database/admin_database.php?error=backup_success&file=' . $file_name));
 	}
 
-	if ($tables_backup) //Liste des tables pour les sauvegarder
+	if ($tables_backup) 
 	{	
 		$Template->assign_vars(array(
 			'C_DATABASE_BACKUP' => true,
@@ -383,7 +383,7 @@ else
 	}
 	else
 	{
-		//Réparation ou optimisation des tables
+		
 		if ($repair || $optimize)
 		{
 			$selected_tables = array();
@@ -410,7 +410,7 @@ else
 				$Errorh->handler(sprintf($LANG['db_backup_success'], $_GET['file'], $_GET['file']), E_USER_NOTICE);
 		}
 		
-		//liste des tables
+		
 		$i = 0;
 		
 		list($nbr_rows, $nbr_data, $nbr_free) = array(0, 0, 0);

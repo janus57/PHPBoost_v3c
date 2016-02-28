@@ -1,31 +1,31 @@
 <?php
-/*##################################################
- *                              forum_functions.php
- *                            -------------------
- *   begin                : December 11, 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
 
-//Listes les utilisateurs en lignes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function forum_list_user_online($sql_condition)
 {
 	global $Sql, $CONFIG;
@@ -39,7 +39,7 @@ function forum_list_user_online($sql_condition)
 	while ($row = $Sql->fetch_assoc($result))
 	{
 		$group_color = User::get_group_color($row['user_groups'], $row['level']);
-		switch ($row['level']) //Coloration du membre suivant son level d'autorisation. 
+		switch ($row['level']) 
 		{ 		
 			case -1:
 			$status = 'visiteur';
@@ -66,7 +66,7 @@ function forum_list_user_online($sql_condition)
 	return array($users_list, $total_admin, $total_modo, $total_member, $total_visit, $total_admin + $total_modo + $total_member + $total_visit);
 }
 
-//Liste des catégories du forum.
+
 function forum_list_cat($id_select, $level)
 {
 	global $Group, $CAT_FORUM, $AUTH_READ_FORUM;
@@ -85,7 +85,7 @@ function forum_list_cat($id_select, $level)
 	return $select;
 }
 
-//Calcul du temps de péremption, ou de dernière vue des messages par à rapport à la configuration.
+
 function forum_limit_time_msg()
 {
 	global $User, $CONFIG_FORUM;
@@ -97,12 +97,12 @@ function forum_limit_time_msg()
 	return $max_time_msg;
 }
 
-//Marque un topic comme lu.
+
 function mark_topic_as_read($idtopic, $last_msg_id, $last_timestamp)
 {
 	global $Sql, $User, $CONFIG_FORUM;
 	
-	//Calcul du temps de péremption, ou de dernière vue des messages par à rapport à la configuration.
+	
 	$last_view_forum = ($User->get_attribute('last_view_forum') > 0) ? $User->get_attribute('last_view_forum') : 0;
 	$max_time = (time() - $CONFIG_FORUM['view_time']);
 	$max_time_msg = ($last_view_forum > $max_time) ? $last_view_forum : $max_time;
@@ -126,7 +126,7 @@ function mark_topic_as_read($idtopic, $last_msg_id, $last_timestamp)
 		$Sql->query_inject("UPDATE ".LOW_PRIORITY." " . PREFIX . "forum_topics SET nbr_views = nbr_views + 1 WHERE id = '" . $idtopic . "'", __LINE__, __FILE__);
 }
 	
-//Gestion de l'historique des actions sur le forum.
+
 function forum_history_collector($type, $user_id_action = '', $url_action = '')
 {
 	global $Sql, $User;
@@ -134,14 +134,14 @@ function forum_history_collector($type, $user_id_action = '', $url_action = '')
 	$Sql->query_inject("INSERT INTO " . PREFIX . "forum_history (action, user_id, user_id_action, url, timestamp) VALUES('" . strprotect($type) . "', '" . $User->get_attribute('user_id') . "', '" . numeric($user_id_action) . "', '" . strprotect($url_action) . "', '" . time() . "')", __LINE__, __FILE__);
 }
 
-//Gestion du rss du forum.
+
 function forum_generate_feeds()
 {
     import('content/syndication/feed');
     Feed::clear_cache('forum');
 }
 
-//Coloration de l'item recherché en dehors des balises html.
+
 function token_colorate($matches)
 {
     static $open_tag = 0;

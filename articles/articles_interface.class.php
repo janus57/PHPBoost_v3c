@@ -1,54 +1,54 @@
 <?php
-/*##################################################
- *                              articles_interface.class.php
- *                            -------------------
- *   begin                : April 9, 2008
- *   copyright            : (C) 2008 Loïc Rouchon
- *   email                : horn@phpboost.com
- *
- *
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if (defined('PHPBOOST') !== true) exit;
 
-// Inclusion du fichier contenant la classe ModuleInterface
+
 import('modules/module_interface');
 
 define('ARTICLES_MAX_SEARCH_RESULTS', 100);
 
-// Classe ForumInterface qui hérite de la classe ModuleInterface
+
 class ArticlesInterface extends ModuleInterface
 {
 	## Public Methods ##
-	function ArticlesInterface() //Constructeur de la classe ForumInterface
+	function ArticlesInterface() 
 	{
 		parent::ModuleInterface('articles');
 	}
 
-	//Récupération du cache.
+	
 	function get_cache()
 	{
 		global $Sql;
 
 		$config_articles = 'global $CONFIG_ARTICLES;' . "\n";
 
-		//Récupération du tableau linéarisé dans la bdd.
+		
 		$CONFIG_ARTICLES = unserialize($Sql->query("SELECT value FROM " . DB_TABLE_CONFIGS . " WHERE name = 'articles'", __LINE__, __FILE__));
 		$CONFIG_ARTICLES = is_array($CONFIG_ARTICLES) ? $CONFIG_ARTICLES : array();
 
@@ -78,12 +78,12 @@ class ArticlesInterface extends ModuleInterface
 		return $config_articles . "\n" . $cat_articles;
 	}
 
-	//Changement de jour.
+	
 	function on_changeday()
 	{
 		global $Sql;
 
-		//Publication des articles en attente pour la date donnée.
+		
 		$result = $Sql->query_while("SELECT id, start, end
 		FROM " . PREFIX . "articles
 		WHERE visible != 0", __LINE__, __FILE__);
@@ -104,7 +104,7 @@ class ArticlesInterface extends ModuleInterface
 
 		$weight = isset($args['weight']) && is_numeric($args['weight']) ? $args['weight'] : 1;
 
-		//Catégories non autorisées.
+		
 		$unauth_cats_sql = array();
 		foreach ($CAT_ARTICLES as $idcat => $key)
 		{
@@ -136,10 +136,10 @@ class ArticlesInterface extends ModuleInterface
 	             return $request;
 	}
 
-	/**
-	 * @desc Returns an ordered tree with all categories informations
-	 * @return array[] an ordered tree with all categories informations
-	 */
+	
+
+
+
 	function _get_cats_tree()
 	{
 		global $LANG, $CAT_ARTICLES;
@@ -152,7 +152,7 @@ class ArticlesInterface extends ModuleInterface
 		
         $ordered_cats = array();
 		foreach ($CAT_ARTICLES as $id => $cat)
-		{   // Sort by id_left
+		{   
 			$cat['id'] = $id;
 			$ordered_cats[numeric($cat['id_left'])] = array('this' => $cat, 'children' => array());
 		}
@@ -164,11 +164,11 @@ class ArticlesInterface extends ModuleInterface
 		foreach ($ordered_cats as $cat)
 		{
 			if (($cat['this']['level'] == $level + 1) && count($parent) > 0)
-			{   // The new parent is the previous cat
+			{   
 				$parent =& $parent[count($parent) - 1]['children'];
 			}
 			elseif ($cat['this']['level'] < $level)
-			{   // Find the new parent (an ancestor)
+			{   
 				$j = 0;
 				$parent =& $cats_tree[0]['children'];
 				while ($j < $cat['this']['level'])
@@ -178,7 +178,7 @@ class ArticlesInterface extends ModuleInterface
 				}
 			}
 
-			// Add the current cat at the good level
+			
 			$parent[] = $cat;
 			$level = $cat['this']['level'];
 		}
@@ -245,7 +245,7 @@ class ArticlesInterface extends ModuleInterface
         ORDER BY a.timestamp DESC
         " . $Sql->limit(0, 2 * $CONFIG_ARTICLES['nbr_articles_max']), __LINE__, __FILE__);
 
-		// Generation of the feed's items
+		
 		while ($row = $Sql->fetch_assoc($result))
 		{
 			$item = new FeedItem();
@@ -304,13 +304,13 @@ class ArticlesInterface extends ModuleInterface
 			}
 			$clause_cat = " WHERE ac.id_left > '" . $CAT_ARTICLES[$idartcat]['id_left'] . "' AND ac.id_right < '" . $CAT_ARTICLES[$idartcat]['id_right'] . "' AND ac.level = '" . ($CAT_ARTICLES[$idartcat]['level'] + 1) . "' AND ac.aprob = 1";
 		}
-		else //Racine.
+		else 
 		{
 			$cat_links = '';
 			$clause_cat = " WHERE ac.level = '0' AND ac.aprob = 1";
 		}
 
-		//Niveau d'autorisation de la catégorie
+		
 		if (!isset($CAT_ARTICLES[$idartcat]) || !$User->check_auth($CAT_ARTICLES[$idartcat]['auth'], READ_CAT_ARTICLES))
 		{
 			$Errorh->handler('e_auth', E_USER_REDIRECT);
@@ -321,7 +321,7 @@ class ArticlesInterface extends ModuleInterface
 			
 		$rewrite_title = url_encode_rewrite($CAT_ARTICLES[$idartcat]['name']);
 
-		//Colonnes des catégories.
+		
 		$nbr_column_cats = ($total_cat > $CONFIG_ARTICLES['nbr_column']) ? $CONFIG_ARTICLES['nbr_column'] : $total_cat;
 		$nbr_column_cats = !empty($nbr_column_cats) ? $nbr_column_cats : 1;
 		$column_width_cats = floor(100/$nbr_column_cats);
@@ -380,11 +380,11 @@ class ArticlesInterface extends ModuleInterface
 		$mode = ($get_mode == 'asc') ? 'ASC' : 'DESC';
 		$unget = (!empty($get_sort) && !empty($mode)) ? '?sort=' . $get_sort . '&amp;mode=' . $get_mode : '';
 
-		//On crée une pagination si le nombre de fichiers est trop important.
+		
 		import('util/pagination');
 		$Pagination = new Pagination();
 
-		//Catégories non autorisées.
+		
 		$unauth_cats_sql = array();
 		foreach ($CAT_ARTICLES as $id => $key)
 		{
@@ -440,8 +440,8 @@ class ArticlesInterface extends ModuleInterface
 			$Sql->limit($Pagination->get_first_msg($CONFIG_ARTICLES['nbr_articles_max'], 'p'), $CONFIG_ARTICLES['nbr_articles_max']), __LINE__, __FILE__);
 			while ($row = $Sql->fetch_assoc($result))
 			{
-				//On reccourci le lien si il est trop long.
-				$fichier = (strlen($row['title']) > 45 ) ? substr(html_entity_decode($row['title']), 0, 45) . '...' : $row['title'];
+				
+				$fichier = (strlen($row['title']) > 45 ) ? substr(html_entity_decode($row['title'], ENT_COMPAT, 'ISO-8859-1'), 0, 45) . '...' : $row['title'];
 
 				$tpl->assign_block_vars('articles', array(
 					'NAME' => $row['title'],

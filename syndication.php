@@ -1,35 +1,35 @@
 <?php
-/*##################################################
- *                           syndication.php
- *                         -------------------
- *   begin                : January 19, 2009
- *   copyright            : (C) 2009 Loïc Rouchon
- *   email                : horn@phpboost.com
- *
- *
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 define('PATH_TO_ROOT', '.');
-//Header's generation
+
 header("Content-Type: application/xml; charset=iso-8859-1");
 
-define('NO_SESSION_LOCATION', true); //Ne réactualise pas l'emplacement du visiteur/membre
+define('NO_SESSION_LOCATION', true); 
 require_once PATH_TO_ROOT . '/kernel/begin.php';
 require_once PATH_TO_ROOT . '/kernel/header_no_display.php';
 
@@ -45,23 +45,23 @@ if (!empty($module_id))
 
 	switch (retrieve(GET, 'feed', 'rss'))
 	{
-		case 'atom':    // ATOM
+		case 'atom':    
 			import('content/syndication/atom');
 			$feed= new ATOM($module_id, $feed_name, $category_id);
 			break;
-		default:        // RSS
+		default:        
 			import('content/syndication/rss');
 			$feed= new RSS($module_id, $feed_name, $category_id);
 			break;
 	}
 
 	if ($feed != null && $feed->is_in_cache())
-	{   // If the file exist, we print it
+	{   
 		echo $feed->read();
 	}
 	else
-	{   // Otherwise, we regenerate it before printing it
-		// Feeds Regeneration
+	{   
+		
 		import('modules/modules_discovery_service');
 		$modules_discovery_service = new ModulesDiscoveryService();
 		$module = $modules_discovery_service->get_module($module_id);
@@ -71,7 +71,7 @@ if (!empty($module_id))
 			$feed->load_data($module->get_feed_data_struct($category_id, $feed_name));
 			$feed->cache();
 
-			// Print the feed
+			
 			echo $feed->export();
 		}
 		else

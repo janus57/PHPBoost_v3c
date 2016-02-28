@@ -1,28 +1,28 @@
 <?php
-/*##################################################
- *                               admin_smileys.php
- *                            -------------------
- *   begin                : August 05, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
@@ -33,12 +33,12 @@ $id = retrieve(GET, 'id', 0);
 $edit = !empty($_GET['edit']) ? true : false;
 $del = !empty($_GET['del']) ? true : false;
 
-if (!empty($_POST['valid']) && !empty($id_post)) //Mise à jour.
+if (!empty($_POST['valid']) && !empty($id_post)) 
 {
 	$url_smiley = retrieve(POST, 'url_smiley', '');
 	$code_smiley = retrieve(POST, 'code_smiley', '');
 
-	//On met à jour
+	
 	if (!empty($url_smiley) && !empty($code_smiley))
 	{
 		$Sql->query_inject("UPDATE " . DB_TABLE_SMILEYS . " SET url_smiley = '" . $url_smiley . "', code_smiley = '" . $code_smiley . "' WHERE idsmiley = '" . $id_post . "'", __LINE__, __FILE__);
@@ -51,11 +51,11 @@ if (!empty($_POST['valid']) && !empty($id_post)) //Mise à jour.
 	else
 		redirect(HOST . DIR . '/admin/admin_smileys.php?id=' . $id_post . '&edit=1&error=incomplete#errorh');
 }
-elseif (!empty($id) && $del) //Suppression.
+elseif (!empty($id) && $del) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
-	//On supprime le smiley de la bdd.
+	
 	$Sql->query_inject("DELETE FROM " . DB_TABLE_SMILEYS . " WHERE idsmiley = '" . $id . "'", __LINE__, __FILE__);
 	
 	###### Régénération du cache des smileys #######
@@ -63,7 +63,7 @@ elseif (!empty($id) && $del) //Suppression.
 	
 	redirect(HOST . SCRIPT);
 }
-elseif (!empty($id) && $edit) //Edition.
+elseif (!empty($id) && $edit) 
 {
 	$Template->set_filenames(array(
 		'admin_smileys_management2'=> 'admin/admin_smileys_management2.tpl'
@@ -72,7 +72,7 @@ elseif (!empty($id) && $edit) //Edition.
 	$info_smiley = $Sql->query_array(DB_TABLE_SMILEYS, 'idsmiley', 'code_smiley', 'url_smiley', "WHERE idsmiley = '" . $id . "'", __LINE__, __FILE__);
 	$url_smiley = $info_smiley['url_smiley'];
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);

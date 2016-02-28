@@ -1,50 +1,50 @@
 <?php
-/*##################################################
- *                              faq_interface.class.php
- *                            -------------------
- *   begin                : April 9, 2008
- *   copyright            : (C) 2008 LoÃ¯c Rouchon
- *   email                : horn@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
 
-// Inclusion du fichier contenant la classe ModuleInterface
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import('modules/module_interface');
 
 define('FAQ_MAX_SEARCH_RESULTS', 100);
 
-// Classe ForumInterface qui hérite de la classe ModuleInterface
+
 class FaqInterface extends ModuleInterface
 {
     ## Public Methods ##
-    function FaqInterface() //Constructeur de la classe ForumInterface
+    function FaqInterface() 
     {
         parent::ModuleInterface('faq');
     }
     
-	//Récupération du cache.
+	
 	function get_cache()
 	{
 		global $Sql;
 	
-		//Configuration
+		
 		$config = unserialize($Sql->query("SELECT value FROM " . DB_TABLE_CONFIGS . " WHERE name = 'faq'", __LINE__, __FILE__));
 		$root_config = $config['root'];
 		$root_config['auth'] = $config['global_auth'];
@@ -52,7 +52,7 @@ class FaqInterface extends ModuleInterface
 		$string = 'global $FAQ_CONFIG, $FAQ_CATS, $RANDOM_QUESTIONS;' . "\n\n";
 		$string .= '$FAQ_CONFIG = ' . var_export($config, true) . ';' . "\n\n";
 		
-		//List of categories and their own properties
+		
 		$string .= '$FAQ_CATS = array();' . "\n\n";
 		$string .= '$FAQ_CATS[0] = ' . var_export($root_config, true) . ';' . "\n";
 		$string .= '$FAQ_CATS[0][\'name\'] = \'\';' . "\n";
@@ -78,7 +78,7 @@ class FaqInterface extends ModuleInterface
 			. ';' . "\n";
 		}
 		
-		//Random questions
+		
 		$query = $Sql->query_while ("SELECT id, question, idcat FROM " . PREFIX . "faq LIMIT 0, 20", __LINE__, __FILE__);
 		$questions = array();
 		while ($row = $Sql->fetch_assoc($query))
@@ -89,11 +89,11 @@ class FaqInterface extends ModuleInterface
 		return $string;
 	}
 
-	/**
-	 * @desc Returns the SQL query which will return the result of the researched keywords 
-	 * @param $args string[] parameters of the research
-	 * @return string The SQL query corresponding to the research.
-	 */
+	
+
+
+
+
 	function get_search_request($args)
     {
         global $Sql, $Cache;
@@ -120,11 +120,11 @@ class FaqInterface extends ModuleInterface
     }
 	
     
-    /**
-     * @desc Return the array containing the result's data list
-     * @param &string[][] $args The array containing the result's id list
-     * @return string[] The array containing the result's data list
-     */
+    
+
+
+
+
     function compute_search_results(&$args)
     {
         global $CONFIG, $Sql;
@@ -152,11 +152,11 @@ class FaqInterface extends ModuleInterface
         return $results_data;
     }
     
-    /**
-     *  @desc Return the string to print the result
-     *  @param &string[] $result_data the result's data
-     *  @return string[] The string to print the result of a search element
-     */
+    
+
+
+
+
     function parse_search_result(&$result_data)
     {
         $tpl = new Template('faq/search_result.tpl');
@@ -170,12 +170,12 @@ class FaqInterface extends ModuleInterface
         return $tpl->parse(TEMPLATE_STRING_MODE);
     }
     
-    // Returns the module map objet to build the global sitemap
-    /**
-	 * @desc 
-	 * @param $auth_mode
-	 * @return unknown_type
-     */
+    
+    
+
+
+
+
 	function get_module_map($auth_mode = SITE_MAP_AUTH_GUEST)
 	{
 		global $FAQ_CATS, $FAQ_LANG, $LANG, $User, $FAQ_CONFIG, $Cache;

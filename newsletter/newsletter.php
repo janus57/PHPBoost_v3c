@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               newsletter.php
- *                            -------------------
- *   begin                : July 06, 2006
- *   copyright          : (C) 2006 Sautel Benoit
- *   email                : ben.popeye@phpboost.com
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 require_once('../newsletter/newsletter_begin.php');
@@ -37,24 +37,24 @@ $Template->set_filenames(array(
 	'newsletter'=> 'newsletter/newsletter.tpl'
 ));	
 
-//Inscription ou désinscription
+
 if (!empty($mail_newsletter))
 {
 	import('io/mail');
-	//Vérification de la validité du mail proposé
+	
 	if (Mail::check_validity($mail_newsletter))
 	{
-		//Inscription ou désincription?
+		
 		$subscribe = ($subscribe == 'subscribe') ? 1 : 0;
 		
-		//Inscription
+		
 		if ($subscribe === 1)
 		{
 			$check_mail = $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "newsletter WHERE mail = '" . $mail_newsletter . "'", __LINE__, __FILE__);
-			//Si il n'est pas déjà inscrit
+			
 			if ($check_mail == 0)
 			{
-				//On enregistre le mail
+				
 				$Sql->query_inject("INSERT INTO " . PREFIX . "newsletter (mail) VALUES ('" . $mail_newsletter . "')",  __LINE__, __FILE__);
 				$Errorh->handler($LANG['newsletter_add_success'], E_USER_NOTICE);
 			}			
@@ -76,13 +76,13 @@ if (!empty($mail_newsletter))
 	else
 		$Errorh->handler($LANG['newsletter_email_address_is_not_valid'], E_USER_WARNING);
 }
-//Désinscription demandée suite à la réception d'une newsletter
+
 elseif ($id > 0)
 {
 	$check_mail = $Sql->query_inject("DELETE FROM " . PREFIX . "newsletter WHERE id = '" . $id . "'", __LINE__, __FILE__);
 	$Errorh->handler($LANG['newsletter_del_success'], E_USER_NOTICE);
 }
-//Affichage des archives
+
 else
 {
 	$Template->assign_block_vars('arch_title', array());

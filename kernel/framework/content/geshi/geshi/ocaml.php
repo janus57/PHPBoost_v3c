@@ -1,43 +1,43 @@
 <?php
-/*************************************************************************************
- * ocaml.php
- * ----------
- * Author: Flaie (fireflaie@gmail.com)
- * Copyright: (c) 2005 Flaie, Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.8.3
- * Date Started: 2005/08/27
- *
- * OCaml (Objective Caml) language file for GeSHi.
- *
- * CHANGES
- * -------
- * 2008/03/29 (1.0.7.22)
- *   -  Fixed warnings resulting from missing style information
- * 2005/08/27 (1.0.0)
- *   -  First Release
- *
- * TODO (updated 2005/08/27)
- * -------------------------
- *
- *************************************************************************************
- *
- *   This file is part of GeSHi.
- *
- *   GeSHi is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *   GeSHi is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with GeSHi; if not, write to the Free Software
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- ************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $language_data = array (
     'LANG_NAME' => 'OCaml',
@@ -47,7 +47,7 @@ $language_data = array (
     'QUOTEMARKS' => array('"'),
     'ESCAPE_CHAR' => "",
     'KEYWORDS' => array(
-        /* main OCaml keywords */
+        
         1 => array(
             'and', 'as', 'asr', 'begin', 'class', 'closed', 'constraint', 'do', 'done', 'downto', 'else',
             'end', 'exception', 'external', 'failwith', 'false', 'for', 'fun', 'function', 'functor',
@@ -56,7 +56,7 @@ $language_data = array (
             'private', 'ref', 'rec', 'raise', 'regexp', 'sig', 'struct', 'stdout', 'stdin', 'stderr', 'then',
             'to', 'true', 'try', 'type', 'val', 'virtual', 'when', 'while', 'with'
             ),
-        /* define names of main librarys, so we can link to it */
+        
         2 => array(
             'Arg', 'Arith_status', 'Array', 'ArrayLabels', 'Big_int', 'Bigarray', 'Buffer', 'Callback',
             'CamlinternalOO', 'Char', 'Complex', 'Condition', 'Dbm', 'Digest', 'Dynlink', 'Event',
@@ -66,7 +66,7 @@ $language_data = array (
             'Set', 'Sort', 'Stack', 'StdLabels', 'Str', 'Stream', 'String', 'StringLabels', 'Sys', 'Thread',
             'ThreadUnix', 'Tk'
             ),
-        /* just link to the Pervasives functions library, cause it's the default opened library when starting OCaml */
+        
         3 => array(
             'abs', 'abs_float', 'acos', 'asin', 'at_exit', 'atan', 'atan2',
             'bool_of_string', 'ceil', 'char_of_int', 'classify_float',
@@ -91,16 +91,16 @@ $language_data = array (
             'sqrt', 'string_of_bool', 'string_of_float', 'string_of_format',
             'string_of_int', 'succ', 'tan', 'tanh', 'truncate'
             ),
-        /* here Pervasives Types */
+        
         4 => array (
             'fpclass', 'in_channel', 'out_channel', 'open_flag', 'Sys_error', 'format'
             ),
-        /* finally Pervasives Exceptions */
+        
         5 => array (
             'Exit', 'Invalid_Argument', 'Failure', 'Division_by_zero'
             )
         ),
-    /* highlighting symbols is really important in OCaml */
+    
     'SYMBOLS' => array(
         ';', '!', ':', '.', '=', '%', '^', '*', '-', '/', '+',
         '>', '<', '(', ')', '[', ']', '&', '|', '#', "'"
@@ -108,21 +108,21 @@ $language_data = array (
     'CASE_SENSITIVE' => array(
         GESHI_COMMENTS => false,
         1 => false,
-        2 => true, /* functions name are case sensitive */
-        3 => true, /* types name too */
-        4 => true, /* pervasives types */
-        5 => true  /* pervasives exceptions */
+        2 => true, 
+        3 => true, 
+        4 => true, 
+        5 => true  
         ),
     'STYLES' => array(
         'KEYWORDS' => array(
-            1 => 'color: #06c; font-weight: bold;', /* nice blue */
-            2 => 'color: #06c; font-weight: bold;', /* nice blue */
-            3 => 'color: #06c; font-weight: bold;', /* nice blue */
-            4 => 'color: #06c; font-weight: bold;', /* nice blue */
-            5 => 'color: #06c; font-weight: bold;' /* nice blue */
+            1 => 'color: #06c; font-weight: bold;', 
+            2 => 'color: #06c; font-weight: bold;', 
+            3 => 'color: #06c; font-weight: bold;', 
+            4 => 'color: #06c; font-weight: bold;', 
+            5 => 'color: #06c; font-weight: bold;' 
             ),
         'COMMENTS' => array(
-            'MULTI' => 'color: #5d478b; font-style: italic;' /* light purple */
+            'MULTI' => 'color: #5d478b; font-style: italic;' 
             ),
         'ESCAPE_CHAR' => array(
             ),
@@ -130,32 +130,32 @@ $language_data = array (
             0 => 'color: #6c6;'
             ),
         'STRINGS' => array(
-            0 => 'color: #3cb371;' /* nice green */
+            0 => 'color: #3cb371;' 
             ),
         'NUMBERS' => array(
-            0 => 'color: #c6c;' /* pink */
+            0 => 'color: #c6c;' 
             ),
         'METHODS' => array(
-            1 => 'color: #060;' /* dark green */
+            1 => 'color: #060;' 
             ),
         'REGEXPS' => array(
             ),
         'SYMBOLS' => array(
-            0 => 'color: #a52a2a;' /* maroon */
+            0 => 'color: #a52a2a;' 
             ),
         'SCRIPT' => array(
             )
         ),
     'URLS' => array(
-        /* some of keywords are Pervasives functions (land, lxor, asr, ...) */
+        
         1 => '',
-        /* link to the wanted library */
+        
         2 => 'http://caml.inria.fr/pub/docs/manual-ocaml/libref/{FNAME}.html',
-        /* link to Pervasives functions */
+        
         3 => 'http://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html#VAL{FNAME}',
-        /* link to Pervasives type */
+        
         4 => 'http://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html#TYPE{FNAME}',
-        /* link to Pervasives exceptions */
+        
         5 => 'http://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html#EXCEPTION{FNAME}'
         ),
     'OOLANG' => true,

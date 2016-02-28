@@ -1,36 +1,36 @@
 <?php
-/*##################################################
- *                             news_french.php
- *                            -------------------
- *   begin                :  June 20, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
 #                                                          French                                                                        #
 ####################################################
 
-//Administration
+
 $LANG['confirm_del_news'] = 'Supprimer cette news ?';
 $LANG['add_news'] = 'Ajouter une news';
 $LANG['configuration_news'] = 'Configuration des news';
@@ -66,16 +66,16 @@ $LANG['news_date_explain'] = '(jj/mm/aa) Laisser vide pour mettre la date d\'auj
 $LANG['nbr_news_column'] = 'Nombre de colonnes pour afficher les news';
 $LANG['no_img'] = 'Aucune image';
 
-//Erreurs
+
 $LANG['e_unexist_news'] = 'La news que vous demandez n\'existe pas';
 
-//Titre
+
 $LANG['title_news'] = 'News';
 
-//Alertes
+
 $LANG['alert_delete_news'] = 'Supprimer cette News ?';
 
-//News
+
 $LANG['news'] = 'News';
 $LANG['propose_news'] = 'Proposer une news';
 $LANG['xml_news_desc'] = 'Suivez les dernières actualités sur';
@@ -88,7 +88,7 @@ $LANG['archive'] = 'Archives';
 $LANG['display_archive'] = 'Voir les archives';
 $LANG['read_feed'] = 'Lire';
 
-//Ajout news.
+
 $MAIL['new_news_website'] = 'Nouvelle news sur votre site web';
 $MAIL['new_news'] = 'Une nouvelle news a été ajouté sur votre site web ' . HOST . ', 
 elle devra être approuvée avant d\'être visible sur le site par tout le monde.

@@ -1,36 +1,36 @@
 <?php
-/*##################################################
- *                                main.php
- *                            -------------------
- *   begin                : November 20, 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : mickaelhemri@gmail.com
- *
- *
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
 #                      French                      #
 ####################################################
 
-// Dates
+
 $LANG['xml_lang'] = 'fr';
 $LANG['date_format_tiny'] = 'd/m';
 $LANG['date_format_short'] = 'd/m/y';
@@ -40,7 +40,7 @@ $LANG['from_date'] = 'du';
 $LANG['to_date'] = 'au';
 $LANG['now'] = 'Maintenant';
 
-//Unités
+
 $LANG['unit_megabytes'] = 'Mo';
 $LANG['unit_kilobytes'] = 'Ko';
 $LANG['unit_bytes'] = 'Octets';
@@ -49,7 +49,7 @@ $LANG['unit_hour'] = 'H';
 $LANG['unit_seconds'] = 'Secondes';
 $LANG['unit_seconds_short'] = 's';
 	
-//Erreurs
+
 $LANG['error'] = 'Erreur';
 $LANG['error_fatal'] = '<strong>Erreur fatale :</strong> %s<br /><br /><br /><strong>Ligne %s : %s</strong>';
 $LANG['error_warning_tiny'] = '<strong>Attention :</strong> %s %s %s';
@@ -59,14 +59,14 @@ $LANG['error_notice'] = '<strong>Remarque :</strong> %s<br /><br /><br /><strong
 $LANG['error_success'] = '<strong>Succès :</strong> %s %s %s';
 $LANG['error_unknow'] = '<strong>Erreur :</strong> Cause inconnue %s %s %s';
 
-//Titres divers
+
 $LANG['title_pm'] = 'Messages privés';
 $LANG['title_error'] = 'Erreur';
 $LANG['title_com'] = 'Commentaires';
 $LANG['title_register'] = 'S\'enregistrer';
 $LANG['title_forget'] = 'Mot de passe oublié';
 
-//Form
+
 $LANG['submit'] = 'Envoyer';
 $LANG['update'] = 'Modifier';
 $LANG['reset'] = 'Défaut';
@@ -88,7 +88,7 @@ $LANG['forget_pass'] = 'Mot de passe oublié';
 $LANG['require'] = 'Les champs marqués * sont obligatoires!';
 $LANG['required_field'] = 'Le champs \"%s\" est obligatoire !';
 
-//Alertes formulaires
+
 $LANG['require_title'] = 'Veuillez entrer un titre !';
 $LANG['require_text'] = 'Veuillez entrer un texte !';
 $LANG['require_pseudo'] = 'Veuillez entrer un pseudo !';
@@ -98,17 +98,17 @@ $LANG['require_url'] = 'Veuillez entrer une url valide !';
 $LANG['require_password'] = 'Veuillez entrer un mot de passe !';
 $LANG['require_recipient'] = 'Veuillez entrer le destinataire du message !';
 
-//Action
+
 $LANG['redirect'] = 'Redirection en cours';
 $LANG['delete'] = 'Supprimer';
 $LANG['edit'] = 'Editer';
 $LANG['register'] = 'S\'inscrire';
 
-//Alertes
+
 $LANG['alert_delete_msg'] = 'Supprimer ce message ?';
 $LANG['alert_delete_file'] = 'Supprimer ce fichier ?';
 
-//bbcode
+
 $LANG['bb_smileys'] = 'Smileys';
 $LANG['bb_bold'] = 'Texte en gras : [b]texte[/b]';
 $LANG['bb_italic'] = 'Texte en italique : [i]texte[/i]';
@@ -161,7 +161,7 @@ $LANG['ordered_list'] = 'Liste ordonnée';
 $LANG['insert_list'] = 'Insérer la liste';
 $LANG['forbidden_tags'] = 'Types de formatage interdits';
 $LANG['phpboost_languages'] = 'PHPBoost';
-$LANG['wikipedia_subdomain'] = 'fr'; //Sous domaine sur wikipédia (ex fr pour fr.wikipedia.org)
+$LANG['wikipedia_subdomain'] = 'fr'; 
 $LANG['format_bold'] = 'Gras';
 $LANG['format_italic'] = 'Italique';
 $LANG['format_underline'] = 'Souligné';
@@ -198,20 +198,20 @@ $LANG['format_line'] = 'Ligne horizontale';
 $LANG['format_wikipedia'] = 'Lien Wikipédia';
 $LANG['format_html'] = 'Code HTML';
 
-//Impression
+
 $LANG['printable_version'] = 'Version imprimable';
 
-//Connexion
+
 $LANG['private_messaging'] = 'Messagerie privée';
 $LANG['my_private_profile'] = 'Mon profil';
 
-//Maintain
+
 $LANG['maintain'] = 'Le site est actuellement en maintenance merci de votre patience, seul(s) le(s) administrateur(s) du site peuvent y accèder.';
 $LANG['maintain_delay'] = 'Délai estimé avant réouverture du site :';
 $LANG['title_maintain'] = 'Site en maintenance';
 $LANG['loading'] = 'Chargement';
 
-//Commun
+
 $LANG['user'] = 'Utilisateur';
 $LANG['user_s'] = 'Utilisateurs';
 $LANG['guest'] = 'Visiteur';
@@ -338,13 +338,13 @@ $LANG['ranks'] = 'Rangs';
 $LANG['previous_page'] = 'Page précédente';
 $LANG['next_page'] = 'Page suivante';
 
-//Dates.
+
 $LANG['on'] = 'Le';
 $LANG['at'] = 'à';
 $LANG['and'] = 'et';
 $LANG['by'] = 'Par';
 
-//Gestion formulaires autorisation
+
 $LANG['authorizations'] = 'Autorisations';
 $LANG['explain_select_multiple'] = 'Maintenez ctrl puis cliquez dans la liste pour faire plusieurs choix';
 $LANG['advanced_authorization'] = 'Autorisations avancées';
@@ -353,7 +353,7 @@ $LANG['select_none'] = 'Tout désélectionner';
 $LANG['add_member'] = 'Ajouter un membre';
 $LANG['alert_member_already_auth'] = 'Le membre est déjà dans la liste';
 
-//Calendar
+
 $LANG['january'] = 'Janvier';
 $LANG['february'] = 'Février';
 $LANG['march'] = 'Mars';
@@ -374,11 +374,11 @@ $LANG['friday'] = 'Ven';
 $LANG['saturday'] = 'Sam';
 $LANG['sunday']	= 'Dim';
 
-//Commentaires
+
 $LANG['add_comment'] = 'Ajout commentaire';
 $LANG['edit_comment'] = 'Editer commentaire';
 
-//Membres
+
 $LANG['member_area'] = 'Zone membre';
 $LANG['profile'] = 'Profil';
 $LANG['profile_edition'] = 'Edition du profil';
@@ -435,7 +435,7 @@ $LANG['banned'] = 'Banni';
 $LANG['go_msg'] = 'Aller au message';
 $LANG['display'] = 'Afficher';
 
-//Register
+
 $LANG['pseudo_how'] = 'Longueur minimale du pseudo : 3 caractères';
 $LANG['password_how'] = 'Longueur minimale du password : 6 caractères';
 $LANG['confirm_register'] = 'Merci de vous être enregistré %s. Un mail vous sera envoyé pour confirmer votre inscription.';
@@ -476,7 +476,7 @@ Mot de passe : %s
 
 %s';
 
-//Mp
+
 $LANG['pm_box'] = 'Boîte de réception';
 $LANG['pm_track'] = 'Non lu par le destinataire';
 $LANG['recipient'] = 'Destinataire';
@@ -489,7 +489,7 @@ $LANG['participants'] = 'Participant(s)';
 $LANG['no_pm'] = 'Aucun message';
 $LANG['quote_last_msg'] = 'Reprise du message précédent';
 
-//Oublié
+
 $LANG['forget_pass'] = 'Mot de passe oublié';
 $LANG['forget_pass_send'] = 'Validez pour recevoir un nouveau mot de passe par mail, avec une clé d\'activation pour confirmer';
 $LANG['forget_mail_activ_pass'] = 'Activation du mot de passe';
@@ -509,7 +509,7 @@ Vous pourrez bien sur changer vous-même ce mot de passe par la suite via votre p
 
 %s';
 
-//Gestion des fichiers
+
 $LANG['confim_del_file'] = 'Supprimer ce fichier?';
 $LANG['confirm_del_folder'] = 'Supprimer ce dossier, et tout son contenu?';
 $LANG['confirm_empty_folder'] = 'Vider tout le contenu de ce dossier?';
@@ -542,7 +542,7 @@ $LANG['success_upload'] = 'Votre fichier a bien été enregistré !';
 $LANG['upload_folder_contains_folder'] = 'Vous souhaitez placer cette catégorie dans une de ses catégories filles ou dans elle-même, ce qui est impossible !';
 $LANG['popup_insert'] = 'Insérer le code dans le formulaire';
 
-//gestion des catégories
+
 $LANG['cats_managment_could_not_be_moved'] = 'Une erreur est survenue, la catégorie n\'a pas pu être déplacée';
 $LANG['cats_managment_visibility_could_not_be_changed'] = 'Une erreur est survenue, la visibilité de la catégorie n\'a pas pu être changée';
 $LANG['cats_managment_no_category_existing'] = 'Aucune catégorie n\'existe';
@@ -555,7 +555,7 @@ $LANG['moderation_panel'] = 'Panneau de modération';
 $LANG['user_contact_pm'] = 'Contacter par message privé';
 $LANG['user_alternative_pm'] = 'Message privé envoyé au membre <span class="text_small">(Laisser vide pour aucun message privé)</span>. <br />Le membre averti ne pourra pas répondre à ce message, et ne connaîtra pas l\'expéditeur.';
 
-//Gestion des sanctions
+
 $LANG['punishment'] = 'Sanctions';
 $LANG['punishment_management'] = 'Gestion des sanctions';
 $LANG['user_punish_until'] = 'Sanction jusqu\'au';
@@ -570,7 +570,7 @@ $LANG['user_readonly_changed'] = 'Vous avez été mis en lecture seule par un memb
 
 Ceci est un message semi-automatique.';
 
-//Gestion des utilisateurs avertis
+
 $LANG['warning'] = 'Avertissements';
 $LANG['warning_management'] = 'Gestion des avertissements';
 $LANG['user_warning_level'] = 'Niveau d\'avertissement';
@@ -584,7 +584,7 @@ $LANG['user_warning_level_changed'] = 'Vous avez été averti par un membre de l\'
 Ceci est un message semi-automatique.';
 $LANG['warning_user'] = 'Membre averti';
 
-//Gestion des utilisateurs bannis.
+
 $LANG['bans'] = 'Bannissements';
 $LANG['ban_management'] = 'Gestion des bannissements';
 $LANG['user_ban_until'] = 'Banni jusqu\'au';
@@ -601,7 +601,7 @@ S\'il s\'agit d\'une erreur veuillez contacter l\'administrateur du site.
 %s';
 
 
-//Panneau de contribution
+
 $LANG['contribution_panel'] = 'Panneau de contribution';
 $LANG['contribution'] = 'Contribution';
 $LANG['contribution_status_unread'] = 'Non traitée';
@@ -625,20 +625,20 @@ $LANG['contribute_in_modules_explain'] = 'Les modules suivants permettent aux ut
 $LANG['contribute_in_module_name'] = 'Contribuer dans le module %s';
 $LANG['no_module_to_contribute'] = 'Aucun module dans lequel vous pouvez contribuer n\'est installé.';
 
-//Barre de chargement.
+
 $LANG['query_loading'] = 'Chargement de la requête au serveur';
 $LANG['query_sent'] = 'Requête envoyée au serveur, attente d\'une réponse';
 $LANG['query_processing'] = 'Traitement de la requête en cours';
 $LANG['query_success'] = 'Traitement terminé';
 $LANG['query_failure'] = 'Traitement échoué';
 
-//Footer
+
 $LANG['powered_by'] = 'Boosté par';
 $LANG['phpboost_right'] = '';
 $LANG['sql_req'] = 'Requêtes';
 $LANG['achieved'] = 'Exécuté en';
 
-//Flux
+
 $LANG['syndication'] = 'Syndication';
 $LANG['rss'] = 'RSS';
 $LANG['atom'] = 'ATOM';
@@ -646,7 +646,7 @@ $LANG['atom'] = 'ATOM';
 $LANG['enabled'] = 'Activé';
 $LANG['disabled'] = 'Désactivé';
 
-//Dictionnaire pour le captcha.
+
 $LANG['_code_dictionnary'] = array('image', 'php', 'requete', 'azerty', 'exit', 'genre', 'design', 'web', 'inter', 'cache', 'media', 'cms', 'cesar', 'watt', 'site', 'mail', 'email', 'spam', 'index', 'membre',
 'date', 'jour', 'mois', 'nom', 'noter', 'objet', 'options', 'titre', 'valide', 'liste', 'citer', 'fermer', 'minute', 'heure', 'semaine', 'groupe', 'taille', 'modules', 'pendant', 'style', 'divers', 'autre', 'erreur',
 'editer', 'banni', 'niveau', 'dossier', 'fichier', 'racine', 'vider', 'archive', 'boite');

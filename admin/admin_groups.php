@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               admin_groups.php
- *                            -------------------
- *   begin                : June 01, 2006
- *   copyright          : (C) 2006 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
@@ -38,7 +38,7 @@ $add_mbr = !empty($_POST['add_mbr']) ? true : false;
 $del_mbr = !empty($_GET['del_mbr']) ? true : false;
 $user_id = retrieve(GET, 'user_id', 0);
 
-if (!empty($_POST['valid']) && !empty($idgroup_post)) //Modification du groupe.
+if (!empty($_POST['valid']) && !empty($idgroup_post)) 
 {
 	$name = retrieve(POST, 'name', '');
 	$img = retrieve(POST, 'img', '');
@@ -50,11 +50,11 @@ if (!empty($_POST['valid']) && !empty($idgroup_post)) //Modification du groupe.
 	$group_auth = array('auth_flood' => $auth_flood, 'pm_group_limit' => $pm_group_limit, 'data_group_limit' => $data_group_limit);
 	$Sql->query_inject("UPDATE " . DB_TABLE_GROUP . " SET name = '" . $name . "', img = '" . $img . "', color = '" . $color_group . "', auth = '" . serialize($group_auth) . "' WHERE id = '" . $idgroup_post . "'", __LINE__, __FILE__);
 	
-	$Cache->Generate_file('groups'); //On régénère le fichier de cache des groupes
+	$Cache->Generate_file('groups'); 
 	
 	redirect(HOST . DIR . '/admin/admin_groups.php?id=' . $idgroup_post);
 }
-elseif (!empty($_POST['valid']) && $add_post) //ajout  du groupe.
+elseif (!empty($_POST['valid']) && $add_post) 
 {
 	$name = retrieve(POST, 'name', '');
 	$img = retrieve(POST, 'img', '');
@@ -65,40 +65,40 @@ elseif (!empty($_POST['valid']) && $add_post) //ajout  du groupe.
 	
 	if (!empty($name))
 	{
-		//Insertion
+		
 		$group_auth = array('auth_flood' => $auth_flood, 'pm_group_limit' => $pm_group_limit, 'data_group_limit' => $data_group_limit);
 		$Sql->query_inject("INSERT INTO " . DB_TABLE_GROUP . " (name, img, color, auth, members) VALUES ('" . $name . "', '" . $img . "', '" . $color_group . "', '" . serialize($group_auth) . "', '')", __LINE__, __FILE__);
 		
-		$Cache->Generate_file('groups'); //On régénère le fichier de cache des groupes
+		$Cache->Generate_file('groups'); 
 		
 		redirect(HOST . DIR . '/admin/admin_groups.php?id=' . $Sql->insert_id("SELECT MAX(id) FROM " . PREFIX . "group"));
 	}
 	else
 		redirect(HOST . DIR . '/admin/admin_groups.php?error=incomplete#errorh');
 }
-elseif (!empty($idgroup) && $del_group) //Suppression du groupe.
+elseif (!empty($idgroup) && $del_group) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	$array_members = explode('|', $Sql->query("SELECT members FROM " . DB_TABLE_GROUP . " WHERE id = '" . $idgroup . "'", __LINE__, __FILE__));
 	foreach ($array_members as $key => $user_id)
-		$Group->remove_member($user_id, $idgroup); //Mise à jour des membres étant dans le groupe supprimé.
+		$Group->remove_member($user_id, $idgroup); 
 
-	$Sql->query_inject("DELETE FROM " . DB_TABLE_GROUP . " WHERE id = '" . $idgroup . "'", __LINE__, __FILE__); //On supprime dans la bdd.
+	$Sql->query_inject("DELETE FROM " . DB_TABLE_GROUP . " WHERE id = '" . $idgroup . "'", __LINE__, __FILE__); 
 		
-	$Cache->Generate_file('groups'); //On régénère le fichier de cache des groupes
+	$Cache->Generate_file('groups'); 
 	
 	redirect(HOST . SCRIPT);
 }
-elseif (!empty($idgroup) && $add_mbr) //Ajout du membre au groupe.
+elseif (!empty($idgroup) && $add_mbr) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	$login = retrieve(POST, 'login_mbr', '');
 	$user_id = $Sql->query("SELECT user_id FROM " . DB_TABLE_MEMBER . " WHERE login = '" . $login . "'", __LINE__, __FILE__);
 	if (!empty($user_id))
 	{
-		if ($Group->add_member($user_id, $idgroup)) //Succès.
+		if ($Group->add_member($user_id, $idgroup)) 
 			redirect(HOST . DIR . '/admin/admin_groups.php?id=' . $idgroup . '#add');
 		else
 			redirect(HOST . DIR . '/admin/admin_groups.php?id=' . $idgroup . '&error=already_group#errorh');
@@ -106,16 +106,16 @@ elseif (!empty($idgroup) && $add_mbr) //Ajout du membre au groupe.
 	else
 		redirect(HOST . DIR . '/admin/admin_groups.php?id=' . $idgroup . '&error=incomplete#errorh');
 }
-elseif ($del_mbr && !empty($user_id) && !empty($idgroup)) //Suppression du membre du groupe.
+elseif ($del_mbr && !empty($user_id) && !empty($idgroup)) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	$Group->remove_member($user_id, $idgroup);
 	redirect(HOST . DIR . '/admin/admin_groups.php?id=' . $idgroup . '#add');
 }
-elseif (!empty($_FILES['upload_groups']['name'])) //Upload
+elseif (!empty($_FILES['upload_groups']['name'])) 
 {
-	//Si le dossier n'est pas en écriture on tente un CHMOD 777
+	
 	@clearstatcache();
 	$dir = '../images/group/';
 	if (!is_writable($dir))
@@ -123,7 +123,7 @@ elseif (!empty($_FILES['upload_groups']['name'])) //Upload
 	
 	@clearstatcache();
 	$error = '';
-	if (is_writable($dir)) //Dossier en écriture, upload possible
+	if (is_writable($dir)) 
 	{
 		import('io/upload');
 		$Upload = new Upload($dir);
@@ -136,7 +136,7 @@ elseif (!empty($_FILES['upload_groups']['name'])) //Upload
 	$error = !empty($error) ? '&error=' . $error : '';
 	redirect(HOST . SCRIPT . '?add=1' . $error);	
 }
-elseif (!empty($idgroup)) //Interface d'édition du groupe.
+elseif (!empty($idgroup)) 
 {
 	$Template->set_filenames(array(
 		'admin_groups_management2'=> 'admin/admin_groups_management2.tpl'
@@ -145,7 +145,7 @@ elseif (!empty($idgroup)) //Interface d'édition du groupe.
 	$group = $Sql->query_array(DB_TABLE_GROUP, 'id', 'name', 'img', 'color', 'auth', 'members', "WHERE id = '" . $idgroup . "'", __LINE__, __FILE__);
 	if (!empty($group['id']))
 	{
-		//Gestion erreur.
+		
 		$get_error = retrieve(GET, 'error', '');
 		if ($get_error == 'incomplete')
 			$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);
@@ -153,11 +153,11 @@ elseif (!empty($idgroup)) //Interface d'édition du groupe.
 			$Errorh->handler($LANG['e_already_group'], E_USER_NOTICE);
 		
 		$nbr_member_group = $Sql->query("SELECT COUNT(*) FROM " . DB_TABLE_MEMBER . " WHERE user_groups = '" . $group['id'] . "'", __LINE__, __FILE__);
-		//On crée une pagination si le nombre de membre est trop important.
+		
 		import('util/pagination');
 		$Pagination = new Pagination();
 		
-		//On recupère les dossier des images des groupes.
+		
 		import('io/filesystem/folder');
 
 		$img_groups = '<option value="">--</option>';
@@ -213,7 +213,7 @@ elseif (!empty($idgroup)) //Interface d'édition du groupe.
 			'L_ADD_MBR_GROUP' => $LANG['add_mbr_group']
 		));
 		
-		//Liste des membres du groupe.
+		
 		$members = $Sql->query("SELECT members FROM " . DB_TABLE_GROUP . " WHERE id = '" . numeric($group['id']) . "'", __LINE__, __FILE__);
 		$members = explode('|', $members);
 		foreach ($members as $key => $user_id)
@@ -234,13 +234,13 @@ elseif (!empty($idgroup)) //Interface d'édition du groupe.
 	
 	$Template->pparse('admin_groups_management2');
 }
-elseif ($add) //Interface d'ajout du groupe.
+elseif ($add) 
 {
 	$Template->set_filenames(array(
 	'admin_groups_management2'=> 'admin/admin_groups_management2.tpl'
 	));
 	
-	//On recupère les dossier des images des groupes contenu dans le dossier /images/group.
+	
 	$img_groups = '<option value="" selected="selected">--</option>';
 	import('io/filesystem/folder');
 
@@ -284,14 +284,14 @@ elseif ($add) //Interface d'ajout du groupe.
 
 	$Template->pparse('admin_groups_management2');
 }
-else //Liste des groupes.
+else 
 {
 	$Template->set_filenames(array(
 		'admin_groups_management'=> 'admin/admin_groups_management.tpl'
 	 ));
 	 
 	$nbr_group = $Sql->count_table("group", __LINE__, __FILE__);
-	//On crée une pagination si le nombre de group est trop important.
+	
 	import('util/pagination');
 	$Pagination = new Pagination();
 	

@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *              	 media_action.php
- *              	-------------------
- *  begin        	: October 20, 2008
- *  copyright    	: (C) 2007 Geoffrey ROGUELON
- *  email        	: liaght@gmail.com
- *
- *
- *
-###################################################
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 
@@ -108,7 +108,7 @@ if (!empty($_POST['submit']))
 			}
 		}
 
-		// Feeds Regeneration
+		
 		import('content/syndication/feed');
 		Feed::clear_cache('media');
 		$media_categories->recount_media_per_cat();
@@ -122,7 +122,7 @@ if (!empty($_POST['submit']))
 }
 elseif (!empty($_GET['recount']))
 {
-	// Feeds Regeneration
+	
 	import('content/syndication/feed');
 	Feed::clear_cache('media');
 	$media_categories->recount_media_per_cat();
@@ -131,7 +131,7 @@ elseif (!empty($_GET['recount']))
 }
 else
 {
-	// Filtre pour le panneau de modération.
+	
 	$array_cats = $js_array = array();
 
 	if (!empty($_POST['filter']))
@@ -169,7 +169,7 @@ else
 		$media_categories->build_children_id_list(0, $array_cats, RECURSIVE_EXPLORATION, ADD_THIS_CATEGORY_IN_LIST, MEDIA_AUTH_READ);
 	}
 	
-	//On crée une pagination si le nombre de fichier est trop important.
+	
 	import('util/pagination');
 	$Pagination = new Pagination();
 

@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               shoutbox.php
- *                            -------------------
- *   begin                : July 29, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 require_once('../shoutbox/shoutbox_begin.php'); 
@@ -31,20 +31,20 @@ require_once('../kernel/header.php');
 	
 $shout_id = retrieve(GET, 'id', 0);
 $shoutbox = retrieve(POST, 'shoutbox', false);
-if ($shoutbox && empty($shout_id)) //Insertion
+if ($shoutbox && empty($shout_id)) 
 {		
-	//Membre en lecture seule?
+	
 	if ($User->get_attribute('user_readonly') > time()) 
 		$Errorh->handler('e_readonly', E_USER_REDIRECT); 
 	
-	$shout_pseudo = substr(retrieve(POST, 'shout_pseudo', $LANG['guest']), 0, 25); //Pseudo posté.
+	$shout_pseudo = substr(retrieve(POST, 'shout_pseudo', $LANG['guest']), 0, 25); 
 		$shout_contents = retrieve(POST, 'shout_contents', '', TSTRING_UNCHANGE);
 	if (!empty($shout_pseudo) && !empty($shout_contents))
 	{		
-		//Accès pour poster.		
+		
 		if ($User->check_level($CONFIG_SHOUTBOX['shoutbox_auth']))
 		{
-			//Mod anti-flood, autorisé aux membres qui bénificie de l'autorisation de flooder.
+			
 			$check_time = ($User->get_attribute('user_id') !== -1 && $CONFIG['anti_flood'] == 1) ? $Sql->query("SELECT MAX(timestamp) as timestamp FROM " . PREFIX . "shoutbox WHERE user_id = '" . $User->get_attribute('user_id') . "'", __LINE__, __FILE__) : '';
 			if (!empty($check_time) && !$User->check_max_value(AUTH_FLOOD))
 			{
@@ -52,26 +52,26 @@ if ($shoutbox && empty($shout_id)) //Insertion
 					redirect(HOST . DIR . '/shoutbox/shoutbox.php' . url('?error=flood', '', '&') . '#errorh');
 			}
 			
-			//Vérifie que le message ne contient pas du flood de lien.
+			
 			$shout_contents = strparse($shout_contents, $CONFIG_SHOUTBOX['shoutbox_forbidden_tags']);		
-			if (!check_nbr_links($shout_pseudo, 0)) //Nombre de liens max dans le pseudo.
+			if (!check_nbr_links($shout_pseudo, 0)) 
 				redirect(HOST . SCRIPT . url('?error=l_pseudo', '', '&') . '#errorh');
-			if (!check_nbr_links($shout_contents, $CONFIG_SHOUTBOX['shoutbox_max_link'])) //Nombre de liens max dans le message.
+			if (!check_nbr_links($shout_contents, $CONFIG_SHOUTBOX['shoutbox_max_link'])) 
 				redirect(HOST . SCRIPT . url('?error=l_flood', '', '&') . '#errorh');
 			
 			$Sql->query_inject("INSERT INTO " . PREFIX . "shoutbox (login, user_id, level, contents, timestamp) VALUES('" . $shout_pseudo . "', '" . $User->get_attribute('user_id') . "', '" . $User->get_attribute('level') . "','" . $shout_contents . "', '" . time() . "')", __LINE__, __FILE__);
 				
 			redirect(HOST . url(SCRIPT . '?' . QUERY_STRING, '', '&'));
 		}
-		else //utilisateur non autorisé!
+		else 
 			redirect(url(HOST . SCRIPT . '?error=auth', '', '&') . '#errorh');
 	}
-	else //Champs incomplet!
+	else 
 		redirect(url(HOST . SCRIPT . '?error=incomplete', '', '&') . '#errorh');
 }
-elseif (!empty($shout_id)) //Edition + suppression!
+elseif (!empty($shout_id)) 
 {
-	//Membre en lecture seule?
+	
 	if ($User->get_attribute('user_readonly') > time()) 
 		$Errorh->handler('e_readonly', E_USER_REDIRECT); 
 
@@ -86,7 +86,7 @@ elseif (!empty($shout_id)) //Edition + suppression!
 	{
 		if ($del_message)
 		{
-			$Session->csrf_get_protect(); //Protection csrf
+			$Session->csrf_get_protect(); 
 			
 			$Sql->query_inject("DELETE FROM " . PREFIX . "shoutbox WHERE id = '" . $shout_id . "'", __LINE__, __FILE__);
 			
@@ -98,7 +98,7 @@ elseif (!empty($shout_id)) //Edition + suppression!
 				'shoutbox'=> 'shoutbox/shoutbox.tpl'
 			));
 			
-			//Pseudo du membre connecté.
+			
 			if ($User->get_attribute('user_id') !== -1)
 				$Template->assign_vars(array(
 					'SHOUTBOX_PSEUDO' => $row['login'],
@@ -135,18 +135,18 @@ elseif (!empty($shout_id)) //Edition + suppression!
 			$shout_pseudo = retrieve(POST, 'shout_pseudo', '');			
 			if (!empty($shout_contents) && !empty($shout_pseudo))
 			{
-				//Vérifie que le message ne contient pas du flood de lien.
+				
 				$shout_contents = strparse($shout_contents, $CONFIG_SHOUTBOX['shoutbox_forbidden_tags']);
-				if (!check_nbr_links($shout_pseudo, 0)) //Nombre de liens max dans le pseudo.
+				if (!check_nbr_links($shout_pseudo, 0)) 
 					redirect(HOST . SCRIPT . url('?error=l_pseudo', '', '&') . '#errorh');
-				if (!check_nbr_links($shout_contents, $CONFIG_SHOUTBOX['shoutbox_max_link'])) //Nombre de liens max dans le message.
+				if (!check_nbr_links($shout_contents, $CONFIG_SHOUTBOX['shoutbox_max_link'])) 
 					redirect(HOST . SCRIPT . url('?error=l_flood', '', '&') . '#errorh');
 			
 				$Sql->query_inject("UPDATE " . PREFIX . "shoutbox SET contents = '" . $shout_contents . "', login = '" . $shout_pseudo . "' WHERE id = '" . $shout_id . "'", __LINE__, __FILE__);
 			
 				redirect(HOST . SCRIPT. SID2);
 			}
-			else //Champs incomplet!
+			else 
 				redirect(url(HOST . SCRIPT . '?error=incomplete', '', '&') . '#errorh');
 		}
 		else
@@ -155,13 +155,13 @@ elseif (!empty($shout_id)) //Edition + suppression!
 	else
 		redirect(HOST . SCRIPT . SID2);
 }
-else //Affichage.
+else 
 {
 	$Template->set_filenames(array(
 		'shoutbox'=> 'shoutbox/shoutbox.tpl'
 	));
 	
-	//Pseudo du membre connecté.
+	
 	if ($User->get_attribute('user_id') !== -1)
 		$Template->assign_vars(array(
 			'SHOUTBOX_PSEUDO' => $User->get_attribute('login'),
@@ -173,7 +173,7 @@ else //Affichage.
 			'C_VISIBLE_SHOUT' => true
 		));
 		  	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	switch ($get_error)
 	{
@@ -215,7 +215,7 @@ else //Affichage.
 	
 	$nbr_shout = $Sql->count_table('shoutbox', __LINE__, __FILE__);
 	
-	//On crée une pagination si le nombre de messages est trop important.
+	
 	import('util/pagination'); 
 	$Pagination = new Pagination();
 		
@@ -223,10 +223,10 @@ else //Affichage.
 		'PAGINATION' => $Pagination->display('shoutbox' . url('.php?p=%d'), $nbr_shout, 'p', 10, 3)
 	));
 	
-	//Création du tableau des rangs.
+	
 	$array_ranks = array(-1 => $LANG['guest'], 0 => $LANG['member'], 1 => $LANG['modo'], 2 => $LANG['admin']);
 
-	//Gestion des rangs.	
+	
 	$Cache->load('ranks');
 	$j = 0;
 	$result = $Sql->query_while("SELECT s.id, s.login, s.user_id, s.timestamp, m.login as mlogin, m.level, m.user_mail, m.user_show_mail, m.timestamp AS registered, m.user_avatar, m.user_msg, m.user_local, m.user_web, m.user_sex, m.user_msn, m.user_yahoo, m.user_sign, m.user_warning, m.user_ban, m.user_groups, se.user_id AS connect, s.contents
@@ -246,36 +246,36 @@ else //Affichage.
 		$is_modo = $User->check_level(MODO_LEVEL);
 		$warning = '';
 		$readonly = '';
-		if ($is_modo && !$is_guest) //Modération.
+		if ($is_modo && !$is_guest) 
 		{
 			$warning = '&nbsp;<a href="../member/moderation_panel' . url('.php?action=warning&amp;id=' . $row['user_id']) . '" title="' . $LANG['warning_management'] . '"><img src="../templates/' . get_utheme() . '/images/admin/important.png" alt="' . $LANG['warning_management'] .  '" class="valign_middle" /></a>'; 
 			$readonly = '<a href="../member/moderation_panel' . url('.php?action=punish&amp;id=' . $row['user_id']) . '" title="' . $LANG['punishment_management'] . '"><img src="../templates/' . get_utheme() . '/images/readonly.png" alt="' . $LANG['punishment_management'] .  '" class="valign_middle" /></a>'; 
 		}
 		
-		//Edition/suppression.
+		
 		if ($is_modo || ($row['user_id'] === $User->get_attribute('user_id') && $User->get_attribute('user_id') !== -1))
 		{
 			$edit_message = '&nbsp;&nbsp;<a href="../shoutbox/shoutbox' . url('.php?edit=1&amp;id=' . $row['id']) . '"><img src="../templates/' . get_utheme() . '/images/' . get_ulang() . '/edit.png" alt="' . $LANG['edit'] . '" title="' . $LANG['edit'] . '" class="valign_middle" /></a>';
 			$del_message = '&nbsp;&nbsp;<a href="../shoutbox/shoutbox' . url('.php?del=1&amp;id=' . $row['id'] . '&amp;token=' . $Session->get_token()) . '" onclick="javascript:return Confirm_shout();"><img src="../templates/' . get_utheme() . '/images/' . get_ulang() . '/delete.png" alt="' . $LANG['delete'] . '" title="' . $LANG['delete'] . '" class="valign_middle" /></a>';
 		}
 		
-		//Pseudo.
+		
 		if (!$is_guest) 
 			$shout_pseudo = '<a class="msg_link_pseudo" href="../member/member' . url('.php?id=' . $row['user_id'], '-' . $row['user_id'] . '.php') . '" title="' . $row['mlogin'] . '"><span style="font-weight: bold;">' . wordwrap_html($row['mlogin'], 13) . '</span></a>';
 		else
 			$shout_pseudo = '<span style="font-style:italic;">' . (!empty($row['login']) ? wordwrap_html($row['login'], 13) : $LANG['guest']) . '</span>';
 		
-		//Rang de l'utilisateur.
+		
 		$user_rank = ($row['level'] === '0') ? $LANG['member'] : $LANG['guest'];
 		$user_group = $user_rank;
 		$user_rank_icon = '';
-		if ($row['level'] === '2') //Rang spécial (admins).  
+		if ($row['level'] === '2') 
 		{
 			$user_rank = $_array_rank[-2][0];
 			$user_group = $user_rank;
 			$user_rank_icon = $_array_rank[-2][1];
 		}
-		elseif ($row['level'] === '1') //Rang spécial (modos).  
+		elseif ($row['level'] === '1') 
 		{
 			$user_rank = $_array_rank[-1][0];
 			$user_group = $user_rank;
@@ -294,10 +294,10 @@ else //Affichage.
 			}
 		}
 			
-		//Image associée au rang.
+		
 		$user_assoc_img = !empty($user_rank_icon) ? '<img src="../templates/' . get_utheme() . '/images/ranks/' . $user_rank_icon . '" alt="" />' : '';
 					
-		//Affichage des groupes du membre.		
+		
 		if (!empty($row['user_groups']) && $_array_groups_auth) 
 		{	
 			$user_groups = '';
@@ -311,30 +311,30 @@ else //Affichage.
 		else
 			$user_groups = $LANG['group'] . ': ' . $user_group;
 		
-		//Membre en ligne?
+		
 		$user_online = !empty($row['connect']) ? 'online' : 'offline';
 		
-		//Avatar			
+		
 		if (empty($row['user_avatar'])) 
 			$user_avatar = ($CONFIG_USER['activ_avatar'] == '1' && !empty($CONFIG_USER['avatar_url'])) ? '<img src="../templates/' . get_utheme() . '/images/' .  $CONFIG_USER['avatar_url'] . '" alt="" />' : '';
 		else
 			$user_avatar = '<img src="' . $row['user_avatar'] . '" alt=""	/>';
 		
-		//Affichage du sexe et du statut (connecté/déconnecté).	
+		
 		$user_sex = '';
 		if ($row['user_sex'] == 1)	
 			$user_sex = $LANG['sex'] . ': <img src="../templates/' . get_utheme() . '/images/man.png" alt="" /><br />';	
 		elseif ($row['user_sex'] == 2) 
 			$user_sex = $LANG['sex'] . ': <img src="../templates/' . get_utheme() . '/images/woman.png" alt="" /><br />';
 				
-		//Nombre de message.
+		
 		$user_msg = ($row['user_msg'] > 1) ? $LANG['message_s'] . ': ' . $row['user_msg'] : $LANG['message'] . ': ' . $row['user_msg'];
 		
-		//Localisation.
+		
 		if (!empty($row['user_local'])) 
 		{
 			$user_local = $LANG['place'] . ': ' . $row['user_local'];
-			$user_local = $user_local > 15 ? htmlentities(substr(html_entity_decode($user_local), 0, 15)) . '...<br />' : $user_local . '<br />';			
+			$user_local = $user_local > 15 ? htmlentities(substr(html_entity_decode($user_local, ENT_COMPAT, 'ISO-8859-1'), 0, 15), ENT_COMPAT, 'ISO-8859-1') . '...<br />' : $user_local . '<br />';			
 		}
 		else $user_local = '';
 		

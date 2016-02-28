@@ -1,37 +1,37 @@
 <?php
-/*##################################################
- *                              gallery_english.php
- *                            -------------------
- *   begin               : July 27, 2005
- *   last modified		: July 31, 2009 - Forensic
- *   copyright           : (C) 2005 Viarre Régis
- *   email               : crowkait@phpboost.com
- *
- *
- ###################################################
- *
- *   This program is a free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
 #                     English                      #
 ####################################################
 
-//Admin
+
 $LANG['upload_pics'] = 'Upload pictures';
 $LANG['gallery_management'] = 'Gallery management';
 $LANG['gallery_cats_management'] = 'Category management';
@@ -134,7 +134,7 @@ $LANG['vertical_dynamic_scroll'] = 'Vertical dynamic scrolling';
 $LANG['horizontal_dynamic_scroll'] = 'Horizontal dynamic scrolling';
 $LANG['column'] = 'Columns';
 
-//Require
+
 $LANG['require_height'] = 'Please enter maximum height for the thumbnails!';
 $LANG['require_height_max'] = 'Please enter maximum height for the pictures!';
 $LANG['require_width_max'] = 'Please enter maximum width for the pictures!';
@@ -144,7 +144,7 @@ $LANG['require_row'] = 'Please enter the number of columns for the gallery!';
 $LANG['require_img_p'] = 'Please enter the number of pictures per page!';
 $LANG['require_quality'] = 'Please enter the thumbtails quality!';
 
-//Errors
+
 $LANG['e_no_gd'] = 'Gallery -> Gd Library not loaded';
 $LANG['e_unabled_create_pics'] = 'Gallery -> Error creating picture';
 $LANG['e_no_graphic_support'] = 'Gallery -> No graphic support on this server';
@@ -157,10 +157,10 @@ $LANG['e_delete_thumbnails'] = 'Gallery -> Delete thumbnail error';
 $LANG['e_error_img'] = 'Picture error';
 $LANG['e_unexist_img'] = 'This picture doesn\'t exist';
 
-//Title
+
 $LANG['title_gallery'] = 'Gallery';
 
-//gallery
+
 $LANG['gallery'] = 'gallery';
 $LANG['gallery_index'] = 'Gallery index';
 $LANG['upload_img'] = 'Upload pics';

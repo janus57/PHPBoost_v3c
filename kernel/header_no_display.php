@@ -25,25 +25,25 @@
 
 
 
-if(defined('PHPBOOST')!==true)
+if (defined('PHPBOOST') !== true)
 {
-exit;
+    exit;
 }
 
-if(!defined('TITLE'))
+if (!defined('TITLE'))
 {
-define('TITLE',$LANG['unknow']);
+    define('TITLE', $LANG['unknow']);
 }
 
-$Session->check(TITLE);
+$Session->check(TITLE); 
 
 
-if(($CONFIG['maintain']==-1 || $CONFIG['maintain']>time())&&!$User->check_level(ADMIN_LEVEL))
+if (($CONFIG['maintain'] == -1 || $CONFIG['maintain'] > time()) && !$User->check_level(ADMIN_LEVEL))
 {
-if(SCRIPT!==(DIR.'/member/maintain.php'))
-{
-redirect(HOST.DIR.'/member/maintain.php');
-}
+    if (SCRIPT !== (DIR . '/member/maintain.php')) 
+    {
+        redirect(HOST . DIR . '/member/maintain.php');
+    }
 }
 
 ?>

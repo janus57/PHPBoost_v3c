@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               admin_errors.php
- *                            -------------------
- *   begin                : April 12, 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
@@ -38,7 +38,7 @@ $Template->set_filenames(array(
 $file_path = '../cache/error.log';
 
 if (!empty($_POST['erase']))
-	delete_file($file_path); //On supprime le fichier.
+	delete_file($file_path); 
 
 $Template->assign_vars(array(
 	'L_ERRORS_MANAGEMENT' => $LANG['error_management'],
@@ -51,7 +51,7 @@ $Template->assign_vars(array(
 	'L_ERASE' => $LANG['erase']
 ));
 
-if (is_file($file_path) && is_readable($file_path)) //Fichier accessible en lecture
+if (is_file($file_path) && is_readable($file_path)) 
 {
 	$handle = @fopen($file_path, 'r');
 	if ($handle) 
@@ -99,12 +99,12 @@ if (is_file($file_path) && is_readable($file_path)) //Fichier accessible en lect
 			'error_fatal' => 'stop'
 		);
 		
-		//Tri en sens inverse car enregistrement à la suite dans le fichier de log
+		
 		krsort($array_errinfo);
 		$i = 0;
 		foreach ($array_errinfo as $key => $errinfo)
 		{
-			$str_error = sprintf($LANG[$errinfo['errclass']], str_replace('&lt;br /&gt;', '<br />', htmlentities($errinfo['errstr'])), $errinfo['errline'], basename($errinfo['errfile']));
+			$str_error = sprintf($LANG[$errinfo['errclass']], str_replace('&lt;br /&gt;', '<br />', htmlentities($errinfo['errstr'], ENT_COMPAT, 'ISO-8859-1')), $errinfo['errline'], basename($errinfo['errfile']));
 			
 			$Template->assign_block_vars('errors', array(
 				'IMG' => $images[$errinfo['errclass']],

@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                             faq_cats.class.php
- *                            -------------------
- *   begin                : February 17, 2008
- *   copyright            : (C) 2008 Benoît Sautel
- *   email                : ben.popeye@phpboost.com
- *
- *   
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 import('content/categories_manager');
 
@@ -33,7 +33,7 @@ class FaqCats extends CategoriesManager
 {
 	## Public methods ##
 	
-	//Constructor
+	
 	function FaqCats()
 	{
 		global $Cache, $FAQ_CATS;
@@ -43,12 +43,12 @@ class FaqCats extends CategoriesManager
 		parent::CategoriesManager('faq_cats', 'faq', $FAQ_CATS);
 	}
 	
-	//Method which removes all subcategories and their content
+	
 	function delete_category_recursively($id)
 	{
-		//We delete the category
+		
 		$this->_delete_category_with_content($id);
-		//Then its content
+		
 		foreach ($this->cache_var as $id_cat => $properties)
 		{
 			if ($id_cat != 0 && $properties['id_parent'] == $id)
@@ -58,7 +58,7 @@ class FaqCats extends CategoriesManager
 		$this->recount_subquestions();
 	}
 	
-	//Method which deletes a category and move its content in another category
+	
 	function delete_category_and_move_content($id_category, $new_id_cat_content)
 	{
 		global $Sql;
@@ -85,7 +85,7 @@ class FaqCats extends CategoriesManager
 		return true;
 	}
 	
-	//Function which adds a category
+	
 	function add($id_parent, $name, $description, $image)
 	{
 		global $Sql;
@@ -93,14 +93,14 @@ class FaqCats extends CategoriesManager
 		{
 			$new_id_cat = parent::add($id_parent, $name);
 			$Sql->query_inject("UPDATE " . PREFIX . "faq_cats SET description = '" . $description . "', image = '" . $image . "' WHERE id = '" . $new_id_cat . "'", __LINE__, __FILE__);
-			//We don't recount the number of questions because this category is empty
+			
 			return 'e_success';
 		}
 		else
 			return 'e_unexisting_cat';
 	}
 	
-	//Function which updates a category
+	
 	function update_category($id_cat, $id_parent, $name, $description, $image)
 	{
 		global $Sql, $Cache;
@@ -130,7 +130,7 @@ class FaqCats extends CategoriesManager
 			return 'e_unexisting_category';
 	}
 	
-	//Function which moves a category
+	
 	function move_into_another($id, $new_id_cat, $position = 0)
 	{
 		$result = parent::move_into_another($id, $new_id_cat, $position);
@@ -139,7 +139,7 @@ class FaqCats extends CategoriesManager
 		return $result;
 	}
 	
-	//function which changes the visibility of one category
+	
 	function change_visibility($category_id, $visibility, $generate_cache = LOAD_CACHE)
 	{
 		$result = parent::change_visibility($category_id, $visibility, DO_NOT_LOAD_CACHE);
@@ -147,14 +147,14 @@ class FaqCats extends CategoriesManager
 		return $result;
 	}
 	
-	//Method which determines if a category is writable by the current user
+	
 	function check_auth($id)
 	{
 		global $User, $FAQ_CATS, $FAQ_CONFIG;
 		$auth_read = $User->check_auth($FAQ_CONFIG['global_auth'], AUTH_READ);
 		$id_cat = $id;
 
-		//We read the categories recursively
+		
 		while ($id_cat > 0)
 		{
 			if (!empty($FAQ_CONFIG[$id_cat]['auth']))
@@ -165,7 +165,7 @@ class FaqCats extends CategoriesManager
 		return $auth_read;
 	}
 	
-	//Function which recounts the number of subquestions of each category (it should be unuseful but if they are errors it will correct them)
+	
 	function recount_subquestions($generate_cache = true)
 	{
 		global $Cache, $FAQ_CATS;
@@ -178,15 +178,15 @@ class FaqCats extends CategoriesManager
 	
 	## Private methods ##
 	
-	//method which deletes a category and its content (not recursive)
+	
 	function _delete_category_with_content($id)
 	{
 		global $Sql;
 		
-		//If the category is successfully deleted
+		
 		if ($test = parent::delete($id))
 		{
-			//We remove its whole content
+			
 			$Sql->query_inject("DELETE FROM " . PREFIX . "faq WHERE idcat = '" . $id . "'", __LINE__, __FILE__);
 			return true;
 		}
@@ -194,7 +194,7 @@ class FaqCats extends CategoriesManager
 			return false;
 	}
 	
-	//Recursive function which counts for each category
+	
 	function _recount_cat_subquestions($FAQ_CATS, $cat_id)
 	{
 		global $Sql;
@@ -207,10 +207,10 @@ class FaqCats extends CategoriesManager
 				$num_subquestions += $this->_recount_cat_subquestions($FAQ_CATS, $id);
 		}
 		
-		//If its not the root we save it into the database
+		
 		if ($cat_id != 0)
 		{
-			//We add to this number the number of questions of this category
+			
 			$num_subquestions += (int) $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "faq WHERE idcat = '" . $cat_id . "'", __LINE__, __FILE__);
 			
 			$Sql->query_inject("UPDATE " . PREFIX . "faq_cats SET num_questions = '" . $num_subquestions . "' WHERE id = '" . $cat_id . "'", __LINE__, __FILE__);

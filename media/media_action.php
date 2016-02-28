@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *              	 media_action.php
- *              	-------------------
- *  begin        	: October 20, 2008
- *  copyright    	: (C) 2007 Geoffrey ROGUELON
- *  email        	: liaght@gmail.com
- *
- *
- *
-###################################################
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 require_once('media_begin.php');
@@ -38,14 +38,14 @@ $add = retrieve(GET, 'add', 0, TINTEGER);
 $edit = retrieve(GET, 'edit', 0, TINTEGER);
 $delete = retrieve(GET, 'del', 0, TINTEGER);
 
-// Modification du statut du fichier.
+
 if ($unvisible > 0)
 {
 	$Session->csrf_get_protect();
 
 	$media = $Sql->query_array(PREFIX . 'media', '*', "WHERE id = '" . $unvisible . "'", __LINE__, __FILE__);
 
-	// Gestion des erreurs.
+	
 	if (empty($media))
 	{
 		$Errorh->handler('e_unexist_media', E_USER_REDIRECT);
@@ -71,7 +71,7 @@ if ($unvisible > 0)
 
 	redirect_confirm('media' . url('.php?cat=' . $media['idcat'], '-0-' . $media['idcat'] . '.php'), $MEDIA_LANG['action_success'], TIME_REDIRECT);
 }
-// Suppression d'un fichier.
+
 elseif ($delete > 0)
 {
 	$Session->csrf_get_protect();
@@ -91,7 +91,7 @@ elseif ($delete > 0)
 
 	$Sql->query_inject("DELETE FROM " . PREFIX . "media WHERE id = '" . $delete . "'", __LINE__, __FILE__);
 
-	//Deleting comments if the file has
+	
 	if ($media['nbr_com'] > 0)
 	{
 		import('content/comments');
@@ -99,7 +99,7 @@ elseif ($delete > 0)
 		$Comments->delete_all($delete);
 	}
 
-	// Feeds Regeneration
+	
 	import('content/syndication/feed');
 	Feed::clear_cache('media');
 
@@ -113,7 +113,7 @@ elseif ($delete > 0)
 
 	redirect_confirm('media' . url('.php?cat=' . $media['idcat'], '-' . $media['idcat'] . '.php'), $MEDIA_LANG['deleted_success'], TIME_REDIRECT);
 }
-// Formulaire d'ajout ou d'édition.
+
 elseif ($add >= 0 && empty($_POST['submit']) || $edit > 0)
 {
 	$Template->assign_vars(array(
@@ -138,7 +138,7 @@ elseif ($add >= 0 && empty($_POST['submit']) || $edit > 0)
 		'L_SUBMIT' => $edit > 0 ? $LANG['update'] : $LANG['submit']
 	));
 
-	// Construction du tableau des catégories musicales.
+	
 	$js_id_music = array();
 	foreach ($MEDIA_CATS as $key => $value)
 	{
@@ -148,7 +148,7 @@ elseif ($add >= 0 && empty($_POST['submit']) || $edit > 0)
 		}
 	}
 
-	// Édition.
+	
 	if ($edit > 0 && ($media = $Sql->query_array(PREFIX . 'media', '*', "WHERE id = '" . $edit. "'", __LINE__, __FILE__)) && !empty($media) && $User->check_level(MODO_LEVEL))
 	{
 		bread_crumb($media['idcat']);
@@ -178,7 +178,7 @@ elseif ($add >= 0 && empty($_POST['submit']) || $edit > 0)
 			'C_MUSIC' => $auth == MEDIA_TYPE_MUSIC ? true : false
 		));
 	}
-	// Ajout.
+	
 	elseif (($write = $User->check_auth($MEDIA_CATS[$add]['auth'], MEDIA_AUTH_WRITE)) || $User->check_auth($MEDIA_CATS[$add]['auth'], MEDIA_AUTH_CONTRIBUTION))
 	{
 		bread_crumb($add);
@@ -220,7 +220,7 @@ elseif ($add >= 0 && empty($_POST['submit']) || $edit > 0)
 
 	require_once('../kernel/header.php');
 }
-// Traitement du formulaire.
+
 elseif (!empty($_POST['submit']))
 {
 	$Session->csrf_get_protect();
@@ -333,7 +333,7 @@ elseif (!empty($_POST['submit']))
 		exit;
 	}
 
-	// Édition
+	
 	if ($media['idedit'] && $User->check_level(MODO_LEVEL))
 	{
 		$Sql->query_inject("UPDATE " . PREFIX . "media SET idcat = '" . $media['idcat'] . "', name = '" . $media['name'] . "', url='" . $media['url'] . "', contents = '" . strparse($media['contents']) . "', infos = '" . ($User->check_auth($auth_cat, MEDIA_AUTH_WRITE) ? MEDIA_STATUS_APROBED : 0) . "', width = '" . $media['width'] . "', height = '" . $media['height'] . "' WHERE id = '" . $media['idedit'] . "'", __LINE__, __FILE__);
@@ -356,20 +356,20 @@ elseif (!empty($_POST['submit']))
 			}
 		}
 
-		// Feeds Regeneration
+		
 		import('content/syndication/feed');
 		Feed::clear_cache('media');
 
 		redirect_confirm('media' . url('.php?id=' . $media['idedit']), $MEDIA_LANG['edit_success'], TIME_REDIRECT);
 	}
-	// Ajout
+	
 	elseif (!$media['idedit'] && (($auth_write = $User->check_auth($auth_cat, MEDIA_AUTH_WRITE)) || $User->check_auth($auth_cat, MEDIA_AUTH_CONTRIBUTION)))
 	{
 		$Sql->query_inject("INSERT INTO " . PREFIX . "media (idcat, iduser, timestamp, name, contents, url, mime_type, infos, width, height, users_note) VALUES ('" . $media['idcat'] . "', '" . $User->Get_attribute('user_id') . "', '" . time() . "', '" . $media['name'] . "', '" . strparse($media['contents']) . "', '" . $media['url'] . "', '" . $media['mime_type'] . "', " . "'" . ($User->check_auth($auth_cat, MEDIA_AUTH_WRITE) ? MEDIA_STATUS_APROBED : 0) . "', '" . $media['width'] . "', '" . $media['height'] . "', '')", __LINE__, __FILE__);
 
 		$new_id_media = $Sql->insert_id("SELECT MAX(id) FROM " . PREFIX . "media");
 		$media_categories->recount_media_per_cat($media['idcat']);
-		// Feeds Regeneration
+		
 		import('content/syndication/feed');
 		Feed::clear_cache('media');
 

@@ -1,41 +1,41 @@
 <?php
-/*************************************************************************************
- * oracle8.php
- * -----------
- * Author: Guy Wicks (Guy.Wicks@rbs.co.uk)
- * Copyright: (c) 2004 Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.8.3
- * Date Started: 2004/06/04
- *
- * Oracle 8 language file for GeSHi.
- *
- * CHANGES
- * -------
- * 2005/01/29 (1.0.0)
- *  -  First Release
- *
- * TODO (updated 2004/11/27)
- * -------------------------
- *
- *************************************************************************************
- *
- *     This file is part of GeSHi.
- *
- *   GeSHi is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *   GeSHi is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with GeSHi; if not, write to the Free Software
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- ************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $language_data = array (
     'LANG_NAME' => 'Oracle 8 SQL',
@@ -45,23 +45,23 @@ $language_data = array (
     'QUOTEMARKS' => array("'", '"', '`'),
     'ESCAPE_CHAR' => '\\',
     'KEYWORDS' => array(
-//Put your package names here - e.g. select distinct ''''|| lower(name) || ''',' from user_source;
-//        6 => array(
-//            ),
 
-//Put your table names here - e.g. select distinct ''''|| lower(table_name) || ''',' from user_tables;
-//        5 => array(
-//            ),
 
-//Put your view names here - e.g. select distinct ''''|| lower(view_name) || ''',' from user_views;
-//        4 => array(
-//            ),
 
-//Put your table field names here - e.g. select distinct ''''|| lower(column_name) || ''',' from user_tab_columns;
-//        3 => array(
-//            ),
 
-//Put ORACLE reserved keywords here (8.1.7).  I like mine uppercase.
+
+
+
+
+
+
+
+
+
+
+
+
+
         1 => array(
             'ABS',
             'ACCESS',
@@ -438,15 +438,15 @@ $language_data = array (
     'CASE_SENSITIVE' => array(
         GESHI_COMMENTS => false,
         1 => false,
-//        3 => false,
-//        4 => false,
-//        5 => false,
-//        6 => false
+
+
+
+
         ),
     'STYLES' => array(
         'KEYWORDS' => array(
             1 => 'color: #993333; font-weight: bold; text-transform: uppercase;'
-//Add the styles for groups 3-6 here when used
+
             ),
         'COMMENTS' => array(
             1 => 'color: #808080; font-style: italic;'
@@ -476,10 +476,10 @@ $language_data = array (
         ),
     'URLS' => array(
         1 => '',
-//        3 => '',
-//        4 => '',
-//        5 => '',
-//        6 => ''
+
+
+
+
         ),
     'OOLANG' => false,
     'OBJECT_SPLITTERS' => array(

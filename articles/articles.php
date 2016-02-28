@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               articles.php
- *                            -------------------
- *   begin                : July 17, 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 require_once('../articles/articles_begin.php');
@@ -34,7 +34,7 @@ $cat = retrieve(GET, 'cat', 0);
 
 if (!empty($idart) && isset($_GET['cat']))
 {
-	//Niveau d'autorisation de la catégorie
+	
 	if (!isset($CAT_ARTICLES[$idartcat]) || !$User->check_auth($CAT_ARTICLES[$idartcat]['auth'], READ_CAT_ARTICLES) || $CAT_ARTICLES[$idartcat]['aprob'] == 0) 
 		$Errorh->handler('e_auth', E_USER_REDIRECT); 
 	if (empty($articles['id']))
@@ -42,23 +42,23 @@ if (!empty($idart) && isset($_GET['cat']))
 	
 	$Template->set_filenames(array('articles'=> 'articles/articles.tpl'));		
 	
-	//MAJ du compteur.
+	
 	$Sql->query_inject("UPDATE " . LOW_PRIORITY . " " . PREFIX . "articles SET views = views + 1 WHERE id = " . $idart, __LINE__, __FILE__); 
 	
 	
-	//On crée une pagination si il y plus d'une page.
+	
 	import('util/pagination'); 
 	$Pagination = new Pagination();
 
-	//Si l'article ne commence pas par une page on l'ajoute.
+	
 	if (substr(trim($articles['contents']), 0, 6) != '[page]')
 		$articles['contents'] = ' [page]&nbsp;[/page]' . $articles['contents'];
 	else
 		$articles['contents'] = ' ' . $articles['contents'];
 		
-	//Pagination des articles.
+	
 	$array_contents = preg_split('`\[page\].+\[/page\](.*)`Us', $articles['contents'], -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
-	//Récupération de la liste des pages.
+	
 	preg_match_all('`\[page\]([^[]+)\[/page\]`U', $articles['contents'], $array_page);
 	$page_list = '<option value="1">' . $LANG['select_page'] . '</option>';
 	$page_list .= '<option value="1"></option>';
@@ -69,11 +69,11 @@ if (!empty($idart) && isset($_GET['cat']))
 		$page_list .= '<option value="' . $i++ . '"' . $selected . '>' . $page_name . '</option>';
 	}
 	
-	//Nombre de pages
+	
 	$nbr_page = count($array_page[1]);
 	$nbr_page = !empty($nbr_page) ? $nbr_page : 1;
 	
-	//Affichage notation
+	
 	import('content/note'); 
 	$Note = new Note('articles', $idart, url('articles.php?cat=' . $idartcat . '&amp;id=' . $idart, 'articles-' . $idartcat . '-' . $idart . '.php'), $CONFIG_ARTICLES['note_max'], '', NOTE_DISPLAY_NOTE);
 	
@@ -109,7 +109,7 @@ if (!empty($idart) && isset($_GET['cat']))
 		'L_PRINTABLE_VERSION' => $LANG['printable_version'],
 	));
 
-	//Affichage commentaires.
+	
 	if (isset($_GET['com']))
 	{
 		$Template->assign_vars(array(

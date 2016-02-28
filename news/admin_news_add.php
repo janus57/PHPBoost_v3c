@@ -1,34 +1,34 @@
 <?php
-/*##################################################
- *                               admin_news_add.php
- *                            -------------------
- *   begin                : July 11, 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
- *
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('ALTERNATIVE_CSS', 'news');
-load_module_lang('news'); //Chargement de la langue du module.
+load_module_lang('news'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
@@ -41,7 +41,7 @@ if (!empty($_POST['valid']))
 	$img = retrieve(POST, 'img', '');
 	$alt = retrieve(POST, 'alt', '');
 
-	//Gestion de la parution
+	
 	$get_visible = retrieve(POST, 'visible', 0);
 	$start = retrieve(POST, 'start', 0, TSTRING_UNCHANGE);
 	$start_hour = retrieve(POST, 'start_hour', 0, TSTRING_UNCHANGE);
@@ -50,12 +50,12 @@ if (!empty($_POST['valid']))
 	$end_hour = retrieve(POST, 'end_hour', 0, TSTRING_UNCHANGE);
 	$end_min = retrieve(POST, 'end_min', 0, TSTRING_UNCHANGE);
 
-	//Date de la news
+	
 	$current_date = retrieve(POST, 'current_date', '', TSTRING_UNCHANGE);
 	$current_hour = retrieve(POST, 'current_hour', 0, TSTRING_UNCHANGE);
 	$current_min = retrieve(POST, 'current_min', 0, TSTRING_UNCHANGE);
 
-	//Image en relatif.
+	
 	$img_url = new Url($img);
 
 	if (!empty($idcat) && !empty($title) && !empty($contents))
@@ -66,10 +66,10 @@ if (!empty($_POST['valid']))
 		$visible = 1;
 		if ($get_visible == 2)
 		{
-			if ($start_timestamp < time() || $start_timestamp < 0) //Date inférieure à celle courante => inutile.
+			if ($start_timestamp < time() || $start_timestamp < 0) 
 			$start_timestamp = 0;
 
-			if ($end_timestamp < time() || ($end_timestamp < $start_timestamp && $start_timestamp != 0)) //Date inférieur à celle courante => inutile.
+			if ($end_timestamp < time() || ($end_timestamp < $start_timestamp && $start_timestamp != 0)) 
 			$end_timestamp = 0;
 		}
 		elseif ($get_visible == 1)
@@ -80,18 +80,18 @@ if (!empty($_POST['valid']))
 		$timestamp = strtotimestamp($current_date, $LANG['date_format_short']);
 		if ($timestamp > 0)
 		$timestamp += ($current_hour * 3600) + ($current_min * 60);
-		else //Ajout des heures et minutes
+		else 
 		$timestamp = time();
 
 		$Sql->query_inject("INSERT INTO " . PREFIX . "news (idcat, title, contents, extend_contents, timestamp, visible, start, end, user_id, img, alt, nbr_com)
 		VALUES('" . $idcat . "', '" . $title . "', '" . $contents . "', '" . $extend_contents . "', '" . $timestamp . "', '" . $visible . "', '" . $start_timestamp . "', '" . $end_timestamp . "', '" . $User->get_attribute('user_id') . "', '" . $img_url->relative() . "', '" . $alt . "', '0')", __LINE__, __FILE__);
 
-		// Feeds Regeneration
+		
 		import('content/syndication/feed');
 		Feed::clear_cache('news');
 
-		//Mise à jour du nombre de news dans le cache de la configuration.
-		$Cache->load('news'); //Requête des configuration générales (news), $CONFIG_NEWS variable globale.
+		
+		$Cache->load('news'); 
 		$CONFIG_NEWS['nbr_news'] = $Sql->query("SELECT COUNT(*) AS nbr_news FROM " . PREFIX . "news WHERE visible = 1", __LINE__, __FILE__);
 		$Sql->query_inject("UPDATE " . DB_TABLE_CONFIGS . " SET value = '" . addslashes(serialize($CONFIG_NEWS)) . "' WHERE name = 'news'", __LINE__, __FILE__);
 			
@@ -115,7 +115,7 @@ elseif (!empty($_POST['previs']))
 		$img = retrieve(POST, 'img', '', TSTRING_UNCHANGE);
 		$alt = retrieve(POST, 'alt', '', TSTRING_UNCHANGE);
 
-		//Gestion de la parution
+		
 		$get_visible = retrieve(POST, 'visible', 0);
 		$start = retrieve(POST, 'start', 0, TSTRING_UNCHANGE);
 		$start_hour = retrieve(POST, 'start_hour', 0, TSTRING_UNCHANGE);
@@ -124,7 +124,7 @@ elseif (!empty($_POST['previs']))
 		$end_hour = retrieve(POST, 'end_hour', 0, TSTRING_UNCHANGE);
 		$end_min = retrieve(POST, 'end_min', 0, TSTRING_UNCHANGE);
 
-		//Date de la news
+		
 		$current_date = retrieve(POST, 'current_date', '', TSTRING_UNCHANGE);
 		$current_hour = retrieve(POST, 'current_hour', 0, TSTRING_UNCHANGE);
 		$current_min = retrieve(POST, 'current_min', 0, TSTRING_UNCHANGE);
@@ -153,7 +153,7 @@ elseif (!empty($_POST['previs']))
 		'DATE' => gmdate_format('date_format_short')
 		));
 
-		//Catégories.
+		
 		$i = 0;
 		$result = $Sql->query_while ("SELECT id, name FROM " . PREFIX . "news_cat", __LINE__, __FILE__);
 		while ($row = $Sql->fetch_assoc($result))
@@ -166,7 +166,7 @@ elseif (!empty($_POST['previs']))
 		}
 		$Sql->query_close($result);
 
-		if ($i == 0) //Aucune catégorie => alerte.
+		if ($i == 0) 
 		$Errorh->handler($LANG['require_cat_create'], E_USER_WARNING);
 
 		$Template->assign_vars(array(
@@ -284,7 +284,7 @@ else
 		'L_RESET' => $LANG['reset']
 		));
 
-		//Catégories.
+		
 		$i = 0;
 		$result = $Sql->query_while("SELECT id, name
 	FROM " . PREFIX . "news_cat", __LINE__, __FILE__);
@@ -297,11 +297,11 @@ else
 		}
 		$Sql->query_close($result);
 
-		//Gestion erreur.
+		
 		$get_error = retrieve(GET, 'error', '');
 		if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);
-		elseif ($i == 0) //Aucune catégorie => alerte.
+		elseif ($i == 0) 
 		$Errorh->handler($LANG['require_cat_create'], E_USER_WARNING);
 
 		$Template->pparse('admin_news_add');

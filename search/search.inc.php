@@ -1,29 +1,29 @@
 <?php
-/*##################################################
-*                               search.inc.php
-*                            -------------------
-*   begin                : february 5, 2008
-*   copyright            : (C) 2008 Rouchon Loïc
-*   email                : horn@phpboost.com
-*
-*
-###################################################
-*
-*   This program is free software; you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation; either version 2 of the License, or
-*   (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if (defined('PHPBOOST') !== true) exit;
 
@@ -36,9 +36,9 @@ global $SEARCH_CONFIG;
 
 define ( 'NB_RESULTS_PER_PAGE', $SEARCH_CONFIG['nb_results_per_page']);
 
-/**
- *  Exécute la recherche
- */
+
+
+
 function execute_search($search, &$search_modules, &$modules_args, &$results)
 {
     $requests = array();
@@ -50,7 +50,7 @@ function execute_search($search, &$search_modules, &$modules_args, &$results)
         if (!$search->is_in_cache($module->get_id()))
         {
             $modules_args[$module->get_id()]['weight'] = !empty($SEARCH_CONFIG['modules_weighting'][$module->get_id()]) ? $SEARCH_CONFIG['modules_weighting'][$module->get_id()] : 1;
-            // On rajoute l'identifiant de recherche comme parametre pour faciliter la requete
+            
             $modules_args[$module->get_id()]['id_search'] = !empty($search->id_search[$module->get_id()]) ? $search->id_search[$module->get_id()] : 0;
             $requests[$module->get_id()] = $module->functionality('get_search_request', $modules_args[$module->get_id()]);
         }
@@ -59,10 +59,10 @@ function execute_search($search, &$search_modules, &$modules_args, &$results)
     $search->insert_results($requests);
 }
 
-/**
- *  Exécute la recherche si les résultats ne sont pas dans le cache et
- *  renvoie les résultats.
- */
+
+
+
+
 function get_search_results($search_string, &$search_modules, &$modules_args, &$results, &$ids_search, $just_insert = false)
 {
     $modules_options = array();
@@ -85,9 +85,9 @@ function get_search_results($search_string, &$search_modules, &$modules_args, &$
         return -1;
 }
 
-/**
- *  Renvoie une chaine contenant les resultats
- */
+
+
+
 function get_html_results(&$results, &$html_results, &$results_name)
 {
     global $CONFIG;

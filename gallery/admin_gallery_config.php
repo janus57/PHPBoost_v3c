@@ -1,37 +1,37 @@
 <?php
-/*##################################################
- *                               admin_gallery_config.php
- *                            -------------------
- *   begin                : August,17 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *   
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('gallery'); //Chargement de la langue du module.
+load_module_lang('gallery'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
-//Si c'est confirmé on execute
+
 if (!empty($_POST['valid']))
 {
 	$Cache->load('gallery');
@@ -75,15 +75,15 @@ if (!empty($_POST['valid']))
 	
 	redirect(HOST . SCRIPT);	
 }
-elseif (!empty($_POST['gallery_cache'])) //Suppression des miniatures.
+elseif (!empty($_POST['gallery_cache'])) 
 {
 	include_once('../gallery/gallery.class.php'); 
 	$Gallery = new Gallery;
 	
 	$Cache->load('gallery');
 	
-	$Gallery->Clear_cache(); //Recréaction miniatures, et inscrustation du logo sur image.
-	$Gallery->Count_cat_pics(); //Recompte le nombre d'images de chaque catégories
+	$Gallery->Clear_cache(); 
+	$Gallery->Count_cat_pics(); 
 	
 	$Cache->Generate_module_file('gallery');
 	
@@ -109,7 +109,7 @@ else
 	$CONFIG_GALLERY['speed_mini_pics'] = !isset($CONFIG_GALLERY['speed_mini_pics']) ? 6 : $CONFIG_GALLERY['speed_mini_pics'];	
 	$CONFIG_GALLERY['scroll_type'] = !isset($CONFIG_GALLERY['scroll_type']) ? 1 : $CONFIG_GALLERY['scroll_type'];	
 	
-	//Vitesse de défilement des miniatures.
+	
 	$speed_mini_pics = '';
 	for ($i = 1; $i <= 10; $i++)
 	{
@@ -117,7 +117,7 @@ else
 		$speed_mini_pics .= '<option value="' . $i . '"' . $selected . '>' . $i . '</option>';
 	}
 	
-	//Type de défilemennt
+	
 	$scroll_types = '';
 	$array_scroll = array($LANG['static_scroll'], $LANG['vertical_dynamic_scroll'], $LANG['horizontal_dynamic_scroll'], $LANG['no_scroll']);
 	foreach ($array_scroll as $key => $name)

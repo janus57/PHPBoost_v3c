@@ -1,43 +1,43 @@
 <?php
-/*##################################################
- *                               admin_maintain.php
- *                            -------------------
- *   begin                : Februar 07, 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
-//Si c'est confirmé on execute
+
 if (!empty($_POST['valid']))
 {
 	$maintain_check = retrieve(POST, 'maintain_check', 0);
 	switch ($maintain_check) 
 	{
 		case 1:
-			$maintain = retrieve(POST, 'maintain', 0); //Désactivé par défaut.
+			$maintain = retrieve(POST, 'maintain', 0); 
 			if ($maintain != -1)
 				$maintain = !empty($maintain) ? time() + $maintain + 5 : '0';	
 		break;
@@ -61,13 +61,13 @@ if (!empty($_POST['valid']))
 	
 	redirect(HOST . SCRIPT);
 }
-else //Sinon on rempli le formulaire	 
+else 
 {		
 	$Template->set_filenames(array(
 		'admin_maintain'=> 'admin/admin_maintain.tpl'
 	));
 	
-	//Durée de la maintenance.
+	
 	$array_time = array(-1, 60, 300, 600, 900, 1800, 3600, 7200, 10800, 14400, 18000, 21600, 25200, 28800, 57600); 
 	$array_delay = array($LANG['unspecified'], '1 ' . $LANG['minute'], '5 ' . $LANG['minutes'], '10 ' . $LANG['minutes'], '15 ' . $LANG['minutes'], '30 ' . $LANG['minutes'], '1 ' . $LANG['hour'], '2 ' . $LANG['hours'], '3 ' . $LANG['hours'], '4 ' . $LANG['hours'], '5 ' . $LANG['hours'], '6 ' . $LANG['hours'], '7 ' . $LANG['hours'], '8 ' . $LANG['hours'], '16 ' . $LANG['hours']); 
 	

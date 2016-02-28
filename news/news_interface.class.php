@@ -1,52 +1,52 @@
 <?php
-/*##################################################
- *                              news_interface.class.php
- *                            -------------------
- *   begin                : April 9, 2008
- *   copyright            : (C) 2008 Loïc Rouchon
- *   email                : horn@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
 
-// Inclusion du fichier contenant la classe ModuleInterface
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import('modules/module_interface');
 
 define('NEWS_MAX_SEARCH_RESULTS', 100);
 
-// Classe ForumInterface qui hérite de la classe ModuleInterface
+
 class NewsInterface extends ModuleInterface
 {
     ## Public Methods ##
-    function NewsInterface() //Constructeur de la classe ForumInterface
+    function NewsInterface() 
     {
         parent::ModuleInterface('news');
     }
     
-    //Récupération du cache.
+    
 	function get_cache()
 	{
 		global $Sql;
 
 		$news_config = 'global $CONFIG_NEWS;' . "\n";
 		
-		//Récupération du tableau linéarisé dans la bdd.
+		
 		$CONFIG_NEWS = unserialize($Sql->query("SELECT value FROM " . DB_TABLE_CONFIGS . " WHERE name = 'news'", __LINE__, __FILE__));
 		
 		$news_config .= '$CONFIG_NEWS = ' . var_export($CONFIG_NEWS, true) . ';' . "\n";
@@ -54,12 +54,12 @@ class NewsInterface extends ModuleInterface
 		return $news_config;
 	}
 
-	//Actions journalière.
+	
 	function on_changeday()
 	{
 		global $Sql;
 		
-		//Publication des news en attente pour la date donnée.
+		
 		$result = $Sql->query_while("SELECT id, start, end
 		FROM " . PREFIX . "news
 		WHERE visible != 0", __LINE__, __FILE__);
@@ -73,9 +73,9 @@ class NewsInterface extends ModuleInterface
 	}
 	
 	function get_search_request($args)
-    /**
-     *  Renvoie la requête de recherche
-     */
+    
+
+
     {
         global $Sql;
         $weight = isset($args['weight']) && is_numeric($args['weight']) ? $args['weight'] : 1;
@@ -132,23 +132,23 @@ class NewsInterface extends ModuleInterface
         $data->set_desc($LANG['xml_news_desc'] . ' ' . $CONFIG['server_name']);
         $data->set_lang($LANG['xml_lang']);
         
-        // Load the new's config
+        
         $Cache->load('news');
         
-        // Last news
+        
         $result = $Sql->query_while("SELECT id, title, contents, timestamp, img
             FROM " . PREFIX . "news
             WHERE visible = 1
             ORDER BY timestamp DESC"
 			. $Sql->limit(0, 2 * $CONFIG_NEWS['pagination_news']), __LINE__, __FILE__);
         
-        // Generation of the feed's items
+        
         while ($row = $Sql->fetch_assoc($result))
         {
             $item = new FeedItem();
             
             $item->set_title($row['title']);
-            // Rewriting
+            
             $link = new Url('/news/news' . url('.php?id=' . $row['id'], '-0-' . $row['id'] .  '+' . url_encode_rewrite($row['title']) . '.php'));
             $item->set_link($link);
             $item->set_guid($link);
@@ -187,7 +187,7 @@ class NewsInterface extends ModuleInterface
 		
 		$tpl_news = new Template('news/news.tpl');
 
-		if ($CONFIG_NEWS['activ_edito'] == 1) //Affichage de l'édito
+		if ($CONFIG_NEWS['activ_edito'] == 1) 
 		{
 			$tpl_news->assign_vars( array(
 				'C_NEWS_EDITO' => true,
@@ -199,23 +199,23 @@ class NewsInterface extends ModuleInterface
 		import('content/comments');
 		import('content/syndication/feed');
 		
-		//On crée une pagination (si activé) si le nombre de news est trop important.
+		
 		import('util/pagination');
 		$Pagination = new Pagination();
 			
-		//Pagination activée, sinon affichage lien vers les archives.
+		
 		if ($CONFIG_NEWS['activ_pagin'] == '1')
 		{
 			$show_pagin = $Pagination->display(PATH_TO_ROOT . '/news/news' . url('.php?p=%d', '-0-0-%d.php'), $CONFIG_NEWS['nbr_news'], 'p', $CONFIG_NEWS['pagination_news'], 3);
 			$first_msg = $Pagination->get_first_msg($CONFIG_NEWS['pagination_news'], 'p');
 		}
-		elseif ($show_archive) //Pagination des archives.
+		elseif ($show_archive) 
 		{
 			$show_pagin = $Pagination->display(PATH_TO_ROOT . '/news/news' . url('.php?arch=1&amp;p=%d', '-0-0-%d.php?arch=1'), $CONFIG_NEWS['nbr_news'] - $CONFIG_NEWS['pagination_news'], 'p', $CONFIG_NEWS['pagination_arch'], 3);
 			$first_msg = $CONFIG_NEWS['pagination_news'] + $Pagination->get_first_msg($CONFIG_NEWS['pagination_arch'], 'p');
 			$CONFIG_NEWS['pagination_news'] = $CONFIG_NEWS['pagination_arch'];
 		}
-		else //Affichage du lien vers les archives.
+		else 
 		{
 			$show_pagin = (($CONFIG_NEWS['nbr_news'] > $CONFIG_NEWS['pagination_news']) && ($CONFIG_NEWS['nbr_news'] != 0)) ? '<a href="' . PATH_TO_ROOT . '/news/news.php?arch=1" title="' . $LANG['display_archive'] . '">' . $LANG['display_archive'] . '</a>' : '';
 			$first_msg = 0;
@@ -233,7 +233,7 @@ class NewsInterface extends ModuleInterface
 		    'FEED_MENU' => Feed::get_feed_menu(FEED_URL)
 		));
 		
-		//Si les news en block sont activées on recupère la page.
+		
 		if ($CONFIG_NEWS['type'] == 1 && !$show_archive)
 		{
 			$tpl_news->assign_vars(array(
@@ -264,7 +264,7 @@ class NewsInterface extends ModuleInterface
 			" . $Sql->limit($first_msg, $CONFIG_NEWS['pagination_news']), __LINE__, __FILE__);
 			while ($row = $Sql->fetch_assoc($result))
 			{
-				//Séparation des news en colonnes si activé.
+				
 				$new_row = false;
 				if ($column)
 				{
@@ -305,7 +305,7 @@ class NewsInterface extends ModuleInterface
 				));
 			}
 		}
-		else //News en liste
+		else 
 		{
 			$tpl_news->assign_vars(array(
 				'C_NEWS_LINK' => true
@@ -332,7 +332,7 @@ class NewsInterface extends ModuleInterface
 			" . $Sql->limit($first_msg, $CONFIG_NEWS['pagination_news']), __LINE__, __FILE__);
 			while ($row = $Sql->fetch_assoc($result))
 			{
-				//Séparation des news en colonnes si activé.
+				
 				$new_row = false;
 				if ($column)
 				{

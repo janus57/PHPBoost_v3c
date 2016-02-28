@@ -1,37 +1,37 @@
 <?php
-/*##################################################
- *                               xmlhttprequest.php
- *                            -------------------
- *   begin                : August 30, 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
 
-define('NO_SESSION_LOCATION', true); //Permet de ne pas mettre jour la page dans la session.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+define('NO_SESSION_LOCATION', true); 
 require_once('../kernel/begin.php');
 include_once('../gallery/gallery_begin.php');
 require_once('../kernel/header_no_display.php');
 
-//Notation.
+
 if (!empty($_GET['increment_view']))
 {
 	$g_idpics = retrieve(GET, 'id', 0);
@@ -43,47 +43,47 @@ if (!empty($_GET['increment_view']))
 		if (!isset($CAT_GALLERY[$g_idcat]) || $CAT_GALLERY[$g_idcat]['aprob'] == 0) 
 			exit;
 	}
-	else //Racine.
+	else 
 	{
 		$CAT_GALLERY[0]['auth'] = $CONFIG_GALLERY['auth_root'];
 		$CAT_GALLERY[0]['aprob'] = 1;
 	}
-	//Niveau d'autorisation de la catégorie
+	
 	if (!$User->check_auth($CAT_GALLERY[$g_idcat]['auth'], READ_CAT_GALLERY))
 		exit;
 		
-	//Mise à jour du nombre de vues.
+	
 	$Sql->query_inject("UPDATE LOW_PRIORITY " . PREFIX . "gallery SET views = views + 1 WHERE idcat = '" . $g_idcat . "' AND id = '" . $g_idpics . "'", __LINE__, __FILE__);
 }
-elseif (!empty($_GET['note']) ) //Utilisateur connecté.
+elseif (!empty($_GET['note']) ) 
 {	
 	if ($User->check_level(MEMBER_LEVEL))
 	{
 		$id = retrieve(POST, 'id', 0);
 		$note = retrieve(POST, 'note', 0);
 
-		//Initialisation  de la class de gestion des fichiers.
+		
 		import('content/note');
 		$Note = new Note('gallery', $id, '', $CONFIG_GALLERY['note_max'], '', NOTE_DISPLAY_NOTE);
 		
 		if (!empty($note) && !empty($id))
-			echo $Note->add($note); //Ajout de la note.
+			echo $Note->add($note); 
 	}
 	else
 		echo -2;
 }
 else
 {	
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
-	if (!empty($_GET['rename_pics'])) //Renomme une image.
+	if (!empty($_GET['rename_pics'])) 
 	{
 		$id_file = retrieve(POST, 'id_file', 0);
 		$id_cat = $Sql->query("SELECT idcat FROM " . PREFIX . "gallery WHERE id = " .$id_file. " ", __LINE__, __FILE__);
 		
-		if ($User->check_auth($CAT_GALLERY[$id_cat]['auth'], EDIT_CAT_GALLERY)) //Modo
+		if ($User->check_auth($CAT_GALLERY[$id_cat]['auth'], EDIT_CAT_GALLERY)) 
 		{	
-			//Initialisation  de la class de gestion des fichiers.
+			
 			include_once('../gallery/gallery.class.php');
 			$Gallery = new Gallery;
 
@@ -102,16 +102,16 @@ else
 		$id_file = retrieve(POST, 'id_file', 0);
 		$id_cat = $Sql->query("SELECT idcat FROM " . PREFIX . "gallery WHERE id = " .$id_file. " ", __LINE__, __FILE__);
 		
-		if ($User->check_auth($CAT_GALLERY[$id_cat]['auth'], EDIT_CAT_GALLERY)) //Modo
+		if ($User->check_auth($CAT_GALLERY[$id_cat]['auth'], EDIT_CAT_GALLERY)) 
 		{
-			//Initialisation  de la class de gestion des fichiers.
+			
 			include_once('../gallery/gallery.class.php');
 			$Gallery = new Gallery;
 			
 			if (!empty($id_file))
 			{
 				echo $Gallery->Aprob_pics($id_file);
-				//Régénération du cache des photos aléatoires.
+				
 				$Cache->Generate_module_file('gallery');
 			}
 			else 

@@ -1,29 +1,29 @@
 <?php
-/*##################################################
-*                                 wiki.php
-*                            -------------------
-*   begin                : October 09, 2006
-*   copyright            : (C) 2006 Sautel Benoit
-*   email                : ben.popeye@phpboost.com
-*
-*
-###################################################
-*
-*   This program is free software; you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation; either version 2 of the License, or
-*   (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 load_module_lang('wiki');
@@ -32,16 +32,16 @@ define('ALTERNATIVE_CSS', 'wiki');
 
 include('../wiki/wiki_functions.php');
 
-//Titre de l'article
+
 $encoded_title = retrieve(GET, 'title', '');
-//numéro de l'article (utile pour les archives)
+
 $id_contents = retrieve(GET, 'id_contents', 0);
 
 $num_rows = 0;
 $parse_redirection = false;
 
-//Requêtes préliminaires utiles par la suite
-if (!empty($encoded_title)) //Si on connait son titre
+
+if (!empty($encoded_title)) 
 {
 	$result = $Sql->query_while("SELECT a.id, a.is_cat, a.hits, a.redirect, a.id_cat, a.title, a.encoded_title, a.is_cat, a.defined_status, a.nbr_com, f.id AS id_favorite, a.undefined_status, a.auth, c.menu, c.content
 	FROM " . PREFIX . "wiki_articles a
@@ -54,7 +54,7 @@ if (!empty($encoded_title)) //Si on connait son titre
 	$Sql->query_close($result);
 	$id_article = $article_infos['id'];
 
-	if (!empty($article_infos['redirect']))//Si on est redirigï¿½
+	if (!empty($article_infos['redirect']))
 	{
 		$ex_title = $article_infos['title'];
 		$id_redirection = $article_infos['id'];
@@ -71,7 +71,7 @@ if (!empty($encoded_title)) //Si on connait son titre
 		$parse_redirection = true;
 	}
 }
-//Sinon on cherche dans les archives
+
 elseif (!empty($id_contents))
 {
 	$result = $Sql->query_while("SELECT a.title, a.encoded_title, a.id, c.id_contents, a.id_cat, a.is_cat, a.defined_status, a.undefined_status, a.nbr_com, f.id AS id_favorite, c.menu, c.content
@@ -85,7 +85,7 @@ elseif (!empty($id_contents))
 	$num_rows = 1;
 }
 
-//Barre d'arborescence
+
 $bread_crumb_key = 'wiki';
 require_once('../wiki/wiki_bread_crumb.php');
 
@@ -102,13 +102,13 @@ $Template->assign_vars(array(
 	'WIKI_PATH' => $Template->get_module_data_path('wiki')
 ));
 
-//Si il s'agit d'un article
+
 if ((!empty($encoded_title) || !empty($id_contents)) && $num_rows > 0)
 {
-	if ($_WIKI_CONFIG['count_hits'] != 0)//Si on prend en compte le nombre de vus
+	if ($_WIKI_CONFIG['count_hits'] != 0)
 		$Sql->query_inject("UPDATE " . LOW_PRIORITY . " " . PREFIX . "wiki_articles SET hits = hits + 1 WHERE id = '" . $article_infos['id'] . "'", __LINE__, __FILE__);
 
-	//Si c'est une archive
+	
 	if ($id_contents > 0)
 	{
 		$Template->assign_block_vars('warning', array(
@@ -116,9 +116,9 @@ if ((!empty($encoded_title) || !empty($id_contents)) && $num_rows > 0)
 		));
 		$id_article = $article_infos['id'];
 	}
-	else //Sinon on affiche statut, avertissements en tout genre et redirection
+	else 
 	{
-		//Si on doit parser le bloc redirection
+		
 		if ($parse_redirection)
 		{
 			$Template->assign_block_vars('redirect', array(
@@ -136,7 +136,7 @@ if ((!empty($encoded_title) || !empty($id_contents)) && $num_rows > 0)
 			}
 		}
 		
-		//Cet article comporte un type
+		
 		if ($article_infos['defined_status'] != 0)
 		{
 			if ($article_infos['defined_status'] < 0 && !empty($article_infos['undefined_status']))
@@ -163,9 +163,9 @@ if ((!empty($encoded_title) || !empty($id_contents)) && $num_rows > 0)
 		'L_SUB_ARTICLES' => $LANG['wiki_subarticles'],
 		'L_TABLE_OF_CONTENTS' => $LANG['wiki_table_of_contents'],
 	));
-	if ($article_infos['is_cat'] == 1 && $id_contents == 0) //Catégorie non archiée
+	if ($article_infos['is_cat'] == 1 && $id_contents == 0) 
 	{
-		//On liste les articles de la catégorie et ses sous catégories
+		
 		$result = $Sql->query_while("SELECT a.title, a.encoded_title, a.id
 		FROM " . PREFIX . "wiki_articles a
 		LEFT JOIN " . PREFIX . "wiki_contents c ON c.id_contents = a.id_contents
@@ -214,12 +214,12 @@ if ((!empty($encoded_title) || !empty($id_contents)) && $num_rows > 0)
 	
 	$Template->pparse('wiki');
 }
-//Si l'article n'existe pas
+
 elseif (!empty($encoded_title) && $num_rows == 0)
 {
 	redirect(HOST . DIR . '/wiki/' . url('post.php?title=' . $encoded_title, '', '&'));
 }
-//Sinon c'est l'accueil
+
 else
 {
 	if ($_WIKI_CONFIG['last_articles'] > 1)
@@ -255,7 +255,7 @@ else
 			));
 		}
 	}
-	//Affichage de toutes les catégories si c'est activé
+	
 	if ($_WIKI_CONFIG['display_cats'] != 0)
 	{
 		$Template->assign_block_vars('cat_list', array(
@@ -264,7 +264,7 @@ else
 		$i = 0;
 		foreach ($_WIKI_CATS as $id => $infos)
 		{
-			//Si c'est une catï¿½gorie mï¿½re
+			
 			if ($infos['id_parent'] == 0)
 			{
 				$Template->assign_block_vars('cat_list.list', array(

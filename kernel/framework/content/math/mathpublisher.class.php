@@ -1,15 +1,15 @@
 <?php
-/***************************************************************************
-*   copyright            : (C) 2005 by Pascal Brachet - France            *
-*   pbrachet_NOSPAM_xm1math.net (replace _NOSPAM_ by @)                   *
-*   http://www.xm1math.net/phpmathpublisher/                              *
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
 
 global $symboles;
 $symboles = array(
@@ -92,20 +92,20 @@ $symboles = array(
 'cdots'=>'&#8943;',
 'vdots'=>'&#8942;',
 'ddots'=>'&#8945;',
-//operateurs
+
 'le'=>'&#54;',
 'ge'=>'&#62;',
 '<'=>'&#60;',
 '>'=>'&#62;',
 'dsum'=>'&#76;',
-//parentheses
+
 '('=>'&#179;',
 ')'=>'&#180;',
 '['=>'&#104;',
 ']'=>'&#105;',
 'lbrace'=>'&#40;',
 'rbrace'=>'&#41;',
-//autres
+
 '_hat'=>'&#99;',
 '_racine'=>'&#113;',
 '_integrale'=>'&#82;',
@@ -117,7 +117,7 @@ $symboles = array(
 '_intersection'=>'&#84;',
 '_reunion'=>'&#83;',
 '_lim'=>'lim',
-//fonctions
+
 'arccos'=>'arccos',
 'ker'=>'ker',
 'arcsin'=>'arcsin',
@@ -229,20 +229,20 @@ $fontesmath = array(
 'cdots'=>'FreeSerif',
 'vdots'=>'FreeSerif',
 'ddots'=>'FreeSerif',
-//operateurs
+
 'le'=>'msam10',
 'ge'=>'msam10',
 '<'=>'cmmi10',
 '>'=>'cmmi10',
 'dsum'=>'cmex10',
-//parentheses
+
 '('=>'cmex10',
 ')'=>'cmex10',
 '['=>'cmex10',
 ']'=>'cmex10',
 'lbrace'=>'cmex10',
 'rbrace'=>'cmex10',
-//autres
+
 '_hat'=>'cmex10',
 '_racine'=>'cmex10',
 '_integrale'=>'cmex10',
@@ -254,7 +254,7 @@ $fontesmath = array(
 '_intersection'=>'cmex10',
 '_reunion'=>'cmex10',
 '_lim'=>'cmr10',
-//fonctions
+
 'arccos'=>'cmr10',
 'ker'=>'cmr10',
 'arcsin'=>'cmr10',
@@ -294,7 +294,7 @@ function tableau_expression($expression)
 	$extraits = array();
 	$result = array();
 	
-	//stupid code but token_get_all bug in some php versions
+	
 	$d = 0;
 	$size_t = count($t);
 	for ($i = 0; $i < $size_t; $i++)
@@ -348,7 +348,7 @@ function tableau_expression($expression)
 }
 
 
-// ugly hack, but GD is not very good with truetype fonts (especially with latex fonts)
+
 function affiche_symbol($texte,$haut)
 {
 	global $symboles, $fontesmath;
@@ -564,8 +564,8 @@ function affiche_symbol($texte,$haut)
 		$tmp_blanc=imagecolortransparent($tmp_img, $tmp_blanc);
 		ImageFilledRectangle($tmp_img, 0, 0, $tmp_largeur, $tmp_hauteur, $tmp_blanc);
 		ImageTTFText($tmp_img, $t, 0, 0, $tmp_hauteur/4, $tmp_noir, $font, $texte);
-		// 	ImageTTFText($tmp_img, $t, 0,5,5,$tmp_noir, $font,$texte);
-		//	$img=$tmp_img;
+		
+		
 		$toutblanc=true;
 		$sx = $sy = $ex = $ey = -1;
 		
@@ -610,8 +610,8 @@ function affiche_symbol($texte,$haut)
 		break;
 	}
 	
-	//$rouge=ImageColorAllocate($img,255,0,0);
-	//ImageRectangle($img,0,0,ImageSX($img)-1,ImageSY($img)-1,$rouge);
+	
+	
 	return $img;
 }
 
@@ -630,7 +630,7 @@ function affiche_texte($texte, $taille)
 	$blanc = ImageColorAllocate($img,255,255,255);
 	$blanc = imagecolortransparent($img,$blanc);
 	ImageFilledRectangle($img,0,0,$dx,$dy,$blanc);
-	//ImageRectangle($img,0,0,$dx-1,$dy-1,$noir);
+	
 	ImageTTFText($img, $taille, $angle, 0, -min($hdim[5], $hdim[7]), $noir, $font, $texte);
 	
 	return $img;
@@ -655,7 +655,7 @@ function affiche_math($texte, $taille)
 	$blanc=ImageColorAllocate($img, 255, 255, 255);
 	$blanc=imagecolortransparent($img, $blanc);
 	ImageFilledRectangle($img, 0, 0, $dx, $dy, $blanc);
-	//ImageRectangle($img,0,0,$dx-1,$dy-1,$noir);
+	
 	
 	ImageTTFText($img, $taille, 0, 0, -min($hdim[5], $hdim[7]), $noir, $font, $texte);
 	return $img;
@@ -684,7 +684,7 @@ function alignement2($image1, $base1, $image2, $base2)
 	ImageFilledRectangle($result, 0, 0, $largeur-1, $hauteur-1, $blanc);
 	Imagecopy($result, $image1, 0, $dessus - $base1, 0, 0, $largeur1, $hauteur1);
 	Imagecopy($result, $image2, $largeur1, $dessus - $base2, 0, 0, $largeur2, $hauteur2);
-	//ImageRectangle($result,0,0,$largeur-1,$hauteur-1,$noir);
+	
 
 	return $result;
 }
@@ -709,19 +709,19 @@ function alignement3($image1, $base1, $image2, $base2, $image3, $base3)
 	Imagecopy($result, $image1, 0, $dessus - $base1, 0, 0, $largeur1, $hauteur1);
 	Imagecopy($result, $image2, $largeur1, $dessus - $base2, 0, 0, $largeur2, $hauteur2);
 	Imagecopy($result, $image3, $largeur1+$largeur2, $dessus - $base3, 0, 0, $largeur3, $hauteur3);
-	//ImageRectangle($result,0,0,$largeur-1,$hauteur-1,$noir);
+	
 	
 	return $result;
 }
 
-//*****************************************************************
+
 class expression
 {
 	var $texte;
 	var $image;
 	var $base_verticale;
 }
-//*****************************************************************
+
 class expression_texte extends expression
 {
 	function expression_texte($exp)
@@ -735,7 +735,7 @@ class expression_texte extends expression
 		$this->base_verticale = imagesy($this->image) / 2;
 	}
 }
-//*****************************************************************
+
 class expression_math extends  expression
 {
 
@@ -1216,17 +1216,17 @@ class expression_math extends  expression
 		$this->noeuds[3]->dessine($taille);
 		$imgexp=$this->noeuds[3]->image;
 		$baseexp=$this->noeuds[3]->base_verticale;
-		//borneinf
+		
 		$largeur1=imagesx($img1);
 		$hauteur1=imagesy($img1);
-		//bornesup
+		
 		$largeur2=imagesx($img2);
 		$hauteur2=imagesy($img2);
-		//expression
+		
 		$hauteurexp=imagesy($imgexp);
 		$largeurexp=imagesx($imgexp);
-		//caractere
-		$imgsymbole=affiche_symbol($caractere, $baseexp*1.8);//max($baseexp,$hauteurexp-$baseexp)*2);
+		
+		$imgsymbole=affiche_symbol($caractere, $baseexp*1.8);
 		$largeursymbole=imagesx($imgsymbole);
 		$hauteursymbole=imagesy($imgsymbole);
 		$basesymbole=$hauteursymbole/2;
@@ -1254,13 +1254,13 @@ class expression_math extends  expression
 		$this->noeuds[0]->dessine($taille);
 		$imgexp=$this->noeuds[0]->image;
 		$baseexp=$this->noeuds[0]->base_verticale;
-		//expression
+		
 		$largeurexp=imagesx($imgexp);
 		$hauteurexp=imagesy($imgexp);
-		//bornesup
+		
 		$largeursup=imagesx($imgsup);
 		$hauteursup=imagesy($imgsup);
-		//fin
+		
 		$hauteur=$hauteurexp+$hauteursup;
 		$largeur=max($largeursup, $largeurexp)+ceil($taille/8);
 		$imgfin = ImageCreate(max($largeur, 1), max($hauteur, 1));
@@ -1282,13 +1282,13 @@ class expression_math extends  expression
 		$this->noeuds[0]->dessine($taille);
 		$imgexp=$this->noeuds[0]->image;
 		$baseexp=$this->noeuds[0]->base_verticale;
-		//expression
+		
 		$largeurexp=imagesx($imgexp);
 		$hauteurexp=imagesy($imgexp);
-		//borneinf
+		
 		$largeurinf=imagesx($imginf);
 		$hauteurinf=imagesy($imginf);
-		//fin
+		
 		$hauteur=$hauteurexp+$hauteurinf;
 		$largeur=max($largeurinf, $largeurexp)+ceil($taille/8);
 		$imgfin = ImageCreate(max($largeur, 1), max($hauteur, 1));
@@ -1304,27 +1304,27 @@ class expression_math extends  expression
 	
 	function dessine_direct_sum($taille) 
 	{
-		//Opérande gauche.
+		
 		$this->noeuds[0]->dessine($taille);
 		$imgleft = $this->noeuds[0]->image;
 		$baseleft = $this->noeuds[0]->base_verticale;
 		$largeurleft = imagesx($imgleft);
 		$hauteurleft = imagesy($imgleft);
 		
-		//Opérande droit.		
+		
 		$this->noeuds[2]->dessine($taille);
 		$imgright = $this->noeuds[2]->image;
 		$baseright = $this->noeuds[2]->base_verticale;		
 		$largeurright = imagesx($imgright);
 		$hauteurright = imagesy($imgright);
 		
-		//Opérateur
+		
 		$imgdsum = affiche_symbol("dsum", 10);
 		$largeurdsum = imagesx($imgdsum);
 		$hauteurdsum = imagesy($imgdsum) - 2;
 		$basedsum = $hauteurdsum;
 		
-		//fin
+		
 		$hauteur = max($hauteurright, $hauteurdsum, $hauteurleft);
 		$largeur = $largeurright + $largeurdsum + $largeurleft + 4;
 		$imgfin = ImageCreate(max($largeur, 1), max($hauteur, 1));
@@ -1333,7 +1333,7 @@ class expression_math extends  expression
 		$blanc = imagecolortransparent($imgfin, $blanc);
 		ImageFilledRectangle($imgfin, 0, 0, $largeur-1, $hauteur-1, $blanc);
 		Imagecopy($imgfin, $imgleft, 0, ($hauteur/2) - ($hauteurleft/2), 0, 0, $largeurleft, $hauteurleft);
-		//Redimensionnement du symbole de somme directe.
+		
 		imagecopyresampled ($imgfin, $imgdsum, $largeurleft, max(($hauteur/2) - ($hauteurleft/2), ($hauteur/2) - ($hauteurright/2)), 0, 0, $largeurdsum, $hauteurdsum - 4, $largeurdsum, $hauteurdsum);
 		Imagecopy($imgfin, $imgright, $largeurleft + $largeurdsum + 2, ($hauteur/2) - ($hauteurright/2), 0, 0, $largeurright, $hauteurright);
 		$this->image = $imgfin; 
@@ -1408,7 +1408,7 @@ class expression_math extends  expression
 				if ($i< count($this->noeuds[3]->noeuds))
 				{
 					Imagecopy($imgfin, $img[$i], $l+ceil($largeur_colonne[$col]-$largeur[$i])/2, $h+$dessus_ligne[$ligne]-$base[$i], 0, 0,$largeur[$i], $hauteur[$i]);
-					//ImageRectangle($imgfin,$l,$h,$l+$largeur_colonne[$col],$h+$hauteur_ligne[$ligne],$noir);
+					
 				}
 				$l += $largeur_colonne[$col]+$padding;
 				$i++;
@@ -1416,7 +1416,7 @@ class expression_math extends  expression
 			$h+=$hauteur_ligne[$ligne]+$padding;
 		}
 		
-		//ImageRectangle($imgfin,0,0,$largeurfin-1,$hauteurfin-1,$noir);
+		
 		$this->image=$imgfin;
 		$this->base_verticale=imagesy($imgfin)/2;
 	}
@@ -1508,17 +1508,17 @@ class expression_math extends  expression
 
 	function dessine_vecteur($taille) 
 	{
-		//expression
+		
 		$this->noeuds[1]->dessine($taille);
 		$imgexp=$this->noeuds[1]->image;
 		$baseexp=$this->noeuds[1]->base_verticale;
 		$largeurexp=imagesx($imgexp);
 		$hauteurexp=imagesy($imgexp);
-		//fleche
+		
 		$imgsup=affiche_symbol("right", 16);
 		$largeursup=imagesx($imgsup);
 		$hauteursup=imagesy($imgsup);
-		//fin
+		
 		$hauteur=$hauteurexp+$hauteursup;
 		$largeur=$largeurexp;
 		$imgfin = ImageCreate(max($largeur, 1), max($hauteur, 1));
@@ -1536,7 +1536,7 @@ class expression_math extends  expression
 
 	function dessine_overline($taille) 
 	{
-		//expression
+		
 		$this->noeuds[1]->dessine($taille);
 		$imgexp=$this->noeuds[1]->image;
 		$baseexp=$this->noeuds[1]->base_verticale;
@@ -1559,7 +1559,7 @@ class expression_math extends  expression
 
 	function dessine_underline($taille) 
 	{
-		//expression
+		
 		$this->noeuds[1]->dessine($taille);
 		$imgexp=$this->noeuds[1]->image;
 		$baseexp=$this->noeuds[1]->base_verticale;
@@ -1587,13 +1587,13 @@ class expression_math extends  expression
 		$this->noeuds[1]->dessine($taille);
 		$imgexp=$this->noeuds[1]->image;
 		$baseexp=$this->noeuds[1]->base_verticale;
-		//expression
+		
 		$largeurexp=imagesx($imgexp);
 		$hauteurexp=imagesy($imgexp);
-		//bornesup
+		
 		$largeursup=imagesx($imgsup);
 		$hauteursup=imagesy($imgsup);
-		//fin
+		
 		$hauteur=$hauteurexp+$hauteursup;
 		$largeur=max($largeursup, $largeurexp)+ceil($taille/8);
 		$imgfin = ImageCreate(max($largeur, 1), max($hauteur, 1));
@@ -1661,7 +1661,7 @@ class expression_math extends  expression
 		$this->base_verticale=max($basegauche, $baseexp, $basedroit);
 	}
 }
-//******************************************************************************************
+
 
 
 ?>

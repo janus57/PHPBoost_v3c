@@ -1,33 +1,33 @@
 <?php
-/*##################################################
- *                             admin_shoutbox.php
- *                            -------------------
- *   begin                : March 12, 2007
- *   copyright            : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('shoutbox'); //Chargement de la langue du module.
+load_module_lang('shoutbox'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
@@ -47,7 +47,7 @@ if (!empty($_POST['valid']) )
 	
 	redirect(HOST . SCRIPT);	
 }
-//Sinon on rempli le formulaire
+
 else	
 {		
 	$Template->set_filenames(array(
@@ -56,12 +56,12 @@ else
 	
 	$Cache->load('shoutbox');
 	
-	//Balises interdites => valeur 1.
+	
 	$array_tags = array('b' => 0, 'i' => 0, 'u' => 0, 's' => 0,	'title' => 1, 'stitle' => 1, 'style' => 1, 'url' => 0, 
 	'img' => 1, 'quote' => 1, 'hide' => 1, 'list' => 1, 'color' => 0, 'bgcolor' => 0, 'font' => 0, 'size' => 0, 'align' => 1, 'float' => 1, 'sup' => 0, 
 	'sub' => 0, 'indent' => 1, 'pre' => 0, 'table' => 1, 'swf' => 1, 'movie' => 1, 'sound' => 1, 'code' => 1, 'math' => 1, 'anchor' => 0, 'acronym' => 0);
 	
-	//Rang d'autorisation.
+	
 	$CONFIG_SHOUTBOX['shoutbox_auth'] = isset($CONFIG_SHOUTBOX['shoutbox_auth']) ? $CONFIG_SHOUTBOX['shoutbox_auth'] : '-1';	
 	$array_auth_ranks = array(-1 => $LANG['guest'], 0 => $LANG['member'], 1 => $LANG['modo'], 2 => $LANG['admin']);
 	$ranks = '';
@@ -96,7 +96,7 @@ else
 		'L_MAX_LINK_EXPLAIN' => $LANG['max_link_explain']
 	));
 			
-	//Forbidden tags
+	
 	$i = 0;
 	foreach (ContentFormattingFactory::get_available_tags() as $name => $value)
 	{
@@ -109,7 +109,7 @@ else
 		));
 	}
 	
-	$Template->pparse('admin_shoutbox_config'); // traitement du modele	
+	$Template->pparse('admin_shoutbox_config'); 
 }
 
 require_once('../admin/admin_footer.php');

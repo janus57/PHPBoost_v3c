@@ -1,65 +1,65 @@
 <?php
-/*************************************************************************************
- * mysql.php
- * ---------
- * Author: Marjolein Katsma (marjolein.is.back@gmail.com)
- * Copyright: (c) 2008 Marjolein Katsma (http://blog.marjoleinkatsma.com/)
- * Release Version: 1.0.8.3
- * Date Started: 2008-12-12
- *
- * MySQL language file for GeSHi.
- *
- * Based on original MySQL language file by Carl Fürstenberg (2004); brought
- * up-to-date for current MySQL versions, and with more classes for different
- * types of keywords; several minor errors were corrected as well.
- *
- * Some "classes" have two groups here: this is to allow for the fact that some
- * keywords in MySQL have a double function: many of those are either a function
- * (must be immediately followed by an opening bracket) or some other keyword:
- * so they can be distinguished by the presence (or not) of that opening bracket.
- * (An immediately following opening bracket is a default rule for functions in
- * MySQL, though this may be overridden; because it's only a default, we use a
- * regex lookahead only where necessary to distinguish homonyms, not generally
- * to match any function.)
- * Other keywords with double usage cannot be distinguished and are classified
- * in the "Mix" category.
- *
- *************************************************************************************
- *
- * This file is part of GeSHi.
- *
- * GeSHi is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * GeSHi is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with GeSHi; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- *
- ************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $language_data = array (
     'LANG_NAME' => 'MySQL',
-    //'COMMENT_SINGLE' => array(1 =>'--', 2 => '#'),    // '--' MUST be folowed by whitespace,not necessarily a space
+    
     'COMMENT_SINGLE' => array(
         1 =>'-- ',
         2 => '#'
         ),
     'COMMENT_REGEXP' => array(
-        1 => "/(?:--\s).*?$/",                          // double dash followed by any whitespace
+        1 => "/(?:--\s).*?$/",                          
         ),
     'COMMENT_MULTI' => array('/*' => '*/'),
-    'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,            // @@@ would be nice if this could be defined per group!
+    'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,            
     'QUOTEMARKS' => array("'", '"', '`'),
-    'ESCAPE_CHAR' => '\\',                              // by default only, can be specified
+    'ESCAPE_CHAR' => '\\',                              
     'ESCAPE_REGEXP' => array(
-        1 => "/[_%]/",                                  // search wildcards
+        1 => "/[_%]/",                                  
         ),
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC |
@@ -70,8 +70,8 @@ $language_data = array (
         GESHI_NUMBER_FLT_SCI_ZERO,
     'KEYWORDS' => array(
         1 => array(
-            // Mix: statement keywords and keywords that don't fit in any other
-            // category, or have multiple usage/meanings
+            
+            
             'ACTION','ADD','AFTER','ALGORITHM','ALL','ALTER','ANALYZE','ANY',
             'ASC','AS','BDB','BEGIN','BERKELEYDB','BINARY','BTREE','CALL',
             'CASCADED','CASCADE','CHAIN','CHECK','COLUMNS','COLUMN','COMMENT',
@@ -105,16 +105,16 @@ $language_data = array (
             'USING','VALUES','VALUE','VIEW','WARNINGS','WHERE','WITH ROLLUP',
             'WITH','WORK','WRITE',
             ),
-        2 => array(     //No ( must follow
-            // Mix: statement keywords distinguished from functions by the same name
+        2 => array(     
+            
             "CURRENT_USER", "DATABASE", "IN", "INSERT", "DEFAULT", "REPLACE", "SCHEMA", "TRUNCATE"
             ),
         3 => array(
-            // Values (Constants)
+            
             'FALSE','NULL','TRUE',
             ),
         4 => array(
-            // Column Data Types
+            
             'BIGINT','BIT','BLOB','BOOLEAN','BOOL','CHARACTER VARYING',
             'CHAR VARYING','DATETIME','DECIMAL','DEC','DOUBLE PRECISION',
             'DOUBLE','ENUM','FIXED','FLOAT','GEOMETRYCOLLECTION','GEOMETRY',
@@ -126,49 +126,49 @@ $language_data = array (
             'SMALLINT','TEXT','TIMESTAMP','TINYBLOB','TINYINT',
             'TINYTEXT','VARBINARY','VARCHARACTER','VARCHAR',
             ),
-        5 => array(     //No ( must follow
-            // Column data types distinguished from functions by the same name
+        5 => array(     
+            
             "CHAR", "DATE", "TIME"
             ),
         6 => array(
-            // Table, Column & Index Attributes
+            
             'AUTO_INCREMENT','AVG_ROW_LENGTH','BOTH','CHECKSUM','CONNECTION',
             'DATA DIRECTORY','DEFAULT NULL','DELAY_KEY_WRITE','FULLTEXT',
             'INDEX DIRECTORY','INSERT_METHOD','LEADING','MAX_ROWS','MIN_ROWS',
             'NOT NULL','PACK_KEYS','ROW_FORMAT','SERIAL DEFAULT VALUE','SIGNED',
             'SPATIAL','TRAILING','UNIQUE','UNSIGNED','ZEROFILL'
             ),
-        7 => array(     //No ( must follow
-            // Column attribute distinguished from function by the same name
+        7 => array(     
+            
             "CHARSET"
             ),
         8 => array(
-            // Date and Time Unit Specifiers
+            
             'DAY_HOUR','DAY_MICROSECOND','DAY_MINUTE','DAY_SECOND',
             'HOUR_MICROSECOND','HOUR_MINUTE','HOUR_SECOND',
             'MINUTE_MICROSECOND','MINUTE_SECOND',
             'SECOND_MICROSECOND','YEAR_MONTH'
             ),
-        9 => array(     //No ( must follow
-            // Date-time unit specifiers distinguished from functions by the same name
+        9 => array(     
+            
             "DAY", "HOUR", "MICROSECOND", "MINUTE", "MONTH", "QUARTER", "SECOND", "WEEK", "YEAR"
             ),
         10 => array(
-            // Operators (see also Symbols)
+            
             'AND','BETWEEN','CHARACTER SET','COLLATE','DIV','IS NOT NULL',
             'IS NOT','IS NULL','IS','LIKE','NOT','OFFSET','OR','REGEXP','RLIKE',
             'SOUNDS LIKE','XOR'
             ),
-        11 => array(     //No ( must follow
-            // Operator distinghuished from function by the same name
+        11 => array(     
+            
             "INTERVAL"
             ),
         12 => array(
-            // Control Flow (functions)
+            
             'CASE','ELSE','END','IFNULL','IF','NULLIF','THEN','WHEN',
             ),
         13 => array(
-            // String Functions
+            
             'ASCII','BIN','BIT_LENGTH','CHAR_LENGTH','CHARACTER_LENGTH',
             'CONCAT_WS','CONCAT','ELT','EXPORT_SET','FIELD',
             'FIND_IN_SET','FORMAT','HEX','INSTR','LCASE','LEFT','LENGTH',
@@ -177,23 +177,23 @@ $language_data = array (
             'RIGHT','RPAD','RTRIM','SOUNDEX','SPACE','STRCMP','SUBSTRING_INDEX',
             'SUBSTRING','TRIM','UCASE','UNHEX','UPPER',
             ),
-        14 => array(     //A ( must follow
-            // String functions distinguished from other keywords by the same name
+        14 => array(     
+            
             "INSERT", "REPLACE", "CHAR"
             ),
         15 => array(
-            // Numeric Functions
+            
             'ABS','ACOS','ASIN','ATAN2','ATAN','CEILING','CEIL',
             'CONV','COS','COT','CRC32','DEGREES','EXP','FLOOR','LN','LOG10',
             'LOG2','LOG','MOD','OCT','PI','POWER','POW','RADIANS','RAND',
             'ROUND','SIGN','SIN','SQRT','TAN',
             ),
-        16 => array(     //A ( must follow
-            // Numeric function distinguished from other keyword by the same name
+        16 => array(     
+            
             "TRUNCATE"
             ),
         17 => array(
-            // Date and Time Functions
+            
             'ADDDATE','ADDTIME','CONVERT_TZ','CURDATE','CURRENT_DATE',
             'CURRENT_TIME','CURRENT_TIMESTAMP','CURTIME','DATE_ADD',
             'DATE_FORMAT','DATE_SUB','DATEDIFF','DAYNAME','DAYOFMONTH',
@@ -206,53 +206,53 @@ $language_data = array (
             'UNIX_TIMESTAMP','UTC_DATE','UTC_TIME','UTC_TIMESTAMP','WEEKDAY',
             'WEEKOFYEAR','YEARWEEK',
             ),
-        18 => array(     //A ( must follow
-            // Date-time functions distinguished from other keywords by the same name
+        18 => array(     
+            
             "DATE", "DAY", "HOUR", "MICROSECOND", "MINUTE", "MONTH", "QUARTER",
             "SECOND", "TIME", "WEEK", "YEAR"
             ),
         19 => array(
-            // Comparison Functions
+            
             'COALESCE','GREATEST','ISNULL','LEAST',
             ),
-        20 => array(     //A ( must follow
-            // Comparison functions distinguished from other keywords by the same name
+        20 => array(     
+            
             "IN", "INTERVAL"
             ),
         21 => array(
-            // Encryption and Compression Functions
+            
             'AES_DECRYPT','AES_ENCRYPT','COMPRESS','DECODE','DES_DECRYPT',
             'DES_ENCRYPT','ENCODE','ENCRYPT','MD5','OLD_PASSWORD','PASSWORD',
             'SHA1','SHA','UNCOMPRESS','UNCOMPRESSED_LENGTH',
             ),
         22 => array(
-            // GROUP BY (aggregate) Functions
+            
             'AVG','BIT_AND','BIT_OR','BIT_XOR','COUNT','GROUP_CONCAT',
             'MAX','MIN','STDDEV_POP','STDDEV_SAMP','STDDEV','STD','SUM',
             'VAR_POP','VAR_SAMP','VARIANCE',
             ),
         23 => array(
-            // Information Functions
+            
             'BENCHMARK','COERCIBILITY','COLLATION','CONNECTION_ID',
             'FOUND_ROWS','LAST_INSERT_ID','ROW_COUNT',
             'SESSION_USER','SYSTEM_USER','USER','VERSION',
             ),
-        24 => array(     //A ( must follow
-            // Information functions distinguished from other keywords by the same name
+        24 => array(     
+            
             "CURRENT_USER", "DATABASE", "SCHEMA", "CHARSET"
             ),
         25 => array(
-            // Miscellaneous Functions
+            
             'ExtractValue','BIT_COUNT','GET_LOCK','INET_ATON','INET_NTOA',
             'IS_FREE_LOCK','IS_USED_LOCK','MASTER_POS_WAIT','NAME_CONST',
             'RELEASE_LOCK','SLEEP','UpdateXML','UUID',
             ),
-        26 => array(     //A ( must follow
-            // Miscellaneous function distinguished from other keyword by the same name
+        26 => array(     
+            
             "DEFAULT"
             ),
         27 => array(
-            // Geometry Functions
+            
             'Area','AsBinary','AsText','AsWKB','AsWKT','Boundary','Buffer',
             'Centroid','Contains','ConvexHull','Crosses',
             'Difference','Dimension','Disjoint','Distance',
@@ -285,15 +285,15 @@ $language_data = array (
         ),
     'SYMBOLS' => array(
         1 => array(
-            /* Operators */
-            '=', ':=',                                      // assignment operators
-            '||', '&&', '!',                                // locical operators
-            '=', '<=>', '>=', '>', '<=', '<', '<>', '!=',   // comparison operators
-            '|', '&', '^', '~', '<<', '>>',                 // bitwise operators
-            '-', '+', '*', '/', '%',                        // numerical operators
+            
+            '=', ':=',                                      
+            '||', '&&', '!',                                
+            '=', '<=>', '>=', '>', '<=', '<', '<>', '!=',   
+            '|', '&', '^', '~', '<<', '>>',                 
+            '-', '+', '*', '/', '%',                        
             ),
         2 => array(
-            /* Other syntactical symbols */
+            
             '(', ')',
             ',', ';',
             ),
@@ -331,35 +331,35 @@ $language_data = array (
         ),
     'STYLES' => array(
         'KEYWORDS' => array(
-            1 => 'color: #990099; font-weight: bold;',      // mix
-            2 => 'color: #990099; font-weight: bold;',      // mix
-            3 => 'color: #9900FF; font-weight: bold;',      // constants
-            4 => 'color: #999900; font-weight: bold;',      // column data types
-            5 => 'color: #999900; font-weight: bold;',      // column data types
-            6 => 'color: #FF9900; font-weight: bold;',      // attributes
-            7 => 'color: #FF9900; font-weight: bold;',      // attributes
-            8 => 'color: #9900FF; font-weight: bold;',      // date-time units
-            9 => 'color: #9900FF; font-weight: bold;',      // date-time units
+            1 => 'color: #990099; font-weight: bold;',      
+            2 => 'color: #990099; font-weight: bold;',      
+            3 => 'color: #9900FF; font-weight: bold;',      
+            4 => 'color: #999900; font-weight: bold;',      
+            5 => 'color: #999900; font-weight: bold;',      
+            6 => 'color: #FF9900; font-weight: bold;',      
+            7 => 'color: #FF9900; font-weight: bold;',      
+            8 => 'color: #9900FF; font-weight: bold;',      
+            9 => 'color: #9900FF; font-weight: bold;',      
 
-            10 => 'color: #CC0099; font-weight: bold;',      // operators
-            11 => 'color: #CC0099; font-weight: bold;',      // operators
+            10 => 'color: #CC0099; font-weight: bold;',      
+            11 => 'color: #CC0099; font-weight: bold;',      
 
-            12 => 'color: #009900;',     // control flow (functions)
-            13 => 'color: #000099;',     // string functions
-            14 => 'color: #000099;',     // string functions
-            15 => 'color: #000099;',     // numeric functions
-            16 => 'color: #000099;',     // numeric functions
-            17 => 'color: #000099;',     // date-time functions
-            18 => 'color: #000099;',     // date-time functions
-            19 => 'color: #000099;',     // comparison functions
-            20 => 'color: #000099;',     // comparison functions
-            21 => 'color: #000099;',     // encryption functions
-            22 => 'color: #000099;',     // aggregate functions
-            23 => 'color: #000099;',     // information functions
-            24 => 'color: #000099;',     // information functions
-            25 => 'color: #000099;',     // miscellaneous functions
-            26 => 'color: #000099;',     // miscellaneous functions
-            27 => 'color: #00CC00;',     // geometry functions
+            12 => 'color: #009900;',     
+            13 => 'color: #000099;',     
+            14 => 'color: #000099;',     
+            15 => 'color: #000099;',     
+            16 => 'color: #000099;',     
+            17 => 'color: #000099;',     
+            18 => 'color: #000099;',     
+            19 => 'color: #000099;',     
+            20 => 'color: #000099;',     
+            21 => 'color: #000099;',     
+            22 => 'color: #000099;',     
+            23 => 'color: #000099;',     
+            24 => 'color: #000099;',     
+            25 => 'color: #000099;',     
+            26 => 'color: #000099;',     
+            27 => 'color: #00CC00;',     
             ),
         'COMMENTS' => array(
             'MULTI' => 'color: #808000; font-style: italic;',
@@ -368,7 +368,7 @@ $language_data = array (
             ),
         'ESCAPE_CHAR' => array(
             0 => 'color: #004000; font-weight: bold;',
-            1 => 'color: #008080; font-weight: bold;'       // search wildcards
+            1 => 'color: #008080; font-weight: bold;'       
             ),
         'BRACKETS' => array(
             0 => 'color: #FF00FF;'
@@ -382,8 +382,8 @@ $language_data = array (
         'METHODS' => array(
             ),
         'SYMBOLS' => array(
-            1 => 'color: #CC0099;',         // operators
-            2 => 'color: #000033;',         // syntax
+            1 => 'color: #CC0099;',         
+            2 => 'color: #000033;',         
             ),
         'SCRIPT' => array(
             ),

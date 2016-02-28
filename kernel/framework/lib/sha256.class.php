@@ -1,98 +1,98 @@
 <?php
 if (defined('PHPBOOST') !== true)	exit;
-/**
-* @package lib
-*
-*/
 
-/**
-*
-*    SHA256 static class for PHP4
-*    implemented by feyd _at_ devnetwork .dot. net
-*    specification from http://csrc.nist.gov/cryptval/shs/sha256-384-512.pdf
-*
-*    © Copyright 2005 Developer's Network. All rights reserved.
-*    This is licensed under the Lesser General Public License (LGPL)
-*    This library is free software; you can redistribute it and/or
-*    modify it under the terms of the GNU Lesser General Public
-*    License as published by the Free Software Foundation; either
-*    version 2.1 of the License, or (at your option) any later version.
-*
-*    This library is distributed in the hope that it will be useful,
-*    but WITHOUT ANY WARRANTY; without even the implied warranty of
-*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-*    Lesser General Public License for more details.
-*
-*    You should have received a copy of the GNU Lesser General Public
-*    License along with this library; if not, write to the Free Software
-*    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*
-*    Thanks to CertainKey Inc. for providing some example outputs in Javascript
-*
-*----- Version 1.0.1 ----------------------------------------------------------
-*
-*    Syntax:
-*        string SHA256::hash( string message[, string format ])
-*
-*    Description:
-*        SHA256::hash() is a static function that must be called with `message`
-*        and optionally `format`. Possible values for `format` are:
-*        'bin'    binary string output
-*        'hex'    default; hexidecimal string output (lower case)
-*
-*        Failures return FALSE.
-*
-*    Usage:
-*        $hash = SHA256::hash('string to hash');
-*
-*/
 
-/**
-* hashing class state and storage object. Abstract base class only.
-*
-* @package lib
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class hashData
 {
-    //    final hash
+    
     var $hash = null;
 }
 
-/**
-* hashing class. Abstract base class only.
-*
-* @package lib
-*/
+
+
+
+
+
 class hash
 {
-    //    The base modes are:
-    //        'bin' - binary output (most compact)
-    //        'bit' - bit output (largest)
-    //        'oct' - octal output (medium-large)
-    //        'hex' - hexidecimal (default, medium)
+    
+    
+    
+    
+    
 
-    //    perform a hash on a string
+    
     function hash($str, $mode = 'hex')
     {
         trigger_error('hash::hash() NOT IMPLEMENTED', E_USER_WARNING);
         return false;
     }
 
-    //    chop the resultant hash into $length byte chunks
+    
     function hashChunk($str, $length, $mode = 'hex')
     {
         trigger_error('hash::hashChunk() NOT IMPLEMENTED', E_USER_WARNING);
         return false;
     }
 
-    //    perform a hash on a file
+    
     function hashFile($filename, $mode = 'hex')
     {
         trigger_error('hash::hashFile() NOT IMPLEMENTED', E_USER_WARNING);
         return false;
     }
 
-    //    chop the resultant hash into $length byte chunks
+    
     function hashChunkFile($filename, $length, $mode = 'hex')
     {
         trigger_error('hash::hashChunkFile() NOT IMPLEMENTED', E_USER_WARNING);
@@ -101,53 +101,53 @@ class hash
 }
 
 
-//    ------------
 
-/**
-* Class SHA256Data
-*
-* @package lib
-*/
+
+
+
+
+
+
 class SHA256Data extends hashData
 {
-    //    buffer
+    
     var $buf = array();
 
-    //    padded data
+    
     var $chunks = null;
 
     function SHA256Data($str)
     {
-        $M = strlen($str);    //    number of bytes
-        $L1 = ($M >> 28) & 0x0000000F;    //    top order bits
-        $L2 = $M << 3;    //    number of bits
+        $M = strlen($str);    
+        $L1 = ($M >> 28) & 0x0000000F;    
+        $L2 = $M << 3;    
         $l = pack('N*', $L1, $L2);
 
-        //    64 = 64 bits needed for the size mark. 1 = the 1 bit added to the
-        //    end. 511 = 511 bits to get the number to be at least large enough
-        //    to require one block. 512 is the block size.
+        
+        
+        
         $k = $L2 + 64 + 1 + 511;
         $k -= $k % 512 + $L2 + 64 + 1;
-        $k >>= 3;    //    convert to byte count
+        $k >>= 3;    
 
         $str .= chr(0x80) . str_repeat(chr(0), $k) . $l;
 
         assert('strlen($str) % 64 == 0');
 
-        //    break the binary string into 512-bit blocks
+        
         preg_match_all( '#.{64}#', $str, $this->chunks );
         $this->chunks = $this->chunks[0];
 
-        //    H(0)
-        /*
-        $this->hash = array
-        (
-            (int)0x6A09E667, (int)0xBB67AE85,
-            (int)0x3C6EF372, (int)0xA54FF53A,
-            (int)0x510E527F, (int)0x9B05688C,
-            (int)0x1F83D9AB, (int)0x5BE0CD19,
-        );
-        */
+        
+        
+
+
+
+
+
+
+
+
 
         $this->hash = array
         (
@@ -160,11 +160,11 @@ class SHA256Data extends hashData
 }
 
 
-/**
-*  static class. Access via SHA256::hash()
-*
-* @package lib
-*/
+
+
+
+
+
 class SHA256 extends hash
 {
     function hash($str, $mode = 'hex')
@@ -187,7 +187,7 @@ class SHA256 extends hash
             {
                 $func = 'hash' . $mode;
                 $ret = SHA256::$func($data);
-                //$ret = call_user_func($func, $data);
+                
             }
             else
             {
@@ -198,32 +198,32 @@ class SHA256 extends hash
         return $ret;
     }
 
-    //    ------------
-    //    begin internal functions
+    
+    
 
-    //    32-bit summation
+    
     function sum()
     {
         $T = 0;
         for ($x = 0, $y = func_num_args(); $x < $y; $x++)
         {
-            //    argument
+            
             $a = func_get_arg($x);
 
-            //    carry storage
+            
             $c = 0;
 
             for ($i = 0; $i < 32; $i++)
             {
-                //    sum of the bits at $i
+                
                 $j = (($T >> $i) & 1) + (($a >> $i) & 1) + $c;
-                //    carry of the bits at $i
+                
                 $c = ($j >> 1) & 1;
-                //    strip the carry
+                
                 $j &= 1;
-                //    clear the bit
+                
                 $T &= ~(1 << $i);
-                //    set the bit
+                
                 $T |= $j << $i;
             }
         }
@@ -232,7 +232,7 @@ class SHA256 extends hash
     }
 
 
-    //    compute the hash
+    
     function compute(&$hashData)
     {
         static $vars = 'abcdefgh';
@@ -240,26 +240,26 @@ class SHA256 extends hash
 
         if ($K === null)
         {
-            /*
-            $K = array(
-                (int)0x428A2F98, (int)0x71374491, (int)0xB5C0FBCF, (int)0xE9B5DBA5,
-                (int)0x3956C25B, (int)0x59F111F1, (int)0x923F82A4, (int)0xAB1C5ED5,
-                (int)0xD807AA98, (int)0x12835B01, (int)0x243185BE, (int)0x550C7DC3,
-                (int)0x72BE5D74, (int)0x80DEB1FE, (int)0x9BDC06A7, (int)0xC19BF174,
-                (int)0xE49B69C1, (int)0xEFBE4786, (int)0x0FC19DC6, (int)0x240CA1CC,
-                (int)0x2DE92C6F, (int)0x4A7484AA, (int)0x5CB0A9DC, (int)0x76F988DA,
-                (int)0x983E5152, (int)0xA831C66D, (int)0xB00327C8, (int)0xBF597FC7,
-                (int)0xC6E00BF3, (int)0xD5A79147, (int)0x06CA6351, (int)0x14292967,
-                (int)0x27B70A85, (int)0x2E1B2138, (int)0x4D2C6DFC, (int)0x53380D13,
-                (int)0x650A7354, (int)0x766A0ABB, (int)0x81C2C92E, (int)0x92722C85,
-                (int)0xA2BFE8A1, (int)0xA81A664B, (int)0xC24B8B70, (int)0xC76C51A3,
-                (int)0xD192E819, (int)0xD6990624, (int)0xF40E3585, (int)0x106AA070,
-                (int)0x19A4C116, (int)0x1E376C08, (int)0x2748774C, (int)0x34B0BCB5,
-                (int)0x391C0CB3, (int)0x4ED8AA4A, (int)0x5B9CCA4F, (int)0x682E6FF3,
-                (int)0x748F82EE, (int)0x78A5636F, (int)0x84C87814, (int)0x8CC70208,
-                (int)0x90BEFFFA, (int)0xA4506CEB, (int)0xBEF9A3F7, (int)0xC67178F2
-                );
-            */
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             $K = array (
                 1116352408,        1899447441,        -1245643825,    -373957723,
                 961987163,        1508970993,        -1841331548,    -1424204075,
@@ -283,11 +283,11 @@ class SHA256 extends hash
         $W = array();
         for ($i = 0, $numChunks = sizeof($hashData->chunks); $i < $numChunks; $i++)
         {
-            //    initialize the registers
+            
             for ($j = 0; $j < 8; $j++)
                 ${$vars{$j}} = $hashData->hash[$j];
             
-            //    the SHA-256 compression function
+            
             for ($j = 0; $j < 64; $j++)
             {
                 if ($j < 16)
@@ -315,14 +315,14 @@ class SHA256 extends hash
                 $a = SHA256::sum($T1, $T2);
             }
             
-            //    compute the next hash set
+            
             for ($j = 0; $j < 8; $j++)
                 $hashData->hash[$j] = SHA256::sum(${$vars{$j}}, $hashData->hash[$j]);
         }
     }
 
 
-    //    set up the display of the hash in hex.
+    
     function hashHex(&$hashData)
     {
         $str = '';
@@ -338,7 +338,7 @@ class SHA256 extends hash
     }
 
 
-    //    set up the output of the hash in binary
+    
     function hashBin(&$hashData)
     {
         $str = '';

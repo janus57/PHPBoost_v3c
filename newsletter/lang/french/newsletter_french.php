@@ -1,37 +1,37 @@
 <?php
-/*##################################################
- *                             newsletter_french.php
- *                            -------------------
- *   begin                :  July 11 2006
- *   last modified		: July 31, 2009 - Forensic
- *   copyright          : (C) 2006 ben.popeye
- *   email                : ben.popeye@phpboost.com
- *
- *  
- ###################################################
- *
- *   This program is a free software. You can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
 #                                                          French                                                                        #
 ####################################################
 
-//Admin
+
 $LANG['newsletter'] = 'Newsletter';
 $LANG['newsletter_select_type'] = 'Vous devez choisir un type de message';
 $LANG['newsletter_select_type_text'] = 'Texte simple';
@@ -55,7 +55,7 @@ $LANG['newsletter_member_list'] = 'Liste des membres';
 $LANG['newsletter_test_sent'] = 'Une newsletter vous a été envoyée à l\'adresse %s pour avoir un aperçu de ce que vous envoyez.';
 $LANG['newsletter_bbcode_warning'] = 'Lorsque vous enverrez une newsletter en BBCode, cette dernière sera transformé en HTML lors de l\'envoi. Seulement toutes les balises ne seront pas acceptées chez les fournisseurs de messagerie, c\'est pourquoi nous vous invitons à envoyer un test de la newsletter en utilisant le bouton approprié pour voir le rendu chez votre fournisseur';
 
-//Newsletter
+
 $LANG['newsletter'] = 'Newsletter';
 $LANG['subscribe'] = 'S\'inscrire';
 $LANG['unsubscribe'] = 'Se désinscrire';
@@ -74,7 +74,7 @@ $LANG['newsletter_email_address_is_not_valid'] = 'L\'adresse email que vous avez
 $LANG['newsletter_error_list'] = 'La newsletter n\'a pas pu être envoyée aux destinataires suivants : <em>%s</em>';
 $LANG['archives'] = 'Archives';
 
-//Config
+
 $LANG['newsletter_config'] = 'Configuration de la newsletter';
 $LANG['newsletter_sender_mail'] = 'Adresse d\'envoi';
 $LANG['newsletter_name'] = 'Nom de la newsletter <span class="text_small">(objet du mail envoyé)</span>';

@@ -1,33 +1,33 @@
 <?php
-/*##################################################
- *                               admin_articles_cat_add.php
- *                            -------------------
- *   begin                : August 27, 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('articles'); //Chargement de la langue du module.
+load_module_lang('articles'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
@@ -36,8 +36,8 @@ define('READ_CAT_ARTICLES', 0x01);
 define('WRITE_CAT_ARTICLES', 0x02);
 define('EDIT_CAT_ARTICLES', 0x04);
 
-//Si c'est confirmé on execute
-if (!empty($_POST['add'])) //Nouvelle articles/catégorie.
+
+if (!empty($_POST['add'])) 
 {
 	$Cache->load('articles');
 	
@@ -47,14 +47,14 @@ if (!empty($_POST['add'])) //Nouvelle articles/catégorie.
 	$icon = retrieve(POST, 'icon', ''); 
 	$aprob = retrieve(POST, 'aprob', 0);    
 		
-	//Génération du tableau des droits.
+	
 	$array_auth_all = Authorizations::build_auth_array_from_form(READ_CAT_ARTICLES);
 			
 	if (!empty($name))
 	{	
-		if (isset($CAT_ARTICLES[$parent_category])) //Insertion sous articles de niveau x.
+		if (isset($CAT_ARTICLES[$parent_category])) 
 		{
-			//Articles parente de la articles cible.
+			
 			$list_parent_cats = '';
 			$result = $Sql->query_while("SELECT id
 			FROM " . PREFIX . "articles_cats 
@@ -77,7 +77,7 @@ if (!empty($_POST['add'])) //Nouvelle articles/catégorie.
 			$level = $CAT_ARTICLES[$parent_category]['level'] + 1;
 			
 		}
-		else //Insertion articles niveau 0.
+		else 
 		{
 			$id_left = $Sql->query("SELECT MAX(id_right) FROM " . PREFIX . "articles_cats", __LINE__, __FILE__);
 			$id_left++;
@@ -100,7 +100,7 @@ else
 		'admin_articles_cat_add'=> 'articles/admin_articles_cat_add.tpl'
 	));
 			
-	//Listing des catégories disponibles		
+	
 	$galleries = '<option value="0" id="img_default_select" checked="checked">' . $LANG['root'] . '</option>';
 	$result = $Sql->query_while("SELECT id, name, level
 	FROM " . PREFIX . "articles_cats 
@@ -112,25 +112,25 @@ else
 	}
 	$Sql->query_close($result);
 	
-	//Images disponibles
+	
 	$rep = './';
 	$image_list = '';
-	if (is_dir($rep)) //Si le dossier existe
+	if (is_dir($rep)) 
 	{
 		$img_array = array();
 		$dh = @opendir( $rep);
 		while (! is_bool($lang = @readdir($dh)))
 		{	
 			if (preg_match('`\.(gif|png|jpg|jpeg|tiff)+$`i', $lang))
-				$img_array[] = $lang; //On crée un tableau, avec les different fichiers.				
+				$img_array[] = $lang; 
 		}	
-		@closedir($dh); //On ferme le dossier
+		@closedir($dh); 
 
 		foreach ($img_array as $key => $img_path)
 			$image_list .= '<option value="' . $img_path . '">' . $img_path . '</option>';
 	}
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);	
@@ -170,7 +170,7 @@ else
 		'L_AUTH_READ' => $LANG['auth_read']
 	));
 	
-	$Template->pparse('admin_articles_cat_add'); // traitement du modele	
+	$Template->pparse('admin_articles_cat_add'); 
 }
 
 require_once('../admin/admin_footer.php');

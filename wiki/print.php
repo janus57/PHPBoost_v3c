@@ -1,40 +1,40 @@
 <?php
-/*##################################################
-*                                 print.php
-*                            -------------------
-*   begin                : September 02, 2008
-*   copyright            : (C) 2008 Sautel Benoit
-*   email                : ben.popeye@phpboost.com
-*
-*
-###################################################
-*
-*   This program is free software; you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation; either version 2 of the License, or
-*   (at your option) any later version.
-* 
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 load_module_lang('wiki');
 
 include('../wiki/wiki_functions.php');
 
-//Id de l'article à afficher en version imprimable
+
 $article_id = retrieve(GET, 'id', 0);
 
-//Requêtes préliminaires utiles par la suite
-if ($article_id > 0) //Si on connait son titre
+
+if ($article_id > 0) 
 {
 	$result = $Sql->query_while("SELECT a.id, a.is_cat, a.hits, a.redirect, a.id_cat, a.title, a.encoded_title, a.is_cat, a.defined_status, a.nbr_com, f.id AS id_favorite, a.undefined_status, a.auth, c.menu, c.content
 	FROM " . PREFIX . "wiki_articles a
@@ -46,7 +46,7 @@ if ($article_id > 0) //Si on connait son titre
 	$article_infos = $Sql->fetch_assoc($result);
 	$Sql->query_close($result);
 
-	if (!empty($article_infos['redirect']))//Si on est redirigé
+	if (!empty($article_infos['redirect']))
 	{
 		$id_redirection = $article_infos['id'];
 		

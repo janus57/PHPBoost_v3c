@@ -1,36 +1,36 @@
 <?php
-/*##################################################
-*                              articles_english.php
-*                            -------------------
-*   begin                : November 21, 2006
-*   copyright          : (C) 2005 Viarre Régis
-*   email                : crowkait@phpboost.com
-*
-*  
-###################################################
-*
-*   This program is free software; you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation; either version 2 of the License, or
-*   (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
 #                                                           English                                                                             #
 ####################################################
 
-//Admin
+
 $LANG['written_by'] = 'Written by';
 $LANG['explain_page'] = 'Insert a new page';
 $LANG['page_prompt'] = 'New page title';
@@ -64,13 +64,13 @@ $LANG['article_icon_explain'] = 'Put it in the /articles folder';
 $LANG['explain_articles_count'] = 'Recount the number of articles per category';
 $LANG['recount'] = 'Recount';
 
-//Error
+
 $LANG['e_unexist_articles'] = 'This article doesn\'t exist';
 
-//Title
+
 $LANG['title_articles'] = 'Articles';
 
-//Articles
+
 $LANG['articles'] = 'Articles';
 $LANG['alert_delete_article'] = 'Delete this article?';
 $LANG['propose_article'] = 'Suggest an article';
@@ -82,7 +82,7 @@ $LANG['vote'] = 'Vote';
 $LANG['nbr_articles_info'] = '%d article(s) in this category';
 $LANG['sub_categories'] = 'Subcategories';
 
-//Add article.
+
 $MAIL['new_article_website'] = 'New article on your website';
 $MAIL['new_article'] = 'A new article was added on your website ' . HOST . ',
 it will have to be approved before being readable by everyone.

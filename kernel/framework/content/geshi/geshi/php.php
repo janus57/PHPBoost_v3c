@@ -1,57 +1,57 @@
 <?php
-/*************************************************************************************
- * php-brief.php
- * -------------
- * Author: Nigel McNie (nigel@geshi.org)
- * Copyright: (c) 2004 Nigel McNie (http://qbnz.com/highlighter/)
- * Release Version: 1.0.8.3
- * Date Started: 2004/06/02
- *
- * PHP (brief version) language file for GeSHi.
- *
- * CHANGES
- * -------
- * 2008/05/23 (1.0.7.22)
- *  -  Added description of extra language features (SF#1970248)
- * 2004/11/27 (1.0.3)
- *  -  Added support for multiple object splitters
- *  -  Fixed &new problem
- * 2004/10/27 (1.0.2)
- *   -  Added support for URLs
- * 2004/08/05 (1.0.1)
- *   -  Added support for symbols
- * 2004/07/14 (1.0.0)
- *   -  First Release
- *
- * TODO (updated 2004/07/14)
- * -------------------------
- * * Remove more functions that are hardly used
- *
- *************************************************************************************
- *
- *     This file is part of GeSHi.
- *
- *   GeSHi is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *   GeSHi is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with GeSHi; if not, write to the Free Software
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- ************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $language_data = array (
     'LANG_NAME' => 'PHP',
     'COMMENT_SINGLE' => array(1 => '//', 2 => '#'),
     'COMMENT_MULTI' => array('/*' => '*/'),
-    //Heredoc and Nowdoc syntax
+    
     'COMMENT_REGEXP' => array(3 => '/<<<\s*?(\'?)([a-zA-Z0-9]+)\1[^\n]*?\\n.*\\n\\2(?![a-zA-Z0-9])/siU'),
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
     'QUOTEMARKS' => array("'", '"'),
@@ -150,7 +150,7 @@ $language_data = array (
         2 => '::'
         ),
     'REGEXPS' => array(
-        //Variables
+        
         0 => "[\\$]{1,2}[a-zA-Z_][a-zA-Z0-9_]*"
         ),
     'STRICT_MODE_APPLIES' => GESHI_MAYBE,

@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                              forum_french.php
- *                            -------------------
- *   begin                : November 21, 2006
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
@@ -32,7 +32,7 @@
 
 global $CONFIG;
 
-//Admin
+
 $LANG['parent_category'] = 'Catégorie parente';
 $LANG['subcat'] = 'Sous-catégorie';
 $LANG['url_explain'] = 'Transforme le forum en lien internet (http://...)';
@@ -80,13 +80,13 @@ $LANG['edit_mark_auth'] = 'Désactivation du marqueur d\'édition des messages';
 $LANG['track_topic_auth'] = 'Désactivation de la limite de sujet suivis';
 $LANG['forum_read_feed'] = 'Lire le sujet';
 
-//Requis
+
 $LANG['require_topic_p'] = 'Veuillez entrer le nombre de sujets par page!';
 $LANG['require_nbr_msg_p'] = 'Veuillez entrer le nombre de messages par page!';
 $LANG['require_time_new_msg'] = 'Veuillez entrer une durée pour la vue des nouveaux messages!';
 $LANG['require_topic_track_max'] = 'Veuillez entrer le nombre maximum de sujet suivis!';
 
-//Erreurs
+
 $LANG['e_topic_lock_forum'] = 'Sujet verrouillé, vous ne pouvez pas poster de message';
 $LANG['e_cat_lock_forum'] = 'Catégorie verrouillée, création nouveau sujet/message impossible';
 $LANG['e_unexist_topic_forum'] = 'Le topic que vous demandez n\'existe pas';
@@ -94,7 +94,7 @@ $LANG['e_unexist_cat_forum'] = 'La catégorie que vous demandez n\'existe pas';
 $LANG['e_unable_cut_forum'] = 'Vous ne pouvez pas scinder le sujet à partir de ce message';
 $LANG['e_cat_write'] = 'Vous n\'êtes pas autorisé à écrire dans cette catégorie';
 
-//Alertes
+
 $LANG['alert_delete_topic'] = 'Supprimer ce sujet ?';
 $LANG['alert_lock_topic'] = 'Verrouiller ce sujet ?';
 $LANG['alert_unlock_topic'] = 'Déverrouiller ce sujet ?';
@@ -104,13 +104,13 @@ $LANG['alert_history'] = 'Supprimer l\'historique ?';
 $LANG['confirm_mark_as_read'] = 'Marquer tous les sujets comme lus ?';
 $LANG['contribution_alert_moderators_for_topics'] = 'Sujet non conforme : %s';
 
-//Titres
+
 $LANG['title_forum'] = 'Forum';
 $LANG['title_topic'] = 'Sujet';
 $LANG['title_post'] = 'Poster';
 $LANG['title_search'] = 'Chercher';
 
-//Forum
+
 $LANG['forum_index'] = 'Index';
 $LANG['forum'] = 'Forum';
 $LANG['forum_s'] = 'Forums';
@@ -171,7 +171,7 @@ $LANG['change_status_to'] = 'Mettre le statut: %s';
 $LANG['change_status_to_default'] = 'Mettre le statut par défaut';
 $LANG['move_to'] = 'Déplacer vers...';
 
-//Recherche
+
 $LANG['search_forum'] = 'Recherche sur le Forum';
 $LANG['relevance'] = 'Pertinence';
 $LANG['no_result'] = 'Aucun résultat';
@@ -179,7 +179,7 @@ $LANG['invalid_req'] = 'Requête invalide';
 $LANG['keywords'] = 'Mots clés (4 caractères minimum)';
 $LANG['colorate_result'] = 'Colorer les résultats';
 
-//Stats
+
 $LANG['stats'] = 'Statistiques';
 $LANG['nbr_topics_day'] = 'Nombre de sujets par jour';
 $LANG['nbr_msg_day'] = 'Nombre de messages par jour';
@@ -189,7 +189,7 @@ $LANG['forum_last_msg'] = 'Les 10 derniers sujets ayant eu une réponse';
 $LANG['forum_popular'] = 'Les 10 sujets les plus populaires';
 $LANG['forum_nbr_answers'] = 'Les 10 sujets ayant eu le plus de réponses';
 
-//Historique
+
 $LANG['history'] = 'Historique des actions';
 $LANG['history_member_concern'] = 'Membre concerné';
 $LANG['no_action'] = 'Aucune action enregistrée';
@@ -210,10 +210,10 @@ $LANG['solve_alert'] = 'Résolution d\'une alerte';
 $LANG['wait_alert'] = 'Mise en attente d\'une alerte';
 $LANG['del_alert'] = 'Suppression d\'une alerte';
 
-//Messages du membre
+
 $LANG['show_member_msg'] = 'Voir tous les messages du membre';
 
-//Sondages
+
 $LANG['poll'] = 'Sondage';
 $LANG['mini_poll'] = 'Mini Sondage';
 $LANG['poll_main'] = 'Voila l\'espace de sondage du site, profitez en pour donner votre avis, ou tout simplement répondre aux sondages.';
@@ -236,7 +236,7 @@ $LANG['multiple_answer'] = 'Multiple réponses';
 $LANG['delete_poll'] = 'Supprimer le sondage';
 $LANG['require_title_poll'] = 'Veuillez entrer un titre pour le sondage!';
 
-//Post
+
 $LANG['forum_mail_title_new_post'] = 'Nouveau message sur le forum';
 $LANG['forum_mail_new_post'] = 'Cher %s
 
@@ -257,7 +257,7 @@ Si vous ne désirez plus être averti des réponses de ce sujet, cliquez sur le lie
 
 ' . $CONFIG['sign'];
 
-//Gestion des alertes
+
 $LANG['alert_management'] = 'Gestion des alertes';
 $LANG['alert_concerned_topic'] = 'Sujet concerné';
 $LANG['alert_concerned_cat'] = 'Catégorie du sujet concerné';

@@ -1,61 +1,61 @@
 <?php
-/*************************************************************************************
- * asm.php
- * -------
- * Author: Tux (tux@inmail.cz)
- * Copyright: (c) 2004 Tux (http://tux.a4.cz/), Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.8.3
- * Date Started: 2004/07/27
- *
- * x86 Assembler language file for GeSHi.
- * Words are from SciTe configuration file (based on NASM syntax)
- *
- * CHANGES
- * -------
- * 2008/05/23 (1.0.7.22)
- *   -  Added description of extra language features (SF#1970248)
- * 2004/11/27 (1.0.2)
- *   -  Added support for multiple object splitters
- * 2004/10/27 (1.0.1)
- *   -  Added support for URLs
- *   -  Added binary and hexadecimal regexps
- * 2004/08/05 (1.0.0)
- *   -  First Release
- *
- * TODO (updated 2004/11/27)
- * -------------------------
- *
- *************************************************************************************
- *
- *     This file is part of GeSHi.
- *
- *   GeSHi is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *   GeSHi is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with GeSHi; if not, write to the Free Software
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- ************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $language_data = array (
     'LANG_NAME' => 'ASM',
     'COMMENT_SINGLE' => array(1 => ';'),
     'COMMENT_MULTI' => array(),
-    //Line address prefix suppression
+    
     'COMMENT_REGEXP' => array(2 => "/^(?:[0-9a-f]{0,4}:)?[0-9a-f]{4}(?:[0-9a-f]{4})?/mi"),
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
     'QUOTEMARKS' => array("'", '"'),
     'ESCAPE_CHAR' => '',
     'KEYWORDS' => array(
-        /*CPU*/
+        
         1 => array(
             'aaa','aad','aam','aas','adc','add','and','call','cbw','clc','cld','cli','cmc','cmp',
             'cmps','cmpsb','cmpsw','cwd','daa','das','dec','div','esc','hlt','idiv','imul','in','inc',
@@ -76,7 +76,7 @@ $language_data = array (
             'setpe','setpo','sets','setz','shld','shrd','stosd','bswap','cmpxchg','invd','invlpg','wbinvd','xadd','lock',
             'rep','repe','repne','repnz','repz'
             ),
-        /*FPU*/
+        
         2 => array(
             'f2xm1','fabs','fadd','faddp','fbld','fbstp','fchs','fclex','fcom','fcomp','fcompp','fdecstp',
             'fdisi','fdiv','fdivp','fdivr','fdivrp','feni','ffree','fiadd','ficom','ficomp','fidiv',
@@ -89,13 +89,13 @@ $language_data = array (
             'fsetpm','fcos','fldenvd','fnsaved','fnstenvd','fprem1','frstord','fsaved','fsin','fsincos',
             'fstenvd','fucom','fucomp','fucompp'
             ),
-        /*registers*/
+        
         3 => array(
             'ah','al','ax','bh','bl','bp','bx','ch','cl','cr0','cr2','cr3','cs','cx','dh','di','dl',
             'dr0','dr1','dr2','dr3','dr6','dr7','ds','dx','eax','ebp','ebx','ecx','edi','edx',
             'es','esi','esp','fs','gs','si','sp','ss','st','tr3','tr4','tr5','tr6','tr7'
             ),
-        /*Directive*/
+        
         4 => array(
             '186','286','286c','286p','287','386','386c','386p','387','486','486p',
             '8086','8087','alpha','break','code','const','continue','cref','data','data?',
@@ -118,7 +118,7 @@ $language_data = array (
             'substr','subtitle','subttl','textequ','this','title','typedef','union','width',
             '.model', '.stack', '.code', '.data'
             ),
-        /*Operands*/
+        
         5 => array(
             '@b','@f','addr','basic','byte','c','carry?','dword',
             'far','far16','fortran','fword','near','near16','overflow?','parity?','pascal','qword',
@@ -176,8 +176,8 @@ $language_data = array (
             0 => 'color: #339933;'
             ),
         'REGEXPS' => array(
-//            0 => 'color: #0000ff;',
-//            1 => 'color: #0000ff;'
+
+
             ),
         'SCRIPT' => array(
             )
@@ -203,10 +203,10 @@ $language_data = array (
     'OBJECT_SPLITTERS' => array(
         ),
     'REGEXPS' => array(
-        //Hex numbers
-//        0 => /*  */ "(?<=([\\s\\(\\)\\[\\],;.:+\\-\\/*]))(?:[0-9][0-9a-fA-F]{0,31}[hH]|0x[0-9a-fA-F]{1,32})(?=([\\s\\(\\)\\[\\],;.:+\\-\\/*]))",
-        //Binary numbers
-//        1 => "(?<=([\\s\\(\\)\\[\\],;.:+\\-\\/*]))[01]{1,64}[bB](?=([\\s\\(\\)\\[\\],;.:+\\-\\/*]))"
+        
+
+        
+
         ),
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
     'SCRIPT_DELIMITERS' => array(

@@ -1,34 +1,34 @@
 <?php
-/*##################################################
- *                              news_begin.php
- *                            -------------------
- *   begin                : November 28, 2007
- *   copyright            : (C) 2007 Viarre régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if (defined('PHPBOOST') !== true)
 	exit;
 	
-load_module_lang('news'); //Chargement de la langue du module.
+load_module_lang('news'); 
 
 $idnews = retrieve(GET, 'id', 0);
 $idcat = retrieve(GET, 'cat', 0);
@@ -57,9 +57,9 @@ $show_archive ? $Bread_crumb->add($LANG['archive'], url('news.php?arch=1')) : ''
 $Bread_crumb->add($news_title, (!empty($_GET['i']) ? url('news.php?id=' . $idnews) : ''));
 $Bread_crumb->add((isset($_GET['i']) ? $LANG['com'] : ''), '');
 
-//Chargement du cache
+
 $Cache->load('news');
-//Css alternatif.
+
 defined('ALTERNATIVE_CSS') or define('ALTERNATIVE_CSS', 'news');
 defined('FEED_URL') or define('FEED_URL', '/syndication.php?m=news');
 

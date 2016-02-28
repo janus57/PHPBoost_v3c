@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                                membermsg.php
- *                            -------------------
- *   begin                : April 19, 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 require_once('../forum/forum_begin.php');
@@ -34,7 +34,7 @@ define('TITLE', $LANG['title_forum']);
 require_once('../kernel/header.php'); 
 
 $view_msg = retrieve(GET, 'id', 0);
-if (!empty($view_msg)) //Affichage de tous les messages du membre
+if (!empty($view_msg)) 
 {
 	$Template->set_filenames(array(
 		'membermsg'=> 'forum/forum_membermsg.tpl',
@@ -83,15 +83,15 @@ if (!empty($view_msg)) //Affichage de tous les messages du membre
 	" . $Sql->limit($Pagination->get_first_msg(10, 'p'), 10), __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		//Membre en ligne?
+		
 		$user_online = !empty($row['connect']) ? 'online' : 'offline';
 	
-		//On encode l'url pour un éventuel rewriting, c'est une opération assez gourmande
+		
 		$rewrited_cat_title = ($CONFIG['rewrite'] == 1) ? '+' . url_encode_rewrite($row['name']) : '';
-		//On encode l'url pour un éventuel rewriting, c'est une opération assez gourmande
+		
 		$rewrited_title = ( $CONFIG['rewrite'] == 1 ) ? '+' . url_encode_rewrite($row['title']) : '';
 		
-		//Ajout du marqueur d'édition si activé.
+		
 	$edit_mark = ($row['timestamp_edit'] > 0 && $CONFIG_FORUM['edit_mark'] == '0') ? '<br /><br /><br /><span style="padding: 10px;font-size:10px;font-style:italic;">' . $LANG['edit_by'] . ' <a class="edit_pseudo" href="../member/member' . url('.php?id=' . $row['user_id_edit'], '-' . $row['user_id_edit'] . '.php') . '">' . $row['login_edit'] . '</a> ' . $LANG['on'] . ' ' . gmdate_format('date_format', $row['timestamp_edit']) . '</span><br />' : '';
 		
 		$Template->assign_block_vars('list', array(
@@ -99,7 +99,7 @@ if (!empty($view_msg)) //Affichage de tous les messages du membre
 			'DATE' => $LANG['on'] . ' ' . gmdate_format('date_format', $row['timestamp']),
 			'ID' => $row['id'],
 			'USER_ONLINE' => '<img src="../templates/' . get_utheme() . '/images/' . (!empty($row['connect']) ? 'online' : 'offline') . '.png" alt="" class="valign_middle" />',
-			'USER_PSEUDO' => !empty($row['login']) ? wordwrap(html_entity_decode($row['login']), 13, '<br />', 1) : $LANG['guest'],			
+			'USER_PSEUDO' => !empty($row['login']) ? wordwrap(html_entity_decode($row['login'], ENT_COMPAT, 'ISO-8859-1'), 13, '<br />', 1) : $LANG['guest'],			
 			'U_USER_ID' => url('.php?id=' . $row['user_id'], '-' . $row['user_id'] . '.php'),
 			'U_USER_ID' => url('.php?id=' . $row['user_id'], '-' . $row['user_id'] . '.php'),
 			'U_VARS_ANCRE' => url('.php?id=' . $row['idtopic'], '-' . $row['idtopic'] . $rewrited_title . '.php'),
@@ -109,7 +109,7 @@ if (!empty($view_msg)) //Affichage de tous les messages du membre
 	}
 	$Sql->query_close($result);
 	
-	//Listes les utilisateurs en lignes.
+	
 	list($users_list, $total_admin, $total_modo, $total_member, $total_visit, $total_online) = forum_list_user_online("AND s.session_script LIKE '" . DIR . "/forum/%'");
 
 	$Template->assign_vars(array(

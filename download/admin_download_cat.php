@@ -1,32 +1,32 @@
 <?php
-/*##################################################
- *                           admin_download_cat.php
- *                            -------------------
- *   begin                : July 15, 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('download'); //Chargement de la langue du module.
+load_module_lang('download'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
@@ -46,7 +46,7 @@ $error = retrieve(GET, 'error', '');
 if ($id_up > 0)
 {
 	$download_categories->move($id_up, MOVE_CATEGORY_UP);
-    // Feeds Regeneration
+    
     import('content/syndication/feed');
     Feed::clear_cache('download');
 	redirect(url('admin_download_cat.php'));
@@ -54,7 +54,7 @@ if ($id_up > 0)
 elseif ($id_down > 0)
 {
 	$download_categories->move($id_down, MOVE_CATEGORY_DOWN);
-    // Feeds Regeneration
+    
     import('content/syndication/feed');
     Feed::clear_cache('download');
 	redirect(url('admin_download_cat.php'));
@@ -84,7 +84,7 @@ elseif (retrieve(POST, 'submit', false))
 {
 	$error_string = 'e_success';
 	
-	//Deleting a category
+	
 	if ($cat_to_del_post > 0)
 	{
 		$action = retrieve(POST, 'action', '');
@@ -96,7 +96,7 @@ elseif (retrieve(POST, 'submit', false))
 		else
 			$download_categories->Delete_category_and_move_content($cat_to_del_post, $id_parent);
         
-        // Feeds Regeneration
+        
         import('content/syndication/feed');
         Feed::clear_cache('download');
 	}
@@ -114,7 +114,7 @@ elseif (retrieve(POST, 'submit', false))
 		if (!empty($icon_path))
 			$icon = $icon_path;
 		
-		//Autorisations
+		
 		if (!empty($_POST['special_auth']))
 		{
 			$array_auth_all = Authorizations::build_auth_array_from_form(DOWNLOAD_READ_CAT_AUTH_BIT, DOWNLOAD_WRITE_CAT_AUTH_BIT, DOWNLOAD_CONTRIBUTION_CAT_AUTH_BIT);
@@ -131,7 +131,7 @@ elseif (retrieve(POST, 'submit', false))
 		else
 			$error_string = $download_categories->add($id_parent, $name, $description, $icon, $new_auth, $visible);
 		
-        // Feeds Regeneration
+        
         import('content/syndication/feed');
         Feed::clear_cache('download');
 	}
@@ -140,11 +140,11 @@ elseif (retrieve(POST, 'submit', false))
 	
 	redirect(url(HOST . SCRIPT . '?error=' . $error_string  . '#errorh'), '', '&');
 }
-//Updating the number of subquestions of each category
+
 elseif (retrieve(GET, 'recount', false))
 {
 	$download_categories->Recount_sub_files();
-	// Feeds Regeneration
+	
     import('content/syndication/feed');
     Feed::clear_cache('download');
 	redirect(url(HOST . SCRIPT . '?error=e_recount_success', '', '&'));
@@ -155,7 +155,7 @@ elseif ($new_cat XOR $id_edit > 0)
 		'admin_download_cat_edition'=> 'download/admin_download_cat_edition.tpl'
 	));
 	
-	//Images disponibles
+	
 	import('io/filesystem/folder');
 	$img_str = '<option value="">--</option>';
 	$in_dir_icon = false;
@@ -165,11 +165,11 @@ elseif ($new_cat XOR $id_edit > 0)
 		$image = $images->get_name();
 		if ($id_edit > 0 && $DOWNLOAD_CATS[$id_edit]['icon'] == $image)
 		{
-			$img_str .= '<option selected="selected" value="' . $image . '">' . $image . '</option>'; //On ajoute l'image sélectionnée
+			$img_str .= '<option selected="selected" value="' . $image . '">' . $image . '</option>'; 
 			$in_dir_icon = true;
 		}
 		else
-			$img_str .= '<option value="' . $image . '">' . $image . '</option>'; //On ajoute l'image non sélectionnée
+			$img_str .= '<option value="' . $image . '">' . $image . '</option>'; 
 	}
 	
 	$Template->assign_vars(array(

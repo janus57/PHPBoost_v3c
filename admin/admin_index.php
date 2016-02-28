@@ -1,38 +1,38 @@
 <?php
-/*##################################################
- *                              admin_index.php
- *                            -------------------
- *   begin                : June 20, 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *   
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
-//Gestion des alertes.
+
 import('events/administrator_alert_service');
 
-//Enregistrement du bloc note
+
 $content = retrieve(POST, 'writing_pad_content', '');
 $writingpad = retrieve(POST, 'writingpad', '');
 if (!empty($writingpad))
@@ -50,7 +50,7 @@ $Template->set_filenames(array(
 	'admin_index'=> 'admin/admin_index.tpl'
 ));
 
-//Affichage des derniers commentaires
+
 $i = 0;
 $array_class = array('member', 'modo', 'admin');
 $result = $Sql->query_while("SELECT c.idprov, c.idcom, c.timestamp, c.script, c.path, m.user_id, m.login as mlogin, m.level, m.user_groups, c.contents
@@ -64,7 +64,7 @@ while ($row = $Sql->fetch_assoc($result))
 	$is_guest = empty($row['user_id']);
 	$group_color = User::get_group_color($row['user_groups'], $row['level']);
 	
-	//Pseudo.
+	
 	if (!$is_guest) 
 		$com_pseudo = '<a href="../member/member' . url('.php?id=' . $row['user_id'], '-' . $row['user_id'] . '.php') . '" title="' . $row['mlogin'] . '" class="' . $array_class[$row['level']] . '"' . (!empty($group_color) ? ' style="color:' . $group_color . '"' : '') . '>' . wordwrap_html($row['mlogin'], 13) . '</a>';
 	else
@@ -113,7 +113,7 @@ $Template->assign_vars(array(
     'L_RESET' => $LANG['reset']
 ));
 
-//Liste des personnes en lignes.
+
 $result = $Sql->query_while("SELECT s.user_id, s.level, s.session_ip, s.session_time, s.session_script, s.session_script_get, 
 s.session_script_title, m.login 
 FROM " . DB_TABLE_SESSIONS . " s
@@ -122,10 +122,10 @@ WHERE s.session_time > '" . (time() - $CONFIG['site_session_invit']) . "'
 ORDER BY s.session_time DESC", __LINE__, __FILE__);
 while ($row = $Sql->fetch_assoc($result))
 {
-	//On vérifie que la session ne correspond pas à un robot.
+	
 	$robot = $Session->_check_bot($row['session_ip']);
 
-	switch ($row['level']) //Coloration du membre suivant son level d'autorisation. 
+	switch ($row['level']) 
 	{ 		
 		case MEMBER_LEVEL:
 		$class = 'member';
@@ -156,7 +156,7 @@ while ($row = $Sql->fetch_assoc($result))
 }
 $Sql->query_close($result);
 	
-$Template->pparse('admin_index'); // traitement du modele
+$Template->pparse('admin_index'); 
 
 require_once('../admin/admin_footer.php');
 

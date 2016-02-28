@@ -1,33 +1,33 @@
 <?php
-/*##################################################
- *                               admin_forum_config.php
- *                            -------------------
- *   begin                : October 30, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- * 
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('forum'); //Chargement de la langue du module.
+load_module_lang('forum'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
@@ -37,7 +37,7 @@ $update_cached = !empty($_GET['upd']) ? true : false;
 
 $Cache->load('forum');
 
-//Si c'est confirmé on execute
+
 if (!empty($_POST['valid']))
 {
 	$CONFIG_FORUM['forum_name'] = stripslashes(retrieve(POST, 'forum_name', $CONFIG['site_name'] . ' forum'));  
@@ -68,7 +68,7 @@ if (!empty($_POST['valid']))
 	else
 		redirect(HOST . DIR . '/forum/admin_forum_config.php?error=incomplete#errorh');
 }
-elseif ($update_cached) //Mise à jour des données stockées en cache dans la bdd.
+elseif ($update_cached) 
 {
 	$result = $Sql->query_while("SELECT id, id_left, id_right
 	FROM " . PREFIX . "forum_cats
@@ -101,7 +101,7 @@ else
 
 	$Cache->load('forum');
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);

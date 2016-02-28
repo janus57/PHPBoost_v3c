@@ -1,50 +1,50 @@
 <?php
-/*************************************************************************************
- * matlab.php
- * -----------
- * Author: Florian Knorn (floz@gmx.de)
- * Copyright: (c) 2004 Florian Knorn (http://www.florian-knorn.com)
- * Release Version: 1.0.8.3
- * Date Started: 2005/02/09
- *
- * Matlab M-file language file for GeSHi.
- *
- * CHANGES
- * -------
- * 2006-03-25 (1.0.7.22)
- *   - support for the transpose operator
- *   - many keywords added
- *   - links to the matlab documentation at mathworks
- *      by: Olivier Verdier (olivier.verdier@free.fr)
- * 2005/05/07 (1.0.0)
- *   -  First Release
- *
- *
- *************************************************************************************
- *
- *     This file is part of GeSHi.
- *
- *   GeSHi is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *   GeSHi is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with GeSHi; if not, write to the Free Software
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- ************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $language_data = array (
     'LANG_NAME' => 'Matlab M',
     'COMMENT_SINGLE' => array(1 => '%'),
     'COMMENT_MULTI' => array(),
-    //Matlab Strings
+    
     'COMMENT_REGEXP' => array(
         2 => "/(?<![\\w\\)\\]\\}\\.])('[^\\n']*?')/"
         ),
@@ -148,7 +148,7 @@ $language_data = array (
             'waterfall','wavread','wavwrite','weekday','whitebg','wilkinson',
             'winter','wk1read','wk1write','xlabel','xlim','ylabel','ylim',
             'zeros','zlabel','zlim','zoom',
-            //'[Keywords 6]',
+            
             'addpath','cd','clear','copyfile','delete','diary','dir','disp',
             'doc','docopt','echo','edit','fileparts','format','fullfile','help',
             'helpdesk','helpwin','home','inmem','lasterr','lastwarn','length',
@@ -166,8 +166,8 @@ $language_data = array (
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
-        //3 => false,
-        //4 => false,
+        
+        
         ),
     'STYLES' => array(
         'KEYWORDS' => array(
@@ -185,7 +185,7 @@ $language_data = array (
             0 => 'color: #080;'
             ),
         'STRINGS' => array(
-            //0 => 'color: #A020F0;'
+            
             ),
         'NUMBERS' => array(
             0 => 'color: #33f;'
@@ -214,7 +214,7 @@ $language_data = array (
         2 => '::'
         ),
     'REGEXPS' => array(
-        //Complex numbers
+        
         0 => '(?<![\\w])[+-]?[\\d]*([\\d]\\.|\\.[\\d])?[\\d]*[ij](?![\\w])'
         ),
     'STRICT_MODE_APPLIES' => GESHI_NEVER,

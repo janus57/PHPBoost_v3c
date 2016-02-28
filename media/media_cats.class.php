@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                             media_cats.class.php
- *                            -------------------
- *   begin               	: October 20, 2008
- *   copyright        		: (C) 2007 Geoffrey ROGUELON
- *   email               	: liaght@gmail.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 import('content/categories_manager');
 require_once PATH_TO_ROOT . '/media/media_constant.php';
@@ -35,7 +35,7 @@ class MediaCats extends CategoriesManager
 {
 	## Public methods ##
 
-	//Constructor
+	
 	function MediaCats()
 	{
 		global $Cache, $MEDIA_CATS;
@@ -46,12 +46,12 @@ class MediaCats extends CategoriesManager
 		parent::CategoriesManager('media_cat', 'media', $MEDIA_CATS);
 	}
 
-	//Method which removes all subcategories and their content
+	
 	function Delete_category_recursively($id)
 	{
-		//We delete the category
+		
 		$this->delete_category_with_content($id);
-		//Then its content
+		
 		foreach ($this->cache_var as $id_cat => $properties)
 		{
 			if ($id_cat != 0 && $properties['id_parent'] == $id)
@@ -63,7 +63,7 @@ class MediaCats extends CategoriesManager
 		$this->recount_media_per_cat();
 	}
 
-	//Method which deletes a category and move its content in another category
+	
 	function Delete_category_and_move_content($id_category, $new_id_cat_content)
 	{
 		global $Sql;
@@ -90,7 +90,7 @@ class MediaCats extends CategoriesManager
 		return true;
 	}
 
-	//Function which adds a category
+	
 	function add($id_parent, $name, $description, $image, $new_auth, $mime_type, $activ)
 	{
 		global $Sql;
@@ -115,7 +115,7 @@ class MediaCats extends CategoriesManager
 
 			$new_id_cat = parent::add($id_parent, $name);
 			$Sql->query_inject("UPDATE ".PREFIX."media_cat SET description = '" . $description . "', image = '" . $image . "', auth = '" . $new_auth . "', mime_type = '" . $mime_type . "', active = '" . $activ . "' WHERE id = '" . $new_id_cat . "'", __LINE__, __FILE__);
-			//We don't recount the number of questions because this category is empty
+			
 			return 'e_success';
 		}
 		else
@@ -124,7 +124,7 @@ class MediaCats extends CategoriesManager
 		}
 	}
 
-	//Function which updates a category
+	
 	function Update_category($id_cat, $id_parent, $name, $description, $image, $new_auth, $mime_type, $activ)
 	{
 		global $Sql, $Cache;
@@ -178,7 +178,7 @@ class MediaCats extends CategoriesManager
 		}
 	}
 
-	//Function which moves a category
+	
 	function move_into_another($id, $new_id_cat, $position = 0)
 	{
 		$result = parent::move_into_another($id, $new_id_cat, $position);
@@ -191,7 +191,7 @@ class MediaCats extends CategoriesManager
 		return $result;
 	}
 
-	//function which changes the visibility of one category
+	
 	function change_visibility($category_id, $visibility, $generate_cache = LOAD_CACHE)
 	{
 		$result = parent::change_visibility($category_id, $visibility, DO_NOT_LOAD_CACHE);
@@ -201,7 +201,7 @@ class MediaCats extends CategoriesManager
 		return $result;
 	}
 
-	//Recursive function which counts for all category or for one category
+	
 	function recount_media_per_cat($id = null, $num = null, $generate_cache = true)
 	{
 		global $Sql, $Cache, $MEDIA_CATS;
@@ -289,15 +289,15 @@ class MediaCats extends CategoriesManager
 
 	## Private methods ##
 
-	//method which deletes a category and its content (not recursive)
+	
 	function delete_category_with_content($id)
 	{
 		global $Sql;
 
-		//If the category is successfully deleted
+		
 		if (parent::delete($id))
 		{
-			//We remove its whole content
+			
 			$Sql->query_inject("DELETE FROM ".PREFIX."media WHERE idcat = '" . $id . "'", __LINE__, __FILE__);
 
 			return true;

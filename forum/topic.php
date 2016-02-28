@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                                topic.php
- *                            -------------------
- *   begin                : October 26, 2005
- *   copyright          : (C) 2005 Viarre Régis / Sautel Benoît
- *   email                : mickaelhemri@gmail.com / ben.popeye@gmail.com
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 require_once('../forum/forum_begin.php');
@@ -33,37 +33,37 @@ $page = retrieve(GET, 'pt', 1);
 $id_get = retrieve(GET, 'id', 0);
 $quote_get = retrieve(GET, 'quote', 0);	
 
-//On va chercher les infos sur le topic	
+
 $topic = !empty($id_get) ? $Sql->query_array(PREFIX . 'forum_topics', 'id', 'user_id', 'idcat', 'title', 'subtitle', 'nbr_msg', 'last_msg_id', 'first_msg_id', 'last_timestamp', 'status', 'display_msg', "WHERE id = '" . $id_get . "'", __LINE__, __FILE__) : '';
-//Existance du topic.
+
 if (empty($topic['id']))
 	$Errorh->handler('e_unexist_topic_forum', E_USER_REDIRECT);
-//Existance de la catégorie.
+
 if (!isset($CAT_FORUM[$topic['idcat']]) || $CAT_FORUM[$topic['idcat']]['aprob'] == 0 || $CAT_FORUM[$topic['idcat']]['level'] == 0)
 	$Errorh->handler('e_unexist_cat', E_USER_REDIRECT);
 
-//Récupération de la barre d'arborescence.
+
 $Bread_crumb->add($CONFIG_FORUM['forum_name'], 'index.php' . SID);
 foreach ($CAT_FORUM as $idcat => $array_info_cat)
 {
 	if ($CAT_FORUM[$topic['idcat']]['id_left'] > $array_info_cat['id_left'] && $CAT_FORUM[$topic['idcat']]['id_right'] < $array_info_cat['id_right'] && $array_info_cat['level'] < $CAT_FORUM[$topic['idcat']]['level'])
 		$Bread_crumb->add($array_info_cat['name'], ($array_info_cat['level'] == 0) ? url('index.php?id=' . $idcat, 'cat-' . $idcat . '+' . url_encode_rewrite($array_info_cat['name']) . '.php') : 'forum' . url('.php?id=' . $idcat, '-' . $idcat . '+' . url_encode_rewrite($array_info_cat['name']) . '.php'));
 }
-if (!empty($CAT_FORUM[$topic['idcat']]['name'])) //Nom de la catégorie courante.
+if (!empty($CAT_FORUM[$topic['idcat']]['name'])) 
 	$Bread_crumb->add($CAT_FORUM[$topic['idcat']]['name'], 'forum' . url('.php?id=' . $topic['idcat'], '-' . $topic['idcat'] . '+' . url_encode_rewrite($CAT_FORUM[$topic['idcat']]['name']) . '.php'));
 $Bread_crumb->add($topic['title'], '');
 
 define('TITLE', $LANG['title_topic'] . ' - ' . addslashes($topic['title']));
 require_once('../kernel/header.php'); 
 
-$rewrited_cat_title = ($CONFIG['rewrite'] == 1) ? '+' . url_encode_rewrite($CAT_FORUM[$topic['idcat']]['name']) : ''; //On encode l'url pour un éventuel rewriting.
-$rewrited_title = ($CONFIG['rewrite'] == 1) ? '+' . url_encode_rewrite($topic['title']) : ''; //On encode l'url pour un éventuel rewriting.
+$rewrited_cat_title = ($CONFIG['rewrite'] == 1) ? '+' . url_encode_rewrite($CAT_FORUM[$topic['idcat']]['name']) : ''; 
+$rewrited_title = ($CONFIG['rewrite'] == 1) ? '+' . url_encode_rewrite($topic['title']) : ''; 
 
-//Redirection changement de catégorie.
+
 if (!empty($_POST['change_cat']))
 	redirect(HOST . DIR . '/forum/forum' . url('.php?id=' . $_POST['change_cat'], '-' . $_POST['change_cat'] . $rewrited_cat_title . '.php', '&'));
 	
-//Autorisation en lecture.
+
 if (!$User->check_auth($CAT_FORUM[$topic['idcat']]['auth'], READ_CAT_FORUM) || !empty($CAT_FORUM[$topic['idcat']]['url']))
 	$Errorh->handler('e_auth', E_USER_REDIRECT);
 
@@ -75,7 +75,7 @@ $Template->set_filenames(array(
 
 $module_data_path = $Template->get_module_data_path('forum');
 
-//Si l'utilisateur a le droit de déplacer le topic, ou le verrouiller.	
+
 $check_group_edit_auth = $User->check_auth($CAT_FORUM[$topic['idcat']]['auth'], EDIT_CAT_FORUM);
 if ($check_group_edit_auth)
 {
@@ -101,32 +101,32 @@ else
 	));
 }
 
-//Message(s) dans le topic non lu ( non prise en compte des topics trop vieux (x semaine) ou déjà lus).
+
 mark_topic_as_read($id_get, $topic['last_msg_id'], $topic['last_timestamp']);
 	
-//Gestion de la page si redirection vers le dernier message lu.
+
 $idm = retrieve(GET, 'idm', 0);
 if (!empty($idm))
 {
-	//Calcul de la page sur laquelle se situe le message.
-	$nbr_msg_before = $Sql->query("SELECT COUNT(*) as nbr_msg_before FROM " . PREFIX . "forum_msg WHERE idtopic = " . $id_get . " AND id < '" . $idm . "'", __LINE__, __FILE__); //Nombre de message avant le message de destination.
 	
-	//Dernier message de la page? Redirection vers la page suivante pour prendre en compte la reprise du message précédent.
+	$nbr_msg_before = $Sql->query("SELECT COUNT(*) as nbr_msg_before FROM " . PREFIX . "forum_msg WHERE idtopic = " . $id_get . " AND id < '" . $idm . "'", __LINE__, __FILE__); 
+	
+	
 	if (is_int(($nbr_msg_before + 1) / $CONFIG_FORUM['pagination_msg'])) 
 	{	
-		//On redirige vers la page suivante, seulement si ce n'est pas la dernière.
+		
 		if ($topic['nbr_msg'] != ($nbr_msg_before + 1))
 			$nbr_msg_before++;
 	}
 	
-	$_GET['pt'] = ceil(($nbr_msg_before + 1) / $CONFIG_FORUM['pagination_msg']); //Modification de la page affichée.
+	$_GET['pt'] = ceil(($nbr_msg_before + 1) / $CONFIG_FORUM['pagination_msg']); 
 }	
 	
-//On crée une pagination si le nombre de msg est trop important.
+
 import('util/pagination'); 
 $Pagination = new Pagination();	
 
-//Affichage de l'arborescence des catégories.
+
 $i = 0;
 $forum_cats = '';	
 $Bread_crumb->remove_last();
@@ -177,13 +177,13 @@ $Template->assign_vars(array(
 	'L_RESET' => $LANG['reset']
 ));
 
-//Création du tableau des rangs.
+
 $array_ranks = array(-1 => $LANG['guest_s'], 0 => $LANG['member_s'], 1 => $LANG['modo_s'], 2 => $LANG['admin_s']);
 
 list($track, $track_pm, $track_mail, $poll_done) = array(false, false, false, false);
-$Cache->load('ranks'); //Récupère les rangs en cache.
-$page = retrieve(GET, 'pt', 0); //Redéfinition de la variable $page pour prendre en compte les redirections.
-$quote_last_msg = ($page > 1) ? 1 : 0; //On enlève 1 au limite si on est sur une page > 1, afin de récupérer le dernier msg de la page précédente.
+$Cache->load('ranks'); 
+$page = retrieve(GET, 'pt', 0); 
+$quote_last_msg = ($page > 1) ? 1 : 0; 
 $i = 0;	
 $j = 0;	
 $result = $Sql->query_while("SELECT msg.id, msg.timestamp, msg.timestamp_edit, msg.user_id_edit, m.user_id, m.user_groups, p.question, p.answers, p.voter_id, p.votes, p.type, m.login, m.level, m.user_mail, m.user_show_mail, m.timestamp AS registered, m.user_avatar, m.user_msg, m.user_local, m.user_web, m.user_sex, m.user_msn, m.user_yahoo, m.user_sign, m.user_warning, m.user_readonly, m.user_ban, m2.login as login_edit, s.user_id AS connect, tr.id AS trackid, tr.pm as trackpm, tr.track AS track, tr.mail AS trackmail, msg.contents
@@ -198,25 +198,25 @@ ORDER BY msg.timestamp
 " . $Sql->limit(($Pagination->get_first_msg($CONFIG_FORUM['pagination_msg'], 'pt') - $quote_last_msg), ($CONFIG_FORUM['pagination_msg'] + $quote_last_msg)), __LINE__, __FILE__);
 while ( $row = $Sql->fetch_assoc($result) )
 {
-	//Invité?
+	
 	$is_guest = empty($row['user_id']);
 	$first_message = ($row['id'] == $topic['first_msg_id']) ? true : false;
 
-	//Gestion du niveau d'autorisation.
+	
 	list($edit, $del, $cut, $moderator) = array(false, false, false, false);
 	if ($check_group_edit_auth || ($User->get_attribute('user_id') == $row['user_id'] && !$is_guest && !$first_message))
 	{
 		list($edit, $del) = array(true, true);
-		if ($check_group_edit_auth) //Fonctions réservées à ceux possédants les droits de modérateurs seulement.
+		if ($check_group_edit_auth) 
 		{
 			$cut = (!$first_message) ? true : false;
 			$moderator = (!$is_guest) ? true : false;
 		}
 	}
-	elseif ($User->get_attribute('user_id') == $row['user_id'] && !$is_guest && $first_message) //Premier msg du topic => suppression du topic non autorisé au membre auteur du message.
+	elseif ($User->get_attribute('user_id') == $row['user_id'] && !$is_guest && $first_message) 
 		$edit = true;
 	
-	//Gestion des sondages => executé une seule fois.
+	
 	if (!empty($row['question']) && $poll_done === false)
 	{
 		$Template->assign_vars(array(				
@@ -230,25 +230,25 @@ while ( $row = $Sql->fetch_assoc($result) )
 		));
 		
 		$array_voter = explode('|', $row['voter_id']);			
-		if (in_array($User->get_attribute('user_id'), $array_voter) || !empty($_GET['r']) || $User->get_attribute('user_id') === -1) //Déjà voté.
+		if (in_array($User->get_attribute('user_id'), $array_voter) || !empty($_GET['r']) || $User->get_attribute('user_id') === -1) 
 		{
 			$array_answer = explode('|', $row['answers']);
 			$array_vote = explode('|', $row['votes']);
 			
 			$sum_vote = array_sum($array_vote);	
-			$sum_vote = ($sum_vote == 0) ? 1 : $sum_vote; //Empêche la division par 0.
+			$sum_vote = ($sum_vote == 0) ? 1 : $sum_vote; 
 
 			foreach ($array_answer as $key => $answer)
 			{
 				$Template->assign_block_vars('poll_result', array(
 					'ANSWERS' => $answer, 
 					'NBRVOTE' => $array_vote[$key],
-					'WIDTH' => number_round(($array_vote[$key] * 100 / $sum_vote), 1) * 4, //x 4 Pour agrandir la barre de vote.					
+					'WIDTH' => number_round(($array_vote[$key] * 100 / $sum_vote), 1) * 4, 
 					'PERCENT' => number_round(($array_vote[$key] * 100 / $sum_vote), 1)
 				));
 			}
 		}
-		else //Affichage des formulaires (radio/checkbox) pour voter.
+		else 
 		{
 			$Template->assign_vars(array(
 				'C_POLL_QUESTION' => true
@@ -284,17 +284,17 @@ while ( $row = $Sql->fetch_assoc($result) )
 		$poll_done = true;	
 	}
 	
-	//Rang de l'utilisateur.			
+	
 	$user_rank = ($row['level'] === '0') ? $LANG['member'] : $LANG['guest'];
 	$user_group = $user_rank;
 	$user_rank_icon = '';
-	if ($row['level'] === '2') //Rang spécial (admins).  
+	if ($row['level'] === '2') 
 	{
 		$user_rank = $_array_rank[-2][0];
 		$user_group = $user_rank;
 		$user_rank_icon = $_array_rank[-2][1];
 	}
-	elseif ($row['level'] === '1') //Rang spécial (modos).  
+	elseif ($row['level'] === '1') 
 	{
 		$user_rank = $_array_rank[-1][0];
 		$user_group = $user_rank;
@@ -313,10 +313,10 @@ while ( $row = $Sql->fetch_assoc($result) )
 		}
 	}
 
-	//Image associée au rang.
+	
 	$user_assoc_img = !empty($user_rank_icon) ? '<img src="../templates/' . get_utheme() . '/images/ranks/' . $user_rank_icon . '" alt="" />' : '';
 	
-	//Affichage des groupes du membre.		
+	
 	if (!empty($row['user_groups']) && $_array_groups_auth) 
 	{	
 		$user_groups = '';
@@ -330,26 +330,26 @@ while ( $row = $Sql->fetch_assoc($result) )
 	else
 		$user_groups = $LANG['group'] . ': ' . $user_group;
 
-	//Avatar			
+	
 	if (empty($row['user_avatar'])) 
 		$user_avatar = ($CONFIG_USER['activ_avatar'] == '1' && !empty($CONFIG_USER['avatar_url'])) ? '<img src="../templates/' . get_utheme() . '/images/' .  $CONFIG_USER['avatar_url'] . '" alt="" />' : '';
 	else
 		$user_avatar = '<img src="' . $row['user_avatar'] . '" alt=""	/>';
 		
-	//Affichage du sexe et du statut (connecté/déconnecté).	
+	
 	if ($row['user_sex'] == 1)	
 		$user_sex = $LANG['sex'] . ': <img src="../templates/' . get_utheme() . '/images/man.png" alt="" /><br />';	
 	elseif ($row['user_sex'] == 2) 
 		$user_sex = $LANG['sex'] . ': <img src="../templates/' . get_utheme() . '/images/woman.png" alt="" /><br />';
 	else $user_sex = '';
 			
-	//Localisation.
+	
 	if (!empty($row['user_local'])) 
 		$user_local = $LANG['place'] . ': ' . (strlen($row['user_local']) > 15 ? substr_html($row['user_local'], 0, 15) . '...<br />' : $row['user_local'] . '<br />');	
 	else 
 		$user_local = '';
 
-	//Affichage du nombre de message.
+	
 	if ($row['user_msg'] >= 1)
 		$user_msg = '<a href="../forum/membermsg' . url('.php?id=' . $row['user_id'], '') . '" class="small_link">' . $LANG['message_s'] . '</a>: ' . $row['user_msg'];
 	else		
@@ -378,13 +378,13 @@ while ( $row = $Sql->fetch_assoc($result) )
 		'USER_SIGN' => (!empty($row['user_sign'])) ? '____________________<br />' . second_parse($row['user_sign']) : '',
 		'USER_WEB' => (!empty($row['user_web'])) ? '<a href="' . $row['user_web'] . '"><img src="../templates/' . get_utheme() . '/images/' . get_ulang() . '/user_web.png" alt="' . $row['user_web']  . '" title="' . $row['user_web']  . '" /></a>' : '',
 		'USER_WARNING' => $row['user_warning'],
-		'L_FORUM_QUOTE_LAST_MSG' => ($quote_last_msg == 1 && $i == 0) ? $LANG['forum_quote_last_msg'] : '', //Reprise du dernier message de la page précédente.
+		'L_FORUM_QUOTE_LAST_MSG' => ($quote_last_msg == 1 && $i == 0) ? $LANG['forum_quote_last_msg'] : '', 
 		'C_FORUM_USER_LOGIN' => !empty($row['login']) ? true : false,
 		'C_FORUM_MSG_EDIT' => $edit,
 		'C_FORUM_MSG_DEL' => $del,
 		'C_FORUM_MSG_DEL_MSG' => (!$first_message) ? true : false,
 		'C_FORUM_MSG_CUT' => $cut,
-		'C_FORUM_USER_EDITOR' => ($row['timestamp_edit'] > 0 && $CONFIG_FORUM['edit_mark'] == '1'), //Ajout du marqueur d'édition si activé.
+		'C_FORUM_USER_EDITOR' => ($row['timestamp_edit'] > 0 && $CONFIG_FORUM['edit_mark'] == '1'), 
 		'C_FORUM_USER_EDITOR_LOGIN' => !empty($row['login_edit']) ? true : false,
 		'C_FORUM_MODERATOR' => $moderator,
 		'U_FORUM_USER_LOGIN' => url('.php?id=' . $row['user_id'], '-' . $row['user_id'] . '.php'),			
@@ -399,7 +399,7 @@ while ( $row = $Sql->fetch_assoc($result) )
 		'USER_PM' => !$is_guest ? '<a href="../member/pm' . url('.php?pm=' . $row['user_id'], '-' . $row['user_id'] . '.php') . '"><img src="../templates/' . get_utheme() . '/images/' . get_ulang() . '/pm.png" alt="pm" /></a>' : '',
 	));
 	
-	//Marqueur de suivis du sujet.
+	
 	if (!empty($row['trackid'])) 
 	{	
 		$track = ($row['track']) ? true : false;
@@ -411,7 +411,7 @@ while ( $row = $Sql->fetch_assoc($result) )
 }
 $Sql->query_close($result);
 
-//Listes les utilisateurs en lignes.
+
 list($users_list, $total_admin, $total_modo, $total_member, $total_visit, $total_online) = forum_list_user_online("AND s.session_script = '/forum/topic.php' AND s.session_script_get LIKE '%id=" . $id_get . "%'");
 
 $Template->assign_vars(array(
@@ -421,7 +421,7 @@ $Template->assign_vars(array(
 	'MODO' => $total_modo,
 	'MEMBER' => $total_member,
 	'GUEST' => $total_visit,
-	'SELECT_CAT' => forum_list_cat($topic['idcat'], $CAT_FORUM[$topic['idcat']]['level']), //Retourne la liste des catégories, avec les vérifications d'accès qui s'imposent.
+	'SELECT_CAT' => forum_list_cat($topic['idcat'], $CAT_FORUM[$topic['idcat']]['level']), 
 	'U_SUSCRIBE' => ($track === false) ? url('.php?t=' . $id_get) : url('.php?ut=' . $id_get),
 	'U_SUSCRIBE_PM' => url('.php?token=' . $Session->get_token() . '&amp;' . ($track_pm ? 'utp' : 'tp') . '=' . $id_get),
 	'U_SUSCRIBE_MAIL' => url('.php?token=' . $Session->get_token() . '&amp;' . ($track_mail ? 'utm' : 'tm') . '=' . $id_get),
@@ -449,7 +449,7 @@ $Template->assign_vars(array(
 	'L_ONLINE' => strtolower($LANG['online']),
 ));
 
-//Récupération du message quoté.
+
 $contents = '';
 if (!empty($quote_get))
 {	
@@ -458,7 +458,7 @@ if (!empty($quote_get))
 	$contents = '[quote=' . $pseudo . ']' . unparse($quote_msg['contents']) . '[/quote]';
 }
 
-//Formulaire de réponse, non présent si verrouillé.
+
 if ($topic['status'] == '0' && !$check_group_edit_auth)
 {
 	$Template->assign_vars(array(
@@ -466,7 +466,7 @@ if ($topic['status'] == '0' && !$check_group_edit_auth)
 		'L_ERROR_AUTH_WRITE' => $LANG['e_topic_lock_forum']
 	));
 }	
-elseif (!$User->check_auth($CAT_FORUM[$topic['idcat']]['auth'], WRITE_CAT_FORUM)) //On vérifie si l'utilisateur a les droits d'écritures.
+elseif (!$User->check_auth($CAT_FORUM[$topic['idcat']]['auth'], WRITE_CAT_FORUM)) 
 {
 	$Template->assign_vars(array(
 		'C_ERROR_AUTH_WRITE' => true,
@@ -491,7 +491,7 @@ else
 		'U_FORUM_ACTION_POST' => url('.php?idt=' . $id_get . '&amp;id=' . $topic['idcat'] . '&amp;new=n_msg&amp;token=' . $Session->get_token()),
 	));
 
-	//Affichage du lien pour changer le display_msg du topic et autorisation d'édition du statut.
+	
 	if ($CONFIG_FORUM['activ_display_msg'] == 1 && ($check_group_edit_auth || $User->get_attribute('user_id') == $topic['user_id']))
 	{
 		$img_msg_display = $topic['display_msg'] ? 'not_processed_mini.png' : 'processed_mini.png';

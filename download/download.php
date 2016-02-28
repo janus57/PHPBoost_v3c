@@ -1,35 +1,35 @@
 <?php
-/*##################################################
- *                               download.php
- *                            -------------------
- *   begin                : July 27, 2005
- *   copyright            : (C) 2005 Viarre Régis, Sautel Benoit
- *   email                : crowkait@phpboost.com, ben.popeye@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 require_once('../download/download_begin.php');
 require_once('../kernel/header.php');
 
-if ($file_id > 0) //Contenu
+if ($file_id > 0) 
 {
 	$Template->set_filenames(array('download'=> 'download/download.tpl'));
 	
@@ -44,7 +44,7 @@ if ($file_id > 0) //Contenu
  	$creation_date = new Date(DATE_TIMESTAMP, TIMEZONE_SYSTEM, $download_info['timestamp']);
  	$release_date = new Date(DATE_TIMESTAMP, TIMEZONE_SYSTEM, $download_info['release_timestamp']);
 	
-	//Affichage notation.
+	
 	import('content/note');
 	$Note = new Note('download', $file_id, url('download.php?id=' . $file_id, 'category-' . $category_id . '-' . $file_id . '.php'), $CONFIG_DOWNLOAD['note_max'], '', NOTE_NODISPLAY_NBRNOTES);
 	
@@ -86,7 +86,7 @@ if ($file_id > 0) //Contenu
 		'U_DOWNLOAD_FILE' => url('count.php?id=' . $file_id, 'file-' . $file_id . '+' . url_encode_rewrite($download_info['title']) . '.php')
 	));
 	
-	//Affichage commentaires.
+	
 	if (isset($_GET['com']))
 	{
 		$Template->assign_vars(array(
@@ -113,7 +113,7 @@ else
 		'U_ADD_FILE' => url('management.php?new=1&amp;idcat=' . $category_id)
 	));
 	
-	//let's check if there are some subcategories
+	
 	$num_subcats = 0;
 	foreach ($DOWNLOAD_CATS as $id => $value)
 	{
@@ -121,7 +121,7 @@ else
 			$num_subcats ++;
 	}
 
-	//listing of subcategories
+	
 	if ($num_subcats > 0)
 	{
 		$Template->assign_vars(array(
@@ -132,7 +132,7 @@ else
 		
 		foreach ($DOWNLOAD_CATS as $id => $value)
 		{
-			//List of children categories
+			
 			if ($id != 0 && $value['visible'] && $value['id_parent'] == $category_id && (empty($value['auth']) || $User->check_auth($value['auth'], DOWNLOAD_READ_CAT_AUTH_BIT)))
 			{
 				if ( $i % $CONFIG_DOWNLOAD['nbr_column'] == 1 )
@@ -154,7 +154,7 @@ else
 		}
 	}
 	
-	//Contenu de la catégorie	
+	
 	$nbr_files = (int)$Sql->query("SELECT COUNT(*) FROM " . PREFIX . "download WHERE visible = 1 AND approved = 1 AND idcat = '" . $category_id . "'", __LINE__, __FILE__);
 	if ($nbr_files > 0)
 	{
@@ -226,11 +226,11 @@ else
 			'SELECTED_DESC' => $selected_fields['desc']
 		));
 			
-		//On crée une pagination si le nombre de fichiers est trop important.
+		
 		import('util/pagination'); 
 		$Pagination = new Pagination();
 		
-		//Notes
+		
 		import('content/note');
 		import('content/comments');
 		

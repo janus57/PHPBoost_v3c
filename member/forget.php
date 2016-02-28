@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                                forget.php
- *                            -------------------
- *   begin                : August 08 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *   
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 define('TITLE', $LANG['title_forget']);
@@ -50,18 +50,18 @@ if (!$User->check_level(MEMBER_LEVEL))
 			if (!empty($user_mail) && check_mail($user_mail))
 			{	
 				$user_id = $Sql->query("SELECT user_id FROM " . DB_TABLE_MEMBER . " WHERE user_mail = '" . $user_mail . "' AND login = '" . $login . "'", __LINE__, __FILE__);
-				if (!empty($user_id)) //Succés mail trouvé, en crée un nouveau mdp, et la clée d'activ et on l'envoi au membre
+				if (!empty($user_id)) 
 				{
-					$new_pass = substr(strhash(uniqid(rand(), true)), 0, 6); //Génération du nouveau mot de pass unique!
-					$activ_pass =  substr(strhash(uniqid(rand(), true)), 0, 30); //Génération de la clée d'activation!
+					$new_pass = substr(strhash(uniqid(rand(), true)), 0, 6); 
+					$activ_pass =  substr(strhash(uniqid(rand(), true)), 0, 30); 
 					
-					$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET activ_pass = '" . $activ_pass . "', new_pass = '" . strhash($new_pass) . "' WHERE user_id = '" . $user_id . "'", __LINE__, __FILE__); //Insertion de la clée d'activation dans la bdd.
+					$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET activ_pass = '" . $activ_pass . "', new_pass = '" . strhash($new_pass) . "' WHERE user_id = '" . $user_id . "'", __LINE__, __FILE__); 
 					
 					import('io/mail');
 					$Mail = new Mail();
 					$Mail->send_from_properties($user_mail, $LANG['forget_mail_activ_pass'], sprintf($LANG['forget_mail_pass'], $login, HOST, (HOST . DIR), $user_id, $activ_pass, $new_pass, $CONFIG['sign']), $CONFIG['mail_exp']);
 
-					//Affichage de la confirmation.
+					
 					redirect(HOST . DIR . '/member/forget.php?error=forget_mail_send');
 				}
 				else
@@ -109,19 +109,19 @@ if (!$User->check_level(MEMBER_LEVEL))
 		$user_id = $Sql->query("SELECT user_id FROM " . DB_TABLE_MEMBER . " WHERE user_id = '" . $user_get . "' AND activ_pass = '" . $activ_get . "'", __LINE__, __FILE__);
 		if (!empty($user_id))
 		{
-			//Mise é jour du nouveau password.
+			
 			$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET password = new_pass WHERE user_id = '" . $user_id . "'", __LINE__, __FILE__);
 			
-			//Effacement des clées d'activations.
+			
 			$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET activ_pass = '', new_pass = '' WHERE user_id = '" . $user_id . "'", __LINE__, __FILE__);
 			
-			//Affichage de la confirmation de réussite.
+			
 			redirect(HOST . DIR . '/member/error.php?e=e_forget_confirm_change');
 		}
-		else //Affichage de l'echec.
+		else 
 			redirect(HOST . DIR . '/member/forget.php?error=forget_echec_change');
 	}	
-	else //Affichage de l'echec.
+	else 
 		redirect(HOST . DIR . '/member/forget.php?error=forget_echec_change');
 }
 else

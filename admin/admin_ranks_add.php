@@ -1,36 +1,36 @@
 <?php
-/*##################################################
- *                               admin_forum_config.php
- *                            -------------------
- *   begin                : October 30, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- * 
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
-//Ajout du rang.
+
 if (!empty($_POST['add']))
 {
 	$name = retrieve(POST, 'name', '');
@@ -40,7 +40,7 @@ if (!empty($_POST['add']))
 	
 	if (!empty($name) && $msg >= 0)
 	{	
-		//On insere le nouveau lien, tout en précisant qu'il s'agit d'un lien ajouté et donc supprimable
+		
 		$Sql->query_inject("INSERT INTO " . DB_TABLE_RANKS . " (name,msg,icon,special) 
 		VALUES('" . $name . "', '" . $msg . "', '" . $icon . "', '0')", __LINE__, __FILE__);	
 				
@@ -52,9 +52,9 @@ if (!empty($_POST['add']))
 	else
 		redirect(HOST . DIR . '/admin/admin_ranks_add.php?error=incomplete#errorh');
 }
-elseif (!empty($_FILES['upload_ranks']['name'])) //Upload
+elseif (!empty($_FILES['upload_ranks']['name'])) 
 {
-	//Si le dossier n'est pas en écriture on tente un CHMOD 777
+	
 	@clearstatcache();
 	$dir = PATH_TO_ROOT . '/templates/' . get_utheme()  . '/images/ranks/';
 	if (!is_writable($dir))
@@ -62,7 +62,7 @@ elseif (!empty($_FILES['upload_ranks']['name'])) //Upload
 	
 	@clearstatcache();
 	$error = '';
-	if (is_writable($dir)) //Dossier en écriture, upload possible
+	if (is_writable($dir)) 
 	{
 		import('io/upload');
 		$Upload = new Upload($dir);
@@ -75,13 +75,13 @@ elseif (!empty($_FILES['upload_ranks']['name'])) //Upload
 	$error = !empty($error) ? '?error=' . $error : '';
 	redirect(HOST . SCRIPT . $error);	
 }
-else //Sinon on rempli le formulaire	 
+else 
 {	
 	$Template->set_filenames(array(
 		'admin_ranks_add'=> 'admin/admin_ranks_add.tpl'
 	));
 
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	$array_error = array('e_upload_invalid_format', 'e_upload_max_weight', 'e_upload_error', 'e_upload_failed_unwritable');
 	if (in_array($get_error, $array_error))
@@ -89,7 +89,7 @@ else //Sinon on rempli le formulaire
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);
 	
-	//On recupère les images des groupes
+	
 	$rank_options = '<option value="">--</option>';
 	
 	import('io/filesystem/folder');

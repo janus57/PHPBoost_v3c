@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                                membermsg.php
- *                            -------------------
- *   begin                : Februar 23, 2008
- *   copyright            : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 $Bread_crumb->add($LANG['member_area'], 'member.php' . SID);
@@ -34,7 +34,7 @@ require_once('../kernel/header.php');
 $memberId = retrieve(GET, 'id', 0, TUNSIGNED_INT);
 $script = retrieve(GET, 'script', '');
 
-if (!empty($memberId)) //Affichage de tous les messages du membre
+if (!empty($memberId)) 
 {
 	$Template->set_filenames(array(
 		'membermsg'=> 'member/membermsg.tpl',
@@ -66,7 +66,7 @@ if (!empty($memberId)) //Affichage de tous les messages du membre
 		
 	if (!empty($script))
 	{
-		//On crée une pagination si le nombre de commentaires est trop important.
+		
 		import('util/pagination'); 
 		$Pagination = new Pagination();
 

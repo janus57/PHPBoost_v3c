@@ -1,42 +1,42 @@
 <?php
-/*##################################################
- *                              admin_wiki_groups.php
- *                            -------------------
- *   begin                : May 25, 2007
- *   copyright          : (C) 2007 Sautel Benoit
- *   email                : ben.popeye@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('wiki'); //Chargement de la langue du module.
+load_module_lang('wiki'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
 include_once('../wiki/wiki_auth.php');
 
 
-//Si c'est confirmé on execute
+
 if (!empty($_POST['valid']))
 {
-	//Génération du tableau des droits.
+	
 	$array_auth_all = Authorizations::build_auth_array_from_form(WIKI_CREATE_ARTICLE, WIKI_CREATE_CAT, WIKI_RESTORE_ARCHIVE, WIKI_DELETE_ARCHIVE, WIKI_EDIT, WIKI_DELETE, WIKI_RENAME, WIKI_REDIRECT, WIKI_MOVE, WIKI_STATUS, WIKI_COM, WIKI_RESTRICTION);
 		
 	$_WIKI_CONFIG['auth'] = serialize($array_auth_all);
@@ -53,7 +53,7 @@ else
 		'admin_wiki_groups'=> 'wiki/admin_wiki_groups.tpl'
 	));
 	
-	$array_auth = isset($_WIKI_CONFIG['auth']) ? $_WIKI_CONFIG['auth'] : array(); //Récupération des tableaux des autorisations et des groupes.
+	$array_auth = isset($_WIKI_CONFIG['auth']) ? $_WIKI_CONFIG['auth'] : array(); 
 	
 	$Template->assign_vars(array(
 		'THEME' => get_utheme(),
@@ -90,7 +90,7 @@ else
 		'L_RESTRICTION' => $LANG['wiki_auth_restriction'],
 	));
 
-	$Template->pparse('admin_wiki_groups'); // traitement du modele	
+	$Template->pparse('admin_wiki_groups'); 
 }
 
 require_once('../admin/admin_footer.php');

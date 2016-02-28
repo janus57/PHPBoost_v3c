@@ -1,63 +1,63 @@
 <?php
-/*************************************************************************************
- * java.php
- * --------
- * Author: Nigel McNie (nigel@geshi.org)
- * Copyright: (c) 2004 Nigel McNie (http://qbnz.com/highlighter/)
- * Release Version: 1.0.8.3
- * Date Started: 2004/07/10
- *
- * Java language file for GeSHi.
- *
- * CHANGES
- * -------
- * 2008/05/25 (1.0.7.22)
- *   -  Added highlighting of import and package directives as non-OOP
- * 2005/12/28 (1.0.4)
- *   -  Added instanceof keyword
- * 2004/11/27 (1.0.3)
- *   -  Added support for multiple object splitters
- * 2004/08/05 (1.0.2)
- *   -  Added URL support
- *   -  Added keyword "this", as bugs in GeSHi class ironed out
- * 2004/08/05 (1.0.1)
- *   -  Added support for symbols
- *   -  Added extra missed keywords
- * 2004/07/14 (1.0.0)
- *   -  First Release
- *
- * TODO
- * -------------------------
- * *
- *
- *************************************************************************************
- *
- *     This file is part of GeSHi.
- *
- *   GeSHi is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *   GeSHi is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with GeSHi; if not, write to the Free Software
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- ************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $language_data = array (
     'LANG_NAME' => 'Java(TM) 2 Platform Standard Edition 5.0',
     'COMMENT_SINGLE' => array(1 => '//'),
     'COMMENT_MULTI' => array('/*' => '*/'),
     'COMMENT_REGEXP' => array(
-        //Import and Package directives (Basic Support only)
+        
         2 => '/(?:(?<=import[\\n\\s])|(?<=package[\\n\\s]))[\\n\\s]*([a-zA-Z0-9_]+\\.)*([a-zA-Z0-9_]+|\*)(?=[\n\s;])/i',
-        // javadoc comments
+        
         3 => '#/\*\*(?![\*\/]).*\*/#sU'
         ),
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
@@ -65,20 +65,20 @@ $language_data = array (
     'ESCAPE_CHAR' => '\\',
     'KEYWORDS' => array(
         1 => array(
-            /* see the authoritative list of all 50 Java keywords at */
-            /* http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#229308 */
+            
+            
 
-            /* java keywords, part 1: control flow */
+            
             'case', 'default', 'do', 'else', 'for',
             'goto', 'if', 'switch', 'while'
 
-            /* IMO 'break', 'continue', 'return' and 'throw' */
-                        /* should also be added to this group, as they   */
-            /* also manage the control flow,                 */
-            /* arguably 'try'/'catch'/'finally' as well      */
+            
+                        
+            
+            
             ),
         2 => array(
-            /* java keywords, part 2 */
+            
 
             'break', 'continue', 'return', 'throw',
             'try', 'catch', 'finally',
@@ -90,13 +90,13 @@ $language_data = array (
             'this', 'throws', 'transient', 'volatile'
             ),
         3 => array(
-            /* Java keywords, part 3: primitive data types and 'void' */
+            
             'boolean', 'byte', 'char', 'double',
             'float', 'int', 'long', 'short', 'void'
             ),
         4 => array(
-            /* other reserved words in Java: literals */
-            /* should be styled to look similar to numbers and Strings */
+            
+            
             'false', 'null', 'true'
             ),
         5 => array (
@@ -599,7 +599,7 @@ $language_data = array (
         165 => array (
             'AttributeListImpl', 'AttributesImpl', 'DefaultHandler', 'LocatorImpl', 'NamespaceSupport', 'ParserAdapter', 'ParserFactory', 'XMLFilterImpl', 'XMLReaderAdapter', 'XMLReaderFactory'
             ),
-        /* ambiguous class names (appear in more than one package) */
+        
         166 => array (
             'Annotation', 'AnySeqHelper', 'Array', 'Attribute', 'AttributeList', 'AttributeSet', 'Attributes', 'AuthenticationException', 'Binding', 'Bounds', 'Certificate', 'CertificateEncodingException', 'CertificateException', 'CertificateExpiredException', 'CertificateNotYetValidException', 'CertificateParsingException', 'ConnectException', 'ContentHandler', 'Context', 'Control', 'Current', 'CurrentHelper', 'CurrentOperations', 'DOMLocator', 'DataInputStream', 'DataOutputStream', 'Date', 'DefaultLoaderRepository', 'Delegate', 'Document', 'DocumentEvent', 'DynAny', 'DynArray', 'DynEnum', 'DynFixed', 'DynSequence', 'DynStruct', 'DynUnion', 'DynValue', 'DynamicImplementation', 'Element', 'Entity', 'Event', 'EventListener', 'FieldNameHelper', 'FileFilter', 'Formatter', 'ForwardRequest', 'ForwardRequestHelper', 'InconsistentTypeCode', 'InputStream', 'IntrospectionException', 'InvalidAttributeValueException', 'InvalidKeyException', 'InvalidName', 'InvalidNameHelper', 'InvalidValue', 'List', 'MouseEvent',
             'NameValuePair', 'NameValuePairHelper', 'ORB', 'Object', 'ObjectIdHelper', 'ObjectImpl', 'OpenType', 'OutputStream', 'ParagraphView', 'Parser', 'Permission', 'Policy', 'Principal', 'Proxy', 'Reference', 'Statement', 'Timer', 'Timestamp', 'TypeMismatch', 'TypeMismatchHelper', 'UNKNOWN', 'UnknownHostException', 'X509Certificate'
@@ -610,7 +610,7 @@ $language_data = array (
         ),
     'CASE_SENSITIVE' => array(
         GESHI_COMMENTS => false,
-        /* all Java keywords are case sensitive */
+        
         1 => true, 2 => true, 3 => true, 4 => true,
         5 => true, 6 => true, 7 => true, 8 => true, 9 => true,
         10 => true, 11 => true, 12 => true, 13 => true, 14 => true,
@@ -1011,13 +1011,13 @@ $language_data = array (
         163 => 'http://java.sun.com/j2se/1.5.0/docs/api/org/xml/sax/{FNAME}.html',
         164 => 'http://java.sun.com/j2se/1.5.0/docs/api/org/xml/sax/ext/{FNAME}.html',
         165 => 'http://java.sun.com/j2se/1.5.0/docs/api/org/xml/sax/helpers/{FNAME}.html',
-        /* ambiguous class names (appear in more than one package) */
+        
         166 => 'http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+{FNAME}'
         ),
     'OOLANG' => true,
     'OBJECT_SPLITTERS' => array(
         1 => '.'
-        /* Java does not use '::' */
+        
         ),
     'REGEXPS' => array(
         ),

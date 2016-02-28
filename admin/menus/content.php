@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                           content.php
- *                          -------------------
- *   begin                : November 23, 2008
- *   copyright            : (C) 2008 Loïc Rouchon
- *   email                : horn@phpboost.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 define('PATH_TO_ROOT', '../..');
 require_once(PATH_TO_ROOT . '/admin/admin_begin.php');
@@ -41,19 +41,19 @@ $action_post = retrieve(POST, 'action', '');
 
 if ($action_post == 'save')
 {
-    // Save a Menu (New / Edit)
+    
     import('content/parser/parser');
     $menu = null;
     
     $menu_name = retrieve(POST, 'name', '', TSTRING_UNCHANGE);
     
     if (!empty($id_post))
-    {   // Edit the Menu
+    {   
         $menu = MenuService::load($id_post);
         $menu->set_title($menu_name);
     }
     else
-    {   // Add the new Menu
+    {   
         $menu = new ContentMenu($menu_name);
     }
     
@@ -77,7 +77,7 @@ if ($action_post == 'save')
 	redirect('menus.php#m' . $id_post);
 }
 
-// Display the Menu administration
+
 $edit = !empty($id);
 
 include('lateral_menu.php');
@@ -107,7 +107,7 @@ $tpl->assign_vars(array(
     'L_DISPLAY_TITLE' => $LANG['display_title']
 ));
 
-//Localisation possibles.
+
 $block = BLOCK_POSITION__HEADER;
 $array_location = array(
     BLOCK_POSITION__HEADER => $LANG['menu_header'],

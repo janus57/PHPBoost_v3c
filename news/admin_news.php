@@ -1,43 +1,43 @@
 <?php
-/*##################################################
- *                               admin_news_config.php
- *                            -------------------
- *   begin                : June 20, 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
- *
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('ALTERNATIVE_CSS', 'news');
-load_module_lang('news'); //Chargement de la langue du module.
+load_module_lang('news'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
-//On recupère les variables.
+
 $id = retrieve(GET, 'id', 0);
 $id_post = retrieve(POST, 'id', 0);
 $del = isset($_GET['delete']) ? true : false;
 
-if (!empty($_POST['valid']) && !empty($id_post)) //inject
+if (!empty($_POST['valid']) && !empty($id_post)) 
 {
 	$idcat = retrieve(POST, 'idcat', 0);
 	$title = retrieve(POST, 'title', '');
@@ -46,7 +46,7 @@ if (!empty($_POST['valid']) && !empty($id_post)) //inject
 	$img = retrieve(POST, 'img', '');
 	$alt = retrieve(POST, 'alt', '');
 
-	//Gestion de la parution
+	
 	$get_visible = retrieve(POST, 'visible', 0);
 	$start = retrieve(POST, 'start', 0, TSTRING_UNCHANGE);
 	$start_hour = retrieve(POST, 'start_hour', 0, TSTRING_UNCHANGE);
@@ -55,15 +55,15 @@ if (!empty($_POST['valid']) && !empty($id_post)) //inject
 	$end_hour = retrieve(POST, 'end_hour', 0, TSTRING_UNCHANGE);
 	$end_min = retrieve(POST, 'end_min', 0, TSTRING_UNCHANGE);
 
-	//Date de la news
+	
 	$current_date = retrieve(POST, 'current_date', '', TSTRING_UNCHANGE);
 	$current_hour = retrieve(POST, 'current_hour', 0, TSTRING_UNCHANGE);
 	$current_min = retrieve(POST, 'current_min', 0, TSTRING_UNCHANGE);
 
-	//Image en relatif.
+	
 	$img_url = new Url($img);
 
-	//On met à jour
+	
 	if (!empty($idcat) && !empty($title) && !empty($contents) && isset($get_visible))
 	{
 		$start_timestamp = !empty($start) ? strtotimestamp($start, $LANG['date_format_short']) + ($start_hour * 3600) + ($start_min * 60) : 0;
@@ -72,10 +72,10 @@ if (!empty($_POST['valid']) && !empty($id_post)) //inject
 		$visible = 1;
 		if ($get_visible == 2)
 		{
-			if ($start_timestamp < time() || $start_timestamp < 0) //Date inférieur à celle courante => inutile.
+			if ($start_timestamp < time() || $start_timestamp < 0) 
 			$start_timestamp = 0;
 
-			if ($end_timestamp < time() || ($end_timestamp < $start_timestamp && $start_timestamp != 0)) //Date inférieur à celle courante => inutile.
+			if ($end_timestamp < time() || ($end_timestamp < $start_timestamp && $start_timestamp != 0)) 
 			$end_timestamp = 0;
 		}
 		elseif ($get_visible == 1)
@@ -86,22 +86,22 @@ if (!empty($_POST['valid']) && !empty($id_post)) //inject
 		$timestamp = strtotimestamp($current_date, $LANG['date_format_short']);
 		if ($timestamp > 0)
 		{
-			//Ajout des heures et minutes
+			
 			$timestamp += ($current_hour * 3600) + ($current_min * 60);
 			$timestamp = ' , timestamp = \'' . $timestamp . '\'';
 		}
-		else //Ajout des heures et minutes
+		else 
 		$timestamp = ' , timestamp = \'' . time() . '\'';
 
 		$Sql->query_inject("UPDATE " . PREFIX . "news SET idcat = '" . $idcat . "', title = '" . $title . "', contents = '" . $contents . "', extend_contents = '" . $extend_contents . "', img = '" . $img_url->relative() . "', alt = '" . $alt . "', visible = '" . $visible . "', start = '" .  $start_timestamp . "', end = '" . $end_timestamp . "'" . $timestamp . "
 		WHERE id = '" . $id_post . "'", __LINE__, __FILE__);	
 
-		// Feeds Regeneration
+		
 		import('content/syndication/feed');
 		Feed::clear_cache('news');
 
-		//Mise à jour du nombre de news dans le cache de la configuration.
-		$Cache->load('news'); //Requête des configuration générales (news), $CONFIG_NEWS variable globale.
+		
+		$Cache->load('news'); 
 		$CONFIG_NEWS['nbr_news'] = $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "news WHERE visible = 1", __LINE__, __FILE__);
 		$Sql->query_inject("UPDATE " . DB_TABLE_CONFIGS . " SET value = '" . addslashes(serialize($CONFIG_NEWS)) . "' WHERE name = 'news'", __LINE__, __FILE__);
 
@@ -113,22 +113,22 @@ if (!empty($_POST['valid']) && !empty($id_post)) //inject
 	else
 	redirect(HOST . DIR . '/news/admin_news.php?id= ' . $id_post . '&error=incomplete#errorh');
 }
-elseif ($del && !empty($id)) //Suppression de la news.
+elseif ($del && !empty($id)) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 
-	//On supprime dans la bdd.
+	
 	$Sql->query_inject("DELETE FROM " . PREFIX . "news WHERE id = '" . $id . "'", __LINE__, __FILE__);
 
-	//On supprimes les éventuels commentaires associés.
+	
 	$Sql->query_inject("DELETE FROM " . DB_TABLE_COM . " WHERE idprov = '" . $id . "' AND script = 'news'", __LINE__, __FILE__);
 
-	// Feeds Regeneration
+	
 	import('content/syndication/feed');
 	Feed::clear_cache('news');
 
-	//Mise à jour du nombre de news dans le cache de la configuration.
-	$Cache->load('news'); //Requête des configuration générales (news), $CONFIG_NEWS variable globale.
+	
+	$Cache->load('news'); 
 	$CONFIG_NEWS['nbr_news'] = $Sql->query("SELECT COUNT(*) AS nbr_news FROM " . PREFIX . "news WHERE visible = 1", __LINE__, __FILE__);
 	$Sql->query_inject("UPDATE " . DB_TABLE_CONFIGS . " SET value = '" . addslashes(serialize($CONFIG_NEWS)) . "' WHERE name = 'news'", __LINE__, __FILE__);
 
@@ -136,7 +136,7 @@ elseif ($del && !empty($id)) //Suppression de la news.
 
 	redirect(HOST . SCRIPT);
 }
-elseif (!empty($id)) //Vue de la news
+elseif (!empty($id)) 
 {
 	$Template->set_filenames(array(
 		'admin_news_management'=> 'news/admin_news_management.tpl'
@@ -220,7 +220,7 @@ elseif (!empty($id)) //Vue de la news
 		'L_RESET' => $LANG['reset']
 	));
 
-	//Catégories.
+	
 	$i = 0;
 	$idcat = $row['idcat'];
 	$result = $Sql->query_while("SELECT id, name FROM " . PREFIX . "news_cat", __LINE__, __FILE__);
@@ -234,16 +234,16 @@ elseif (!empty($id)) //Vue de la news
 	}
 	$Sql->query_close($result);
 
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);
-	elseif ($i == 0) //Aucune catégorie => alerte.
+	elseif ($i == 0) 
 		$Errorh->handler($LANG['require_cat_create'], E_USER_WARNING);
 
 	$Template->pparse('admin_news_management');
 }
-elseif (!empty($_POST['previs']) && !empty($id_post)) //Prévisualisation de la news.
+elseif (!empty($_POST['previs']) && !empty($id_post)) 
 {
 	$Template->set_filenames(array(
 		'admin_news_management'=> 'news/admin_news_management.tpl'
@@ -257,7 +257,7 @@ elseif (!empty($_POST['previs']) && !empty($id_post)) //Prévisualisation de la n
 		$img = retrieve(POST, 'img', '', TSTRING_UNCHANGE);
 		$alt = retrieve(POST, 'alt', '', TSTRING_UNCHANGE);
 
-		//Gestion de la parution
+		
 		$get_visible = retrieve(POST, 'visible', 0);
 		$start = retrieve(POST, 'start', 0, TSTRING_UNCHANGE);
 		$start_hour = retrieve(POST, 'start_hour', 0, TSTRING_UNCHANGE);
@@ -266,7 +266,7 @@ elseif (!empty($_POST['previs']) && !empty($id_post)) //Prévisualisation de la n
 		$end_hour = retrieve(POST, 'end_hour', 0, TSTRING_UNCHANGE);
 		$end_min = retrieve(POST, 'end_min', 0, TSTRING_UNCHANGE);
 
-		//Date de la news
+		
 		$current_date = retrieve(POST, 'current_date', '', TSTRING_UNCHANGE);
 		$current_hour = retrieve(POST, 'current_hour', 0, TSTRING_UNCHANGE);
 		$current_min = retrieve(POST, 'current_min', 0, TSTRING_UNCHANGE);
@@ -320,7 +320,7 @@ elseif (!empty($_POST['previs']) && !empty($id_post)) //Prévisualisation de la n
 			'VISIBLE_UNAPROB' => (($get_visible == 0) ? 'checked="checked"' : '')
 		));
 
-		//Catégories.
+		
 		$i = 0;
 		$result = $Sql->query_while("SELECT id, name FROM " . PREFIX . "news_cat", __LINE__, __FILE__);
 		while ($row = $Sql->fetch_assoc($result))
@@ -333,7 +333,7 @@ elseif (!empty($_POST['previs']) && !empty($id_post)) //Prévisualisation de la n
 		}
 		$Sql->query_close($result);
 
-		if ($i == 0) //Aucune catégorie => alerte.
+		if ($i == 0) 
 		$Errorh->handler($LANG['require_cat_create'], E_USER_WARNING);
 
 		$Template->assign_block_vars('news.preview', array(
@@ -396,7 +396,7 @@ else
 		));
 
 		$nbr_news = $Sql->count_table('news', __LINE__, __FILE__);
-		//On crée une pagination si le nombre de news est trop important.
+		
 		import('util/pagination');
 		$Pagination = new Pagination();
 
@@ -437,8 +437,8 @@ else
 			else
 			$aprob = $LANG['no'];
 
-			//On reccourci le lien si il est trop long pour éviter de déformer l'administration.
-			$title = html_entity_decode($row['title']);
+			
+			$title = html_entity_decode($row['title'], ENT_COMPAT, 'ISO-8859-1');
 			$title = strlen($title) > 45 ? substr($title, 0, 45) . '...' : $title;
 
 			$visible = '';

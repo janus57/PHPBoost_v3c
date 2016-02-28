@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               search.php
- *                            -------------------
- *   begin                : June 16, 2007
- *   copyright          : (C) 2007 Sautel Benoit
- *   email                : ben.popeye@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 load_module_lang('wiki');
@@ -60,7 +60,7 @@ $Template->assign_vars(array(
 	'L_CONTENTS' => $LANG['content']
 ));
 
-if (!empty($search_string)) //recherche
+if (!empty($search_string)) 
 {
 	$title_search = "SELECT title, encoded_title, MATCH(title) AGAINST('" . $search_string . "') AS relevance
 		FROM " . PREFIX . "wiki_articles
@@ -94,10 +94,10 @@ if (!empty($search_string)) //recherche
 	else
 		$Errorh->handler($LANG['wiki_empty_search'], E_NOTICE);
 	
-	$i = 1; //On �mule le "limit" 10 r�sultats par page
+	$i = 1; 
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		if ($i > ($page - 1) * 10 && $i <= $page * 10) //On affiche
+		if ($i > ($page - 1) * 10 && $i <= $page * 10) 
 			$Template->assign_block_vars('search_result.item', array(
 				'TITLE' => $row['title'],
 				'U_TITLE' => url('wiki.php?title=' . $row['encoded_title'], $row['encoded_title']),

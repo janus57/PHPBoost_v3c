@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               admin_updates.php
- *                            -------------------
- *   begin                  : July 27, 2008
- *   copyright              : (C) 2008 Loïc Rouchon
- *   email                  : horn@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 define('PATH_TO_ROOT', '../..');
 
@@ -50,14 +50,14 @@ $updates_availables = 0;
 
 if (phpversion() > PHP_MIN_VERSION_UPDATES)
 {
-    // Retrieves all the update alerts from the database
+    
     import('events/administrator_alert_service');
     import('core/application');
     $update_alerts = AdministratorAlertService::find_by_criteria(null, 'updates');
     $updates = array();
     foreach ($update_alerts as $update_alert)
     {
-        // Builds the asked updates (kernel updates, module updates, theme updates or all of them)
+        
         $update = unserialize($update_alert->get_properties());
         if ($update_type == '' || $update->get_type() == $update_type)
         {
@@ -67,8 +67,8 @@ if (phpversion() > PHP_MIN_VERSION_UPDATES)
             }
             else
             {
-                // Like the update is incompatible (or has been applied)
-                // We set the alert status to processed
+                
+                
             	$update_alert->set_status(EVENT_STATUS_PROCESSED);
                 AdministratorAlertService::save_alert($update_alert);
             }

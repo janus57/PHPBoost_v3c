@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                                 menus.php
- *                            -------------------
- *   begin                : March, 05 2007
- *   copyright            : (C) 2009 Régis Viarre, Loïc Rouchon
- *   email                : crowkait@phpboost.com, horn@phpboost.com
- *
- *
- * 
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 define('PATH_TO_ROOT', '../..');
 require_once(PATH_TO_ROOT . '/admin/admin_begin.php');
@@ -79,7 +79,7 @@ if (!empty($id))
     if ($menu == null)
         redirect('menus.php');
     
-    // In GET mode so we check it
+    
     $Session->csrf_get_protect();
         
     switch ($action)
@@ -95,7 +95,7 @@ if (!empty($id))
             break;
         case 'up':
         case 'down':
-            // Move up or down a Menu in a block
+            
         	if ($action == 'up')
         	   MenuService::change_position($menu, MOVE_UP);
         	else
@@ -103,7 +103,7 @@ if (!empty($id))
             break;
         default:
             if (!empty($move))
-            {   // Move a Menu
+            {   
                 MenuService::move($menu, $move);
             }
             break;
@@ -114,24 +114,24 @@ if (!empty($id))
     redirect('menus.php#m' . $id);
 }
 
-// Try to find out new mini-modules and delete old ones
+
 MenuService::update_mini_modules_list(false);
-// The same with the mini menus
+
 MenuService::update_mini_menus_list();
 
-// Display the Menu dispositions
+
 include('lateral_menu.php');
 lateral_menu();
 
 $tpl = new Template('admin/menus/menus.tpl');
 $Cache->load('themes');
 
-// Compute the column number
+
 $right_column = $THEME_CONFIG[get_utheme()]['right_column'];
 $left_column = $THEME_CONFIG[get_utheme()]['left_column'];
 $colspan = 1 + (int) $right_column + (int) $left_column;
 
-// Retrieves all the menu
+
 $menus_blocks = MenuService::get_menus_map();
 $blocks = array(
    BLOCK_POSITION__HEADER => 'mod_header',
@@ -171,11 +171,11 @@ $menu_template->assign_vars(array(
 ));
 
 foreach ($menus_blocks as $block_id => $menus)
-{   // For each block
+{   
     $i = 0;
     $max = count($menus);
     foreach ($menus as $menu)
-    {   // For each Menu in this block
+    {   
         $menu_tpl = $menu_template->copy();
         
         $id = $menu->get_id();

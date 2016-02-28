@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                            moderation_panel.php
- *                            -------------------
- *   begin                : March 20, 2007
- *   copyright            : (C) 2007 Viarre Régis
- *   email                :   crowkait@phpboost.com
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 
@@ -48,7 +48,7 @@ switch ($action)
 define('TITLE', $LANG['moderation_panel']);
 require_once('../kernel/header.php');
 
-if (!$User->check_level(MODO_LEVEL)) //Si il n'est pas modérateur
+if (!$User->check_level(MODO_LEVEL)) 
 	$Errorh->handler('e_auth', E_USER_REDIRECT);
 
 $moderation_panel_template = new Template('member/moderation_panel.tpl');	
@@ -71,20 +71,20 @@ $moderation_panel_template->assign_vars(array(
 
 switch ($action)
 {
-	case 'punish': //Gestion des utilisateurs
+	case 'punish': 
 		$readonly = retrieve(POST, 'new_info', 0);
 		$readonly = $readonly > 0 ? (time() + $readonly) : 0;
 		$readonly_contents = retrieve(POST, 'action_contents', '', TSTRING_UNCHANGE);
-		if (!empty($id_get) && !empty($_POST['valid_user'])) //On met à  jour le niveau d'avertissement
+		if (!empty($id_get) && !empty($_POST['valid_user'])) 
 		{
 			$info_mbr = $Sql->query_array(DB_TABLE_MEMBER, 'user_id', 'level', "WHERE user_id = '" . $id_get . "'", __LINE__, __FILE__);
 			
-			//Modérateur ne peux avertir l'admin (logique non?).
+			
 			if (!empty($info_mbr['user_id']) && ($info_mbr['level'] < 2 || $User->check_level(ADMIN_LEVEL)))
 			{
 				$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET user_readonly = '" . $readonly . "' WHERE user_id = '" . $info_mbr['user_id'] . "'", __LINE__, __FILE__);
 				
-				//Envoi d'un MP au membre pour lui signaler, si le membre en question n'est pas lui-même.
+				
 				if ($info_mbr['user_id'] != $User->get_attribute('user_id'))
 				{
 					if (!empty($readonly_contents) && !empty($readonly))
@@ -92,7 +92,7 @@ switch ($action)
 						import('members/pm');
 						$Privatemsg = new PrivateMsg();
 						
-						//Envoi du message.
+						
 						$Privatemsg->start_conversation($info_mbr['user_id'], addslashes($LANG['read_only_title']), str_replace('%date', gmdate_format('date_format', $readonly), $readonly_contents), '-1', SYSTEM_PM);
 					}
 				}
@@ -110,7 +110,7 @@ switch ($action)
 			'U_ACTION' => '.php?action=punish&amp;token=' . $Session->get_token()
 		));
 		
-		if (empty($id_get)) //On liste les membres qui ont déjà un avertissement
+		if (empty($id_get)) 
 		{
 			if (!empty($_POST['search_member']))
 			{
@@ -158,13 +158,13 @@ switch ($action)
 				));
 			}
 		}
-		else //On affiche les infos sur l'utilisateur
+		else 
 		{
 			$member = $Sql->query_array(DB_TABLE_MEMBER, 'login', 'user_readonly', "WHERE user_id = '" . $id_get . "'", __LINE__, __FILE__);
 					
-			//On crée le formulaire select
+			
 			$select = '';
-			//Durée de la sanction.
+			
 			$array_time = array(0, 60, 300, 900, 1800, 3600, 7200, 86400, 172800, 604800, 1209600, 2419200, 326592000); 	
 			$array_sanction = array($LANG['no'], '1 ' . $LANG['minute'], '5 ' . $LANG['minutes'], '15 ' . $LANG['minutes'], '30 ' . $LANG['minutes'], '1 ' . $LANG['hour'], '2 ' . $LANG['hours'], '1 ' . $LANG['day'], '2 ' . $LANG['days'], '1 ' . $LANG['week'], '2 ' . $LANG['weeks'], '1 ' . $LANG['month'], '10 ' . strtolower($LANG['years'])); 
 	
@@ -172,7 +172,7 @@ switch ($action)
 			$key_sanction = 0;
 			if ($diff > 0)
 			{
-				//Retourne la sanction la plus proche correspondant au temp de bannissement. 
+				
 				for ($i = 11; $i > 0; $i--)
 				{					
 					$avg = ceil(($array_time[$i] + $array_time[$i-1])/2);
@@ -183,7 +183,7 @@ switch ($action)
 					}
 				}
 			}
-			//Affichge des sanctions
+			
 			foreach ($array_time as $key => $time)
 			{
 				$selected = ($key_sanction == $key) ? 'selected="selected"' : '' ;
@@ -230,23 +230,23 @@ switch ($action)
 			));		
 		}
 		break;
-	case 'ban': //Gestion des utilisateurs
+	case 'ban': 
 	default:
 		$user_ban = retrieve(POST, 'user_ban', '', TSTRING_UNCHANGE);
 		$user_ban = $user_ban > 0 ? (time() + $user_ban) : 0;
-		if (!empty($_POST['valid_user']) && !empty($id_get)) //On banni le membre
+		if (!empty($_POST['valid_user']) && !empty($id_get)) 
 		{
 			$info_mbr = $Sql->query_array(DB_TABLE_MEMBER, 'user_id', 'level', 'user_warning', 'user_mail', "WHERE user_id = '" . $id_get . "'", __LINE__, __FILE__);
-			//Modérateur ne peux avertir l'admin (logique non?).
+			
 			if (!empty($info_mbr['user_id']) && ($info_mbr['level'] < 2 || $User->check_level(ADMIN_LEVEL)))
 			{
 				$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET user_ban = '" . $user_ban . "' WHERE user_id = '" . $info_mbr['user_id'] . "'", __LINE__, __FILE__);			
 				
-				//Si avertissement à 100% et débanni, on réduit l'avertissement à 90%.
+				
 				if ($user_ban == 0 && $info_mbr['user_warning'] == 100)
 					$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET user_warning = '90' WHERE user_id = '" . $info_mbr['user_id'] . "'", __LINE__, __FILE__);
 				
-				if (!empty($user_ban)) //Envoi du mail
+				if (!empty($user_ban)) 
 				{
 					import('io/mail');
 					$Mail = new Mail();
@@ -265,7 +265,7 @@ switch ($action)
 			'U_ACTION' => '.php?action=ban&amp;token=' . $Session->get_token()
 		));
 		
-		if (empty($id_get)) //On liste les membres qui ont déjà un avertissement
+		if (empty($id_get)) 
 		{
 			if (!empty($_POST['search_member']))
 			{
@@ -313,7 +313,7 @@ switch ($action)
 				));
 			}
 		}
-		else //On affiche les infos sur l'utilisateur
+		else 
 		{
 			$mbr = $Sql->query_array(DB_TABLE_MEMBER, 'login', 'user_ban', 'user_warning', "WHERE user_id = '" . $id_get . "'", __LINE__, __FILE__);
 			$moderation_panel_template->assign_vars(array(
@@ -328,7 +328,7 @@ switch ($action)
 				'L_DELAY_BAN' => $LANG['user_ban_delay'],
 			));	
 			
-			//Temps de bannissement.
+			
 			$array_time = array(0, 60, 300, 900, 1800, 3600, 7200, 86400, 172800, 604800, 1209600, 2419200, 326592000);
 			$array_sanction = array($LANG['no'], '1 ' . $LANG['minute'], '5 ' . $LANG['minutes'], '15 ' . $LANG['minutes'], '30 ' . $LANG['minutes'], '1 ' . $LANG['hour'], '2 ' . $LANG['hours'], '1 ' . $LANG['day'], '2 ' . $LANG['days'], '1 ' . $LANG['week'], '2 ' . $LANG['weeks'], '1 ' . $LANG['month'], $LANG['illimited']); 
 			
@@ -336,7 +336,7 @@ switch ($action)
 			$key_sanction = 0;
 			if ($diff > 0)
 			{
-				//Retourne la sanction la plus proche correspondant au temp de bannissement. 
+				
 				for ($i = 11; $i >= 0; $i--)
 				{					
 					$avg = ceil(($array_time[$i] + $array_time[$i-1])/2);
@@ -350,7 +350,7 @@ switch ($action)
 			if ($mbr['user_warning'] == 100)
 				$key_sanction = 12;
 				
-			//Affichge des sanctions
+			
 			foreach ($array_time as $key => $time)
 			{
 				$selected = ($key_sanction == $key) ? 'selected="selected"' : '' ;
@@ -359,21 +359,21 @@ switch ($action)
 				));
 			}	
 		}
-			case 'warning': //Gestion des utilisateurs
+			case 'warning': 
 		$new_warning_level = retrieve(POST, 'new_info', 0);
 		$warning_contents = retrieve(POST, 'action_contents', '', TSTRING_UNCHANGE);
-		if ($new_warning_level >= 0 && $new_warning_level <= 100 && isset($_POST['new_info']) && !empty($id_get) && !empty($_POST['valid_user'])) //On met à  jour le niveau d'avertissement
+		if ($new_warning_level >= 0 && $new_warning_level <= 100 && isset($_POST['new_info']) && !empty($id_get) && !empty($_POST['valid_user'])) 
 		{
 			$info_mbr = $Sql->query_array(DB_TABLE_MEMBER, 'user_id', 'level', 'user_mail', "WHERE user_id = '" . $id_get . "'", __LINE__, __FILE__);
 			
-			//Modérateur ne peux avertir l'admin (logique non?).
+			
 			if (!empty($info_mbr['user_id']) && ($info_mbr['level'] < 2 || $User->check_level(ADMIN_LEVEL)))
 			{
-				if ($new_warning_level < 100) //Ne peux pas mettre des avertissements supérieurs à 100.
+				if ($new_warning_level < 100) 
 				{
 					$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET user_warning = '" . $new_warning_level . "' WHERE user_id = '" . $info_mbr['user_id'] . "'", __LINE__, __FILE__);
 					
-					//Envoi d'un MP au membre pour lui signaler, si le membre en question n'est pas lui-même.
+					
 					if ($info_mbr['user_id'] != $User->get_attribute('user_id'))
 					{					
 						if (!empty($warning_contents))
@@ -381,17 +381,17 @@ switch ($action)
 							import('members/pm');
 							$Privatemsg = new PrivateMsg();
 							
-							//Envoi du message.
+							
 							$Privatemsg->start_conversation($info_mbr['user_id'], addslashes($LANG['warning_title']), $warning_contents, '-1', SYSTEM_PM);
 						}
 					}
 				}
-				elseif ($new_warning_level == 100) //Ban => on supprime sa session et on le banni (pas besoin d'envoyer de pm :p).
+				elseif ($new_warning_level == 100) 
 				{
 					$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET user_warning = 100 WHERE user_id = '" . $info_mbr['user_id'] . "'", __LINE__, __FILE__);
 					$Sql->query_inject("DELETE FROM " . DB_TABLE_SESSIONS . " WHERE user_id = '" . $info_mbr['user_id'] . "'", __LINE__, __FILE__);
 				
-					//Envoi du mail
+					
 					import('io/mail');
 					$Mail = new Mail();
 					$Mail->send_from_properties($info_mbr['user_mail'], addslashes($LANG['ban_title_mail']), sprintf(addslashes($LANG['ban_mail']), HOST, addslashes($CONFIG['sign'])), $CONFIG['mail_exp']);
@@ -410,7 +410,7 @@ switch ($action)
 			'U_ACTION' => '.php?action=warning&amp;token=' . $Session->get_token()
 		));
 		
-		if (empty($id_get)) //On liste les membres qui ont déjà un avertissement
+		if (empty($id_get)) 
 		{
 			if (!empty($_POST['search_member']))
 			{
@@ -458,11 +458,11 @@ switch ($action)
 				));
 			}
 		}
-		else //On affiche les infos sur l'utilisateur
+		else 
 		{
 			$member = $Sql->query_array(DB_TABLE_MEMBER, 'login', 'user_warning', "WHERE user_id = '" . $id_get . "'", __LINE__, __FILE__);
 						
-			//On crée le formulaire select
+			
 			$select = '';
 			$j = 0;
 			for ($j = 0; $j <=10; $j++)

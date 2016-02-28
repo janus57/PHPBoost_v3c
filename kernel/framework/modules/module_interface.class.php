@@ -27,11 +27,11 @@
 
 
 
-define('MODULE_NOT_AVAILABLE',1);
-define('ACCES_DENIED',2);
-define('MODULE_NOT_YET_IMPLEMENTED',4);
-define('FUNCTIONNALITY_NOT_IMPLEMENTED',8);
-define('MODULE_ATTRIBUTE_DOES_NOT_EXIST',16);
+define('MODULE_NOT_AVAILABLE', 1);
+define('ACCES_DENIED', 2);
+define('MODULE_NOT_YET_IMPLEMENTED', 4);
+define('FUNCTIONNALITY_NOT_IMPLEMENTED', 8);
+define('MODULE_ATTRIBUTE_DOES_NOT_EXIST', 16);
 
 
 
@@ -43,245 +43,245 @@ define('MODULE_ATTRIBUTE_DOES_NOT_EXIST',16);
 
 class ModuleInterface
 {
+    
+    
 
 
 
 
+    function ModuleInterface($moduleId = '', $error = 0)
+    {
+        
 
 
-function ModuleInterface($moduleId='',$error=0)
-{
+        global $CONFIG, $MODULES;
+        $this->id = $moduleId;
+        $this->name = $this->id;
+        $this->attributes =array();
+        $this->infos = array();
+        $this->functionalities = array();
+        $this->enabled = !empty($MODULES[strtolower($this->get_id())]) && ($MODULES[strtolower($this->get_id())]['activ'] == '1');
 
+        
+        $this->infos = load_ini_file(PATH_TO_ROOT . '/' . $this->id . '/lang/', get_ulang());
+        if (isset($this->infos['name']))
+        {
+        	$this->name = $this->infos['name'];
+        }
 
+        if ($error == 0)
+        {
+            $class = ucfirst($moduleId).'Interface';
+            
+            $module_methods = get_class_methods($class); 
+            
+            $generics_methods = get_class_methods('ModuleInterface'); 
+            $generics_methods[] = $class;
+            
+            $methods_diff = array_diff($module_methods, $generics_methods);
+            
+            
+            foreach ($methods_diff as $method)
+            {
+                if (substr($method, 0, 1) != '_')
+                {
+                	$this->functionalities[] = $method;
+                }
+            }
+            $this->functionalities[] = 'none';
+        }
+        $this->errors = $error;
+    }
 
-global $CONFIG,$MODULES;
-$this->id=$moduleId;
-$this->name=$this->id;
-$this->attributes=array();
-$this->infos=array();
-$this->functionalities=array();
-$this->enabled=!empty($MODULES[strtolower($this->get_id())])&&($MODULES[strtolower($this->get_id())]['activ']=='1');
+    
+    
 
 
-$this->infos=load_ini_file(PATH_TO_ROOT.'/'.$this->id.'/lang/',get_ulang());
-if(isset($this->infos['name']))
-{
-$this->name=$this->infos['name'];
-}
+    function get_id()
+    {
+        return $this->id;
+    }
 
-if($error==0)
-{
-$class=ucfirst($moduleId).'Interface';
+    
 
-$module_methods=get_class_methods($class);
 
-$generics_methods=get_class_methods('ModuleInterface');
-$generics_methods[]=$class;
+    function is_enabled()
+    {
+        return $this->enabled;
+    }
+    
+    
 
-$methods_diff=array_diff($module_methods,$generics_methods);
 
+    function get_name()
+    {
+        return $this->name;
+    }
 
-foreach($methods_diff as $method)
-{
-if(substr($method,0,1)!='_')
-{
-$this->functionalities[]=$method;
-}
-}
-$this->functionalities[]='none';
-}
-$this->errors=$error;
-}
+    
 
 
+    function get_infos()
+    {
+        return array(
+            'name' => $this->name,
+            'infos' => $this->infos,
+            'functionalities' => $this->functionalities,
+        );
+    }
 
+    
 
 
-function get_id()
-{
-return $this->id;
-}
 
 
 
+    function get_attribute($attribute)
 
-function is_enabled()
-{
-return $this->enabled;
-}
+    {
+        $this->_clear_error(MODULE_ATTRIBUTE_DOES_NOT_EXIST);
+        if ( isset($this->attributes[$attribute]) )
+            return $this->attributes[$attribute];
+        
+        $this->_set_error(MODULE_ATTRIBUTE_DOES_NOT_EXIST);
+        return -1;
+    }
 
+    
 
 
 
-function get_name()
-{
-return $this->name;
-}
 
+    function set_attribute($attribute, $value)
+    {
+        $this->attributes[$attribute] = $value;
+    }
 
+    
 
 
-function get_infos()
-{
-return array(
-'name'=>$this->name,
-'infos'=>$this->infos,
-'functionalities'=>$this->functionalities,
-);
-}
 
+    function unset_attribute($attribute)
+    {
+        unset($this->attributes[$attribute]);
+    }
 
+    
 
 
 
 
 
-function get_attribute($attribute)
+    function got_error($error = 0)
+    {
+        if ( $error == 0 )
+            return $this->errors != 0;
+        else
+            return ($this->errors & $error) != 0;
+    }
 
-{
-$this->_clear_error(MODULE_ATTRIBUTE_DOES_NOT_EXIST);
-if(isset($this->attributes[$attribute]))
-return $this->attributes[$attribute];
+    
 
-$this->_set_error(MODULE_ATTRIBUTE_DOES_NOT_EXIST);
-return-1;
-}
 
+    function get_errors()
+    {
+        return $this->errors;
+    }
 
+    
 
 
 
 
-function set_attribute($attribute,$value)
-{
-$this->attributes[$attribute]=$value;
-}
 
 
+    function functionality($functionality, $args = null)
+    {
+        $this->_clear_error(FUNCTIONNALITY_NOT_IMPLEMENTED);
+        if ($this->has_functionality($functionality))
+            return $this->$functionality($args);
+        $this->_set_error(FUNCTIONNALITY_NOT_IMPLEMENTED);
+        return false;
+    }
 
+    
 
 
-function unset_attribute($attribute)
-{
-unset($this->attributes[$attribute]);
-}
 
 
+    function has_functionality($functionality)
+    {
+        return in_array(strtolower($functionality), $this->functionalities);
+    }
 
+    
 
 
 
 
-function got_error($error=0)
-{
-if($error==0)
-return $this->errors!=0;
-else
-return($this->errors&$error)!=0;
-}
+    function has_functionalities($functionalities)
+    {
+        $nbFunctionnalities = count($functionalities);
+        for ( $i = 0; $i < $nbFunctionnalities; $i++ )
+            $functionalities[$i] = strtolower($functionalities[$i]);
+        return $functionalities === array_intersect($functionalities, $this->functionalities);
+    }
 
 
+    
 
 
-function get_errors()
-{
-return $this->errors;
-}
 
+    function set_error($error = 0)
+    {
+        $this->errors |= $error;
+    }
+    
 
+    
+    
+    
 
 
 
+    function _clear_error($error)
+    {
+        $this->errors &= (~$error);
+    }
 
+    
+    
 
 
-function functionality($functionality,$args=null)
-{
-$this->_clear_error(FUNCTIONNALITY_NOT_IMPLEMENTED);
-if($this->has_functionality($functionality))
-return $this->$functionality($args);
-$this->_set_error(FUNCTIONNALITY_NOT_IMPLEMENTED);
-return false;
-}
 
+    var $id;
+    
 
 
 
+    var $name;
+    
 
 
-function has_functionality($functionality)
-{
-return in_array(strtolower($functionality),$this->functionalities);
-}
 
+    var $infos;
+    
 
 
 
+    var $functionalities;
+    
 
 
-function has_functionalities($functionalities)
-{
-$nbFunctionnalities=count($functionalities);
-for($i=0;$i<$nbFunctionnalities;$i++)
-$functionalities[$i]=strtolower($functionalities[$i]);
-return $functionalities===array_intersect($functionalities,$this->functionalities);
-}
 
+    var $errors;
+    
 
 
 
+    var $attributes;
 
-
-function set_error($error=0)
-{
-$this->errors |=$error;
-}
-
-
-
-
-
-
-
-
-function _clear_error($error)
-{
-$this->errors&=(~$error);
-}
-
-
-
-
-
-
-var $id;
-
-
-
-
-var $name;
-
-
-
-
-var $infos;
-
-
-
-
-var $functionalities;
-
-
-
-
-var $errors;
-
-
-
-
-var $attributes;
-
-var $enabled=false;
+    var $enabled = false;
 
 
 }

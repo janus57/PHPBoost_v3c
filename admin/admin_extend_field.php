@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               admin_extend_field.php
- *                            -------------------
- *   begin                : June 16, 2007
- *   copyright            : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
@@ -100,7 +100,7 @@ elseif (!empty($_POST['valid']))
 	else
 		redirect(HOST . DIR . '/admin/admin_extend_field.php?id=' . $id . '&error=incomplete#errorh');
 }
-elseif ((!empty($top) || !empty($bottom)) && !empty($id)) //Monter/descendre.
+elseif ((!empty($top) || !empty($bottom)) && !empty($id)) 
 {
 	if (!empty($top))
 	{	
@@ -148,7 +148,7 @@ elseif (!empty($id))
 		'DISABLED' => ($extend_field['field'] > 2) ? ' disabled="disabled"' : '',
 	));
 
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);
@@ -257,7 +257,7 @@ else
 	ORDER BY class", __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		//Si on atteint le premier ou le dernier id on affiche pas le lien inaproprié.
+		
 		$top_link = $min_cat != $row['class'] ? '<a href="admin_extend_field.php?top=' . $row['class'] . '&amp;id=' . $row['id'] . '" title="">
 		<img src="../templates/' . get_utheme() . '/images/admin/up.png" alt="" title="" /></a>' : '';
 		$bottom_link = $max_cat != $row['class'] ? '<a href="admin_extend_field.php?bot=' . $row['class'] . '&amp;id=' . $row['id'] . '" title="">

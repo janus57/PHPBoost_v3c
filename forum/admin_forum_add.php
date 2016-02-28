@@ -1,33 +1,33 @@
 <?php
-/*##################################################
- *                               admin_forum_add.php
- *                            -------------------
- *   begin                : July  21, 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('forum'); //Chargement de la langue du module.
+load_module_lang('forum'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
@@ -37,8 +37,8 @@ $idcat = retrieve(GET, 'idcat', 0);
 $class = retrieve(GET, 'id', 0);
 
 
-//Si c'est confirmé on execute
-if (!empty($_POST['add'])) //Nouveau forum/catégorie.
+
+if (!empty($_POST['add'])) 
 {
 	$Cache->load('forum');
 	
@@ -86,14 +86,14 @@ if (!empty($_POST['add'])) //Nouveau forum/catégorie.
 	else
 		$status = 1;
 	
-	//Génération du tableau des droits.
+	
 	$array_auth_all = Authorizations::build_auth_array_from_form(READ_CAT_FORUM, WRITE_CAT_FORUM, EDIT_CAT_FORUM);
 
 	if (!empty($name))
 	{
-		if (isset($CAT_FORUM[$parent_category])) //Insertion sous forum de niveau x.
+		if (isset($CAT_FORUM[$parent_category])) 
 		{
-			//Forums parent du forum cible.
+			
 			$list_parent_cats = '';
 			$result = $Sql->query_while("SELECT id
 			FROM " . PREFIX . "forum_cats
@@ -116,7 +116,7 @@ if (!empty($_POST['add'])) //Nouveau forum/catégorie.
 			$level = $CAT_FORUM[$parent_category]['level'] + 1;
 
 		}
-		else //Insertion forum niveau 0.
+		else 
 		{
 			$id_left = $Sql->query("SELECT MAX(id_right) FROM " . PREFIX . "forum_cats", __LINE__, __FILE__);
 			$id_left++;
@@ -140,7 +140,7 @@ else
 		'admin_forum_add'=> 'forum/admin_forum_add.tpl'
 	));
 			
-	//Listing des catégories disponibles, sauf celle qui va être supprimée.
+	
 	$forums = '<option value="0" checked="checked" disabled="disabled">' . $LANG['root'] . '</option>';
 	$result = $Sql->query_while("SELECT id, name, level
 	FROM " . PREFIX . "forum_cats
@@ -152,7 +152,7 @@ else
 	}
 	$Sql->query_close($result);
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);
@@ -199,7 +199,7 @@ else
 		'L_AUTH_EDIT' => $LANG['auth_edit']
 	));
 	
-	$Template->pparse('admin_forum_add'); // traitement du modele
+	$Template->pparse('admin_forum_add'); 
 }
 
 require_once('../admin/admin_footer.php');

@@ -1,33 +1,33 @@
 <?php
-/*##################################################
- *                           contribution_panel.php
- *                            -------------------
- *   begin                : July 21, 2008
- *   copyright            : (C) 2008 Benoît Sautel
- *   email                : ben.popeye@phpboost.com
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 
-if (!$User->check_level(MEMBER_LEVEL)) //Si il n'est pas member (les invités n'ont rien à faire ici)
+if (!$User->check_level(MEMBER_LEVEL)) 
 	$Errorh->handler('e_auth', E_USER_REDIRECT); 
 
 $contribution_id = retrieve(GET, 'id', 0);
@@ -42,7 +42,7 @@ if ($contribution_id > 0)
 {
 	$contribution = new Contribution();
 	
-	//Loading the contribution into an object from the database and checking if the user is authorizes to read it
+	
 	if (($contribution = ContributionService::find_by_id($contribution_id)) == null || (!$User->check_auth($contribution->get_auth(),CONTRIBUTION_AUTH_BIT) && $contribution->get_poster_id() != $User->get_attribute('user_id')))
 		$Errorh->handler('e_auth', E_USER_REDIRECT);
 	
@@ -52,12 +52,12 @@ if ($contribution_id > 0)
 	
 	define('TITLE', $LANG['contribution_panel'] . ' - ' . $contribution->get_entitled());
 }
-//Modification d'une contribution
+
 elseif ($id_update > 0)
 {
 	$contribution = new Contribution();
 	
-	//Loading the contribution into an object from the database and checking if the user is authorizes to read it
+	
 	if (($contribution = ContributionService::find_by_id($id_update)) == null || !$User->check_auth($contribution->get_auth(),CONTRIBUTION_AUTH_BIT))
 		$Errorh->handler('e_auth', E_USER_REDIRECT);
 	
@@ -68,7 +68,7 @@ elseif ($id_update > 0)
 	
 	define('TITLE', $LANG['contribution_panel'] . ' - ' . $LANG['contribution_edition']);
 }
-//Enregistrement de la modification d'une contribution
+
 elseif ($id_to_update > 0)
 {
 	global $User;
@@ -78,19 +78,19 @@ elseif ($id_to_update > 0)
 	if (($contribution = ContributionService::find_by_id($id_to_update)) == null || !$User->check_auth($contribution->get_auth(),CONTRIBUTION_AUTH_BIT))
 		$Errorh->handler('e_auth', E_USER_REDIRECT);
 	
-	//Récupération des éléments de la contribution
+	
 	$entitled = retrieve(POST, 'entitled', '', TSTRING_UNCHANGE);
 	$description = stripslashes(retrieve(POST, 'contents', '', TSTRING_PARSE));	
 	$status = retrieve(POST, 'status', EVENT_STATUS_UNREAD);
 	
-	//Si le titre n'est pas vide
+	
 	if (!empty($entitled))
 	{
-		//Mise à jour de l'objet contribution
+		
 		$contribution->set_entitled($entitled);
 		$contribution->set_description($description);
 		
-		//Changement de statut ? On regarde si la contribution a été réglée
+		
 		if ($status == EVENT_STATUS_PROCESSED && $contribution->get_status() != EVENT_STATUS_PROCESSED)
 		{
 			$contribution->set_fixer_id($User->get_attribute('user_id'));
@@ -99,24 +99,24 @@ elseif ($id_to_update > 0)
 		
 		$contribution->set_status($status);
 		
-		//Enregistrement en base de données
+		
 		ContributionService::save_contribution($contribution);
 		
 		redirect(HOST . DIR . url('/member/contribution_panel.php?id=' . $contribution->get_id(), '', '&'));
 	}
-	//Erreur
+	
 	else
 		redirect(HOST . DIR . url('/member/contribution_panel.php', '', '&'));
 }
-//Suppression d'une contribution
+
 elseif ($id_to_delete > 0)
 {
-	//Vérification de la validité du jeton
+	
     $Session->csrf_get_protect();
 	
 	$contribution = new Contribution();
 	
-	//Loading the contribution into an object from the database and checking if the user is authorizes to read it
+	
 	if (($contribution = ContributionService::find_by_id($id_to_delete)) == null || (!$User->check_auth($contribution->get_auth(),CONTRIBUTION_AUTH_BIT)))
 		$Errorh->handler('e_auth', E_USER_REDIRECT);
 	
@@ -144,7 +144,7 @@ if ($contribution_id > 0)
 	import('content/comments'); 
 	$comments = new Comments('events', $contribution_id, url('contribution_panel.php?id=' . $contribution_id . '&amp;com=%s'), 'member', KERNEL_SCRIPT);
 	
-	//For PHP 4 :(
+	
 	$contribution_creation_date = $contribution->get_creation_date();
 	$contribution_fixing_date = $contribution->get_fixing_date();
 	
@@ -162,7 +162,7 @@ if ($contribution_id > 0)
 		'FIXING_URL' => url(PATH_TO_ROOT . $contribution->get_fixing_url())
 	));
 	
-	//Si la contribution a été traitée
+	
 	if ($contribution->get_status() == EVENT_STATUS_PROCESSED)
 		$template->assign_vars(array(
 			'C_CONTRIBUTION_FIXED' => true,
@@ -189,7 +189,7 @@ if ($contribution_id > 0)
 		'U_DELETE' => url('contribution_panel.php?del=' . $contribution_id . '&amp;token=' . $Session->get_token())
 	));
 }
-//Modification d'une contribution
+
 elseif ($id_update > 0)
 {
 	$template->assign_vars(array(
@@ -224,11 +224,11 @@ else
 		'C_CONTRIBUTION_LIST' => true
 	));
 	
-	//Nombre de contributions
+	
 	$num_contributions = 1;
 	define('CONTRIBUTIONS_PER_PAGE', 20);
 	
-	//Gestion des critères de tri
+	
 	$criteria = retrieve(GET, 'criteria', 'current_status');
 	$order = retrieve(GET, 'order', 'asc');
 
@@ -236,17 +236,17 @@ else
 		$criteria = 'current_status';
 	$order = $order == 'desc' ? 'desc' : 'asc';
 	
-	//On liste les contributions
+	
 	foreach (ContributionService::get_all_contributions($criteria, $order) as $this_contribution)
 	{
-		//Obligé de faire une variable temp à cause de php4.
+		
 		$creation_date = $this_contribution->get_creation_date();
 		$fixing_date = $this_contribution->get_fixing_date();
 		
-		//Affichage des contributions du membre
+		
 		if ($User->check_auth($this_contribution->get_auth(), CONTRIBUTION_AUTH_BIT) || $User->get_attribute('user_id') == $this_contribution->get_poster_id())
 		{
-			//On affiche seulement si on est dans le bon cadre d'affichage
+			
 			if ($num_contributions > CONTRIBUTIONS_PER_PAGE * ($pagination->get_current_page() - 1) && $num_contributions <= CONTRIBUTIONS_PER_PAGE * $pagination->get_current_page())
 				$template->assign_block_vars('contributions', array(
 					'ENTITLED' => $this_contribution->get_entitled(),
@@ -278,17 +278,17 @@ else
 			'L_NO_CONTRIBUTION_TO_DISPLAY' => $LANG['no_contribution']
 		));
 	
-	//Liste des modules proposant de contribuer
+	
 	define('NUMBER_OF_MODULES_PER_LINE', 4);
 	$i_module = 0;
 	foreach ($MODULES as $module_name => $module_infos)
 	{
 		$module_ini = load_ini_file(PATH_TO_ROOT . '/' . $module_name . '/lang/', get_ulang());
 		
-		//Si le module a une interface de contribution
+		
 		if (!empty($module_ini['contribution_interface']))
 		{
-			//Nouvelle ligne
+			
 			if ($i_module % NUMBER_OF_MODULES_PER_LINE == 0)
 				$template->assign_block_vars('row', array());
 			
@@ -319,7 +319,7 @@ else
 		'C_NO_MODULE_IN_WHICH_CONTRIBUTE' => $i_module == 0
 	));
 	
-	//Gestion du tri
+	
 	$template->assign_vars(array(
 		'C_ORDER_ENTITLED_ASC' => $criteria == 'entitled' && $order == 'asc',
 		'U_ORDER_ENTITLED_ASC' => url('contribution_panel.php?p=' . $pagination->_get_var_page('p') . '&amp;criteria=entitled&amp;order=asc'),

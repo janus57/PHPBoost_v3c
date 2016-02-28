@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                               admin_com_config.php
- *                            -------------------
- *   begin                : March 13, 2007
- *   copyright            : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
@@ -35,7 +35,7 @@ if (!empty($_POST['valid']) )
 	$config_com = array();
 	$config_com['com_auth'] = retrieve(POST, 'com_auth', -1);
 	$config_com['com_max'] = retrieve(POST, 'com_max', 10);
-	$config_com['com_verif_code'] = (isset($_POST['verif_code']) && @extension_loaded('gd')) ? numeric($_POST['verif_code']) : 0; //désactivé par defaut. 
+	$config_com['com_verif_code'] = (isset($_POST['verif_code']) && @extension_loaded('gd')) ? numeric($_POST['verif_code']) : 0; 
 	$config_com['com_verif_code_difficulty'] = retrieve(POST, 'verif_code_difficulty', 2);
 	$config_com['forbidden_tags'] = isset($_POST['forbidden_tags']) ? $_POST['forbidden_tags'] : array();
 	$config_com['max_link'] = retrieve(POST, 'max_link', -1);
@@ -53,7 +53,7 @@ if (!empty($_POST['valid']) )
 	
 	redirect(HOST . SCRIPT);	
 }
-//Sinon on rempli le formulaire
+
 else	
 {		
 	$Template->set_filenames(array(
@@ -62,9 +62,9 @@ else
 	
 	$Cache->load('com');
 	
-	$CONFIG['com_popup'] = isset($CONFIG['com_popup']) ? $CONFIG['com_popup'] : 0; //Affichage des commentaires
+	$CONFIG['com_popup'] = isset($CONFIG['com_popup']) ? $CONFIG['com_popup'] : 0; 
 	
-	//Rang d'autorisation.
+	
 	$CONFIG_COM['com_auth'] = isset($CONFIG_COM['com_auth']) ? $CONFIG_COM['com_auth'] : '-1';	
 	$array_ranks = array(-1 => $LANG['guest'], 0 => $LANG['member'], 1 => $LANG['modo'], 2 => $LANG['admin']);
 	$options = '';
@@ -127,7 +127,7 @@ else
 		'L_MAX_LINK_EXPLAIN' => $LANG['max_link_explain']
 	));
 	
-	$Template->pparse('admin_com_config'); // traitement du modele	
+	$Template->pparse('admin_com_config'); 
 }
 
 require_once('../admin/admin_footer.php');

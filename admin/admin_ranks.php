@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                               admin_forum_config.php
- *                            -------------------
- *   begin                : October 30, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- * 
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
@@ -32,7 +32,7 @@ require_once('../admin/admin_header.php');
 
 $get_id = retrieve(GET, 'id', 0);	
 
-//Si c'est confirmé on execute
+
 if (!empty($_POST['valid']))
 {
 	$result = $Sql->query_while("SELECT id, special 
@@ -55,9 +55,9 @@ if (!empty($_POST['valid']))
 		
 	redirect(HOST . SCRIPT);	
 }
-elseif (!empty($_GET['del']) && !empty($get_id)) //Suppression du rang.
+elseif (!empty($_GET['del']) && !empty($get_id)) 
 {
-	//On supprime dans la bdd.
+	
 	$Sql->query_inject("DELETE FROM " . DB_TABLE_RANKS . " WHERE id = '" . $get_id . "'", __LINE__, __FILE__);	
 
 	###### Régénération du cache des rangs #######
@@ -65,7 +65,7 @@ elseif (!empty($_GET['del']) && !empty($get_id)) //Suppression du rang.
 	
 	redirect(HOST . SCRIPT); 	
 }
-else //Sinon on rempli le formulaire	 
+else 
 {	
 	$Template->set_filenames(array(
 		'admin_ranks'=> 'admin/admin_ranks.tpl'
@@ -87,7 +87,7 @@ else //Sinon on rempli le formulaire
 		'L_ADD' => $LANG['add']
 	));
 
-	//On recupère les images des groupes
+	
 	import('io/filesystem/folder');
 	$rank_options_array = array();
 	$image_folder_path = new Folder(PATH_TO_ROOT . '/templates/' . get_utheme()  . '/images/ranks');

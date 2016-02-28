@@ -1,43 +1,43 @@
 <?php
-/*##################################################
- *                               gallery.class.php
- *                            -------------------
- *   begin                : August 16, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class Gallery
 {	
 	## Public Attribute ##
-	var $error = ''; //Gestion des erreurs.
+	var $error = ''; 
 	
 	
 	## Public Methods ##
-	//Constructeur
+	
 	function Gallery() 
 	{
 	}
 	
-	//Redimensionnement
+	
 	function Resize_pics($path, $width_max = 0, $height_max = 0)
 	{
 		global $LANG;
@@ -45,11 +45,11 @@ class Gallery
 		if (file_exists($path))
 		{	
 			list($width_s, $height_s, $weight, $ext) = $this->Arg_pics($path);
-			//Calcul des dimensions avec respect des proportions.
+			
 			list($width, $height) = $this->get_resize_properties($width_s, $height_s, $width_max, $height_max);
 			
 			$source = false;
-			switch ($ext) //Création de l'image suivant l'extension.
+			switch ($ext) 
 			{
 				case 'jpg':
 					$source = @imagecreatefromjpeg($path);
@@ -73,7 +73,7 @@ class Gallery
 			}
 			else
 			{
-				//Préparation de l'image redimensionnée.
+				
 				if (!function_exists('imagecreatetruecolor'))
 				{	
 					$thumbnail = @imagecreate($width, $height);
@@ -87,11 +87,11 @@ class Gallery
 						$this->error = 'e_unabled_create_pics';
 				}
 				
-				// Make the background transparent
+				
 				imagecolortransparent($thumbnail, imagecolorallocate($thumbnail, 0, 0, 0));
 				imagealphablending($thumbnail, false);
 				
-				//Redimensionnement.
+				
 				if (!function_exists('imagecopyresampled'))
 				{	
 					if (@imagecopyresized($thumbnail, $source, 0, 0, 0, 0, $width, $height, $width_s, $height_s) === false)				
@@ -104,7 +104,7 @@ class Gallery
 				}
 			}
 			
-			//Création de l'image.
+			
 			if (empty($this->error))
 				$this->create_pics($thumbnail, $source, $path, $ext);
 		}
@@ -116,14 +116,14 @@ class Gallery
 		}
 	}
 	
-	//Création de l'image.
+	
 	function Create_pics($thumbnail, $source, $path, $ext)
 	{
 		global $CONFIG_GALLERY;
 		
-		// Make the background transparent
+		
 		imagecolortransparent($source, imagecolorallocate($source, 0, 0, 0));	
-		imagealphablending($source, false); // turn off the alpha blending to keep the alpha channel
+		imagealphablending($source, false); 
 		
 		$path_mini = str_replace('pics', 'pics/thumbnails', $path);
 		if (function_exists('imagegif') && $ext === 'gif') 
@@ -135,7 +135,7 @@ class Gallery
 		else 
 			$this->error = 'e_no_graphic_support';
 
-		switch ($ext) //Création de l'image suivant l'extension.
+		switch ($ext) 
 		{
 			case 'jpg':
 				@imagejpeg($source, $path);
@@ -151,19 +151,19 @@ class Gallery
 		}
 	}
 
-	//Incrustation du logo (possible en transparent si jpg).
+	
 	function Incrust_pics($path)
 	{
 		global $CONFIG_GALLERY, $LANG;
 		
-		if ($CONFIG_GALLERY['activ_logo'] == '1' && is_file($CONFIG_GALLERY['logo'])) //Incrustation du logo.
+		if ($CONFIG_GALLERY['activ_logo'] == '1' && is_file($CONFIG_GALLERY['logo'])) 
 		{
 			list($width_s, $height_s, $weight_s, $ext_s) = $this->Arg_pics($CONFIG_GALLERY['logo']);
 			list($width, $height, $weight, $ext) = $this->Arg_pics($path);
 			
 			if ($width_s <= $width && $height_s <= $height)
 			{
-				switch ($ext_s) //Création de l'image suivant l'extension.
+				switch ($ext_s) 
 				{
 					case 'jpg':
 						$source = @imagecreatefromjpeg($CONFIG_GALLERY['logo']);
@@ -188,7 +188,7 @@ class Gallery
 				}
 				else
 				{
-					switch ($ext) //Création de l'image suivant l'extension.
+					switch ($ext) 
 					{
 						case 'jpg':
 							$destination = @imagecreatefromjpeg($path);
@@ -205,14 +205,14 @@ class Gallery
 					
 					if (function_exists('imagecopymerge'))
 					{
-						// On veut placer le logo en bas à droite, on calcule les coordonnées où on doit placer le logo sur la photo
+						
 						$destination_x = $width - $width_s - $CONFIG_GALLERY['d_width'];
 						$destination_y =  $height - $height_s - $CONFIG_GALLERY['d_height'];
 						
 						if (@imagecopymerge($destination, $source, $destination_x, $destination_y, 0, 0, $width_s, $height_s, (100 - $CONFIG_GALLERY['trans'])) === false)
 							$this->error = 'e_unabled_incrust_logo';
 							
-						switch ($ext) //Création de l'image suivant l'extension.
+						switch ($ext) 
 						{
 							case 'jpg':
 								imagejpeg($destination);
@@ -232,13 +232,13 @@ class Gallery
 				}
 			}
 			else
-				readfile($path); //On affiche simplement.
+				readfile($path); 
 		}
 		else
-			readfile($path); //On affiche simplement.
+			readfile($path); 
 	}
 	
-	//Insertion base de donnée
+	
 	function Add_pics($idcat, $name, $path, $user_id)
 	{
 		global $CAT_GALLERY, $Sql;
@@ -246,7 +246,7 @@ class Gallery
 		$CAT_GALLERY[0]['id_left'] = 0;
 		$CAT_GALLERY[0]['id_right'] = 0;
 		
-		//Parent de la catégorie cible
+		
 		$list_parent_cats_to = '';
 		$result = $Sql->query_while("SELECT id 
 		FROM " . PREFIX . "gallery_cats 
@@ -271,7 +271,7 @@ class Gallery
 		return $Sql->insert_id("SELECT MAX(id) FROM " . PREFIX . "gallery");
 	}
 	
-	//Supprime une image
+	
 	function Del_pics($id_pics)
 	{
 		global $CAT_GALLERY, $Sql;
@@ -284,7 +284,7 @@ class Gallery
 		{
 			$Sql->query_inject("DELETE FROM " . PREFIX . "gallery WHERE id = '" . $id_pics . "'", __LINE__, __FILE__);	
 		
-			//Parent de la catégorie cible
+			
 			$list_parent_cats_to = '';
 			$result = $Sql->query_while("SELECT id 
 			FROM " . PREFIX . "gallery_cats 
@@ -307,21 +307,21 @@ class Gallery
 				$Sql->query_inject("UPDATE " . PREFIX . "gallery_cats SET nbr_pics_unaprob = nbr_pics_unaprob - 1 WHERE " . $clause_parent_cats_to, __LINE__, __FILE__);
 		}
 		
-		//Suppression physique.
+		
 		delete_file('pics/' . $info_pics['path']);
 		delete_file('pics/thumbnails/' . $info_pics['path']);
 	}
 	
-	//Renomme une image.
+	
 	function Rename_pics($id_pics, $name, $previous_name)
 	{
 		global $Sql;
 		
 		$Sql->query_inject("UPDATE " . PREFIX . "gallery SET name = '" . strprotect($name,HTML_PROTECT,ADDSLASHES_FORCE). "' WHERE id = '" . $id_pics . "'", __LINE__, __FILE__);
-		return stripslashes((strlen(html_entity_decode($name)) > 22) ? htmlentities(substr(html_entity_decode($name), 0, 22)) . PATH_TO_ROOT . '.' : $name);
+		return stripslashes((strlen(html_entity_decode($name, ENT_COMPAT, 'ISO-8859-1')) > 22) ? htmlentities(substr(html_entity_decode($name, ENT_COMPAT, 'ISO-8859-1'), 0, 22), ENT_COMPAT, 'ISO-8859-1') . PATH_TO_ROOT . '.' : $name);
 	}
 	
-	//Approuve une image.
+	
 	function Aprob_pics($id_pics)
 	{
 		global $CAT_GALLERY, $Sql;
@@ -330,7 +330,7 @@ class Gallery
 		$CAT_GALLERY[0]['id_right'] = 0;
 		
 		$idcat = $Sql->query("SELECT idcat FROM " . PREFIX . "gallery WHERE id = '" . $id_pics . "'", __LINE__, __FILE__);
-		//Parent de la catégorie cible
+		
 		$list_parent_cats_to = '';
 		$result = $Sql->query_while("SELECT id 
 		FROM " . PREFIX . "gallery_cats 
@@ -362,17 +362,17 @@ class Gallery
 		return $aprob;
 	}
 	
-	//Déplacement d'une image.
+	
 	function Move_pics($id_pics, $id_move)
 	{
 		global $CAT_GALLERY, $Sql;
 		
-		//Racine.
+		
 		$CAT_GALLERY[0]['id_left'] = 0;
 		$CAT_GALLERY[0]['id_right'] = 0;
 		
 		$idcat = $Sql->query("SELECT idcat FROM " . PREFIX . "gallery WHERE id = '" . $id_pics . "'", __LINE__, __FILE__);
-		//Parent de la catégorie parente
+		
 		$list_parent_cats = '';
 		$result = $Sql->query_while("SELECT id 
 		FROM " . PREFIX . "gallery_cats 
@@ -389,7 +389,7 @@ class Gallery
 		else
 			$clause_parent_cats = " id IN (" . $list_parent_cats . ")";
 		
-		//Parent de la catégorie cible
+		
 		$list_parent_cats_to = '';
 		$result = $Sql->query_while("SELECT id 
 		FROM " . PREFIX . "gallery_cats 
@@ -422,7 +422,7 @@ class Gallery
 		$Sql->query_inject("UPDATE " . PREFIX . "gallery SET idcat = '" . $id_move . "' WHERE id = '" . $id_pics . "'", __LINE__, __FILE__);
 	}
 	
-	//Vérifie si le membre peut uploader une image
+	
 	function Auth_upload_pics($user_id, $level)
 	{
 		global $CONFIG_GALLERY;
@@ -445,12 +445,12 @@ class Gallery
 		return true;
 	}
 	
-	//Arguments de l'image, hauteur, largeur, extension.
+	
 	function Arg_pics($path)
 	{
 		global $Errorh, $LANG;
 		
-		//Vérification du chargement de la librairie GD.
+		
 		if (!@extension_loaded('gd')) 
 			$Errorh->handler($LANG['e_no_gd'], E_USER_ERROR, __LINE__, __FILE__);
 		
@@ -460,7 +460,7 @@ class Gallery
 			$weight = @filesize($path);
 			$weight = !empty($weight) ? $weight : 0;			
 			
-			//On prepare les valeurs de remplacement, pour détérminer le type de l'image.
+			
 			$array_type = array( 1 => 'gif', 2 => 'jpg', 3 => 'png');
 			if (isset($array_type[$type]))
 				return array($width, $height, $weight, $array_type[$type]);
@@ -471,7 +471,7 @@ class Gallery
 			$Errorh->handler($LANG['e_no_getimagesize'], E_USER_ERROR, __LINE__, __FILE__);
 	}
 		
-	//Compte le nombre d'images uploadée par un membre.
+	
 	function get_nbr_upload_pics($user_id)
 	{
 		global $Sql;
@@ -479,7 +479,7 @@ class Gallery
 		return $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "gallery WHERE user_id = '" . $user_id . "'", __LINE__, __FILE__);
 	}
 	
-	//Calcul des dimensions avec respect des proportions.
+	
 	function get_resize_properties($width_s, $height_s, $width_max = 0, $height_max = 0)
 	{
 		global $CONFIG_GALLERY;
@@ -510,7 +510,7 @@ class Gallery
 		return array($width, $height);
 	}
 	
-	//Header image.
+	
 	function Send_header($ext)
 	{
 		global $LANG;
@@ -533,7 +533,7 @@ class Gallery
 		return $header;
 	}
 	
-	//Recompte le nombre d'images de chaque catégories
+	
 	function Count_cat_pics()
 	{
 		global $CAT_GALLERY, $Sql;
@@ -577,10 +577,10 @@ class Gallery
 		$Sql->query_close($result);
 	}
 	
-	//Vidange des miniatures du FTP et de la bdd => régénérée plus tard lors des affichages..
+	
 	function Clear_cache()
 	{
-		//On recupère les dossier des thèmes contenu dans le dossier images/smiley.
+		
 		import('io/filesystem/folder');
 		$thumb_folder_path = new Folder('./pics/thumbnails/');
 		foreach ($thumb_folder_path->get_files('`\.(png|jpg|bmp|gif)$`i') as $thumbs)
@@ -588,7 +588,7 @@ class Gallery
 	}
 	
 	## Private Methods ##
-	//Création de l'image d'erreur
+	
 	function _create_pics_error($path, $width, $height)
 	{
 		global $CONFIG_GALLERY, $LANG; 
@@ -605,24 +605,24 @@ class Gallery
 		$background = @imagecolorallocate($thumbnail, 255, 255, 255);
 		$text_color = @imagecolorallocate($thumbnail, 0, 0, 0);
 
-		//Centrage du texte.	
+		
 		$array_size_ttf = imagettfbbox($font_size, 0, $font, $LANG['e_error_img']);
 		$text_width = abs($array_size_ttf[2] - $array_size_ttf[0]);
 		$text_height = abs($array_size_ttf[7] - $array_size_ttf[1]);
 		$text_x = ($width/2) - ($text_width/2);
 		$text_y = ($height/2) + ($text_height/2);
 
-		//Ecriture du code.
+		
 		imagettftext($thumbnail, $font_size, 0, $text_x, $text_y, $text_color, $font, $LANG['e_error_img']);
 		@imagejpeg($thumbnail, $path, 75);
 	}
 	
-	//Suppression d'une image.
+	
 	function delete_file($path)
 	{
 		if (function_exists('unlink'))
-			return @unlink($path); //On supprime le fichier.
-		else //Fonction désactivée.	
+			return @unlink($path); 
+		else 
 		{	
 			$this->error = 'e_delete_thumbnails';
 			return false;

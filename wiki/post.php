@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               post.php
- *                            -------------------
- *   begin                : October 09, 2006
- *   copyright            : (C) 2006 Sautel Benoit
- *   email                : ben.popeye@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 include_once('../wiki/wiki_functions.php'); 
@@ -42,7 +42,7 @@ $id_edit = retrieve(POST, 'id_edit', 0);
 $title = retrieve(POST, 'title', '');
 $encoded_title = retrieve(GET, 'title', '');
 $contents = wiki_parse(retrieve(POST, 'contents', '', TSTRING_AS_RECEIVED));
-$contents_preview = htmlspecialchars(retrieve(POST, 'contents', '', TSTRING_UNCHANGE));
+$contents_preview = htmlspecialchars(retrieve(POST, 'contents', '', TSTRING_UNCHANGE), ENT_COMPAT, 'ISO-8859-1');
 $id_cat = retrieve(GET, 'id_parent', 0);
 $new_id_cat = retrieve(POST, 'id_cat', 0);
 $id_cat = $id_cat > 0 ? $id_cat : $new_id_cat;
@@ -52,23 +52,23 @@ $id_edit = $id_edit > 0 ? $id_edit : $id_edit_get;
 
 require_once('../kernel/header.php'); 
 
-//Variable d'erreur
+
 $error = '';
 
-if (!empty($contents)) //On enregistre un article
+if (!empty($contents)) 
 {
 	include_once('../wiki/wiki_functions.php');	
-	//On crée le menu des paragraphes et on enregistre le menu
+	
 	$menu = '';
 	
-	//Si on détecte la syntaxe des menus alors on lance les fonctions, sinon le menu sera vide et non affiché
+	
 	if (preg_match('`[\-]{2,6}`isU', $contents))
 	{
-		$menu_list = wiki_explode_menu($contents); //On éclate le menu en tableaux
-		$menu = wiki_display_menu($menu_list); //On affiche le menu
+		$menu_list = wiki_explode_menu($contents); 
+		$menu = wiki_display_menu($menu_list); 
 	}
 	
-	if ($preview)//Prévisualisation
+	if ($preview)
 	{
 		$Template->assign_block_vars('preview', array(
 			'CONTENTS' => second_parse(wiki_no_rewrite(stripslashes($contents))),
@@ -81,73 +81,73 @@ if (!empty($contents)) //On enregistre un article
 			));
 		}
 	}
-	else //Sinon on poste
+	else 
 	{
-		if ($id_edit > 0)//On édite un article
+		if ($id_edit > 0)
 		{		
 			$article_infos = $Sql->query_array(PREFIX . "wiki_articles", "encoded_title", "auth", "WHERE id = '" . $id_edit . "'", __LINE__, __FILE__); 
-			//Autorisations
+			
 			$general_auth = empty($article_infos['auth']) ? true : false;
 			$article_auth = !empty($article_infos['auth']) ? unserialize($article_infos['auth']) : array();
 			if (!((!$general_auth || $User->check_auth($_WIKI_CONFIG['auth'], WIKI_EDIT)) && ($general_auth || $User->check_auth($article_auth , WIKI_EDIT))))
 				$Errorh->handler('e_auth', E_USER_REDIRECT); 
 			
 			$previous_id_contents = $Sql->query("SELECT id_contents FROM " . PREFIX . "wiki_articles WHERE id = '" . $id_edit . "'", __LINE__, __FILE__);
-			//On met à jour l'ancien contenu (comme archive)
+			
 			$Sql->query_inject("UPDATE " . PREFIX . "wiki_contents SET activ = 0 WHERE id_contents = '" . $previous_id_contents . "'", __LINE__, __FILE__);
-			//On insère le contenu
+			
 			$Sql->query_inject("INSERT INTO " . PREFIX . "wiki_contents (id_article, menu, content, activ, user_id, user_ip, timestamp) VALUES ('" . $id_edit . "', '" . addslashes($menu) . "', '" . $contents . "', 1, " . $User->get_attribute('user_id') . ", '" . USER_IP . "', " . time() . ")", __LINE__, __FILE__);
-			//Dernier id enregistré
+			
 			$id_contents = $Sql->insert_id("SELECT MAX(id_contents) FROM " . PREFIX . "wiki_contents");
             
-	 		//On donne le nouveau id de contenu
+	 		
 			$Sql->query_inject("UPDATE " . PREFIX . "wiki_articles SET id_contents = '" . $id_contents . "' WHERE id = '" . $id_edit . "'", __LINE__, __FILE__);
         
-            // Feeds Regeneration
+            
             import('content/syndication/feed');
             Feed::clear_cache('wiki');
 			
-			//On redirige
+			
 			$redirect = $article_infos['encoded_title'];
 			redirect(url('wiki.php?title=' . $redirect, $redirect, '', '&'));
 		}
-		elseif (!empty($title)) //On crée un article
+		elseif (!empty($title)) 
 		{
-			//autorisations
+			
 			if ($is_cat && !$User->check_auth($_WIKI_CONFIG['auth'], WIKI_CREATE_CAT))
 				$Errorh->handler('e_auth', E_USER_REDIRECT); 
 			elseif (!$is_cat && !$User->check_auth($_WIKI_CONFIG['auth'], WIKI_CREATE_ARTICLE))
 				$Errorh->handler('e_auth', E_USER_REDIRECT); 
 			
-			//On vérifie que le titre n'existe pas
+			
 			$article_exists = $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "wiki_articles WHERE encoded_title = '" . url_encode_rewrite($title) . "'", __LINE__, __FILE__);
 			
 			
-			//Si il existe: message d'erreur
+			
 			if ($article_exists > 0)
 				$errstr = $LANG['wiki_title_already_exists'];
-			else //On enregistre
+			else 
 			{
 				$Sql->query_inject("INSERT INTO " . PREFIX . "wiki_articles (title, encoded_title, id_cat, is_cat, undefined_status, auth) VALUES ('" . $title . "', '" . url_encode_rewrite($title) . "', '" . $new_id_cat . "', '" . $is_cat . "', '', '')", __LINE__, __FILE__);
-				//On récupère le numéro de l'article créé
+				
 				$id_article = $Sql->insert_id("SELECT MAX(id) FROM " . PREFIX . "wiki_articles");
-				//On insère le contenu
+				
 				$Sql->query_inject("INSERT INTO " . PREFIX . "wiki_contents (id_article, menu, content, activ, user_id, user_ip, timestamp) VALUES ('" . $id_article . "', '" . addslashes($menu) . "', '" . $contents . "', 1, " . $User->get_attribute('user_id') . ", '" . USER_IP . "', " . time() . ")", __LINE__, __FILE__);
-				//On met à jour le numéro du contenu dans la table articles
+				
 				$id_contents = $Sql->insert_id("SELECT MAX(id_contents) FROM " . PREFIX . "wiki_contents");
 				$cat_update = '';
-				if ($is_cat == 1)//si c'est une catégorie, on la crée
+				if ($is_cat == 1)
 				{
 					$Sql->query_inject("INSERT INTO " . PREFIX . "wiki_cats (id_parent, article_id) VALUES (" . $new_id_cat . ", '" . $id_article . "')", __LINE__, __FILE__);
-					//on récupère l'id de la dernière catégorie créée
+					
 					$id_created_cat = $Sql->insert_id("SELECT MAX(id) FROM " . PREFIX . "wiki_articles");
 					$cat_update = ", id_cat = '" . $id_created_cat . "'";
-					//On régénère le cache
+					
 					$Cache->Generate_module_file('wiki');
 				}
 				$Sql->query_inject("UPDATE " . PREFIX . "wiki_articles SET id_contents = '" . $id_contents . "'" . $cat_update . " WHERE id = " . $id_article, __LINE__, __FILE__);
 				
-                // Feeds Regeneration
+                
                 import('content/syndication/feed');
                 Feed::clear_cache('wiki');
                 
@@ -158,16 +158,16 @@ if (!empty($contents)) //On enregistre un article
 	}
 }
 
-//On propose le formulaire
+
 $Template->set_filenames(array('wiki_edit'=> 'wiki/post.tpl'));
 $Template->assign_vars(array(
 	'WIKI_PATH' => $Template->get_module_data_path('wiki'),
 ));
-if ($id_edit > 0)//On édite
+if ($id_edit > 0)
 {
 	$article_infos = $Sql->query_array(PREFIX . 'wiki_articles', '*', "WHERE id = '" . $id_edit . "'", __LINE__, __FILE__);
 	
-	//Autorisations
+	
 	$general_auth = empty($article_infos['auth']) ? true : false;
 	$article_auth = !empty($article_infos['auth']) ? unserialize($article_infos['auth']) : array();
 	if (!((!$general_auth || $User->check_auth($_WIKI_CONFIG['auth'], WIKI_EDIT)) && ($general_auth || $User->check_auth($article_auth , WIKI_EDIT))))
@@ -175,7 +175,7 @@ if ($id_edit > 0)//On édite
 	
 	$article_contents = $Sql->query_array(PREFIX . 'wiki_contents', '*', "WHERE id_contents = '" . $article_infos['id_contents'] . "'", __LINE__, __FILE__);
 	$contents = $article_contents['content'];
-	if (!empty($article_contents['menu'])) //On reforme les paragraphes
+	if (!empty($article_contents['menu'])) 
 	{
 		$string_regex = '-';
 		for ($i = 1; $i <= 5; $i++)
@@ -194,7 +194,7 @@ if ($id_edit > 0)//On édite
 }
 else
 {
-	//autorisations
+	
 	if ($is_cat && !$User->check_auth($_WIKI_CONFIG['auth'], WIKI_CREATE_CAT))
 		$Errorh->handler('e_auth', E_USER_REDIRECT); 
 	elseif (!$is_cat && !$User->check_auth($_WIKI_CONFIG['auth'], WIKI_CREATE_ARTICLE))
@@ -203,7 +203,7 @@ else
 	if (!empty($encoded_title))
 		$Errorh->handler($LANG['wiki_article_does_not_exist'], E_USER_WARNING);	
 	
-	if ($id_cat > 0 && array_key_exists($id_cat, $_WIKI_CATS)) //Catégorie préselectionnée
+	if ($id_cat > 0 && array_key_exists($id_cat, $_WIKI_CATS)) 
 	{
 		$Template->assign_block_vars('create', array());
 		$cats = array();
@@ -227,7 +227,7 @@ else
 			'CURRENT_CAT' => $current_cat
 		));
 	}
-	else //Si il n'a pas de catégorie parente
+	else 
 	{
 		$Template->assign_block_vars('create', array());
 		$contents = '';
@@ -264,7 +264,7 @@ else
 	$l_action_submit = $LANG['submit'];
 }
 
-//On travaille uniquement en BBCode, on force le langage de l'éditeur
+
 $content_editor = new ContentFormattingFactory(BBCODE_LANGUAGE);
 $editor = $content_editor->get_editor();
 $editor->set_identifier('contents');
@@ -292,10 +292,10 @@ $Template->assign_vars(array(
 	'L_TABLE_OF_CONTENTS' => $LANG['wiki_table_of_contents']
 ));
 
-//outils BBcode en javascript
+
 include_once('../wiki/post_js_tools.php');
 
-//Eventuelles erreurs
+
 if (!empty($errstr))
 	$Errorh->handler($errstr, E_USER_WARNING);
 

@@ -1,33 +1,33 @@
 <?php
-/*##################################################
- *                               admin_articles_config.php
- *                            -------------------
- *   begin                : March 12, 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('articles'); //Chargement de la langue du module.
+load_module_lang('articles'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
@@ -53,7 +53,7 @@ if (!empty($_POST['valid']) && empty($_POST['valid_edito']))
 	
 	redirect(HOST . SCRIPT);	
 }
-elseif (!empty($_POST['articles_count'])) //Recompte le nombre d'articles de chaque catégories
+elseif (!empty($_POST['articles_count'])) 
 {
 	$Cache->load('articles');
 	
@@ -99,7 +99,7 @@ elseif (!empty($_POST['articles_count'])) //Recompte le nombre d'articles de cha
 	
 	redirect(HOST . DIR . '/articles/admin_articles_config.php'); 
 }
-//Sinon on rempli le formulaire
+
 else	
 {		
 	$Template->set_filenames(array(
@@ -129,7 +129,7 @@ else
 		'L_RESET' => $LANG['reset']
 	));
 		
-	$Template->pparse('admin_articles_config'); // traitement du modele	
+	$Template->pparse('admin_articles_config'); 
 }
 
 require_once('../admin/admin_footer.php');

@@ -1,33 +1,33 @@
 <?php
-/*##################################################
- *                               admin_forum_groups.php
- *                            -------------------
- *   begin                : October 30, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('forum'); //Chargement de la langue du module.
+load_module_lang('forum'); 
 define('TITLE', $LANG['administration']);
 
 require_once('../forum/forum_begin.php');
@@ -37,10 +37,10 @@ $class = retrieve(GET, 'id', 0);
 $top = retrieve(GET, 'top', '');
 $bottom = retrieve(GET, 'bot', '');
 
-//Si c'est confirmé on execute
+
 if (!empty($_POST['valid']))
 {
-	//Génération du tableau des droits.
+	
 	$array_auth_all = Authorizations::build_auth_array_from_form(FLOOD_FORUM, EDIT_MARK_FORUM, TRACK_TOPIC_FORUM, ADMIN_NOAUTH_DEFAULT);
 		
 	$CONFIG_FORUM['auth'] = serialize($array_auth_all);
@@ -57,7 +57,7 @@ else
 		'admin_forum_groups'=> 'forum/admin_forum_groups.tpl'
 	));
 	
-	$array_auth = isset($CONFIG_FORUM['auth']) ? $CONFIG_FORUM['auth'] : array(); //Récupération des tableaux des autorisations et des groupes.
+	$array_auth = isset($CONFIG_FORUM['auth']) ? $CONFIG_FORUM['auth'] : array(); 
 	
 	$Template->assign_vars(array(
 		'FLOOD_AUTH' => Authorizations::generate_select(FLOOD_FORUM, $array_auth),
@@ -76,7 +76,7 @@ else
 		'L_RESET' => $LANG['reset']
 	));
 
-	$Template->pparse('admin_forum_groups'); // traitement du modele	
+	$Template->pparse('admin_forum_groups'); 
 }
 
 require_once('../admin/admin_footer.php');

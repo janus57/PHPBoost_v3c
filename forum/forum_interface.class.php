@@ -1,59 +1,59 @@
 <?php
-/*##################################################
- *                              forum_interface.class.php
- *                            -------------------
- *   begin                : Februar 24, 2008
- *   copyright            : (C) 2007 Régis Viarre, Loïc Rouchon
- *   email                : crowkait@phpboost.com, horn@phpboost.com
- *
- *
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
 
-// Inclusion du fichier contenant la classe ModuleInterface
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import('modules/module_interface');
 
 define('FORUM_MAX_SEARCH_RESULTS', 50);
 
-// Classe ForumInterface qui hérite de la classe ModuleInterface
+
 class ForumInterface extends ModuleInterface
 {
 	## Public Methods ##
-	function ForumInterface() //Constructeur de la classe ForumInterface
+	function ForumInterface() 
 	{
 		parent::ModuleInterface('forum');
 	}
 
-	//Récupération du cache.
+	
 	function get_cache()
 	{
 		global $Sql;
 
-		//Configuration du forum
+		
 		$forum_config = 'global $CONFIG_FORUM;' . "\n";
 
-		//Récupération du tableau linéarisé dans la bdd.
+		
 		$CONFIG_FORUM = unserialize($Sql->query("SELECT value FROM " . DB_TABLE_CONFIGS . " WHERE name = 'forum'", __LINE__, __FILE__));
 		$CONFIG_FORUM['auth'] = unserialize($CONFIG_FORUM['auth']);
 			
 		$forum_config .= '$CONFIG_FORUM = ' . var_export($CONFIG_FORUM, true) . ';' . "\n";
 
-		//Liste des catégories du forum
+		
 		$i = 0;
 		$forum_cats = 'global $CAT_FORUM;' . "\n";
 		$result = $Sql->query_while("SELECT id, id_left, id_right, level, name, url, status, aprob, auth, aprob
@@ -78,58 +78,58 @@ class ForumInterface extends ModuleInterface
 		return $forum_config . "\n" . $forum_cats;
 	}
 
-	//Changement de jour.
+	
 	function on_changeday()
 	{
 		global $Sql, $Cache, $CONFIG_FORUM;
 
-		//Suppression des marqueurs de vue du forum trop anciens.
-		$Cache->load('forum'); //Requête des configuration générales (forum), $CONFIG_FORUM variable globale.
+		
+		$Cache->load('forum'); 
 		$Sql->query_inject("DELETE FROM " . PREFIX . "forum_view WHERE timestamp < '" . (time() - $CONFIG_FORUM['view_time']) . "'", __LINE__, __FILE__);
 	}
 
-	//Récupère le lien vers la listes des messages du membre.
+	
 	function get_member_msg_link($memberId)
 	{
 		return PATH_TO_ROOT . '/forum/membermsg.php?id=' . $memberId[0];
 	}
 
-	//Récupère le nom associé au lien.
+	
 	function get_member_msg_name()
 	{
 		global $LANG;
-		load_module_lang('forum'); //Chargement de la langue du module.
+		load_module_lang('forum'); 
 
 		return $LANG['forum'];
 	}
 
-	//Récupère l'image associé au lien.
+	
 	function get_member_msg_img()
 	{
 		return PATH_TO_ROOT . '/forum/forum_mini.png';
 	}
 
-	// Recherche
+	
 	function get_search_form($args=null)
-	/**
-	 *  Renvoie le formulaire de recherche du forum
-	 */
+	
+
+
 	{
 		global $User, $MODULES, $Errorh, $CONFIG, $CONFIG_FORUM, $Cache, $CAT_FORUM, $LANG, $Sql;
 
 		import('io/template');
 		$Tpl = new Template('forum/forum_search_form.tpl');
 
-		//Autorisation sur le module.
+		
 		if (isset($MODULES['forum']) && $MODULES['forum']['activ'] == 1)
 		{
-			if (!$User->check_auth($MODULES['forum']['auth'], ACCESS_MODULE)) //Accès non autorisé!
+			if (!$User->check_auth($MODULES['forum']['auth'], ACCESS_MODULE)) 
 			$Errorh->handler('e_auth', E_USER_REDIRECT);
 		}
 
 		require_once(PATH_TO_ROOT . '/forum/forum_functions.php');
 		require_once(PATH_TO_ROOT . '/forum/forum_defines.php');
-		load_module_lang('forum'); //Chargement de la langue du module.
+		load_module_lang('forum'); 
 		$Cache->load('forum');
 
 		$search = $args['search'];
@@ -183,17 +183,17 @@ class ForumInterface extends ModuleInterface
 	}
 
 	function get_search_args()
-	/**
-	 *  Renvoie la liste des arguments de la méthode <get_search_args>
-	 */
+	
+
+
 	{
 		return Array('ForumTime', 'ForumIdcat', 'ForumWhere', 'ForumColorate_result');
 	}
 
 	function get_search_request($args)
-	/**
-	 *  Renvoie la requête de recherche dans le forum
-	 */
+	
+
+
 	{
 		global $CONFIG, $CAT_FORUM, $User, $Cache, $Sql;
 		$weight = isset($args['weight']) && is_numeric($args['weight']) ? $args['weight'] : 1;
@@ -217,7 +217,7 @@ class ForumInterface extends ModuleInterface
 		}
 		$auth_cats = !empty($auth_cats) ? " AND c.id NOT IN (" . trim($auth_cats, ',') . ")" : '';
 
-		if ($where == 'all')         // All
+		if ($where == 'all')         
 		return "SELECT ".
 		$args['id_search']." AS `id_search`,
                 MIN(msg.id) AS `id_content`,
@@ -232,7 +232,7 @@ class ForumInterface extends ModuleInterface
             GROUP BY t.id
             ORDER BY relevance DESC" . $Sql->limit(0, FORUM_MAX_SEARCH_RESULTS);
 
-		if ($where == 'contents')    // Contents
+		if ($where == 'contents')    
 		return "SELECT ".
 		$args['id_search']." AS `id_search`,
                 MIN(msg.id) AS `id_content`,
@@ -246,7 +246,7 @@ class ForumInterface extends ModuleInterface
             ".($idcat != -1 ? " AND c.id_left BETWEEN '" . $CAT_FORUM[$idcat]['id_left'] . "' AND '" . $CAT_FORUM[$idcat]['id_right'] . "'" : '')." " . $auth_cats."
             GROUP BY t.id
             ORDER BY relevance DESC" . $Sql->limit(0, FORUM_MAX_SEARCH_RESULTS);
-		else                                         // Title only
+		else                                         
 		return "SELECT ".
 		$args['id_search']." AS `id_search`,
                 msg.id AS `id_content`,
@@ -264,11 +264,11 @@ class ForumInterface extends ModuleInterface
 
 
 
-	/**
-	 * @desc Return the array containing the result's data list
-	 * @param &string[][] $args The array containing the result's id list
-	 * @return string[] The array containing the result's data list
-	 */
+	
+
+
+
+
 	function compute_search_results(&$args)
 	{
 		global $CONFIG, $Sql;
@@ -310,16 +310,16 @@ class ForumInterface extends ModuleInterface
 		return $results_data;
 	}
 
-	/**
-	 *  @desc Return the string to print the result
-	 *  @param &string[] $result_data the result's data
-	 *  @return string[] The string to print the result of a search element
-	 */
+	
+
+
+
+
 	function parse_search_result(&$result_data)
 	{
 		global $CONFIG, $LANG, $CONFIG_USER;
 
-		load_module_lang('forum'); //Chargement de la langue du module.
+		load_module_lang('forum'); 
 
 		$tpl = new Template('forum/forum_generic_results.tpl');
 
@@ -382,7 +382,7 @@ class ForumInterface extends ModuleInterface
 
 		$_idcat = $idcat;
 		require_once(PATH_TO_ROOT . '/forum/forum_init_auth_cats.php');
-		$idcat = $_idcat;   // Because <$idcat> is overwritten in /forum/forum_init_auth_cats.php
+		$idcat = $_idcat;   
 
 		$data = new FeedData();
 
@@ -408,12 +408,12 @@ class ForumInterface extends ModuleInterface
 		ORDER BY t.last_timestamp DESC
 		" . $Sql->limit(0, 2 * $CONFIG_FORUM['pagination_msg']);
 		$result = $Sql->query_while ($req, __LINE__, __FILE__);
-		// Generation of the feed's items
+		
 		while ($row = $Sql->fetch_assoc($result))
 		{
 			$item = new FeedItem();
 				
-			//Link
+			
 			$last_page = ceil($row['t_nbr_msg'] / $CONFIG_FORUM['pagination_msg']);
 			$last_page_rewrite = ($last_page > 1) ? '-' . $last_page : '';
 			$last_page = ($last_page > 1) ? 'pt=' . $last_page . '&amp;' : '';
@@ -425,7 +425,7 @@ class ForumInterface extends ModuleInterface
                     );
             $item->set_title(
             	(($CONFIG_FORUM['activ_display_msg'] && !empty($row['display_msg'])) ?
-            	html_entity_decode($CONFIG_FORUM['display_msg'], ENT_NOQUOTES) . ' ' : '') .
+            	html_entity_decode($CONFIG_FORUM['display_msg'], ENT_NOQUOTES, 'ISO-8859-1') . ' ' : '') .
                 ucfirst($row['title'])
             );
             $item->set_link($link);

@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               poll.php
- *                            -------------------
- *   begin                : July 14, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
-  *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 require_once('../poll/poll_begin.php'); 
@@ -35,21 +35,21 @@ if (!empty($poll_id))
 {
 	$poll = $Sql->query_array(PREFIX . 'poll', 'id', 'question', 'votes', 'answers', 'type', 'timestamp', "WHERE id = '" . $poll_id . "' AND archive = 0 AND visible = 1", __LINE__, __FILE__);
 	
-	//Pas de sondage trouvé => erreur.
+	
 	if (empty($poll['id']))
 		$Errorh->handler('e_unexist_poll', E_USER_REDIRECT); 
 }	
 	
-$archives = retrieve(GET, 'archives', false); //On vérifie si on est sur les archives
-$show_result = retrieve(GET, 'r', false); //Affichage des résulats.
+$archives = retrieve(GET, 'archives', false); 
+$show_result = retrieve(GET, 'r', false); 
 
 if (!empty($_POST['valid_poll']) && !empty($poll['id']) && !$archives)
 {
-	//Niveau d'autorisation.
+	
 	if ($User->check_level($CONFIG_POLL['poll_auth']))
 	{
-		//On note le passage du visiteur par un cookie.
-		if (isset($_COOKIE[$CONFIG_POLL['poll_cookie']])) //Recherche dans le cookie existant.
+		
+		if (isset($_COOKIE[$CONFIG_POLL['poll_cookie']])) 
 		{
 			$array_cookie = explode('/', $_COOKIE[$CONFIG_POLL['poll_cookie']]);
 			if (in_array($poll['id'], $array_cookie))
@@ -58,50 +58,50 @@ if (!empty($_POST['valid_poll']) && !empty($poll['id']) && !$archives)
 			{
 				$check_cookie = false;
 				
-				$array_cookie[] = $poll['id']; //Ajout nouvelle valeur.
-				$value_cookie = implode('/', $array_cookie); //On retransforme le tableau en chaîne.
+				$array_cookie[] = $poll['id']; 
+				$value_cookie = implode('/', $array_cookie); 
 	
 				setcookie($CONFIG_POLL['poll_cookie'], $value_cookie, time() + $CONFIG_POLL['poll_cookie_lenght'], '/');						
 			}
 		}
-		else //Génération d'un cookie.
+		else 
 		{	
 			$check_cookie = false;
 			setcookie($CONFIG_POLL['poll_cookie'], $poll['id'], time() + $CONFIG_POLL['poll_cookie_lenght'], '/');
 		}
 		
 		$check_bdd = true;
-		if ($CONFIG_POLL['poll_auth'] == -1) //Autorisé aux visiteurs, on filtre par ip => fiabilité moyenne.
+		if ($CONFIG_POLL['poll_auth'] == -1) 
 		{
-			//Injection de l'adresse ip du visiteur dans la bdd.	
+			
 			$ip = $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "poll_ip WHERE ip = '" . USER_IP . "' AND idpoll = '" . $poll['id'] . "'",  __LINE__, __FILE__);		
 			if (empty($ip))
 			{
-				//Insertion de l'adresse ip.
+				
 				$Sql->query_inject("INSERT INTO " . PREFIX . "poll_ip (ip, user_id, idpoll, timestamp) VALUES('" . USER_IP . "', -1, '" . $poll['id'] . "', '" . time() . "')", __LINE__, __FILE__);
 				$check_bdd = false;
 			}
 		}
-		else //Autorisé aux membres, on filtre par le user_id => fiabilité 100%.
+		else 
 		{
-			//Injection de l'adresse ip du visiteur dans la bdd.	
+			
 			$user_id = $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "poll_ip WHERE user_id = '" . $User->get_attribute('user_id') . "' AND idpoll = '" . $poll['id'] . "'",  __LINE__, __FILE__);		
 			if (empty($user_id))
 			{
-				//Insertion de l'adresse ip.
+				
 				$Sql->query_inject("INSERT INTO " . PREFIX . "poll_ip (ip, user_id, idpoll, timestamp) VALUES('" . USER_IP . "', '" . $User->get_attribute('user_id') . "', '" . $poll['id'] . "', '" . time() . "')", __LINE__, __FILE__);
 				$check_bdd = false;
 			}
 		}
 		
-		//Si le cookie n'existe pas et l'ip n'est pas connue on enregistre.
+		
 		if ($check_bdd || $check_cookie)
 			redirect(HOST . DIR . '/poll/poll' . url('.php?id=' . $poll['id'] . '&error=e_already_vote', '-' . $poll['id'] . '.php?error=e_already_vote', '&') . '#errorh');
 		
-		//Récupération du vote.
+		
 		$check_answer = false;
 		$array_votes = explode('|', $poll['votes']);
-		if ($poll['type'] == '1') //Réponse unique.
+		if ($poll['type'] == '1') 
 		{	
 			$id_answer = retrieve(POST, 'radio', -1);		
 			if (isset($array_votes[$id_answer]))
@@ -110,9 +110,9 @@ if (!empty($_POST['valid_poll']) && !empty($poll['id']) && !$archives)
 				$check_answer = true;
 			}
 		}
-		else //Réponses multiples.
+		else 
 		{
-			//On boucle pour vérifier toutes les réponses du sondage.
+			
 			$nbr_answer = count($array_votes);
 			for ($i = 0; $i < $nbr_answer; $i++)
 			{	
@@ -124,46 +124,46 @@ if (!empty($_POST['valid_poll']) && !empty($poll['id']) && !$archives)
 			}
 		}
 
-		if ($check_answer) //Enregistrement vote du sondage
+		if ($check_answer) 
 		{
 			$Sql->query_inject("UPDATE " . PREFIX . "poll SET votes = '" . implode('|', $array_votes) . "' WHERE id = '" . $poll['id'] . "'", __LINE__, __FILE__);
 			
-			//Tout s'est bien déroulé, on redirige vers la page des resultats.
+			
 			redirect_confirm(HOST . DIR . '/poll/poll' . url('.php?id=' . $poll['id'], '-' . $poll['id'] . '.php'), $LANG['confirm_vote'], 2);
 			
-			if (in_array($poll['id'], $CONFIG_POLL['poll_mini']) ) //Vote effectué du mini poll => mise à jour du cache du mini poll.
+			if (in_array($poll['id'], $CONFIG_POLL['poll_mini']) ) 
 				$Cache->Generate_module_file('poll');
 		}	
-		else //Vote blanc
+		else 
 			redirect_confirm(HOST . DIR . '/poll/poll' . url('.php?id=' . $poll['id'], '-' . $poll['id'] . '.php'), $LANG['no_vote'], 2);
 	}
 	else
 		redirect(HOST . DIR . '/poll/poll' . url('.php?id=' . $poll['id'] . '&error=e_unauth_poll', '-' . $poll['id'] . '.php?error=e_unauth_poll', '&') . '#errorh');
 }
-elseif (!empty($poll['id']) && !$archives) //Affichage du sondage.
+elseif (!empty($poll['id']) && !$archives) 
 {
 	$Template->set_filenames(array(
 		'poll'=> 'poll/poll.tpl'
 	));
 
-	//Résultats
+	
 	$check_bdd = false;
-	if ($CONFIG_POLL['poll_auth'] == -1) //Autorisé aux visiteurs, on filtre par ip => fiabilité moyenne.
+	if ($CONFIG_POLL['poll_auth'] == -1) 
 	{
-		//Injection de l'adresse ip du visiteur dans la bdd.	
+		
 		$ip = $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "poll_ip WHERE ip = '" . USER_IP . "' AND idpoll = '" . $poll['id'] . "'",  __LINE__, __FILE__);		
 		if (!empty($ip))
 			$check_bdd = true;
 	}
-	else //Autorisé aux membres, on filtre par le user_id => fiabilité 100%.
+	else 
 	{
-		//Injection de l'adresse ip du visiteur dans la bdd.	
+		
 		$user_id = $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "poll_ip WHERE user_id = '" . $User->get_attribute('user_id') . "' AND idpoll = '" . $poll['id'] . "'",  __LINE__, __FILE__);		
 		if (!empty($user_id))
 			$check_bdd = true;
 	}
 	
-	//Gestion des erreurs
+	
 	$get_error = retrieve(GET, 'error', '');
 	switch ($get_error)
 	{
@@ -181,9 +181,9 @@ elseif (!empty($poll['id']) && !$archives) //Affichage du sondage.
 	if (!empty($errstr))
 		$Errorh->handler($errstr, $type);
 	
-	//Si le cookie existe, ou l'ip est connue on redirige vers les resulats, sinon on prend en compte le vote.
+	
 	$array_cookie = isset($_COOKIE[$CONFIG_POLL['poll_cookie']]) ? explode('/', $_COOKIE[$CONFIG_POLL['poll_cookie']]) : array();
-	if ($show_result || in_array($poll['id'], $array_cookie) === true || $check_bdd) //Résultats
+	if ($show_result || in_array($poll['id'], $array_cookie) === true || $check_bdd) 
 	{		
 		$array_answer = explode('|', $poll['answers']);
 		$array_vote = explode('|', $poll['votes']);
@@ -206,21 +206,21 @@ elseif (!empty($poll['id']) && !$archives) //Affichage du sondage.
 			'L_DELETE' => $LANG['delete']
 		));
 		
-		$sum_vote = ($sum_vote == 0) ? 1 : $sum_vote; //Empêche la division par 0.
+		$sum_vote = ($sum_vote == 0) ? 1 : $sum_vote; 
 		$array_poll = array_combine($array_answer, $array_vote);
 		foreach ($array_poll as $answer => $nbrvote)
 		{
 			$Template->assign_block_vars('result', array(
 				'ANSWERS' => $answer, 
 				'NBRVOTE' => (int)$nbrvote,
-				'WIDTH' => number_round(($nbrvote * 100 / $sum_vote), 1) * 4, //x 4 Pour agrandir la barre de vote.					
+				'WIDTH' => number_round(($nbrvote * 100 / $sum_vote), 1) * 4, 
 				'PERCENT' => number_round(($nbrvote * 100 / $sum_vote), 1)
 			));
 		}
 
 		$Template->pparse('poll');
 	}
-	else //Questions.
+	else 
 	{
 		$Template->assign_vars(array(
 			'C_POLL_VIEW' => true,
@@ -275,7 +275,7 @@ elseif (!empty($poll['id']) && !$archives) //Affichage du sondage.
 		$Template->pparse('poll');
 	}
 }
-elseif (!$archives) //Menu principal.
+elseif (!$archives) 
 {
 	$Template->set_filenames(array(
 		'poll'=> 'poll/poll.tpl'
@@ -311,7 +311,7 @@ elseif (!$archives) //Menu principal.
 	
 	$Template->pparse('poll');	
 }
-elseif ($archives) //Archives.
+elseif ($archives) 
 {
 	$Template->set_filenames(array(
 		'poll'=> 'poll/poll.tpl'
@@ -337,7 +337,7 @@ elseif ($archives) //Archives.
 		'L_DELETE' => $LANG['delete']
 	));	
 	
-	//On recupère les sondages archivés.
+	
 	$result = $Sql->query_while("SELECT id, question, votes, answers, type, timestamp
 	FROM " . PREFIX . "poll
 	WHERE archive = 1 AND visible = 1
@@ -349,7 +349,7 @@ elseif ($archives) //Archives.
 		$array_vote = explode('|', $row['votes']);
 		
 		$sum_vote = array_sum($array_vote);
-		$sum_vote = ($sum_vote == 0) ? 1 : $sum_vote; //Empêche la division par 0.
+		$sum_vote = ($sum_vote == 0) ? 1 : $sum_vote; 
 
 		$Template->assign_block_vars('list', array(
 			'ID' => $row['id'],
@@ -367,7 +367,7 @@ elseif ($archives) //Archives.
 			$Template->assign_block_vars('list.result', array(
 				'ANSWERS' => $answer, 
 				'NBRVOTE' => $nbrvote,
-				'WIDTH' => number_round(($nbrvote * 100 / $sum_vote), 1) * 4, //x 4 Pour agrandir la barre de vote.					
+				'WIDTH' => number_round(($nbrvote * 100 / $sum_vote), 1) * 4, 
 				'PERCENT' => number_round(($nbrvote * 100 / $sum_vote), 1),
 				'L_VOTE' => (($nbrvote > 1 ) ? $LANG['poll_vote_s'] : $LANG['poll_vote'])
 			));

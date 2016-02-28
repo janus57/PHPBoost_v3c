@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                                admin.php
- *                            -------------------
- *   begin                : November 20, 2005
- *   last modified		: October 3rd, 2009 - JMNaylor
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
- ###################################################
- *
- *   This program is a free software. You can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
@@ -35,7 +35,7 @@ $LANG['xml_lang'] = 'en';
 $LANG['administration'] = 'Administration';
 $LANG['no_administration'] = 'No administration associated with this module !';
 
-//Default module
+
 $LANG['index'] = 'Index';
 $LANG['tools'] = 'Tools';
 $LANG['link_management'] = 'Links management';
@@ -61,10 +61,10 @@ $LANG['cache'] = 'Cache';
 $LANG['punishement'] = 'Punishement';
 $LANG['extend_menu'] = 'Extended menu';
 
-//Form
+
 $LANG['add'] = 'Add';
 
-//Alertes formulaires
+
 $LANG['alert_same_pass'] = 'The passwords are not the same !';
 $LANG['alert_max_dim'] = 'The file exceeds the specified maximum width and height !';
 $LANG['alert_error_avatar'] = 'Error while uploading the avatar !';
@@ -76,7 +76,7 @@ $LANG['alert_no_cat'] = 'No name/category selected';
 $LANG['alert_fct_unlink'] = 'Impossible to delete picture. You must remove it manually using ftp !';
 $LANG['alert_no_login'] = 'The input nickname doesn\'t exist !';
 
-//Requis
+
 $LANG['require'] = 'The fields marked with an * are required !';
 $LANG['require_title'] = 'Please enter a title !';
 $LANG['require_text'] = 'Please enter content !';
@@ -102,7 +102,7 @@ $LANG['require_nbr_msg_rank'] = 'Please enter a number of message for the rank !
 $LANG['require_subcat'] = 'Please enter a subcategory !';
 $LANG['require_file_name'] = 'Please enter a file name';
 
-//Confirmations.
+
 $LANG['redirect'] = 'Redirection in progress...';
 $LANG['del_entry'] = 'Do you want to delete this entry ?';
 $LANG['confirm_del_member'] = 'Do you want to delete this member ? (final !)';
@@ -115,7 +115,7 @@ $LANG['confirm_del_rank'] = 'Do you want to delete this rank ?';
 $LANG['confirm_del_group'] = 'Do you want to delete this group ?';
 $LANG['confirm_del_member_group'] = 'Do you want to delete this group member ?';
 
-//bbcode
+
 $LANG['bb_bold'] = 'Text in bold : [b]text[/b]';
 $LANG['bb_italic'] = 'Text in italic : [i]text[/i]';
 $LANG['bb_underline'] = 'Underlined text : [u]text[/u]';
@@ -129,7 +129,7 @@ $LANG['bb_left'] = 'Align on left : [align=left]object on left[/align]';
 $LANG['bb_center'] = 'Center : [align=center]center object[/align]';
 $LANG['bb_right'] = 'Align on right : [align=right]object on right[/align]';
 
-//Common
+
 $LANG['pseudo'] = 'Nickname';
 $LANG['yes'] = 'Yes';
 $LANG['no'] = 'No';
@@ -211,12 +211,12 @@ $LANG['or_direct_path'] = 'Or direct path';
 $LANG['unknow_bot'] = 'Unknown bot';
 $LANG['captcha_difficulty'] = 'Captcha difficulty level';
 
-//Connection
+
 $LANG['unlock_admin_panel'] = 'Unlock administration panel';
 $LANG['flood_block'] = 'Rest %d test(s) after that you will have to wait 5 minutes to obtain 2 new tests (10min for 5)!';
 $LANG['flood_max'] = 'You exhausted all your tests of connection, your account is locked during 5 minutes';
 
-//Rank
+
 $LANG['rank_management'] = 'Ranks management';
 $LANG['rank_add'] = 'Add a rank';
 $LANG['upload_rank'] = 'Upload icon rank';
@@ -234,7 +234,7 @@ $LANG['modo'] = 'Moderator';
 $LANG['a_admin'] = 'admin';
 $LANG['admin'] = 'Administrator';
 
-//Extend fields
+
 $LANG['extend_field_management'] = 'Member field management';
 $LANG['extend_field_add'] = 'Add member field';
 $LANG['required_field'] = 'Required field';
@@ -261,7 +261,7 @@ $LANG['figures_letters'] = 'Numbers and letters';
 $LANG['default_field_possible_values'] = 'Yes|No';
 $LANG['extend_field_edit'] = 'Edit field';
 
-//Index
+
 $LANG['update_available'] = 'Update available';
 $LANG['core_update_available'] = 'New core version available, please update PHPBoost ! <a href="http://www.phpboost.com">More informations</a>';
 $LANG['no_core_update_available'] = 'No newer version, system is up to date';
@@ -279,7 +279,7 @@ $LANG['view_all_comments'] = 'View all comments';
 $LANG['writing_pad'] = 'Writing pad';
 $LANG['writing_pad_explain'] = 'This form is provided to enter your personal notes.';
 
-//Administrator alerts
+
 $LANG['administrator_alerts'] = 'Alerts';
 $LANG['administrator_alerts_list'] = 'Alerts list';
 $LANG['no_unread_alert'] = 'No unprocessed alerts';
@@ -297,7 +297,7 @@ $LANG['admin_alert_fix'] = 'Fix';
 $LANG['admin_alert_unfix'] = 'Consider the alert as not fixed';
 $LANG['confirm_delete_administrator_alert'] = 'Are you sure you want to delete this alert?';
 	
-//Config
+
 $LANG['config_main'] = 'Main configuration';
 $LANG['config_advanced'] = 'Advanced configuration';
 $LANG['serv_name'] = 'Server name';
@@ -369,13 +369,13 @@ It will be asked of you in the direct administration connection form  (yourserve
 
 ' . $CONFIG['sign'];
 
-//Maintenance
+
 $LANG['maintain_for'] = 'Set website in maintenance';
 $LANG['maintain_delay'] = 'Display maintenance delay';
 $LANG['maintain_display_admin'] = 'Display maintenance delay to the administrator';
 $LANG['maintain_text'] = 'Display text, when site maintenance is in progress';
 
-//Config modules
+
 $LANG['modules_management'] = 'Module management';
 $LANG['add_modules'] = 'Add module';
 $LANG['update_modules'] = 'Update module';
@@ -402,7 +402,7 @@ $LANG['new_version'] = 'New version';
 $LANG['installed_version'] = 'Installed version';
 $LANG['e_config_conflict'] = 'Conflict with module configuration, impossible to install!';
 
-//System report
+
 $LANG['system_report'] = 'System report';
 $LANG['server'] = 'Server';
 $LANG['php_version'] = 'PHP version';
@@ -417,11 +417,11 @@ $LANG['directories_auth'] = 'Directories authorization';
 $LANG['system_report_summerization'] = 'Summary';
 $LANG['system_report_summerization_explain'] = 'This is a summary of the report, it will be useful for support, when you will be asked about your configuration.';
 
-//Gestion de l'upload
+
 $LANG['explain_upload_img'] = 'Image format must be JPG, GIF, PNG or BMP format';
 $LANG['explain_archive_upload'] = 'Archive file must be ZIP or GZIP format';
 
-//Gestion des fichiers
+
 $LANG['auth_files'] = 'Authorization required for file interface activation';
 $LANG['size_limit'] = 'Upload size limit';
 $LANG['bandwidth_protect'] = 'Bandwidth protection';
@@ -436,7 +436,7 @@ $LANG['files_media'] = 'Media';
 $LANG['files_prog'] = 'Programation';
 $LANG['files_misc'] = 'Miscellaneous';
 
-//Gestion des menus
+
 $LANG['confirm_del_menu'] = 'Delete this menu?';
 $LANG['confirm_delete_element'] = 'Delete this item?';
 $LANG['menus_management'] = 'Menu management';
@@ -470,7 +470,7 @@ $LANG['choose_feed_in_list'] = 'Choose a feed in the list';
 $LANG['feed'] = 'feed';
 $LANG['availables_feeds'] = 'Available feeds';
 
-//Gestion du contenu
+
 $LANG['content_config'] = 'Content';
 $LANG['content_config_extend'] = 'Content configuration';
 $LANG['default_formatting_language'] = 'Default formatting language on the website
@@ -480,7 +480,7 @@ $LANG['content_html_language'] = 'HTML language';
 $LANG['content_auth_use_html'] = 'Authorization level to insert HTML langage in the content
 <span style="display:block">Warning : if you can insert HTML tags, you can also insert some JavaScript and this code can be the source of vulnerabilities. People who can insert some HTML language must be people who you trust.</span>';
 
-//Smiley
+
 $LANG['upload_smiley'] = 'Upload smiley';
 $LANG['smiley'] = 'Smiley';
 $LANG['add_smiley'] = 'Add smiley';
@@ -490,7 +490,7 @@ $LANG['edit_smiley'] = 'Edit smileys';
 $LANG['smiley_management'] = 'Smiley management';
 $LANG['e_smiley_already_exist'] = 'This smiley already exists!';
 
-//Thèmes
+
 $LANG['upload_theme'] = 'Upload theme';
 $LANG['theme_on_serv'] = 'Theme available on the server';
 $LANG['no_theme_on_serv'] = 'No <strong>compatible</strong> theme available on the server';
@@ -510,7 +510,7 @@ $LANG['activ_left_column'] = 'Enable left column';
 $LANG['activ_right_column'] = 'Enable right column';
 $LANG['manage_theme_columns'] = 'Manage theme columns';
 
-//Languages
+
 $LANG['upload_lang'] = 'Upload language';
 $LANG['lang_on_serv'] = 'Languages available on the server';
 $LANG['no_lang_on_serv'] = 'No language available on the server';
@@ -522,7 +522,7 @@ $LANG['del_lang'] = 'Delete language';
 $LANG['del_lang_files'] = 'Delete all language files';
 $LANG['explain_default_lang'] = 'Default language can\'t be uninstalled, disabled or restricted';
 
-//Comments
+
 $LANG['com_management'] = 'Comment management';
 $LANG['com_config'] = 'Comments configuration';
 $LANG['com_max'] = 'Maximum comments displayed';
@@ -530,7 +530,7 @@ $LANG['rank_com_post'] = 'Rank to post comments';
 $LANG['display_topic_com'] = 'Display comment\'s topics';
 $LANG['display_recent_com'] = 'Display last comments';
 
-//Gestion membre
+
 $LANG['job'] = 'Job';
 $LANG['hobbies'] = 'Hobbies';
 $LANG['members_management'] = 'Member management';
@@ -597,10 +597,10 @@ $LANG['life'] = 'Life';
 $LANG['readonly_user'] = 'Member on read only';
 $LANG['activ_register'] = 'Enable member registration';
 
-//Règlement
+
 $LANG['explain_terms'] = 'Write registration terms which prospective members have to accept before they register. Leave the field empty for no registeration terms.';
 
-//Group management
+
 $LANG['groups_management'] = 'Group management';
 $LANG['groups_add'] = 'Add a group';
 $LANG['auth_flood'] = 'Allowed to flood';
@@ -621,21 +621,21 @@ $LANG['auth_write'] = 'Write authorisation';
 $LANG['auth_edit'] = 'Moderate authorisation';
 $LANG['upload_group'] = 'Upload icon group';
 
-//Robots
+
 $LANG['robot'] = 'Robot';
 $LANG['robots'] = 'Robots';
 $LANG['erase_rapport'] = 'Erase rapport';
 $LANG['number_r_visit'] = 'Number of views';
 
-//Errors
+
 $LANG['all_errors'] = 'Show all errors';
 $LANG['error_management'] = 'Error handler';
 
-//Miscellaneous
+
 $LANG['select_type_bbcode'] = 'BBCode';
 $LANG['select_type_html'] = 'HTML';
 
-//Stats
+
 $LANG['stats'] = 'Stats';
 $LANG['more_stats'] = 'More stats';
 $LANG['site'] = 'Site';
@@ -677,7 +677,7 @@ $LANG['friday'] = 'Fri';
 $LANG['saturday'] = 'Sat';
 $LANG['sunday']	= 'Sun';
 
-// Updates
+
 $LANG['website_updates'] = 'Updates';
 $LANG['kernel'] = 'Kernel';
 $LANG['themes'] = 'Themes';

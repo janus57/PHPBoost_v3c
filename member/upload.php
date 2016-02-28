@@ -1,36 +1,36 @@
 <?php
-/*##################################################
- *                               upload.php
- *                            -------------------
- *   begin                : July, 07 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 define('TITLE', $LANG['files_management']);
 
 $popup = retrieve(GET, 'popup', '');
 $editor = retrieve(GET, 'edt', '');
-if (!empty($popup)) //Popup.
+if (!empty($popup)) 
 {
 	require_once('../kernel/header_no_display.php');
 	$field = retrieve(GET, 'fd', '');
@@ -68,7 +68,7 @@ if (!empty($popup)) //Popup.
 	$popup = '&amp;popup=1&amp;fd=' . $field . '&amp;edt=' . $editor;
 	$popup_noamp = '&popup=1&fd=' . $field . '&edt=' . $editor;
 }
-else //Affichage de l'interface de gestion.
+else 
 {
 	$Bread_crumb->add($LANG['member_area'], url('member.php?id=' . $User->get_attribute('user_id') . '&amp;view=1', 'member-' . $User->get_attribute('user_id') . '.php?view=1'));
 	$Bread_crumb->add($LANG['files_management'], url('upload.php'));
@@ -80,17 +80,17 @@ else //Affichage de l'interface de gestion.
 	$popup_noamp = '';
 }
 
-if (!$User->check_level(MEMBER_LEVEL)) //Visiteurs interdits!
+if (!$User->check_level(MEMBER_LEVEL)) 
 	$Errorh->handler('e_auth', E_USER_REDIRECT);
 
-//Chargement de la configuration.
+
 $Cache->load('uploads');
 
-//Droit d'accès?.
+
 if (!$User->check_auth($CONFIG_UPLOADS['auth_files'], AUTH_FILES))
 	$Errorh->handler('e_auth', E_USER_REDIRECT);
 
-//Initialisation  de la class de gestion des fichiers.
+
 import('members/uploads');
 $Uploads = new Uploads;
 
@@ -105,7 +105,7 @@ $move_folder = retrieve(GET, 'movefd', 0);
 $move_file = retrieve(GET, 'movefi', 0);
 $to = retrieve(POST, 'new_cat', -1);
 
-if (!empty($parent_folder)) //Changement de dossier
+if (!empty($parent_folder)) 
 {
 	if (empty($parent_folder))
 		redirect(HOST . DIR . url('/member/upload.php?f=0&' . $popup_noamp, '', '&'));
@@ -121,12 +121,12 @@ if (!empty($parent_folder)) //Changement de dossier
 	else
 		redirect(HOST . DIR . url('/member/upload.php?f=' . $parent_folder . '&' . $popup_noamp, '', '&'));
 }
-elseif ($home_folder) //Retour à la racine.
+elseif ($home_folder) 
 	redirect(HOST . DIR . url('/member/upload.php?' . $popup_noamp, '', '&'));
-elseif (!empty($_FILES['upload_file']['name']) && isset($_GET['f'])) //Ajout d'un fichier.
+elseif (!empty($_FILES['upload_file']['name']) && isset($_GET['f'])) 
 {
 	$error = '';
-	//Autorisation d'upload aux groupes.
+	
 	$group_limit = $User->check_max_value(DATA_GROUP_LIMIT, $CONFIG_UPLOADS['size_limit']);
 	$unlimited_data = ($group_limit === -1) || $User->check_level(ADMIN_LEVEL);
 	
@@ -135,27 +135,27 @@ elseif (!empty($_FILES['upload_file']['name']) && isset($_GET['f'])) //Ajout d'u
 		$error = 'e_max_data_reach';
 	else
 	{
-		//Si le dossier n'est pas en écriture on tente un CHMOD 777
+		
 		@clearstatcache();
 		$dir = '../upload/';
 		if (!is_writable($dir))
 			$is_writable = (@chmod($dir, 0777)) ? true : false;
 		
 		@clearstatcache();
-		if (is_writable($dir)) //Dossier en écriture, upload possible
+		if (is_writable($dir)) 
 		{
 			$weight_max = $unlimited_data ? 100000000 : ($group_limit - $member_memory_used);
 			import('io/upload');
 			$Upload = new Upload($dir);
 			$Upload->file('upload_file', '`([a-z0-9()_-])+\.(' . implode('|', array_map('preg_quote', $CONFIG_UPLOADS['auth_extensions'])) . ')+$`i', UNIQ_NAME, $weight_max);
 			
-			if (!empty($Upload->error)) //Erreur, on arrête ici
+			if (!empty($Upload->error)) 
 			{
 				if ($Upload->error == 'e_upload_max_weight')
 					$Upload->error = 'e_max_data_reach';
 				redirect(HOST . DIR . '/member/upload.php?f=' . $folder . '&erroru=' . $Upload->error . '&' . $popup_noamp . '#errorh');
 			}
-			else //Insertion dans la bdd
+			else 
 			{
 				$Sql->query_inject("INSERT INTO " . DB_TABLE_UPLOAD . " (idcat, name, path, user_id, size, type, timestamp) VALUES ('" . $folder . "', '" . addslashes($_FILES['upload_file']['name']) . "', '" . addslashes($Upload->filename['upload_file']) . "', '" . $User->get_attribute('user_id') . "', '" . numeric(number_round($_FILES['upload_file']['size']/1024, 1), 'float') . "', '" . $Upload->extension['upload_file'] . "', '" . time() . "')", __LINE__, __FILE__);
 			}
@@ -167,16 +167,16 @@ elseif (!empty($_FILES['upload_file']['name']) && isset($_GET['f'])) //Ajout d'u
 	$error = !empty($error) ? '&error=' . $error . '&' . $popup_noamp . '#errorh' : '&' . $popup_noamp;
 	redirect(HOST . DIR . url('/member/upload.php?f=' . $folder . $error, '', '&'));
 }
-elseif (!empty($del_folder)) //Supprime un dossier.
+elseif (!empty($del_folder)) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	if ($User->check_level(ADMIN_LEVEL))
 		$Uploads->Del_folder($del_folder);
 	else
 	{
 		$check_user_id = $Sql->query("SELECT user_id FROM " . DB_TABLE_UPLOAD_CAT . " WHERE id = '" . $del_folder . "'", __LINE__, __FILE__);
-		//Suppression du dossier et de tout le contenu
+		
 		if ($check_user_id == $User->get_attribute('user_id'))
 			$Uploads->Del_folder($del_folder);
 		else
@@ -185,9 +185,9 @@ elseif (!empty($del_folder)) //Supprime un dossier.
 	
 	redirect(HOST . DIR . url('/member/upload.php?f=' . $folder . '&' . $popup_noamp, '', '&'));
 }
-elseif (!empty($del_file)) //Suppression d'un fichier
+elseif (!empty($del_file)) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	if ($User->check_level(ADMIN_LEVEL))
 		$Uploads->Del_file($del_file, $User->get_attribute('user_id'), ADMIN_NO_CHECK);
@@ -200,9 +200,9 @@ elseif (!empty($del_file)) //Suppression d'un fichier
 	
 	redirect(HOST . DIR . url('/member/upload.php?f=' . $folder . '&' . $popup_noamp, '', '&'));
 }
-elseif (!empty($move_folder) && $to != -1) //Déplacement d'un dossier
+elseif (!empty($move_folder) && $to != -1) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	$folder_owner = $Sql->query("SELECT user_id FROM ".DB_TABLE_UPLOAD_CAT . " WHERE id = '" . $move_folder . "'", __LINE__, __FILE__);
 	
@@ -212,7 +212,7 @@ elseif (!empty($move_folder) && $to != -1) //Déplacement d'un dossier
 		$sub_cats = array();
 		upload_find_subcats($sub_cats, $move_folder, $User->get_attribute('user_id'));
 		$sub_cats[] = $move_folder;
-		//Si on ne déplace pas le dossier dans un de ses fils ou dans lui même
+		
 		if (!in_array($to, $sub_cats))
 		{
 			$new_folder_owner = $Sql->query("SELECT user_id FROM " . DB_TABLE_UPLOAD_CAT . " WHERE id = '" . $to . "'", __LINE__, __FILE__);
@@ -228,18 +228,18 @@ elseif (!empty($move_folder) && $to != -1) //Déplacement d'un dossier
 	else
 		$Errorh->handler('e_auth', E_USER_REDIRECT);
 }
-elseif (!empty($move_file) && $to != -1) //Déplacement d'un fichier
+elseif (!empty($move_file) && $to != -1) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	$file_infos = $Sql->query_array(PREFIX . "upload", "idcat", "user_id", "WHERE id = '" . $move_file . "'", __LINE__, __FILE__);
 	$id_cat = $file_infos['idcat'];
 	$file_owner = $file_infos['user_id'];
-	//Si le fichier nous appartient alors on peut en faire ce que l'on veut
+	
 	if ($file_owner == $User->get_attribute('user_id'))
 	{
 		$new_folder_owner = $Sql->query("SELECT user_id FROM " . DB_TABLE_UPLOAD_CAT . " WHERE id = '" . $to . "'", __LINE__, __FILE__);
-		//Si le dossier de destination nous appartient
+		
 		if ($new_folder_owner == $User->get_attribute('user_id') || $to == 0)
 		{
 			$Sql->query_inject("UPDATE " . DB_TABLE_UPLOAD . " SET idcat = '" . $to . "' WHERE id = '" . $move_file . "'", __LINE__, __FILE__);
@@ -278,12 +278,12 @@ elseif (!empty($move_folder) || !empty($move_file))
 	if ($get_error == 'folder_contains_folder')
 		$Errorh->handler($LANG['upload_folder_contains_folder'], E_USER_WARNING);
 	
-	//liste des fichiers disponibles
+	
 	include_once('upload_functions.php');
 	$cats = array();
 	
 	$is_folder = !empty($move_folder);
-	//Affichage du dossier/fichier à déplacer
+	
 	if ($is_folder)
 	{
 		$folder_info = $Sql->query_array(PREFIX . "upload_cat", "name", "id_parent", "WHERE id = '" . $move_folder . "'", __LINE__, __FILE__);
@@ -306,7 +306,7 @@ elseif (!empty($move_folder) || !empty($move_file))
 		$size_img = '';
 		switch ($info_move['type'])
 		{
-			//Images
+			
 			case 'jpg':
 			case 'png':
 			case 'gif':
@@ -344,7 +344,7 @@ else
 		'upload' => 'member/upload.tpl'
 	));
 
-	//Gestion des erreurs.
+	
 	$array_error = array('e_upload_invalid_format', 'e_upload_max_weight', 'e_upload_error', 'e_upload_failed_unwritable', 'e_unlink_disabled', 'e_max_data_reach');
 	if (in_array($get_error, $array_error))
 		$Errorh->handler($LANG[$get_error], E_USER_WARNING);
@@ -392,14 +392,14 @@ else
 	));
 	
 	list($total_folder_size, $total_files, $total_directories) = array(0, 0, 0);
-	//Affichage des dossiers
+	
 	$result = $Sql->query_while("SELECT id, name, id_parent, user_id
 	FROM " . PREFIX . "upload_cat
 	WHERE id_parent = '" . $folder . "' AND user_id = '" . $User->get_attribute('user_id') . "'
 	ORDER BY name", __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		$name_cut = (strlen(html_entity_decode($row['name'])) > 22) ? htmlentities(substr(html_entity_decode($row['name']), 0, 22)) . '...' : $row['name'];
+		$name_cut = (strlen(html_entity_decode($row['name'], ENT_COMPAT, 'ISO-8859-1')) > 22) ? htmlentities(substr(html_entity_decode($row['name'], ENT_COMPAT, 'ISO-8859-1'), 0, 22), ENT_COMPAT, 'ISO-8859-1') . '...' : $row['name'];
 		
 		$Template->assign_block_vars('folder', array(
 			'ID' => $row['id'],
@@ -414,7 +414,7 @@ else
 	}
 	$Sql->query_close($result);
 
-	//Affichage des fichiers contenu dans le dossier
+	
 	$result = $Sql->query_while("SELECT up.id, up.name, up.path, up.size, up.type, up.timestamp, m.user_id, m.login
 	FROM " . DB_TABLE_UPLOAD . " up
 	LEFT JOIN " . DB_TABLE_MEMBER . " m ON m.user_id = up.user_id
@@ -422,13 +422,13 @@ else
 	ORDER BY up.name", __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		$name_cut = (strlen(html_entity_decode($row['name'])) > 22) ? htmlentities(substr(html_entity_decode($row['name']), 0, 22)) . '...' : $row['name'];
+		$name_cut = (strlen(html_entity_decode($row['name'], ENT_COMPAT, 'ISO-8859-1')) > 22) ? htmlentities(substr(html_entity_decode($row['name'], ENT_COMPAT, 'ISO-8859-1'), 0, 22), ENT_COMPAT, 'ISO-8859-1') . '...' : $row['name'];
 		
 		$get_img_mimetype = $Uploads->get_img_mimetype($row['type']);
 		$size_img = '';
 		switch ($row['type'])
 		{
-			//Images
+			
 			case 'jpg':
 			case 'png':
 			case 'gif':
@@ -441,13 +441,13 @@ else
 			$tinymce = '<img src="' . PATH_TO_ROOT . '/upload/' . $row['path'] . '" alt="" />';
 			$link = 'javascript:popup_upload(\'' . $row['id'] . '\', ' . $width_source . ', ' . $height_source . ', \'yes\')';
 			break;
-			//Image svg
+			
 			case 'svg':
 			$bbcode = '[img]/upload/' . $row['path'] . '[/img]';
 			$tinymce = '<img src="' . PATH_TO_ROOT . '/upload/' . $row['path'] . '" alt="" />';
 			$link = 'javascript:popup_upload(\'' . $row['id'] . '\', 0, 0, \'no\')';
 			break;
-			//Sons
+			
 			case 'mp3':
 			$bbcode = '[sound]/upload/' . $row['path'] . '[/sound]';
 			$tinymce = '<a href="' . PATH_TO_ROOT . '/upload/' . $row['path'] . '">' . $row['name'] . '</a>';
@@ -460,9 +460,9 @@ else
 		}
 		
 		$is_bbcode_editor = ($editor == BBCODE_LANGUAGE);
-		$inserted_code = ($User->get_attribute('user_editor') == BBCODE_LANGUAGE) ? addslashes($bbcode) : htmlentities($tinymce);
+		$inserted_code = ($User->get_attribute('user_editor') == BBCODE_LANGUAGE) ? addslashes($bbcode) : htmlentities($tinymce, ENT_COMPAT, 'ISO-8859-1');
 		$displayed_code = $is_bbcode_editor ? $bbcode : '/upload/' . $row['path'];
-		$inserted_code = $is_bbcode_editor ? addslashes($bbcode) : htmlentities($tinymce);
+		$inserted_code = $is_bbcode_editor ? addslashes($bbcode) : htmlentities($tinymce, ENT_COMPAT, 'ISO-8859-1');
 		$Template->assign_block_vars('files', array(
 			'ID' => $row['id'],
 			'IMG' => '<img src="../templates/' . get_utheme() . '/images/upload/' . $get_img_mimetype['img'] . '" alt="" />',
@@ -484,7 +484,7 @@ else
 	}
 	$Sql->query_close($result);
 	
-	//Autorisation d'uploader sans limite aux groupes.
+	
 	$group_limit = $User->check_max_value(DATA_GROUP_LIMIT, $CONFIG_UPLOADS['size_limit']);
 	$unlimited_data = ($group_limit === -1) || $User->check_level(ADMIN_LEVEL);
 	

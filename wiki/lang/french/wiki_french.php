@@ -1,36 +1,36 @@
 <?php
-/*##################################################
- *                              wiki_french.php
- *                            -------------------
- *   begin                : December 02, 2006
- *   copyright            : (C) 2005 Benoît Sautel
- *   email                : ben.popeye@phpboost.com
- *
- *  
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
 #                                                          French                                                                        #
 ####################################################
 
-//Généralités
+
 $LANG['wiki'] = 'Wiki';
 $LANG['wiki_article_hits'] = 'Cette page a été vue %d fois';
 $LANG['wiki_history'] = 'Historique';
@@ -42,12 +42,12 @@ $LANG['wiki_previewing'] = 'Prévisualisation';
 $LANG['wiki_table_of_contents'] = 'Table des matières';
 $LANG['wiki_read_feed'] = 'Lire l\'article';
 
-//Actions
+
 $LANG['wiki_random_page'] = 'Page aléatoire';
 $LANG['wiki_restriction_level'] = 'Niveau de restriction';
 $LANG['wiki_article_status'] = 'Type d\'article';
 
-//Poster
+
 $LANG['wiki_contents'] = 'Contenu de l\'article';
 $LANG['wiki_article_title'] = 'Titre de l\'article';
 $LANG['wiki_create_article'] = 'Créer un article';
@@ -81,7 +81,7 @@ $LANG['wiki_help_tags'] = 'En savoir plus sur les balises spécifiques au BBCode'
 $LANG['wiki_paragraph_name'] = 'Veuillez entrer le titre du paragraphe';
 $LANG['wiki_paragraph_name_example'] = 'Titre du paragraphe';
 
-//Restrictions d'accès
+
 $LANG['wiki_member_restriction'] = 'Cet article est protégé, seuls les membres peuvent le modifier';
 $LANG['wiki_modo_restriction'] = 'Cet article est protégé, seuls les modérateurs peuvent le modifier';
 $LANG['wiki_admin_restriction'] = 'Cet article est protégé, seuls les administrateurs peuvent le modifier';
@@ -97,14 +97,14 @@ $LANG['groups'] = 'Groupes';
 $LANG['wiki_explain_restore_default_auth'] = 'Ne pas considérer de restriction particulière pour cet article; les autorisations seront les autorisations globales du wiki';
 $LANG['wiki_restore_default_auth'] = 'Autorisations par défaut';
 
-//Catégories
+
 $LANG['wiki_last_articles_list'] = 'Derniers articles mis à jour :';
 $LANG['wiki_cats_list'] = 'Liste des catégories principales :';
 $LANG['wiki_articles_of_this_cat'] = 'Articles présents dans cette catégorie';
 $LANG['wiki_subcats'] = 'Catégories contenues par cette catégorie :';
 $LANG['wiki_subarticles'] = 'Articles contenus par cette catégorie :';
 
-//Archives
+
 $LANG['wiki_version_list'] = 'Versions';
 $LANG['wiki_article_does_not_exist'] = 'L\'article que vous demandez n\'existe pas, vous pouvez le créer ici.';
 $LANG['wiki_cat_does_not_exist'] = 'Erreur : la catégorie demandée n\'existe pas. <a href="wiki.php">Retour au wiki</a>';
@@ -114,7 +114,7 @@ $LANG['wiki_possible_actions'] = 'Actions possibles';
 $LANG['wiki_no_possible_action'] = 'Aucune action possible';
 $LANG['wiki_current_version'] = 'Version courante';
 
-//Statut de l'article
+
 $LANG['wiki_status_management'] = 'Gestion des statuts des articles';
 $LANG['wiki_status_management_article'] = 'Gestion des statuts de l\' article %s';
 $LANG['wiki_defined_status'] = 'Statut préféfini';
@@ -131,13 +131,13 @@ $LANG['wiki_status_list'] = array(
 	array('Article remis en cause', '<span class="error">Cet article a été discuté et son contenu ne paraît pas correct. Vous pouvez éventuellement consulter les discussions à ce propos et peut-être y apporter vos connaissances.</span>')
 );
 
-//Déplacement de l'article
+
 $LANG['wiki_moving_article'] = 'Déplacement d\'un article';
 $LANG['wiki_moving_this_article'] = 'Déplacement de l\'article : %s';
 $LANG['wiki_change_cat'] = 'Changer de catégorie';
 $LANG['wiki_cat_contains_cat'] = 'Vous souhaitez placer cette catégorie dans une de ses catégories filles ou dans elle-même, ce qui est impossible!';
 
-//Renommer l'article
+
 $LANG['wiki_renaming_article'] = 'Renommer un article';
 $LANG['wiki_renaming_this_article'] = 'Renommer l\'article : %s';
 $LANG['wiki_new_article_title'] = 'Nouveau titre de l\'article';
@@ -145,7 +145,7 @@ $LANG['wiki_explain_renaming'] = 'Vous êtes sur le point de renommer un article.
 $LANG['wiki_create_redirection_after_renaming'] = 'Créer une redirection automatique depuis l\'ancien article vers le nouveau';
 $LANG['wiki_title_already_exists'] = 'Le titre que vous avez choisi existe déjà. Veuillez en choisir un autre';
 
-//Redirection
+
 $LANG['wiki_redirecting_from'] = 'Redirigé depuis %s';
 $LANG['wiki_remove_redirection'] = 'Supprimer la redirection';
 $LANG['wiki_redirections'] = 'Redirections';
@@ -159,7 +159,7 @@ $LANG['wiki_no_redirection'] = 'Il n\'y a aucune redirection vers cette page';
 $LANG['wiki_create_redirection'] = 'Créer une redirection vers cet article';
 $LANG['wiki_create_redirection_to_this'] = 'Créer une redirection vers l\'article <em>%s</em>';
 
-//Recherche
+
 $LANG['wiki_search'] = 'Rechercher';
 $LANG['wiki_search_key_words'] = 'Mots clés (4 caractères minimum)';
 $LANG['wiki_search_result'] = 'Résultats de la recherche';
@@ -170,11 +170,11 @@ $LANG['wiki_search_where_title'] = 'Titre';
 $LANG['wiki_search_where_contents'] = 'Contenu';
 $LANG['wiki_search_where_all'] = 'Titre &amp; contenu';
 
-//Discussion
+
 $LANG['wiki_article_com'] = 'Discussion sur l\'article';
 $LANG['wiki_article_com_article'] = 'Discussion';
 
-//Suppression
+
 $LANG['wiki_confirm_delete_archive'] = 'Etes-vous sûr de vouloir supprimer cette version de l\'article?';
 $LANG['wiki_remove_cat'] = 'Suppression d\'une catégorie';
 $LANG['wiki_remove_this_cat'] = 'Suppression de la catégorie : <em>%s</em>';
@@ -186,12 +186,12 @@ $LANG['wiki_alert_removing_cat'] = 'Etes-vous sûr de vouloir supprimer cette cat
 $LANG['wiki_confirm_remove_article'] = 'Etes-vous sur de vouloir supprimer cet article?';
 $LANG['wiki_not_a_cat'] = 'Vous n\'avez pas sélectionné de catégorie valide!';
 
-//RSS
+
 $LANG['wiki_rss'] = 'Flux RSS';
 $LANG['wiki_rss_cat'] = 'Derniers articles de la catégorie %s';
 $LANG['wiki_rss_last_articles'] = '%s : derniers articles';
 
-//Favoris
+
 $LANG['wiki_favorites'] = 'Favoris';
 $LANG['wiki_unwatch_this_topic'] = 'Ne plus suivre cet article';
 $LANG['wiki_unwatch'] = 'Ne plus suivre';
@@ -202,7 +202,7 @@ $LANG['wiki_article_is_not_a_favorite'] = 'L\'article que vous souhaitez supprim
 $LANG['wiki_no_favorite'] = 'Aucun article en favoris';
 $LANG['wiki_confirm_unwatch_this_topic'] = 'Etes-vous certain de vouloir supprimer cet article de vos favoris?';
 
-//Administration
+
 $LANG['wiki_groups_config'] = 'Configuration des groupes';
 $LANG['explain_wiki_groups'] = 'Vous pouvez paramétrer ici tout ce qui concerne les autorisations. Vous pouvez attribuer des autorisations à un niveau mais aussi des autorisations spéciales à un groupe';
 $LANG['wiki_auth_create_article'] = 'Créer un article';
@@ -232,7 +232,7 @@ $LANG['wiki_last_articles'] = 'Nombre des derniers articles à afficher sur l\'ac
 $LANG['wiki_last_articles_explain'] = '0 pour désactiver';
 $LANG['wiki_desc'] = 'Texte de l\'accueil';
 	
-//explorateur du wiki
+
 $LANG['wiki_explorer'] = 'Explorateur du wiki';
 $LANG['wiki_root'] = 'Racine du wiki';
 $LANG['wiki_root_contents'] = 'contenu de la racine';

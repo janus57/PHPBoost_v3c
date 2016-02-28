@@ -1,36 +1,36 @@
 <?php
-/*##################################################
- *                               admin_extend_field_add.php
- *                            -------------------
- *   begin                : June 16, 2007
- *   copyright            : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
-// field: 0 => base de données, 1 => text, 2 => textarea, 3 => select, 4 => select multiple, 5=> radio, 6 => checkbox
-if (!empty($_POST['valid'])) //Insertion du nouveau champs.
+
+if (!empty($_POST['valid'])) 
 {
 	$name = retrieve(POST, 'name', '');
 	$contents = nl2br(retrieve(POST, 'contents', '', TSTRING));
@@ -69,7 +69,7 @@ if (!empty($_POST['valid'])) //Insertion du nouveau champs.
 		{
 			$class = $Sql->query("SELECT MAX(class) + 1 FROM " . DB_TABLE_MEMBER_EXTEND_CAT . "", __LINE__, __FILE__);
 			$Sql->query_inject("INSERT INTO " . DB_TABLE_MEMBER_EXTEND_CAT . " (name, class, field_name, contents, field, possible_values, default_values, required, display, regex) VALUES ('" . $name . "', '" . $class . "', '" . $field_name . "', '" . $contents . "', '" . $field . "', '" . $possible_values . "', '" . $default_values . "', '" . $required . "', 1, '" . $regex . "')", __LINE__, __FILE__);		
-			//Alteration de la table pour prendre en compte le nouveau champs.
+			
 			$field_name = $field_name . ' ' . $array_field[$field];
 			$Sql->query_inject("ALTER TABLE " . DB_TABLE_MEMBER_EXTEND . " ADD " . $field_name, __LINE__, __FILE__);
 			
@@ -87,7 +87,7 @@ else
 		'admin_extend_field_add'=> 'admin/admin_extend_field_add.tpl'
 	));
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);

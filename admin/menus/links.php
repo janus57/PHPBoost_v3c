@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                           admin_link_menus.php
- *                            -------------------
- *   begin                : November, 13 2008
- *   copyright            : (C) 2008 Loïc Rouchon
- *   email                : horn@phpboost.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 define('PATH_TO_ROOT', '../..');
 require_once(PATH_TO_ROOT . '/admin/admin_begin.php');
@@ -37,10 +37,10 @@ $menu_id = retrieve(REQUEST, 'id', 0);
 $action = retrieve(GET, 'action', '');
 
 if ($action == 'save')
-{   // Save a Menu (New / Edit)
+{   
     $menu_uid = retrieve(POST, 'menu_uid', 0);
     
-	//Properties of the menu we are creating/editing
+	
 	$type = retrieve(POST, 'menu_element_' . $menu_uid . '_type', VERTICAL_MENU);
     
     function build_menu_from_form(&$elements_ids, $level = 0)
@@ -53,19 +53,19 @@ if ($action == 'save')
         
     	$array_size = count($elements_ids);
     	if ($array_size == 1 && $level > 0)
-    	{   // If it's a menu, there's only one element;
+    	{   
     		$menu = new LinksMenuLink($menu_name, $menu_url, $menu_image);
     	}
     	else
     	{
             $menu = new LinksMenu($menu_name, $menu_url, $menu_image);
     		
-            // We unset the id key of the array
+            
     		unset($elements_ids['id']);
     		
     		$array_size = count($elements_ids);
     		for ($i = 0; $i < $array_size; $i++)
-	    	{	// We build all its children and add it to its father
+	    	{	
 	    		$menu->add(build_menu_from_form($elements_ids[$i], $level + 1));
 	    	}
     	}
@@ -76,53 +76,53 @@ if ($action == 'save')
     	return $menu;
     }
     
-    // We build the array representing the tree
+    
     $result = array();
     parse_str('tree=' . retrieve(POST, 'menu_tree', ''), $result);
     
-    // We build the tree
-    // The parsed tree is not absolutely regular, we correct it
+    
+    
     $id_first_menu = preg_replace('`[^=]*=([0-9]+)`isU', '$1', $result['tree']);
     
-    // Correcting the first item
+    
     if (!empty($id_first_menu))
-    {   // This menu contains item
+    {   
         $menus =& $result['amp;menu_element_' . $menu_uid . '_list'];
 	    if (!empty($menus[0]))
-	    {   // The first item is a sub menu
+	    {   
 	        $menus[0] = array_merge(
 		        array('id' => $id_first_menu),
 		        $menus[0]
 		    );
 	    }
 	    else
-	    {   // The first item is a link
+	    {   
 	        $menus[0] = array('id' => $id_first_menu);
 	    }
-	    ksort($menus);  // Sort the menus to get the first at the beginning
-	    // Adding the root element
+	    ksort($menus);  
+	    
 	    $menu_tree = array_merge(
 	        array('id' => $menu_uid),
 	        $menus
 	    );
     }
     else
-    {   // There no item in this menu
+    {   
         $menu_tree = array('id' => $menu_uid);
     }
-    // We build the menu
+    
     $menu = build_menu_from_form($menu_tree);
     $menu->set_type($type);
     
     $previous_menu = null;
-    //If we edit the menu
+    
     if ($menu_id > 0)
-    {   // Edit the Menu
+    {   
         $menu->id($menu_id);
         $previous_menu = MenuService::load($menu_id);
     }
     
-    //Menu enabled?
+    
     $menu->enabled(retrieve(POST, 'menu_element_' . $menu_uid . '_enabled', MENU_NOT_ENABLED));
     $menu->set_block(retrieve(POST, 'menu_element_' . $menu_uid . '_location', BLOCK_POSITION__NOT_ENABLED));
     $menu->set_auth(Authorizations::build_auth_array_from_form(
@@ -132,23 +132,23 @@ if ($action == 'save')
     if ($menu->is_enabled())
     {
         if ($previous_menu != null && $menu->get_block() == $previous_menu->get_block())
-        {   // Save the menu if enabled
+        {   
             $menu->set_block_position($previous_menu->get_block_position());
             MenuService::save($menu);
         }
         else
-        {   // Move the menu to its new location and save it
+        {   
             MenuService::move($menu, $menu->get_block());
         }
     }
     else
-    {   // The menu is not enabled, we only save it with its block location
-        // When enabling it, the menu will be moved to this block location
+    {   
+        
         $block = $menu->get_block();
-        // Disable the menu and move it to the disabled position computing new positions
+        
         MenuService::move($menu, BLOCK_POSITION__NOT_ENABLED);
         
-        // Restore its position and save it
+        
         $menu->set_block($block);
         MenuService::save($menu);
     }
@@ -156,7 +156,7 @@ if ($action == 'save')
     redirect('menus.php#m' . $menu->get_id());
 }
 
-// Display the Menu administration
+
 
 include('lateral_menu.php');
 lateral_menu();
@@ -203,7 +203,7 @@ $tpl->assign_vars(array(
     'JL_ADD_SUB_MENU' => to_js_string($LANG['add_sub_menu']),
 ));
 
-//Localisation possibles.
+
 $block = BLOCK_POSITION__HEADER;
 $array_location = array(
     BLOCK_POSITION__HEADER => $LANG['menu_header'],
@@ -238,7 +238,7 @@ if ($menu_id > 0)
         redirect('menus.php');
 }
 else
-{   // Create a new generic menu
+{   
     $menu = new LinksMenu('', '', '', VERTICAL_MENU);
 }
 

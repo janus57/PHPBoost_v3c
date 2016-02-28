@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                             admin_config.php
- *                            -------------------
- *   begin                : June 20, 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
@@ -32,7 +32,7 @@ require_once('../admin/admin_header.php');
 
 $check_advanced = !empty($_GET['adv']);
 
-//Variables serveur.
+
 $server_path = !empty($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : getenv('PHP_SELF');
 if (!$server_path)
 {
@@ -41,10 +41,10 @@ $server_path = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : geten
 $server_path = trim(str_replace('/admin', '', dirname($server_path)));
 $server_name = 'http://' . (!empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : getenv('HTTP_HOST'));
 
-//Si c'est confirmé on exécute
+
 if (!empty($_POST['valid']) && empty($_POST['cache']))
 {
-	//Gestion de la page de démarrage.
+	
 	if (!empty($_POST['start_page2']) )
 	{
 		$start_page = strprotect($_POST['start_page2'], HTML_UNPROTECT);
@@ -63,7 +63,7 @@ if (!empty($_POST['valid']) && empty($_POST['cache']))
 	$config['site_desc'] 	= stripslashes(retrieve(POST, 'site_desc', ''));
 	$config['site_keyword'] = stripslashes(retrieve(POST, 'site_keyword', ''));
 	$config['lang'] 		= stripslashes(retrieve(POST, 'lang', ''));
-	$config['theme'] 		= stripslashes(retrieve(POST, 'theme', 'base')); //main par defaut. 
+	$config['theme'] 		= stripslashes(retrieve(POST, 'theme', 'base')); 
 	$config['start_page'] 	= !empty($start_page) ? stripslashes($start_page) : '/member/member.php';
 	$config['compteur'] 	= retrieve(POST, 'compteur', 0);
 	$config['bench'] 		= retrieve(POST, 'bench', 0);
@@ -75,7 +75,7 @@ if (!empty($_POST['valid']) && empty($_POST['cache']))
 	$config['delay_flood'] 	= retrieve(POST, 'delay_flood', 0);
 	$config['pm_max'] 		= retrieve(POST, 'pm_max', 25);
 
-	if (!empty($config['theme']) && !empty($config['lang'])) //Nom de serveur obligatoire
+	if (!empty($config['theme']) && !empty($config['lang'])) 
 	{
 		$Sql->query_inject("UPDATE " . DB_TABLE_CONFIGS . " SET value = '" . addslashes(serialize($config)) . "' WHERE name = 'config'", __LINE__, __FILE__);
 		$Cache->Generate_file('config');
@@ -93,7 +93,7 @@ elseif ($check_advanced && empty($_POST['advanced']))
 		'admin_config2'=> 'admin/admin_config2.tpl'
 	));	
 	
-	//Vérification serveur de l'activation du mod_rewrite.
+	
 	if (function_exists('apache_get_modules'))
 	{	
 		$get_rewrite = apache_get_modules();
@@ -104,7 +104,7 @@ elseif ($check_advanced && empty($_POST['advanced']))
 		$check_rewrite = '<span class="unspecified_test">' . $LANG['undefined'] . '</span>';
 	}
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 	{
@@ -115,7 +115,7 @@ elseif ($check_advanced && empty($_POST['advanced']))
 		$Errorh->handler($LANG['unlock_admin_confirm'], E_USER_NOTICE);
 	}
 	
-	//Gestion fuseau horaire par défaut.
+	
 	$select_timezone = '';
 	for ($i = -12; $i <= 14; $i++)
 	{
@@ -190,7 +190,7 @@ elseif (!empty($_POST['advanced']))
 	$CONFIG['server_name'] = trim(strprotect(retrieve(POST, 'server_name', $server_name, TSTRING_AS_RECEIVED), HTML_PROTECT, ADDSLASHES_NONE), '/');
 	 
 	$CONFIG['server_path'] = trim(strprotect(retrieve(POST, 'server_path', $server_path, TSTRING_AS_RECEIVED), HTML_PROTECT, ADDSLASHES_NONE), '/');
-	//Si le chemin de PHPBoost n'est pas vide, on y ajoute un / devant
+	
 	if ($CONFIG['server_path'] != '')
 	{
 		$CONFIG['server_path'] = '/' . $CONFIG['server_path'];
@@ -198,16 +198,16 @@ elseif (!empty($_POST['advanced']))
 		  
 	$CONFIG['timezone'] = retrieve(POST, 'timezone', 0);  
 	$CONFIG['ob_gzhandler'] = (!empty($_POST['ob_gzhandler'])&& function_exists('ob_gzhandler') && @extension_loaded('zlib')) ? 1 : 0;
-	$CONFIG['site_cookie'] = strprotect(retrieve(POST, 'site_cookie', 'session', TSTRING_UNCHANGE), HTML_PROTECT, ADDSLASHES_NONE); //Session par defaut.
-	$CONFIG['site_session'] = retrieve(POST, 'site_session', 3600); //Valeur par defaut à 3600.					
-	$CONFIG['site_session_invit'] = retrieve(POST, 'site_session_invit', 300); //Durée compteur 5min par defaut.
+	$CONFIG['site_cookie'] = strprotect(retrieve(POST, 'site_cookie', 'session', TSTRING_UNCHANGE), HTML_PROTECT, ADDSLASHES_NONE); 
+	$CONFIG['site_session'] = retrieve(POST, 'site_session', 3600); 
+	$CONFIG['site_session_invit'] = retrieve(POST, 'site_session_invit', 300); 
 	$CONFIG['htaccess_manual_content'] = retrieve(POST, 'htaccess_manual_content', '', TSTRING_UNCHANGE);
 	$CONFIG['debug_mode'] = retrieve(POST, 'debug', 0);
 	
-	if (!empty($CONFIG['server_name']) && !empty($CONFIG['site_cookie']) && !empty($CONFIG['site_session']) && !empty($CONFIG['site_session_invit']) ) //Nom de serveur obligatoire
+	if (!empty($CONFIG['server_name']) && !empty($CONFIG['site_cookie']) && !empty($CONFIG['site_session']) && !empty($CONFIG['site_session_invit']) ) 
 	{
-		list($host, $dir) = array($CONFIG['server_name'], $CONFIG['server_path']); //Réassignation pour la redirection.
-		if (empty($_POST['rewrite_engine']) || strpos($_SERVER['SERVER_NAME'], 'free.fr')) //Désactivation de l'url rewriting.
+		list($host, $dir) = array($CONFIG['server_name'], $CONFIG['server_path']); 
+		if (empty($_POST['rewrite_engine']) || strpos($_SERVER['SERVER_NAME'], 'free.fr')) 
 		{
 			$CONFIG['rewrite'] = 0;
 		}
@@ -217,8 +217,8 @@ elseif (!empty($_POST['advanced']))
 		$Cache->generate_file('config');
 		$Cache->generate_file('debug');
 		
-		//Régénération du htaccess.
-		$Cache->Generate_file('htaccess'); //Régénération du htaccess.	
+		
+		$Cache->Generate_file('htaccess'); 
 			
 		redirect($host . $dir . '/admin/admin_config.php?adv=1');
 	}
@@ -227,13 +227,13 @@ elseif (!empty($_POST['advanced']))
 		redirect(HOST . DIR . '/admin/admin_config.php?adv=1&error=incomplete#errorh');
 	}
 }
-else //Sinon on rempli le formulaire	 
+else 
 {		
 	$Template->set_filenames(array(
 		'admin_config'=> 'admin/admin_config.tpl'
 	));
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 	{
@@ -242,7 +242,7 @@ else //Sinon on rempli le formulaire
 	
 	$select_page = '';
 	$start_page = '';
-	//Pages de démarrage
+	
 	$i = 0;
 	foreach ($modules_config as $name => $array_info)
 	{
@@ -326,7 +326,7 @@ else //Sinon on rempli le formulaire
 		'L_RESET' => $LANG['reset']		
 	));
 
-	//Gestion langue par défaut.
+	
 	import('io/filesystem/folder');
 	$lang_array = array();
 	$lang_folder_path = new Folder('../lang/');
@@ -340,17 +340,17 @@ else //Sinon on rempli le formulaire
 	FROM " . PREFIX . "lang", __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		//On recherche les clées correspondante à celles trouvée dans la bdd.
+		
 		if (array_search($row['lang'], $lang_array) !== false)
 		{
-			$lang_array_bdd[] = $row['lang']; //On insère ces clées dans le tableau.
+			$lang_array_bdd[] = $row['lang']; 
 		}
 	}
 	$Sql->query_close($result);
 	
 	$array_identifier = '';
 	$lang_identifier = '../images/stats/other.png';
-	foreach ($lang_array_bdd as $lang_key => $lang_value) //On effectue la recherche dans le tableau.
+	foreach ($lang_array_bdd as $lang_key => $lang_value) 
 	{
 		$lang_info = load_ini_file('../lang/', $lang_value);
 		if ($lang_info)
@@ -374,7 +374,7 @@ else //Sinon on rempli le formulaire
 		'IMG_LANG_IDENTIFIER' => $lang_identifier
 	));
 	
-	//On recupère les dossier des thèmes contents dans le dossier templates.
+	
 	$tpl_array = array();
 	$lang_folder_path = new Folder('../templates/');
 	foreach ($lang_folder_path->get_folders('`^[a-z0-9_ -]+$`i') as $lang)
@@ -387,15 +387,15 @@ else //Sinon on rempli le formulaire
 	FROM " . DB_TABLE_THEMES . "", __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		//On recherche les clées correspondante à celles trouvée dans la bdd.
+		
 		if (array_search($row['theme'], $tpl_array) !== false)
 		{
-			$theme_array_bdd[] = $row['theme']; //On insère ces clées dans le tableau.
+			$theme_array_bdd[] = $row['theme']; 
 		}
 	}
 	$Sql->query_close($result);
 	
-	foreach ($theme_array_bdd as $theme_array => $theme_value) //On effectue la recherche dans le tableau.
+	foreach ($theme_array_bdd as $theme_array => $theme_value) 
 	{
 		$theme_info = load_ini_file('../templates/' . $theme_value . '/config/', get_ulang());
 		if ($theme_info)
@@ -411,13 +411,13 @@ else //Sinon on rempli le formulaire
 	$Template->pparse('admin_config');
 }
 
-//Renvoi du code de déblocage.
+
 if (!empty($_GET['unlock']))
 {
 	import('io/mail');
 	$Mail = new Mail();
 	
-	$unlock_admin_clean = substr(strhash(uniqid(mt_rand(), true)), 0, 18); //Génération de la clée d'activation, en cas de verrouillage de l'administration.;
+	$unlock_admin_clean = substr(strhash(uniqid(mt_rand(), true)), 0, 18); 
 	$unlock_admin = strhash($unlock_admin_clean);
 	
 	$CONFIG['unlock_admin'] = $unlock_admin;

@@ -1,32 +1,32 @@
 <?php
-/*##################################################
- *                            admin_download.php
- *                            -------------------
- *   begin                : July 25, 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02125-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('download'); //Chargement de la langue du module.
+load_module_lang('download'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
@@ -38,7 +38,7 @@ $Template->set_filenames(array(
 
 $nbr_dl = $Sql->count_table('download', __LINE__, __FILE__);
 
-//On crée une pagination si le nombre de fichier est trop important.
+
 import('util/pagination');
 $Pagination = new Pagination();
 
@@ -73,7 +73,7 @@ while ($row = $Sql->fetch_assoc($result))
 	else
 		$aprob = $LANG['no'];
 		
-	//On raccourcie le lien si il est trop long pour éviter de déformer l'administration
+	
 	$title =& $row['title'];
 	$title = strlen($title) > 45 ? substr($title, 0, 45) . '...' : $title;
 	

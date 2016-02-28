@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                              media_french.php
- *                            -------------------
- *   begin               	: October 20, 2008
- *   copyright        	: (C) 2007 Geoffrey ROGUELON
- *   email               	: liaght@gmail.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
@@ -34,14 +34,14 @@
 global $MEDIA_LANG;
 
 $MEDIA_LANG = array(
-// admin_media.php
+
 'aprob_media' => 'Approuver le fichier multimédia',
 'confirm_delete_media' => 'Êtes-vous certain de vouloir supprimer ce fichier multimédia ?',
 'hide_media' => 'Cacher ce fichier multimédia',
 'recount_per_cat' => 'Recompter le nombre de fichiers multimédias par catégorie',
 'show_media' => 'Montrer ce fichier multimédia',
 
-// admin_media_cats.php
+
 'auth_read' => 'Permissions de lecture',
 'auth_contrib' => 'Permissions de contribution',
 'auth_write' => 'Permissions d\'écriture',
@@ -73,7 +73,7 @@ $MEDIA_LANG = array(
 'successful_operation' => 'L\'opération que vous avez demandé a été effectuée avec succès',
 'unexisting_category' => 'La catégorie que vous avez sélectionné n\'existe pas',
 
-// admin_media_config.php
+
 'config_auth' => 'Autorisations générales',
 'config_auth_explain' => 'Configurez ici les autorisations générales de lecture et d\'écriture du module MULTIMEDIA. Vous pourrez ensuite pour chaque catégorie appliquer des autorisations particulières.',
 'config_display' => 'Configuration de l\'affichage',
@@ -90,7 +90,7 @@ $MEDIA_LANG = array(
 'type_music' => 'Musique',
 'type_video' => 'Vidéo',
 
-// admin_media_menu.php
+
 'add_cat' => 'Ajouter une catégorie',
 'add_media' => 'Ajouter un fichier multimédia',
 'configuration' => 'Configuration',
@@ -98,12 +98,12 @@ $MEDIA_LANG = array(
 'management_cat' => 'Gestion des catégories',
 'management_media' => 'Gestion multimédia',
 
-// contribution.php
+
 'contribution_confirmation' => 'Confirmation de contribution',
 'contribution_confirmation_explain' => '<p>Vous pourrez la suivre dans le <a href="' . url('../member/contribution_panel.php') . '">panneau de contribution de PHPBoost</a> et éventuellement discuter avec les validateurs si leur choix n\'est pas franc.</p><p>Merci d\'avoir participé à la vie du site !</p>',
 'contribution_success' => 'Votre contribution a bien été enregistrée.',
 
-// media.php
+
 'add_on_date' => 'Ajouté le %s',
 'n_time' => '%d fois',
 'n_times' => '%d fois',
@@ -119,7 +119,7 @@ $MEDIA_LANG = array(
 'media_added_by' => 'Par <a href="%2$s"%3$s>%1$s</a>',
 'view_n_times' => 'Vu %d fois',
 
-// media_action.php
+
 'action_success' => 'L\'action demandée a été réalisée avec succès !',
 'add_success' => 'Le fichier a été ajouté avec succès !',
 'contribution_counterpart' => 'Complément de contribution',
@@ -143,12 +143,12 @@ $MEDIA_LANG = array(
 'require_name' => 'Vous devez donnez un titre à ce fichier multimédia !',
 'require_url' => 'Vous devez renseigner le lien de votre fichier multimédia !',
 
-// media_interface.class.php
+
 'media' => 'Fichier Multimédia',
 'all_cats' => 'Toutes les catégories',
 'xml_media_desc' => 'Derniers médias',
 
-// moderation_media.php
+
 'all_file' => 'Tous les fichiers',
 'confirm_delete_media_all' => 'Cette action supprimera DÉFINITIVEMENT tous les fichiers sélectionnés !',
 'display_file' => 'Afficher les fichiers',

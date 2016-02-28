@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                              faq_french.php
- *                            -------------------
- *   begin                : October 20, 2007
- *   copyright          : (C) 2007 Benoît Sautel
- *   email                : ben.popeye@phpboost.com
- *
- *  
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
@@ -33,7 +33,7 @@
 global $FAQ_LANG;
 $FAQ_LANG = array();
 
-//Généralités
+
 $FAQ_LANG['faq'] = 'FAQ';
 $FAQ_LANG['faq_no_question_here'] = 'Aucune question présente dans cette catégorie';
 $FAQ_LANG['faq_page_title'] = 'FAQ - %s';
@@ -42,7 +42,7 @@ $FAQ_LANG['num_questions_singular'] = '%d question';
 $FAQ_LANG['num_questions_plural'] = '%d questions';
 $FAQ_LANG['url_of_question'] = 'URL de la question';
 
-//Gestion
+
 $FAQ_LANG['cat_properties'] = 'Propriétés de la catégorie';
 $FAQ_LANG['cat_description'] = 'Description';
 $FAQ_LANG['go_back_to_cat'] = 'Retour à la catégorie';
@@ -72,7 +72,7 @@ $FAQ_LANG['question'] = 'Question';
 $FAQ_LANG['entitled'] = 'Intitulé';
 $FAQ_LANG['answer'] = 'Réponse';
 
-//Management
+
 $FAQ_LANG['faq_management'] = 'Gestion de la FAQ';
 $FAQ_LANG['faq_configuration'] = 'Configuration de la FAQ';
 $FAQ_LANG['faq_questions_list'] = 'Liste des questions';
@@ -85,13 +85,13 @@ $FAQ_LANG['move'] = 'Déplacer';
 $FAQ_LANG['moving_a_question'] = 'Déplacement d\'une question';
 $FAQ_LANG['target_category'] = 'Catégorie cible';
 
-//Avertissement
+
 $FAQ_LANG['required_fields'] = 'Les champs marqués * sont obligatoires !';
 $FAQ_LANG['require_entitled'] = 'Veuillez entrer l\'intitulé de la question';
 $FAQ_LANG['require_answer'] = 'Veuillez entrer la réponse';
 $FAQ_LANG['require_cat_name'] = 'Veuillez entrer le nom de la catégorie';
 
-//Administration / categories
+
 $FAQ_LANG['category'] = 'Catégorie';
 $FAQ_LANG['category_name'] = 'Nom de la catégorie';
 $FAQ_LANG['category_location'] = 'Emplacement de la catégorie';
@@ -108,18 +108,18 @@ $FAQ_LANG['display_mode_admin_explain'] = 'Vous pouvez choisir la façon dont les
 $FAQ_LANG['general_auth'] = 'Autorisations générales';
 $FAQ_LANG['general_auth_explain'] = 'Vous configurez ici les autorisations générales de lecture et d\'écriture sur la FAQ. Vous pourrez ensuite pour chaque catégorie lui appliquer des autorisations particulières.';
 
-//Errors
+
 $FAQ_LANG['successful_operation'] = 'L\'opération que vous avez demandée a été effectuée avec succès';
 $FAQ_LANG['required_fields_empty'] = 'Des champs requis n\'ont pas été renseignés, merci de renouveler l\'opération correctement';
 $FAQ_LANG['unexisting_category'] = 'La catégorie que vous avez sélectionnée n\'existe pas';
 $FAQ_LANG['new_cat_does_not_exist'] = 'La catégorie cible n\'existe pas';
 $FAQ_LANG['infinite_loop'] = 'Vous voulez déplacer la catégorie dans une de ses catégories filles ou dans elle-même, ce qui n\'a pas de sens. Merci de choisir une autre catégorie';
 
-//Module mini
+
 $FAQ_LANG['random_question'] = 'Question aléatoire';
 $FAQ_LANG['no_random_question'] = 'Aucune question disponible';
 
-//Others
+
 $FAQ_LANG['recount_success'] = 'Le nombre de questions pour chaque catégorie a été recompté avec succès.';
 $FAQ_LANG['recount_questions_number'] = 'Recompter le nombre de questions pour chaque catégorie';
 

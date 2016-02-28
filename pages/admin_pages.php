@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                               admin_pages.php
- *                            -------------------
- *   begin                : August 09, 2007
- *   copyright            : (C) 2007 Sautel Benoit
- *   email                : ben.popeye@phpboost.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 load_module_lang('pages');
@@ -34,12 +34,12 @@ require_once('../admin/admin_header.php');
 include_once('pages_begin.php');
 include_once('pages_functions.php');
 
-if (!empty($_POST['update']))  //Mise à jour
+if (!empty($_POST['update']))  
 {
 	$count_hits = !empty($_POST['count_hits']) ? 1 : 0;
 	$activ_com = !empty($_POST['activ_com']) ? 1 : 0;
 	
-	//Génération du tableau des droits.
+	
 	$array_auth_all = Authorizations::build_auth_array_from_form(READ_PAGE, EDIT_PAGE, READ_COM);
 	
 	$_PAGES_CONFIG['auth'] = serialize($array_auth_all);
@@ -47,7 +47,7 @@ if (!empty($_POST['update']))  //Mise à jour
 	$_PAGES_CONFIG['activ_com'] = $activ_com;
 
 	$Sql->query_inject("UPDATE " . DB_TABLE_CONFIGS . " SET value = '" . addslashes(serialize($_PAGES_CONFIG)) . "' WHERE name = 'pages'", __LINE__, __FILE__);
-	//Régénération du cache
+	
 	$Cache->Generate_module_file('pages');
 	
 	redirect(HOST . SCRIPT);

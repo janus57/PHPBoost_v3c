@@ -1,37 +1,37 @@
 <?php
-/*##################################################
- *                              gallery_french.php
- *                            -------------------
- *   begin                : July 27, 2005
- *   last modified		: July 31, 2009 - Forensic
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
- ###################################################
- *
- *   This program is a free software. You can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
 #                      French                      #
 ####################################################
 
-//Admin
+
 $LANG['upload_pics'] = 'Uploader l\'image';
 $LANG['gallery_management'] = 'Gestion de la galerie';
 $LANG['gallery_pics_add'] = 'Ajout d\'images';
@@ -134,7 +134,7 @@ $LANG['vertical_dynamic_scroll'] = 'Défilement dynamique vertical';
 $LANG['horizontal_dynamic_scroll'] = 'Défilement dynamique horizontal';
 $LANG['column'] = 'Colonnes';
 
-//Requis
+
 $LANG['require_height'] = 'Veuillez entrer une hauteur maximale pour les miniatures!';
 $LANG['require_height_max'] = 'Veuillez entrer une hauteur maximale pour les photos!';
 $LANG['require_width_max'] = 'Veuillez entrer une largeur maximale pour les photos!';
@@ -144,7 +144,7 @@ $LANG['require_row'] = 'Veuillez entrer un nombre de colonne(s) pour la galerie!
 $LANG['require_img_p'] = 'Veuillez entrer le nombre de photos par page!';
 $LANG['require_quality'] = 'Veuillez entrer une qualité pour les miniatures!';
 
-//Erreurs
+
 $LANG['e_no_gd'] = 'Galerie -> Librairie GD non chargée';
 $LANG['e_unabled_create_pics'] = 'Galerie -> Echec création image';
 $LANG['e_no_graphic_support'] = 'Galerie -> Pas de support graphique avec PHP sur ce serveur';
@@ -157,10 +157,10 @@ $LANG['e_delete_thumbnails'] = 'Galerie -> Suppression des miniatures impossible
 $LANG['e_error_img'] = 'Erreur image';
 $LANG['e_unexist_img'] = 'L\'image que vous demandez n\'existe pas';
 
-//Titre
+
 $LANG['title_gallery'] = 'Galerie photos';
 
-//Galerie
+
 $LANG['gallery'] = 'Galerie';
 $LANG['gallery_index'] = 'Accueil Galerie';
 $LANG['upload_img'] = 'Uploader l\'image';

@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                                member.php
- *                            -------------------
- *   begin                : August 04 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 define('TITLE', $LANG['member_area']);
@@ -50,15 +50,15 @@ $post_group = retrieve(GET, 'show_group', 0);
 $get_error = retrieve(GET, 'error', '');
 $get_l_error = retrieve(GET, 'erroru', '');
 
-if (!empty($id_get)) //Espace membre
+if (!empty($id_get)) 
 {
 	$Template->set_filenames(array(
 		'member'=> 'member/member.tpl'
 	));
 	
-	if ($edit_get && $User->get_attribute('user_id') === $id_get && ($User->check_level(MEMBER_LEVEL))) //Edition du profil
+	if ($edit_get && $User->get_attribute('user_id') === $id_get && ($User->check_level(MEMBER_LEVEL))) 
 	{
-		//Update profil
+		
 		$row = $Sql->query_array(DB_TABLE_MEMBER, 'user_lang', 'user_theme', 'user_mail', 'user_local', 'user_web', 'user_occupation', 'user_hobbies', 'user_avatar', 'user_show_mail', 'user_editor', 'user_timezone', 'user_sex', 'user_born', 'user_sign', 'user_desc', 'user_msn', 'user_yahoo', "WHERE user_id = '" . $User->get_attribute('user_id') . "'", __LINE__, __FILE__);
 		
 		$user_born = '';
@@ -163,7 +163,7 @@ if (!empty($id_get)) //Espace membre
 			'L_RESET' => $LANG['reset']
 		));
 		
-		//Gestion langue par défaut.
+		
 		$array_identifier = '';
 		$lang_identifier = '../images/stats/other.png';
 		$ulang = get_ulang();
@@ -192,8 +192,8 @@ if (!empty($id_get)) //Espace membre
 			'IMG_LANG_IDENTIFIER' => $lang_identifier
 		));
 		
-		//Gestion thème par défaut.
-		if ($CONFIG_USER['force_theme'] == 0) //Thèmes aux membres autorisés.
+		
+		if ($CONFIG_USER['force_theme'] == 0) 
 		{
 			$utheme = get_utheme();
 			foreach($THEME_CONFIG as $theme => $array_info)
@@ -210,7 +210,7 @@ if (!empty($id_get)) //Espace membre
 				}
 			}
 		}
-		else //Thème par défaut forcé.
+		else 
 		{
 			$theme_info = load_ini_file('/config/', get_ulang());
 			$Template->assign_block_vars('select_theme', array(
@@ -219,7 +219,7 @@ if (!empty($id_get)) //Espace membre
 			));
 		}
 		
-		//Editeur texte par défaut.
+		
 		$editors = array('bbcode' => 'BBCode', 'tinymce' => 'Tinymce');
 		$select_editors = '';
 		foreach ($editors as $code => $name)
@@ -231,7 +231,7 @@ if (!empty($id_get)) //Espace membre
 			'SELECT_EDITORS' => $select_editors
 		));
 		
-		//Gestion fuseau horaire par défaut.
+		
 		$select_timezone = '';
 		for ($i = -12; $i <= 14; $i++)
 		{
@@ -243,7 +243,7 @@ if (!empty($id_get)) //Espace membre
 			'SELECT_TIMEZONE' => $select_timezone
 		));
 		
-		//Sex par défaut
+		
 		$array_sex = array('--', $LANG['male'], $LANG['female']);
 		$i = 0;
 		foreach ($array_sex as $value_sex)
@@ -257,7 +257,7 @@ if (!empty($id_get)) //Espace membre
 			$i++;
 		}
 		
-		//Autorisation d'uploader un avatar sur le serveur.
+		
 		if ($CONFIG_USER['activ_up_avatar'] == 1)
 		{
 			$Template->assign_vars(array(
@@ -268,7 +268,7 @@ if (!empty($id_get)) //Espace membre
 			));
 		}
 		
-		//Champs supplémentaires.
+		
 		$extend_field_exist = $Sql->query("SELECT COUNT(*) FROM " . DB_TABLE_MEMBER_EXTEND_CAT . " WHERE display = 1", __LINE__, __FILE__);
 		if ($extend_field_exist > 0)
 		{
@@ -284,7 +284,7 @@ if (!empty($id_get)) //Espace membre
 			ORDER BY exc.class", __LINE__, __FILE__);
 			while ($row = $Sql->fetch_assoc($result))
 			{
-				// field: 0 => base de données, 1 => text, 2 => textarea, 3 => select, 4 => select multiple, 5=> radio, 6 => checkbox
+				
 				$field = '';
 				$row[$row['field_name']] = !empty($row[$row['field_name']]) ? $row[$row['field_name']] : $row['default_values'];
 				switch ($row['field'])
@@ -359,7 +359,7 @@ if (!empty($id_get)) //Espace membre
 			$Sql->query_close($result);
 		}
 		
-		//Gestion des erreurs.
+		
 		switch ($get_error)
 		{
 			case 'pass_mini':
@@ -386,12 +386,12 @@ if (!empty($id_get)) //Espace membre
 		if (isset($LANG[$get_l_error]))
 			$Errorh->handler($LANG[$get_l_error], E_USER_WARNING);
 	}
-	elseif (!empty($_POST['valid']) && ($User->get_attribute('user_id') === $id_get) && ($User->check_level(MEMBER_LEVEL))) //Update du profil
+	elseif (!empty($_POST['valid']) && ($User->get_attribute('user_id') === $id_get) && ($User->check_level(MEMBER_LEVEL))) 
 	{
 		$check_pass = !empty($_POST['pass']) ? true : false;
 		$check_pass_bis = !empty($_POST['pass_bis']) ? true : false;
 		
-		//Changement de password
+		
 		if ($check_pass && $check_pass_bis)
 		{
 			$password_old_hash = !empty($_POST['pass_old']) ? strhash($_POST['pass_old']) : '';
@@ -409,29 +409,29 @@ if (!empty($id_get)) //Espace membre
 					{
 						$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET password = '" . $password_hash . "' WHERE user_id = '" . $id_get . "'", __LINE__, __FILE__);
 					}
-					else //Longueur minimale du password
+					else 
 						redirect(HOST . DIR . '/member/member' . url('.php?id=' .  $id_get . '&edit=1&error=pass_mini') . '#errorh');
 				}
-				else //Password non identiques.
+				else 
 					redirect(HOST . DIR . '/member/member' . url('.php?id=' .  $id_get . '&edit=1&error=pass_same') . '#errorh');
 			}
 		}
 		
-		if (!empty($_POST['del_member'])) //Suppression du compte
+		if (!empty($_POST['del_member'])) 
 		{
 			$Sql->query_inject("DELETE FROM " . DB_TABLE_MEMBER . " WHERE user_id = '" . $User->get_attribute('user_id') . "'", __LINE__, __FILE__);
 			
-			//Initialisation  de la class de gestion des fichiers.
+			
 			import('members/uploads');
-			$Uploads = new Uploads; //Suppression de tout les fichiers et dossiers du membre.
+			$Uploads = new Uploads; 
 			$Uploads->Empty_folder_member($User->get_attribute('user_id'));
 
-			//On régénère le cache
+			
 			$Cache->Generate_file('stats');
 		}
 		
-		//Mise à jour du reste de la config.
-		$user_mail = strtolower($_POST['mail']); //Mail en minuscule.
+		
+		$user_mail = strtolower($_POST['mail']); 
 		if (check_mail($user_mail))
 		{
 			$user_lang = retrieve(POST, 'user_lang', '');
@@ -455,10 +455,10 @@ if (!empty($id_get)) //Espace membre
 				$user_web = 'http://' . $user_web;
 			}
 				
-			//Gestion de la date de naissance.
+			
 			$user_born = strtodate($_POST['user_born'], $LANG['date_birth_parse']);
 		
-			//Gestion de la suppression de l'avatar.
+			
 			if (!empty($_POST['delete_avatar']))
 			{
 				$user_avatar_path = $Sql->query("SELECT user_avatar FROM " . DB_TABLE_MEMBER . " WHERE user_id = '" . $User->get_attribute('user_id') . "'", __LINE__, __FILE__);
@@ -471,7 +471,7 @@ if (!empty($id_get)) //Espace membre
 				$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET user_avatar = '' WHERE user_id = '" . $User->get_attribute('user_id') . "'", __LINE__, __FILE__);
 			}
 
-			//Gestion upload d'avatar.
+			
 			$user_avatar = '';
 			$dir = '../images/avatars/';
 			import('io/upload');
@@ -482,24 +482,24 @@ if (!empty($id_get)) //Espace membre
 				if ($_FILES['avatars']['size'] > 0)
 				{
 					$Upload->file('avatars', '`([a-z0-9()_-])+\.(jpg|gif|png|bmp)+$`i', UNIQ_NAME, $CONFIG_USER['weight_max']*1024);
-					if (!empty($Upload->error)) //Erreur, on arrête ici
+					if (!empty($Upload->error)) 
 						redirect(HOST . DIR . '/member/member' . url('.php?id=' .  $id_get . '&edit=1&erroru=' . $Upload->error) . '#errorh');
 					else
 					{
 						$path = $dir . $Upload->filename['avatars'];
 						$error = $Upload->validate_img($path, $CONFIG_USER['width_max'], $CONFIG_USER['height_max'], DELETE_ON_ERROR);
-						if (!empty($error)) //Erreur, on arrête ici
+						if (!empty($error)) 
 							redirect(HOST . DIR . '/member/member' . url('.php?id=' .  $id_get . '&edit=1&erroru=' . $error) . '#errorh');
 						else
 						{
-							//Suppression de l'ancien avatar (sur le serveur) si il existe!
+							
 							$user_avatar_path = $Sql->query("SELECT user_avatar FROM " . DB_TABLE_MEMBER . " WHERE user_id = '" . $User->get_attribute('user_id') . "'", __LINE__, __FILE__);
 							if (!empty($user_avatar_path) && preg_match('`\.\./images/avatars/(([a-z0-9()_-])+\.([a-z]){3,4})`i', $user_avatar_path, $match))
 							{
 								if (is_file($user_avatar_path) && isset($match[1]))
 									@unlink('../images/avatars/' . $match[1]);
 							}
-							$user_avatar = $path; //Avatar uploadé et validé
+							$user_avatar = $path; 
 						}
 					}
 				}
@@ -509,10 +509,10 @@ if (!empty($id_get)) //Espace membre
 			{
 				$path = strprotect($_POST['avatar']);
 				$error = $Upload->validate_img($path, $CONFIG_USER['width_max'], $CONFIG_USER['height_max'], DELETE_ON_ERROR);
-				if (!empty($error)) //Erreur, on arrête ici
+				if (!empty($error)) 
 					redirect(HOST . DIR . '/member/member' . url('.php?id=' .  $id_get . '&edit=1&erroru=' . $error) . '#errorh');
 				else
-					$user_avatar = $path; //Avatar posté et validé.
+					$user_avatar = $path; 
 			}
 			$user_avatar = !empty($user_avatar) ? " user_avatar = '" . $user_avatar . "', " : '';
 			
@@ -520,10 +520,10 @@ if (!empty($id_get)) //Espace membre
 			{
 				$check_mail = $Sql->query("SELECT COUNT(*) FROM " . DB_TABLE_MEMBER . " WHERE user_mail = '" . $user_mail . "' AND login <> '" . addslashes($User->get_attribute('login')) . "'", __LINE__, __FILE__);
 				$user_mail = "user_mail = '" . $user_mail . "', ";
-				if ($check_mail >= 1) //Autre utilisateur avec le même mail!
+				if ($check_mail >= 1) 
 					redirect(HOST . DIR . '/member/member' . url('.php?id=' .  $id_get . '&edit=1&error=auth_mail') . '#errorh');
 				
-				//Suppression des images des stats concernant les membres, si l'info a été modifiée.
+				
 				$info_mbr = $Sql->query_array(DB_TABLE_MEMBER, "user_theme", "user_sex", "WHERE user_id = '" . numeric($User->get_attribute('user_id')) . "'", __LINE__, __FILE__);
 				if ($info_mbr['user_sex'] != $user_sex)
 					@unlink('../cache/sex.png');
@@ -537,7 +537,7 @@ if (!empty($id_get)) //Espace membre
 				user_desc = '" . $user_desc . "', user_sex = '" . $user_sex . "', user_born = '" . $user_born . "',
 				user_sign = '" . $user_sign . "' WHERE user_id = '" . numeric($User->get_attribute('user_id')) . "'", __LINE__, __FILE__);
 				
-				//Champs supplémentaires.
+				
 				$extend_field_exist = $Sql->query("SELECT COUNT(*) FROM " . DB_TABLE_MEMBER_EXTEND_CAT . " WHERE display = 1", __LINE__, __FILE__);
 				if ($extend_field_exist > 0)
 				{
@@ -550,11 +550,11 @@ if (!empty($id_get)) //Espace membre
 					while ($row = $Sql->fetch_assoc($result))
 					{
 						$field = isset($_POST[$row['field_name']]) ? $_POST[$row['field_name']] : '';
-						//Champs requis, si vide redirection.
+						
 						if ($row['required'] && $row['field'] != 6 && empty($field))
 							redirect(HOST . DIR . '/member/member' . url('.php?id=' .  $id_get . '&edit=1&error=incomplete') . '#errorh');
 				
-						//Validation par expressions régulières.
+						
 						if (is_numeric($row['regex']) && $row['regex'] >= 1 && $row['regex'] <= 5)
 						{
 							$array_regex = array(
@@ -603,7 +603,7 @@ if (!empty($id_get)) //Espace membre
 							
 						if (!empty($field))
 						{
-							if ($valid_field) //Validation par expression régulière si présente.
+							if ($valid_field) 
 							{
 								$req_update .= $row['field_name'] . ' = \'' . trim($field, '|') . '\', ';
 								$req_field .= $row['field_name'] . ', ';
@@ -634,15 +634,15 @@ if (!empty($id_get)) //Espace membre
 		else
 			redirect(HOST . DIR . '/member/member' . url('.php?id=' .  $id_get . '&edit=1&error=invalid_mail') . '#errorh');
 	}
-	elseif (!empty($view_get) && $User->get_attribute('user_id') === $id_get && ($User->check_level(MEMBER_LEVEL))) //Zone membre
+	elseif (!empty($view_get) && $User->get_attribute('user_id') === $id_get && ($User->check_level(MEMBER_LEVEL))) 
 	{
-		//Info membre
+		
 		$msg_mbr = !empty($CONFIG_USER['msg_mbr']) ? second_parse($CONFIG_USER['msg_mbr']) : '';
 	
-		//Chargement de la configuration.
+		
 		$Cache->load('uploads');
 
-		//Droit d'accès?.
+		
 		$is_auth_files = $User->check_auth($CONFIG_UPLOADS['auth_files'], AUTH_FILES);
 	
 		$Template->assign_vars(array(
@@ -668,7 +668,7 @@ if (!empty($id_get)) //Espace membre
 			'L_MODERATION_PANEL' => $LANG['moderation_panel']
 		));
 		
-		//Affichage du lien vers l'interface des fichiers.
+		
 		if ($is_auth_files)
 		{
 			$Template->assign_vars(array(
@@ -676,12 +676,12 @@ if (!empty($id_get)) //Espace membre
 			));
 		}
 	}
-	else  //Profil public du membre.
+	else  
 	{
 		$row = $Sql->query_array(DB_TABLE_MEMBER, 'user_id', 'level', 'login', 'user_groups', 'user_mail', 'user_local', 'user_web', 'user_occupation', 'user_hobbies', 'user_avatar', 'user_show_mail', 'timestamp', 'user_sex', 'user_born', 'user_sign', 'user_desc', 'user_msn', 'user_msg', 'user_yahoo', 'last_connect', 'user_ban', 'user_warning', "WHERE user_id = '" . $id_get . "' AND user_aprob = 1", __LINE__, __FILE__);
 		$user_born = $Sql->query("SELECT " . $Sql->date_diff('user_born') . " FROM " . DB_TABLE_MEMBER . " WHERE user_id = '" . $id_get . "'", __LINE__, __FILE__);
 		
-		if (empty($row['user_id'])) //Vérification de l'existance du membre.
+		if (empty($row['user_id'])) 
 		{
 			if ($User->check_level(ADMIN_LEVEL))
 			{	
@@ -695,7 +695,7 @@ if (!empty($id_get)) //Espace membre
 				$Errorh->handler('e_auth', E_USER_REDIRECT);
 		}
 
-		//Dernière connexion, si vide => date d'enregistrement du membre.
+		
 		$row['last_connect'] = !empty($row['last_connect']) ? $row['last_connect'] : $row['timestamp'];
 	
 		$user_mail = ($row['user_show_mail'] == 1) ? '<a href="mailto:' . $row['user_mail'] . '"><img src="../templates/' . get_utheme() . '/images/' . get_ulang() . '/email.png" alt="' . $row['user_mail'] . '" /></a>' : '&nbsp;';
@@ -731,7 +731,7 @@ if (!empty($id_get)) //Espace membre
 			break;
 		}
 		
-		//Liste des groupes du membre.
+		
 		$user_group_list = '';
 		$user_groups = explode('|', $row['user_groups']);
 		$i = 0;
@@ -743,7 +743,7 @@ if (!empty($id_get)) //Espace membre
 		}
 		$user_group_list = !empty($user_group_list) ? '<ul style="list-style-type:none;">' . $user_group_list . '</ul>' : $LANG['member'];
 		
-		//Droit d'édition du profil, au membre en question et à l'admin uniquement	.
+		
 		$Template->assign_vars(array(
 			'C_USER_PROFIL_EDIT' => ($User->get_attribute('user_id') === $id_get || $User->check_level(ADMIN_LEVEL)) ? true : false,
 			'C_PROFIL_USER_VIEW' => true,
@@ -791,7 +791,7 @@ if (!empty($id_get)) //Espace membre
 			'U_USER_PM' => url('.php?pm=' . $id_get, '-' . $id_get . '.php')
 		));
 				
-		//Champs supplémentaires.
+		
 		$extend_field_exist = $Sql->query("SELECT COUNT(*) FROM " . DB_TABLE_MEMBER_EXTEND_CAT . " WHERE display = 1", __LINE__, __FILE__);
 		if ($extend_field_exist > 0)
 		{
@@ -807,7 +807,7 @@ if (!empty($id_get)) //Espace membre
 			ORDER BY exc.class", __LINE__, __FILE__);
 			while ($row = $Sql->fetch_assoc($result))
 			{
-				// field: 0 => base de données, 1 => text, 2 => textarea, 3 => select, 4 => select multiple, 5=> radio, 6 => checkbox
+				
 				$field = '';
 				$row[$row['field_name']] = !empty($row[$row['field_name']]) ? $row[$row['field_name']] : $row['default_values'];
 				switch ($row['field'])
@@ -844,7 +844,7 @@ if (!empty($id_get)) //Espace membre
 
 	$Template->pparse('member');
 }
-elseif (!empty($show_group) || !empty($post_group)) //Vue du groupe.
+elseif (!empty($show_group) || !empty($post_group)) 
 {
 	$user_group = !empty($show_group) ? $show_group : $post_group;
 	
@@ -853,7 +853,7 @@ elseif (!empty($show_group) || !empty($post_group)) //Vue du groupe.
 	));
 	
 	$group = $Sql->query_array(DB_TABLE_GROUP, 'id', 'name', 'img', "WHERE id = '" . $user_group . "'", __LINE__, __FILE__);
-	if (empty($group['id'])) //Groupe inexistant.
+	if (empty($group['id'])) 
 		redirect(HOST . DIR . '/member/member.php');
 		
 	$Template->assign_vars(array(
@@ -871,7 +871,7 @@ elseif (!empty($show_group) || !empty($post_group)) //Vue du groupe.
 		'U_SELECT_SHOW_GROUP' => "'member.php?g=' + this.options[this.selectedIndex].value"
 	));
 		
-	//Liste des groupes.
+	
 	$result = $Sql->query_while("SELECT id, name
 	FROM " . PREFIX . "group", __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
@@ -881,8 +881,8 @@ elseif (!empty($show_group) || !empty($post_group)) //Vue du groupe.
 		));
 	}
 		
-	//Liste des membres appartenant au groupe.
-	//Liste des membres du groupe.
+	
+	
 	$members = $Sql->query("SELECT members FROM " . DB_TABLE_GROUP . " WHERE id = '" . numeric($user_group) . "'", __LINE__, __FILE__);
 	$members = explode('|', $members);
 	foreach ($members as $key => $user_id)
@@ -890,7 +890,7 @@ elseif (!empty($show_group) || !empty($post_group)) //Vue du groupe.
 		$row = $Sql->query_array(DB_TABLE_MEMBER, 'user_id', 'login', 'level', 'user_avatar', 'user_warning', 'user_ban', "WHERE user_id = '" . numeric($user_id) . "'", __LINE__, __FILE__);
 		if (!empty($row['user_id']))
 		{
-			//Gestion des rangs
+			
 			switch ($row['level'])
 			{
 				case 0:
@@ -904,7 +904,7 @@ elseif (!empty($show_group) || !empty($post_group)) //Vue du groupe.
 				break;
 			}
 				
-			//Avatar	.
+			
 			$user_avatar = !empty($row['user_avatar']) ? '<img class="valign_middle" src="' . $row['user_avatar'] . '" alt=""	/>' : '';
 			if (empty($row['user_avatar']) && $CONFIG_USER['activ_avatar'] == '1')
 				$user_avatar = '<img class="valign_middle" src="../templates/' . get_utheme() . '/images/' .  $CONFIG_USER['avatar_url'] . '" alt="" />';
@@ -919,13 +919,13 @@ elseif (!empty($show_group) || !empty($post_group)) //Vue du groupe.
 	
 	$Template->pparse('member');
 }
-else //Show all member!
+else 
 {
   	$Template->set_filenames(array(
 		'member'=> 'member/member.tpl'
 	));
 	
-	//Recherche d'un member si javascript bloqué.
+	
 	$login = retrieve(POST, 'login', '');
 	if (!empty($_POST['search_member']) && !empty($login))
 	{
@@ -966,7 +966,7 @@ else //Show all member!
 		'U_USER_LAST_BOTTOM' => url('.php?sort=last&amp;mode=asc', '-0.php?sort=last&amp;mode=asc')
 	));
 	
-	//Liste des groupes.
+	
 	$result = $Sql->query_while("SELECT id, name
 	FROM " . PREFIX . "group", __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
@@ -999,7 +999,7 @@ else //Show all member!
 	$mode = ($get_mode == 'asc') ? 'ASC' : 'DESC';
 	$unget = (!empty($sort) && !empty($mode)) ? '?sort=' . $get_sort . '&amp;mode=' . $get_mode : '';
 
-	//On crée une pagination si le nombre de membre est trop important.
+	
 	import('util/pagination');
 	$Pagination = new Pagination();
 		

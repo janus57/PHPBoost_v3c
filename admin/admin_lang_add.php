@@ -1,42 +1,42 @@
 <?php
-/*##################################################
- *                               admin_lang_add.php
- *                            -------------------
- *   begin                : Februar 21, 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
-//On affiche le contenu du repertoire templates, pour lister les thèmes disponibles..
+
 
 $install = !empty($_GET['install']) ? true : false;
 $error = retrieve(GET, 'error', '');
 
-//Si c'est confirmé on execute
+
 if ($install)
 {
-	//Récupération de l'identifiant du thème.
+	
 	$lang = '';
 	foreach ($_POST as $key => $value)
 		if ($value == $LANG['install'])
@@ -50,7 +50,7 @@ if ($install)
 	{
 		$Sql->query_inject("INSERT INTO " . DB_TABLE_LANG . " (lang, activ, secure) VALUES('" . $lang . "', '" . $activ . "', '" .  $secure . "')", __LINE__, __FILE__);
 		
-		//Régénération du cache.
+		
 		$Cache->Generate_file('langs');
 		
 		redirect(HOST . SCRIPT);
@@ -58,9 +58,9 @@ if ($install)
 	else
 		redirect(HOST . DIR . '/admin/admin_modules_add.php?error=e_lang_already_exist#errorh');
 }
-elseif (!empty($_FILES['upload_lang']['name'])) //Upload et décompression de l'archive Zip/Tar
+elseif (!empty($_FILES['upload_lang']['name'])) 
 {
-	//Si le dossier n'est pas en écriture on tente un CHMOD 777
+	
 	@clearstatcache();
 	$dir = '../lang/';
 	if (!is_writable($dir))
@@ -68,7 +68,7 @@ elseif (!empty($_FILES['upload_lang']['name'])) //Upload et décompression de l'a
 	
 	@clearstatcache();
 	$error = '';
-	if (is_writable($dir)) //Dossier en écriture, upload possible
+	if (is_writable($dir)) 
 	{
 		$check_lang = $Sql->query("SELECT COUNT(*) FROM " . DB_TABLE_LANG . " WHERE lang = '" . strprotect($_FILES['upload_lang']['name']) . "'", __LINE__, __FILE__);
 		if (empty($check_lang))
@@ -78,7 +78,7 @@ elseif (!empty($_FILES['upload_lang']['name'])) //Upload et décompression de l'a
 			if ($Upload->file('upload_lang', '`([a-z0-9()_-])+\.(gzip|zip)+$`i'))
 			{					
 				$archive_path = '../lang/' . $Upload->filename['upload_lang'];
-				//Place à la décompression.
+				
 				if ($Upload->extension['upload_lang'] == 'gzip')
 				{
 					import('lib/pcl/pcltar', LIB_IMPORT);
@@ -95,7 +95,7 @@ elseif (!empty($_FILES['upload_lang']['name'])) //Upload et décompression de l'a
 				else
 					$error = 'e_upload_invalid_format';
 				
-				//Suppression de l'archive désormais inutile.
+				
 				if (!@unlink($archive_path))
 					$error = 'e_unlink_disabled';
 			}
@@ -137,13 +137,13 @@ else
 		'L_INSTALL' => $LANG['install']
 	));
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	$array_error = array('e_upload_invalid_format', 'e_upload_invalid_format', 'e_upload_max_weight', 'e_upload_error', 'e_upload_failed_unwritable', 'e_upload_already_exist', 'e_lang_already_exist', 'e_unlink_disabled');
 	if (in_array($get_error, $array_error))
 		$Errorh->handler($LANG[$get_error], E_USER_WARNING);
 		
-	//On recupère les dossier des thèmes contenu dans le dossier templates.
+	
 	import('io/filesystem/folder');
 	$dir_array = array();
 	$lang_folder_path = new Folder('../lang/');
@@ -154,19 +154,19 @@ else
 	FROM " . PREFIX . "lang", __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		//On recherche les clées correspondante à celles trouvée dans la bdd.
+		
 		$key = array_search($row['lang'], $dir_array);
 		if ($key !== false)
-			unset($dir_array[$key]); //On supprime ces clées du tableau.
+			unset($dir_array[$key]); 
 	}
 	$Sql->query_close($result);
 	
 	$z = 0;
 	$array_ranks = array(-1 => $LANG['guest'], 0 => $LANG['member'], 1 => $LANG['modo'], 2 => $LANG['admin']);
-	foreach ($dir_array as $lang_array => $value_array) //On effectue la recherche dans le tableau.
+	foreach ($dir_array as $lang_array => $value_array) 
 	{
 		$options = '';
-		for ($i = -1 ; $i <= 2 ; $i++) //Rang d'autorisation.
+		for ($i = -1 ; $i <= 2 ; $i++) 
 		{
 			$selected = ($i == -1) ? 'selected="selected"' : '';
 			$options .= '<option value="' . $i . '" ' . $selected . '>' . $array_ranks[$i] . '</option>';

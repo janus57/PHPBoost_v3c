@@ -1,53 +1,53 @@
 <?php
-/*************************************************************************************
- * csharp.php
- * ----------
- * Author: Alan Juden (alan@judenware.org)
- * Copyright: (c) 2004 Alan Juden, Nigel McNie (http://qbnz.com/highlighter/)
- * Release Version: 1.0.8.3
- * Date Started: 2004/06/04
- *
- * C# language file for GeSHi.
- *
- * CHANGES
- * -------
- * 2008/05/25 (1.0.7.22)
- *   -  Added highlighting of using and namespace directives as non-OOP
- * 2005/01/05 (1.0.1)
- *  -  Used hardquote support for @"..." strings (Cliff Stanford)
- * 2004/11/27 (1.0.0)
- *  -  Initial release
- *
- * TODO (updated 2004/11/27)
- * -------------------------
- *
- *************************************************************************************
- *
- *     This file is part of GeSHi.
- *
- *   GeSHi is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *   GeSHi is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with GeSHi; if not, write to the Free Software
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- ************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $language_data = array (
     'LANG_NAME' => 'C#',
     'COMMENT_SINGLE' => array(1 => '//', 2 => '#'),
     'COMMENT_MULTI' => array('/*' => '*/'),
     'COMMENT_REGEXP' => array(
-        //Using and Namespace directives (basic support)
-        //Please note that the alias syntax for using is not supported
+        
+        
         3 => '/(?:(?<=using[\\n\\s])|(?<=namespace[\\n\\s]))[\\n\\s]*([a-zA-Z0-9_]+\\.)*[a-zA-Z0-9_]+[\n\s]*(?=[;=])/i'),
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
     'QUOTEMARKS' => array("'", '"'),

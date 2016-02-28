@@ -1,49 +1,49 @@
 <?php
-/*##################################################
- *                         pages_interface.class.php
- *                            -------------------
- *   begin                : Februar 24, 2008
- *   copyright            : (C) 2008 Loïc Rouchon
- *   email                : horn@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
-// Inclusion du fichier contenant la classe ModuleInterface
+
 import('modules/module_interface');
 define('PAGES_MAX_SEARCH_RESULTS', 100);
 
-// Classe WikiInterface qui hérite de la classe ModuleInterface
+
 class PagesInterface extends ModuleInterface
 {
     ## Public Methods ##
-    function PagesInterface() //Constructeur de la classe WikiInterface
+    function PagesInterface() 
     {
         parent::ModuleInterface('pages');
     }
 	
-	//Récupération du cache.
+	
 	function get_cache()
 	{
 		global $Sql;
 		
-		//Catégories des pages
+		
 		$config = 'global $_PAGES_CATS;' . "\n";
 		$config .= '$_PAGES_CATS = array();' . "\n";
 		$result = $Sql->query_while("SELECT c.id, c.id_parent, c.id_page, p.title, p.auth
@@ -59,7 +59,7 @@ class PagesInterface extends ModuleInterface
 			), true) . ';' . "\n";
 		}
 
-		//Configuration du module de pages
+		
 		$code = 'global $_PAGES_CONFIG;' . "\n";
 		$CONFIG_PAGES = unserialize($Sql->query("SELECT value FROM " . DB_TABLE_CONFIGS . " WHERE name = 'pages'", __LINE__, __FILE__));
 								
@@ -81,18 +81,18 @@ class PagesInterface extends ModuleInterface
 		return $config . "\n\r" . $code;	
 	}
     
-    //Actions journalière.
-	/*
-	function on_changeday()
-	{
-	}
-	*/
+    
 	
-	// Recherche
+
+
+
+
+	
+	
     function get_search_request($args)
-    /**
-     *  Renvoie la requête de recherche
-     */
+    
+
+
     {
         $search = $args['search'];
         $weight = isset($args['weight']) && is_numeric($args['weight']) ? $args['weight'] : 1;

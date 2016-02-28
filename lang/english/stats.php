@@ -1,43 +1,43 @@
 <?php
-/*##################################################
-*                                stats.php
-*                            -------------------
-*   begin                : September 05, 2007
-*   last modified		: August 1st, 2009 - Forensic
-*   copyright          : (C) 2007 Viarre Régis
-*   email                : mickaelhemri@gmail.com
-*
-*  
-###################################################
-*
-*   This program is free software; you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation; either version 2 of the License, or
-*   (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
 #                                                             English                                                                             #
 ####################################################
 
-//Title
+
 $LANG['title_stats'] = 'Statistics';
 
-//Error
+
 $LANG['error_gd'] = 'GD Library is not loaded';
 
-//Stats
+
 $LANG['stats'] = 'Statistics';
 $LANG['more_stats'] = 'More statistics';
 $LANG['site'] = 'Website';
@@ -62,7 +62,7 @@ $LANG['top_10_posters'] = 'Top 10: posters';
 $LANG['version'] = 'Version';
 $LANG['colors'] = 'Colors';
 
-//Calendrier
+
 $LANG['calendar'] = 'Calendar';
 $LANG['events'] = 'Events';
 $LANG['january'] = 'January';
@@ -85,13 +85,13 @@ $LANG['friday'] = 'Fri';
 $LANG['saturday'] = 'Sat';
 $LANG['sunday'] = 'Sun';
 
-//Sites référents.
+
 $LANG['total_visit'] = 'Total visits';
 $LANG['average_visit'] = 'Average visits';
 $LANG['trend'] = 'Trend';
 $LANG['last_update'] = 'Last visit';
                
-//Navigateurs.
+
 $stats_array_browsers = array(
    'internetexplorer' => array('Internet Explorer', 'internetexplorer.png'),
    'opera' => array('Opera', 'opera.png'),
@@ -124,7 +124,7 @@ $stats_array_browsers = array(
    'other' => array('Autres', '../other.png')
 );
 
-//Système d'exploitation.
+
 $stats_array_os = array(
    'linux' => array('Linux', 'linux.png'),
    'windowsseven' => array('Windows Seven', 'windowsseven.png'),
@@ -152,7 +152,7 @@ $stats_array_os = array(
    'other' => array('Others', '../other.png')
 );
 
-//Pays.
+
 global $stats_array_lang;
 $stats_array_lang = array(
    'ac' => array('Ascension Islands', 'ac.png'),

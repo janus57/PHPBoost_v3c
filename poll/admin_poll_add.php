@@ -1,37 +1,37 @@
 <?php
-/*##################################################
- *                               admin_poll_add.php
- *                            -------------------
- *   begin                : June 22, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('poll'); //Chargement de la langue du module.
+load_module_lang('poll'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
 if (!empty($_POST['valid']))
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	$question = retrieve(POST, 'question', '');
 	$type = retrieve(POST, 'type', 1);
@@ -43,7 +43,7 @@ if (!empty($_POST['valid']))
 	$min = retrieve(POST, 'min', '', TSTRING_UNCHANGE);	
 	$get_visible = retrieve(POST, 'visible', 0);
 	
-	//On verifie les conditions!
+	
 	if (!empty($question))
 	{
 		$start_timestamp = strtotimestamp($start, $LANG['date_format_short']);
@@ -56,12 +56,12 @@ if (!empty($_POST['valid']))
 				$visible = 2;
 			elseif ($start_timestamp == 0)
 				$visible = 1;
-			else //Date inférieur à celle courante => inutile.
+			else 
 				$start_timestamp = 0;
 
 			if ($end_timestamp > time() && $end_timestamp > $start_timestamp && $start_timestamp != 0)
 				$visible = 2;
-			elseif ($start_timestamp != 0) //Date inférieur à celle courante => inutile.
+			elseif ($start_timestamp != 0) 
 				$end_timestamp = 0;
 		}
 		elseif ($get_visible == 1)
@@ -79,7 +79,7 @@ if (!empty($_POST['valid']))
 		$timestamp = strtotimestamp($current_date, $LANG['date_format_short']);
 		if ($timestamp > 0)
 			$timestamp += ($hour * 3600) + ($min * 60);
-		else //Ajout des heures et minutes
+		else 
 			$timestamp = time();
 			
 		$poll_type = (isset($_POST['poll_type']) && ($_POST['poll_type'] == 0 || $_POST['poll_type'] == 1)) ? numeric($_POST['poll_type']) : '0';
@@ -134,7 +134,7 @@ else
 		'L_RESET' => $LANG['reset']
 	));					 
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['incomplete'], E_USER_NOTICE);

@@ -3,8 +3,8 @@ header('Content-type: text/html; charset=iso-8859-15');
 
 define('PATH_TO_ROOT', '..');
 
-require_once(PATH_TO_ROOT . '/kernel/framework/functions.inc.php'); //Fonctions de base.
-require_once(PATH_TO_ROOT . '/kernel/constant.php'); //Constante utiles.
+require_once(PATH_TO_ROOT . '/kernel/framework/functions.inc.php'); 
+require_once(PATH_TO_ROOT . '/kernel/constant.php'); 
 
 @error_reporting(ERROR_REPORTING);
 
@@ -16,12 +16,12 @@ $db = retrieve(GET, 'db', false);
 
 if ($chmod)
 {
-	//Mise à jour du cache.
+	
 	@clearstatcache();
 	
 	$chmod_dir = array('../cache', '../cache/backup', '../cache/syndication', '../cache/tpl', '../images/avatars', '../images/group', '../images/maths', '../images/smileys', '../kernel/db', '../lang', '../menus', '../templates', '../upload');
 	
-	//Vérifications et le cas échéants changements des autorisations en écriture.
+	
 	foreach ($chmod_dir as $dir)
 	{
 		$is_writable = $is_dir = true;
@@ -47,7 +47,7 @@ if ($chmod)
 }
 elseif ($db)
 {
-	//Assignation des variables et erreurs
+	
 	$host = retrieve(POST, 'host', 'localhost');
 	$login = retrieve(POST, 'login', '');
 	$password = retrieve(POST, 'password', '');

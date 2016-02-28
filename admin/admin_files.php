@@ -1,35 +1,35 @@
 <?php
-/*##################################################
- *                               admin_files.php
- *                            -------------------
- *   begin                : March 06, 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@gmail.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
-//Initialisation  de la class de gestion des fichiers.
+
 import('members/uploads');
 $Uploads = new Uploads; 
 
@@ -47,7 +47,7 @@ $move_folder = retrieve(GET, 'movefd', 0);
 $move_file = retrieve(GET, 'movefi', 0);
 $to = retrieve(POST, 'new_cat', -1);
 
-if (isset($_GET['fup'])) //Changement de dossier
+if (isset($_GET['fup'])) 
 {
 	$parent_folder = $Sql->query_array(PREFIX . "upload_cat", "id_parent", "user_id", "WHERE id = '" . $parent_folder . "'", __LINE__, __FILE__);
 	
@@ -58,11 +58,11 @@ if (isset($_GET['fup'])) //Changement de dossier
 	else
 		redirect(HOST . DIR . '/admin/admin_files.php?f=' . $parent_folder['id_parent']);
 }
-elseif ($home_folder) //Retour à la racine.
+elseif ($home_folder) 
 	redirect(HOST . DIR . '/admin/admin_files.php');
-elseif (!empty($_FILES['upload_file']['name']) && isset($_GET['f'])) //Ajout d'un fichier.
+elseif (!empty($_FILES['upload_file']['name']) && isset($_GET['f'])) 
 {
-	//Si le dossier n'est pas en écriture on tente un CHMOD 777
+	
 	@clearstatcache();
 	$dir = '../upload/';
 	if (!is_writable($dir))
@@ -70,18 +70,18 @@ elseif (!empty($_FILES['upload_file']['name']) && isset($_GET['f'])) //Ajout d'u
 	
 	@clearstatcache();
 	$error = '';
-	if (is_writable($dir)) //Dossier en écriture, upload possible
+	if (is_writable($dir)) 
 	{
-		//Chargement de la configuration.
+		
 		$Cache->load('uploads');
 		
 		import('io/upload');
 		$Upload = new Upload($dir);
 		$Upload->file('upload_file', '`([a-z0-9()_-])+\.(' . implode('|', array_map('preg_quote', $CONFIG_UPLOADS['auth_extensions'])) . ')+$`i', UNIQ_NAME);
 		
-		if (!empty($Upload->error)) //Erreur, on arrête ici
+		if (!empty($Upload->error)) 
 			redirect(HOST . DIR . '/admin/admin_files.php?f=' . $folder . '&erroru=' . $Upload->error . '#errorh');
-		else //Insertion dans la bdd
+		else 
 		{
 			$check_user_folder = $Sql->query("SELECT user_id FROM " . DB_TABLE_UPLOAD_CAT . " WHERE id = '" . $folder . "'", __LINE__, __FILE__);
 			$user_id = ($check_user_folder <= 0) ? -1 : $User->get_attribute('user_id');
@@ -96,11 +96,11 @@ elseif (!empty($_FILES['upload_file']['name']) && isset($_GET['f'])) //Ajout d'u
 	$error = !empty($error) ? '&error=' . $error . '#errorh' : '';
 	redirect(HOST . DIR . '/admin/admin_files.php?f=' . $folder . ($folder_member > 0 ? '&fm=' . $folder_member : '') . $error);
 }
-elseif (!empty($del_folder)) //Supprime un dossier.
+elseif (!empty($del_folder)) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
-	//Suppression du dossier et de tout le contenu	
+	
 	$Uploads->Del_folder($del_folder);
 	
 	if (!empty($folder_member))
@@ -108,27 +108,27 @@ elseif (!empty($del_folder)) //Supprime un dossier.
 	else
 		redirect(HOST . DIR . '/admin/admin_files.php?f=' . $folder);
 }
-elseif (!empty($empty_folder)) //Vide un dossier membre.
+elseif (!empty($empty_folder)) 
 {
-	$Session->csrf_get_protect(); //Protection csrf.
+	$Session->csrf_get_protect(); 
 	
-	//Suppression de tout les dossiers enfants.
+	
 	$Uploads->Empty_folder_member($empty_folder);
 
 	redirect(HOST . DIR . '/admin/admin_files.php?showm=1');
 }
-elseif (!empty($del_file)) //Suppression d'un fichier
+elseif (!empty($del_file)) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
-	//Suppression d'un fichier.
+	
 	$Uploads->Del_file($del_file, -1, ADMIN_NO_CHECK);
 	
 	redirect(HOST . DIR . '/admin/admin_files.php?f=' . $folder . ($folder_member > 0 ? '&fm=' . $folder_member : ''));
 }
-elseif (!empty($move_folder) && $to != -1) //Déplacement d'un dossier
+elseif (!empty($move_folder) && $to != -1) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 
 	$user_id = $Sql->query("SELECT user_id FROM " . DB_TABLE_UPLOAD_CAT . " WHERE id = '" . $move_folder . "'", __LINE__, __FILE__);
 	$move_list_parent = array();
@@ -144,16 +144,16 @@ elseif (!empty($move_folder) && $to != -1) //Déplacement d'un dossier
 	$array_child_folder = array();
 	$Uploads->Find_subfolder($move_list_parent, $move_folder, $array_child_folder);
 	$array_child_folder[] = $move_folder;
-	if (!in_array($to, $array_child_folder)) //Dossier de destination non sous-dossier du dossier source.
+	if (!in_array($to, $array_child_folder)) 
 		$Uploads->Move_folder($move_folder, $to, $User->get_attribute('user_id'), ADMIN_NO_CHECK);
 	else
 		redirect(HOST . DIR . '/admin/admin_files.php?movefd=' . $move_folder . '&f=0&error=folder_contains_folder');
 			
 	redirect(HOST . DIR . '/admin/admin_files.php?f=' . $to);
 }
-elseif (!empty($move_file) && $to != -1) //Déplacement d'un fichier
+elseif (!empty($move_file) && $to != -1) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	$Uploads->Move_file($move_file, $to, $User->get_attribute('user_id'), ADMIN_NO_CHECK);
 	
@@ -207,7 +207,7 @@ elseif (!empty($move_folder) || !empty($move_file))
 	if ($get_error == 'folder_contains_folder')
 		$Errorh->handler($LANG['upload_folder_contains_folder'], E_USER_WARNING);
 	
-	//liste des fichiers disponibles
+	
 	include_once('../member/upload_functions.php');
 	$cats = array();
 	
@@ -215,7 +215,7 @@ elseif (!empty($move_folder) || !empty($move_file))
 		$folder_member = -1;
 	
 	$is_folder = !empty($move_folder);
-	//Affichage du dossier/fichier à déplacer
+	
 	if ($is_folder)
 	{
 		$folder_info = $Sql->query_array(PREFIX . "upload_cat", "name", "id_parent", "WHERE id = '" . $move_folder . "'", __LINE__, __FILE__);
@@ -238,7 +238,7 @@ elseif (!empty($move_folder) || !empty($move_file))
 		$size_img = '';
 		switch ($info_move['type'])
 		{
-			//Images
+			
 			case 'jpg':
 			case 'png':
 			case 'gif':
@@ -292,7 +292,7 @@ else
 	$result = $Sql->query_while ($sql_request, __LINE__, __FILE__);
 	$folder_info = $Sql->fetch_assoc($result);
 		
-	//Gestion des erreurs.
+	
 	$array_error = array('e_upload_invalid_format', 'e_upload_max_weight', 'e_upload_error', 'e_upload_failed_unwritable', 'e_unlink_disabled');
 	if (in_array($get_error, $array_error))
 		$Errorh->handler($LANG[$get_error], E_USER_WARNING);
@@ -388,11 +388,11 @@ else
 		WHERE id_parent = '" . $folder . "'" . ((empty($folder) || $folder_info['user_id'] <= 0) ? ' AND user_id = -1' : ' AND user_id <> -1') . "
 		ORDER BY name";
 
-	//Affichage des dossiers
+	
 	$result = $Sql->query_while ($sql_folder, __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		$name_cut = (strlen(html_entity_decode($row['name'])) > 22) ? htmlentities(substr(html_entity_decode($row['name']), 0, 22)) . '...' : $row['name'];	
+		$name_cut = (strlen(html_entity_decode($row['name'], ENT_COMPAT, 'ISO-8859-1')) > 22) ? htmlentities(substr(html_entity_decode($row['name'], ENT_COMPAT, 'ISO-8859-1'), 0, 22), ENT_COMPAT, 'ISO-8859-1') . '...' : $row['name'];	
 		
 		$Template->assign_block_vars('folder', array(
 			'ID' => $row['id'],
@@ -413,19 +413,19 @@ else
 	}	
 	$Sql->query_close($result);
 		
-	if (!$show_member) //Dossier membres.
+	if (!$show_member) 
 	{
-		//Affichage des fichiers contenu dans le dossier
+		
 		$result = $Sql->query_while ($sql_files, __LINE__, __FILE__);
 		while ($row = $Sql->fetch_assoc($result))
 		{
-			$name_cut = (strlen(html_entity_decode($row['name'])) > 22) ? htmlentities(substr(html_entity_decode($row['name']), 0, 22)) . '...' : $row['name'];
+			$name_cut = (strlen(html_entity_decode($row['name'], ENT_COMPAT, 'ISO-8859-1')) > 22) ? htmlentities(substr(html_entity_decode($row['name'], ENT_COMPAT, 'ISO-8859-1'), 0, 22), ENT_COMPAT, 'ISO-8859-1') . '...' : $row['name'];
 		
 			$get_img_mimetype = $Uploads->get_img_mimetype($row['type']);
 			$size_img = '';
 			switch ($row['type'])
 			{
-				//Images
+				
 				case 'jpg':
 				case 'png':
 				case 'gif':
@@ -437,7 +437,7 @@ else
 				$bbcode = '[img]/upload/' . $row['path'] . '[/img]';
 				$link = '<a class="com" href="javascript:popup_upload(\'' . $row['id'] . '\', ' . $width_source . ', ' . $height_source . ', \'yes\')">';
 				break;
-				//Sons
+				
 				case 'mp3':
 				$bbcode = '[sound]/upload/' . $row['path'] . '[/sound]';
 				$link = '<a class="com" href="javascript:popup_upload(\'' . $row['id'] . '\', 220, 10, \'no\')">';

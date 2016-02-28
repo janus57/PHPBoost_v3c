@@ -1,37 +1,37 @@
 <?php
-/*##################################################
-*                                main.php
-*                            -------------------
-*   begin                : November 20, 2005
-*   last modified		: October 3rd, 2009 - JMNaylor
-*   copyright            : (C) 2005 Viarre Régis
-*   email                : mickaelhemri@gmail.com
-*
-*
-###################################################
-*
-*   This program is a free software; You can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation; either version 2 of the License, or
-*   (at your option) any later version.
-*
-* This program is distributed in hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program. If not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
 #                      English                     #
 ####################################################
 
-// Dates
+
 $LANG['xml_lang'] = 'en';
 $LANG['date_format_tiny'] = 'm/d';
 $LANG['date_format_short'] = 'm/d/y';
@@ -41,7 +41,7 @@ $LANG['from_date'] = 'from';
 $LANG['to_date'] = 'to';
 $LANG['now'] = 'Now';
 
-//Unités
+
 $LANG['unit_megabytes'] = 'Mb';
 $LANG['unit_kilobytes'] = 'Kb';
 $LANG['unit_bytes'] = 'Bytes';
@@ -50,7 +50,7 @@ $LANG['unit_hour'] = 'H';
 $LANG['unit_seconds'] = 'Seconds';
 $LANG['unit_seconds_short'] = 's';
 
-//Erreurs
+
 $LANG['error'] = 'Error';
 $LANG['error_fatal'] = '<strong>Fatal error:</strong> %s<br /><br /><br /><strong>Line %s: %s</strong>';
 $LANG['error_warning_tiny'] = '<strong>Warning:</strong> %s %s %s';
@@ -60,14 +60,14 @@ $LANG['error_notice'] = '<strong>Notice:</strong> %s<br /><br /><br /><strong>Li
 $LANG['error_success'] = '<strong>Success:</strong> %s<br />Line %s: %s';
 $LANG['error_unknow'] = '<strong>Error:</strong> Unknow cause %s<br />Line %s: %s';
 
-//Other title
+
 $LANG['title_pm'] = 'Private messages';
 $LANG['title_error'] = 'Error';
 $LANG['title_com'] = 'Comments';
 $LANG['title_register'] = 'Sign up';
 $LANG['title_forget'] = 'Forgotten password';
 
-//Form
+
 $LANG['submit'] = 'Submit';
 $LANG['update'] = 'Update';
 $LANG['reset'] = 'Reset';
@@ -89,7 +89,7 @@ $LANG['forget_pass'] = 'Forgotten password';
 $LANG['require'] = 'The fields marked with an * are required !';
 $LANG['required_field'] = 'The field \"%s\" is required !';
 
-//Alert Form
+
 $LANG['require_title'] = 'Please enter a title !';
 $LANG['require_text'] = 'Please enter a text !';
 $LANG['require_pseudo'] = 'Please enter a nickname !';
@@ -99,17 +99,17 @@ $LANG['require_url'] = 'Please enter a valid URL !';
 $LANG['require_password'] = 'Please enter a password !';
 $LANG['require_recipient'] = 'Please enter the recipient !';
 
-//Action
+
 $LANG['redirect'] = 'Redirection in progress';
 $LANG['delete'] = 'Delete';
 $LANG['edit'] = 'Edit';
 $LANG['register'] = 'Sign up';
 
-//Alerts
+
 $LANG['alert_delete_msg'] = 'Delete this message ?';
 $LANG['alert_delete_file'] = 'Delete this file ?';
 
-//BBcode
+
 $LANG['bb_smileys'] = 'Smilies';
 $LANG['bb_bold'] = 'Bold: [b]text[/b]';
 $LANG['bb_italic'] = 'Italic: [i]text[/i]';
@@ -162,7 +162,7 @@ $LANG['ordered_list'] = 'Ordered list';
 $LANG['insert_list'] = 'Insert list';
 $LANG['forbidden_tags'] = 'Forbidden formatting types';
 $LANG['phpboost_languages'] = 'PHPBoost';
-$LANG['wikipedia_subdomain'] = 'en'; //Sub-domain on wikipedia (--> http://EN.wikipedia.com/)
+$LANG['wikipedia_subdomain'] = 'en'; 
 $LANG['format_bold'] = 'Bold';
 $LANG['format_italic'] = 'Italic';
 $LANG['format_underline'] = 'Underline';
@@ -199,20 +199,20 @@ $LANG['format_line'] = 'Horizontal line';
 $LANG['format_wikipedia'] = 'Wikipedia link';
 $LANG['format_html'] = 'HTML code';
 
-//Impression
+
 $LANG['printable_version'] = 'Printable version';
 
-//Connection
+
 $LANG['private_messaging'] = 'Private message';
 $LANG['my_private_profile'] = 'My profile';
 
-//Maintain
+
 $LANG['maintain'] = 'The website is under maintenance, only the administrators are authorized to log in.';
 $LANG['maintain_delay'] = 'Time remaining:';
 $LANG['title_maintain'] = 'Website in maintenance';
 $LANG['loading'] = 'Loading';
 
-//All
+
 $LANG['user'] = 'User';
 $LANG['user_s'] = 'Users';
 $LANG['guest'] = 'Visitor';
@@ -339,13 +339,13 @@ $LANG['ranks'] = 'Ranks';
 $LANG['previous_page'] = 'Previous page';
 $LANG['next_page'] = 'Next page';
 
-//Dates.
+
 $LANG['on'] = 'On';
 $LANG['at'] = 'at';
 $LANG['and'] = 'and';
 $LANG['by'] = 'By';
 
-//Authorized forms management.
+
 $LANG['authorizations'] = 'Authorizations';
 $LANG['explain_select_multiple'] = 'Hold ctrl and click in the list to make multiple choices';
 $LANG['advanced_authorization'] = 'Advanced authorizations';
@@ -354,7 +354,7 @@ $LANG['select_none'] = 'Unselect all';
 $LANG['add_member'] = 'Add a member';
 $LANG['alert_member_already_auth'] = 'The member is already in the list';
 
-//Calendar
+
 $LANG['january'] = 'January';
 $LANG['february'] = 'February';
 $LANG['march'] = 'March';
@@ -375,11 +375,11 @@ $LANG['friday'] = 'Fri';
 $LANG['saturday'] = 'Sat';
 $LANG['sunday'] = 'Sun';
 
-//Comments
+
 $LANG['add_comment'] = 'Add a comment';
 $LANG['edit_comment'] = 'Edit the comment';
 
-//Members
+
 $LANG['member_area'] = 'Member Area';
 $LANG['profile'] = 'Profile';
 $LANG['profile_edition'] = 'Edit my profile';
@@ -436,7 +436,7 @@ $LANG['banned'] = 'Banned';
 $LANG['go_msg'] = 'Go to message';
 $LANG['display'] = 'Display';
 
-//Register
+
 $LANG['pseudo_how'] = 'Minimum login length: 3 characters';
 $LANG['password_how'] = 'Minimum password length: 6 characters';
 $LANG['confirm_register'] = '%s, thank you for your registration. An e-mail will be sent to you to confirm your registration.';
@@ -477,7 +477,7 @@ Password: %s
 
 %s';
 
-//Mp
+
 $LANG['pm_box'] = 'Private message box';
 $LANG['pm_track'] = 'Unread by recipient';
 $LANG['recipient'] = 'Recipient';
@@ -490,7 +490,7 @@ $LANG['participants'] = 'Participant(s)';
 $LANG['no_pm'] = 'No messages';
 $LANG['quote_last_msg'] = 'Repost of the preceding message';
 
-//Forgot
+
 $LANG['forget_pass'] = 'Forgotten password';
 $LANG['forget_pass_send'] = 'Valid to receive a new password by mail, with an activation key to confirm change';
 $LANG['forget_mail_activ_pass'] = 'Activate password';
@@ -510,7 +510,7 @@ Anyway, you can change this password later in your member account. If you encoun
 
 %s';
 
-//Gestion des fichiers
+
 $LANG['confim_del_file'] = 'Delete this file?';
 $LANG['confirm_del_folder'] = 'Delete this folder, and all his contents?';
 $LANG['confirm_empty_folder'] = 'Empty all folders contents?';
@@ -543,7 +543,7 @@ $LANG['success_upload'] = 'Your file has been uploaded successfully !';
 $LANG['upload_folder_contains_folder'] = 'You wish to put this category in its subcategory or in itself, that\'s impossible !';
 $LANG['popup_insert'] = 'Insert code into the form';
 
-//gestion des catégories
+
 $LANG['cats_managment_could_not_be_moved'] = 'An error occurred, the category couldn\'t be moved';
 $LANG['cats_managment_visibility_could_not_be_changed'] = 'An error occurred, the visibility of the category couldn\'t be changed.';
 $LANG['cats_managment_no_category_existing'] = 'No category existing';
@@ -556,7 +556,7 @@ $LANG['moderation_panel'] = 'Moderation panel';
 $LANG['user_contact_pm'] = 'Contact by private message';
 $LANG['user_alternative_pm'] = 'Private message sent to the member <span class="text_small">(Leave empty for no private message)</span>. The member won\'t be able to reply to this message, he won\'t know who sent it';
 
-//Punishment management
+
 $LANG['punishment'] = 'Punishment';
 $LANG['punishment_management'] = 'Punishment management';
 $LANG['user_punish_until'] = 'Punishment until';
@@ -571,7 +571,7 @@ $LANG['user_readonly_changed'] = 'You have been set on read only status by a mem
 
 This is a semi-automatic message.';
 
-//Warning management
+
 $LANG['warning'] = 'Warning';
 $LANG['warning_management'] = 'Warning management';
 $LANG['user_warning_level'] = 'Warning level';
@@ -585,7 +585,7 @@ $LANG['user_warning_level_changed'] = 'You have been warned by a member of the m
 This is a semi-automatic message.';
 $LANG['warning_user'] = 'Warn user';
 
-//Ban management.
+
 $LANG['bans'] = 'Ban';
 $LANG['ban_management'] = 'Ban management';
 $LANG['user_ban_until'] = 'Banned until';
@@ -601,7 +601,7 @@ It may be an error, if you think it is, you can contact the administrator of the
 
 %s';
 
-//Panneau de contribution
+
 $LANG['contribution_panel'] = 'Contribution panel';
 $LANG['contribution'] = 'Contribution';
 $LANG['contribution_status_unread'] = 'Unsolved';
@@ -625,20 +625,20 @@ $LANG['contribute_in_modules_explain'] = 'The modules above allow users to contr
 $LANG['contribute_in_module_name'] = 'Contribute in %s';
 $LANG['no_module_to_contribute'] = 'No module in which you can contribute is installed.';
 
-//Loading bar.
+
 $LANG['query_loading'] = 'Sending the query to server';
 $LANG['query_sent'] = 'Query loaded successful, waiting for the answer of your server';
 $LANG['query_processing'] = 'Proccessing the query';
 $LANG['query_success'] = 'Processing succed';
 $LANG['query_failure'] = 'Processing failed';
 
-//Footer
+
 $LANG['powered_by'] = 'Boosted by';
 $LANG['phpboost_right'] = '';
 $LANG['sql_req'] = ' Requests';
 $LANG['achieved'] = 'Achieved in';
 
-//Feeds
+
 $LANG['syndication'] = 'Syndication';
 $LANG['rss'] = 'RSS';
 $LANG['atom'] = 'ATOM';
@@ -647,7 +647,7 @@ $LANG['atom'] = 'ATOM';
 $LANG['enabled'] = 'Enabled';
 $LANG['disabled'] = 'Disabled';
 
-//Dictionnaire pour le captcha.
+
 $LANG['_code_dictionnary'] = array('image', 'php', 'query', 'azerty', 'exit', 'verif', 'gender', 'search', 'design', 'exec', 'web', 'inter', 'extern', 'cache', 'media', 'cms', 'cesar', 'watt', 'data', 'site', 'mail', 'email', 'spam', 'index', 'rand', 'text', 'inner', 'over', 'under', 'users', 'visitor', 'member', 'home', 'date', 'today', 'month', 'year', 'name', 'picture', 'notes', 'next', 'subject', 'content', 'options', 'title', 'valid', 'list', 'place', 'quote', 'hide', 'default', 'type', 'status', 'replies', 'back', 'close', 'smiley', 'total', 'average', 'page', 'minute', 'week', 'group', 'size', 'theme', 'online', 'modules', 'result', 'during', 'until', 'lock', 'style', 'notice', 'warning', 'success', 'unknow', 'other', 'final', 'code');
 
 $LANG['csrf_attack'] = '<p>You have potentially been the target of a <acronym title="Cross-Site Request Forgery">CSRF</acronym> attack which has been blocked by PHPBoost.</p>

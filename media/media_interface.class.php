@@ -1,53 +1,53 @@
 <?php
-/*##################################################
- *                              media_interface.class.php
- *                            -------------------
- *   begin               	: October 20, 2008
- *   copyright        	: (C) 2007 Geoffrey ROGUELON
- *   email               	: liaght@gmail.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
 
-// Inclusion du fichier contenant la classe ModuleInterface
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import('modules/module_interface');
 
 define('MEDIA_MAX_SEARCH_RESULTS', 100);
 
-// Classe ForumInterface qui hérite de la classe ModuleInterface
+
 class MediaInterface extends ModuleInterface
 {
     ## Public Methods ##
-    function MediaInterface() //Constructeur de la classe ForumInterface
+    function MediaInterface() 
     {
         parent::ModuleInterface('media');
     }
 
-	//Récupération du cache.
+	
 	function get_cache()
 	{
 		global $Sql;
 		
 		require_once PATH_TO_ROOT . '/media/media_constant.php';
 
-		//Configuration
+		
 		$i = 0;
 		$config = array();
 		$config = unserialize($Sql->query("SELECT value FROM " . DB_TABLE_CONFIGS . " WHERE name = 'media'", __LINE__, __FILE__));
@@ -57,7 +57,7 @@ class MediaInterface extends ModuleInterface
 		$string = 'global $MEDIA_CONFIG, $MEDIA_CATS;' . "\n\n" . '$MEDIA_CONFIG = $MEDIA_CATS = array();' . "\n\n";
 		$string .= '$MEDIA_CONFIG = ' . var_export($config, true) . ';' . "\n\n";
 
-		//List of categories and their own properties
+		
 		$string .= '$MEDIA_CATS[0] = ' . var_export($root_config, true) . ';' . "\n\n";
 		$result = $Sql->query_while("SELECT * FROM " . PREFIX . "media_cat ORDER BY id_parent, c_order ASC", __LINE__, __FILE__);
 
@@ -82,7 +82,7 @@ class MediaInterface extends ModuleInterface
 		return $string;
 	}
 
-	// Generate the feed data structure used by RSS, ATOM and feed informations on the website
+	
     function get_feed_data_struct($idcat = 0)
     {
     	global $Cache, $Sql, $LANG, $MEDIA_LANG, $CONFIG, $MEDIA_CONFIG, $MEDIA_CATS;
@@ -98,7 +98,7 @@ class MediaInterface extends ModuleInterface
         
         $data = new FeedData();
         
-        // Meta-informations generation
+        
         $data->set_title($MEDIA_LANG['xml_media_desc']);
         $data->set_date(new Date());
         $data->set_link(new Url('/syndication.php?m=media&amp;cat=' . $idcat));
@@ -107,25 +107,25 @@ class MediaInterface extends ModuleInterface
         $data->set_lang($LANG['xml_lang']);
         $data->set_auth_bit(MEDIA_AUTH_READ);
 
-        // Building Categories to look in
+        
         $cats = new MediaCats();
         $children_cats = array();
         $cats->build_children_id_list($idcat, $children_cats, RECURSIVE_EXPLORATION, ADD_THIS_CATEGORY_IN_LIST);
 
         $result = $Sql->query_while ("SELECT id, idcat, name, contents, timestamp FROM " . PREFIX . "media WHERE infos = '" . MEDIA_STATUS_APROBED . "' AND idcat IN (" . implode($children_cats, ','). " ) ORDER BY timestamp DESC" . $Sql->limit(0, $MEDIA_CONFIG['pagin']), __LINE__, __FILE__);
         
-        // Generation of the feed's items
+        
         while ($row = $Sql->fetch_assoc($result))
         {
             $item = new FeedItem();
             
-            // Rewriting
+            
             $link = new Url('/media/media' . url(
                 '.php?id=' . $row['id'],
                 '-' . $row['id'] . '+' . url_encode_rewrite($row['name']) . '.php'
             ));
             
-            // Adding item's informations
+            
             $item->set_title($row['name']);
             $item->set_link($link);
             $item->set_guid($link);
@@ -134,7 +134,7 @@ class MediaInterface extends ModuleInterface
             $item->set_image_url($MEDIA_CATS[$row['idcat']]['image']);
             $item->set_auth($cats->compute_heritated_auth($row['idcat'], MEDIA_AUTH_READ, AUTH_PARENT_PRIORITY));
             
-            // Adding the item to the list
+            
             $data->add_item($item);
         }
 
@@ -144,9 +144,9 @@ class MediaInterface extends ModuleInterface
     }
     
     function get_search_request($args)
-    /**
-     *  Renvoie la requête de recherche
-     */
+    
+
+
     {
         global $Sql, $Cache;
 		$Cache->load('media');
@@ -171,10 +171,10 @@ class MediaInterface extends ModuleInterface
         return $request;
     }
     
-	/**
-     * @desc Return the list of the feeds available for this module. 
-     * @return FeedsList The list
-     */
+	
+
+
+
     function get_feeds_list()
 	{
         require_once PATH_TO_ROOT . '/media/media_cats.class.php';

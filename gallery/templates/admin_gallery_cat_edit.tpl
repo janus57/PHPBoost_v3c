@@ -1,4 +1,4 @@
-		<link href="{MODULE_DATA_PATH}/forum.css" rel="stylesheet" type="text/css" media="screen, handheld">
+		<link href="{MODULE_DATA_PATH}/gallery.css" rel="stylesheet" type="text/css" media="screen, handheld">
 		<script type="text/javascript">
 		<!--
 			function check_form_list()

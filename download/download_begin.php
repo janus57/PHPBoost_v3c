@@ -1,34 +1,34 @@
 <?php
-/*##################################################
- *                              download_begin.php
- *                            -------------------
- *   begin                : October 18, 2007
- *   copyright          : (C) 2007 Viarre régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if (defined('PHPBOOST') !== true)	
 	exit;
 
-load_module_lang('download'); //Chargement de la langue du module.
+load_module_lang('download'); 
 $Cache->load('download');
 
 require_once('download_auth.php');
@@ -66,14 +66,14 @@ $auth_read = $User->check_auth($CONFIG_DOWNLOAD['global_auth'], DOWNLOAD_READ_CA
 $auth_write = $User->check_auth($CONFIG_DOWNLOAD['global_auth'], DOWNLOAD_WRITE_CAT_AUTH_BIT);
 $auth_contribution = $User->check_auth($CONFIG_DOWNLOAD['global_auth'], DOWNLOAD_CONTRIBUTION_CAT_AUTH_BIT);
 
-//Bread_crumb : we read categories list recursively
+
 while ($id_cat_for_download > 0)
 {
 	$Bread_crumb->add($DOWNLOAD_CATS[$id_cat_for_download]['name'], url('download.php?cat=' . $id_cat_for_download, 'category-' . $id_cat_for_download . '+' . url_encode_rewrite($DOWNLOAD_CATS[$id_cat_for_download]['name']) . '.php'));
 	$auth_read = $auth_read && $DOWNLOAD_CATS[$id_cat_for_download]['visible'];
 	if (!empty($DOWNLOAD_CATS[$id_cat_for_download]['auth']))
 	{
-		//If we can't read a category, we can't read sub elements.
+		
 		$auth_read = $auth_read && $User->check_auth($DOWNLOAD_CATS[$id_cat_for_download]['auth'], DOWNLOAD_READ_CAT_AUTH_BIT);
 		$auth_write = $User->check_auth($DOWNLOAD_CATS[$id_cat_for_download]['auth'], DOWNLOAD_WRITE_CAT_AUTH_BIT);
 		$auth_contribution = $User->check_auth($DOWNLOAD_CATS[$id_cat_for_download]['auth'], DOWNLOAD_CONTRIBUTION_CAT_AUTH_BIT);

@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                              calendar.php
- *                            -------------------
- *   begin                : January 29, 2006
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 require_once('../calendar/calendar_begin.php');
@@ -51,15 +51,15 @@ $edit = retrieve(GET, 'edit', false);
 if ($delete)
     $Session->csrf_get_protect();
 
-$checkdate = checkdate($month, $day, $year); //Validité de la date entrée.
+$checkdate = checkdate($month, $day, $year); 
 if ($checkdate === true && empty($id) && !$add)
 {
-	//Redirection vers l'évenement suivant/précédent.
+	
 	if ($get_event == 'up')
 	{
 		$event_up = $Sql->query("SELECT timestamp
 		FROM " . PREFIX . "calendar
-		WHERE timestamp > '" . mktime(23, 59, 59, $month, $day, $year, 0) . "'
+		WHERE timestamp > '" . mktime(23, 59, 59, $month, $day, $year) . "'
 		ORDER BY timestamp
 		" . $Sql->limit(0, 1), __LINE__, __FILE__);
 		
@@ -79,7 +79,7 @@ if ($checkdate === true && empty($id) && !$add)
 	{
 		$event_down = $Sql->query("SELECT timestamp
 		FROM " . PREFIX . "calendar
-		WHERE timestamp < '" . mktime(0, 0, 0, $month, $day, $year, 0) . "'
+		WHERE timestamp < '" . mktime(0, 0, 0, $month, $day, $year) . "'
 		ORDER BY timestamp DESC
 		" . $Sql->limit(0, 1), __LINE__, __FILE__);
 			
@@ -100,7 +100,7 @@ if ($checkdate === true && empty($id) && !$add)
 		'calendar'=> 'calendar/calendar.tpl'
 	));
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	switch ($get_error)
 	{
@@ -121,7 +121,7 @@ if ($checkdate === true && empty($id) && !$add)
 	$LANG['july'], $LANG['august'], $LANG['september'], $LANG['october'], $LANG['november'], $LANG['december']);
 	$month_day = $array_month[$month - 1];
 	
-	if ($User->check_level($CONFIG_CALENDAR['calendar_auth'])) //Autorisation de poster?
+	if ($User->check_level($CONFIG_CALENDAR['calendar_auth'])) 
 		$add_event = '<a href="calendar' . url('.php?add=1') . '" title="' . $LANG['add_event'] . '"><img src="../templates/' . get_utheme() . '/images/' . get_ulang() . '/add.png" alt="" /></a><br />';
 	else
 		$add_event = '';
@@ -141,7 +141,7 @@ if ($checkdate === true && empty($id) && !$add)
 		'L_SUBMIT' => $LANG['submit']
 	));
 	
-	//Génération des select.
+	
 	for ($i = 1; $i <= 12; $i++)
 	{
 		$selected = ($month == $i) ? 'selected="selected"' : '';
@@ -157,10 +157,10 @@ if ($checkdate === true && empty($id) && !$add)
 		));
 	}
 	
-	//Récupération des actions du mois en cours.
+	
 	$result = $Sql->query_while("SELECT timestamp
 	FROM " . PREFIX . "calendar
-	WHERE timestamp BETWEEN '" . mktime(0, 0, 0, $month, 1, $year, 0) . "' AND '" . mktime(23, 59, 59, $month, $month_day, $year, 0) . "'
+	WHERE timestamp BETWEEN '" . mktime(0, 0, 0, $month, 1, $year) . "' AND '" . mktime(23, 59, 59, $month, $month_day, $year) . "'
 	ORDER BY timestamp
 	" . $Sql->limit(0, ($array_month[$month - 1] - 1)), __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
@@ -170,7 +170,7 @@ if ($checkdate === true && empty($id) && !$add)
 	}
 	$Sql->query_close($result);
 	
-	//Génération des jours du calendrier.
+	
 	$array_l_days =  array($LANG['monday'], $LANG['tuesday'], $LANG['wenesday'], $LANG['thursday'], $LANG['friday'], $LANG['saturday'],
 	$LANG['sunday']);
 	foreach ($array_l_days as $l_day)
@@ -180,12 +180,12 @@ if ($checkdate === true && empty($id) && !$add)
 		));
 	}
 	
-	//Premier jour du mois.
+	
 	$first_day = @gmdate_format('w', @mktime(1, 0, 0, $month, 1, $year)); 
 	if ($first_day == 0)
 		$first_day = 7;
 		
-	//Génération du calendrier.
+	
 	$j = 1;
 	$last_day = ($month_day + $first_day);
 	for ($i = 1; $i <= 42; $i++)
@@ -216,14 +216,14 @@ if ($checkdate === true && empty($id) && !$add)
 	}
 	
 	
-	//Affichage de l'action pour la période du jour donné.
+	
 	if (!empty($day))
 	{
 		$java = '';
 		$result = $Sql->query_while("SELECT cl.id, cl.timestamp, cl.title, cl.contents, cl.user_id, cl.nbr_com, m.login
 		FROM " . PREFIX . "calendar cl
 		LEFT JOIN " . DB_TABLE_MEMBER . " m ON m.user_id=cl.user_id
-		WHERE cl.timestamp BETWEEN '" . mktime(0, 0, 0, $month, $day, $year, 0) . "' AND '" . mktime(23, 59, 59, $month, $day, $year, 0) . "'
+		WHERE cl.timestamp BETWEEN '" . mktime(0, 0, 0, $month, $day, $year) . "' AND '" . mktime(23, 59, 59, $month, $day, $year) . "'
 		GROUP BY cl.id", __LINE__, __FILE__);
 		while ($row = $Sql->fetch_assoc($result))
 		{
@@ -268,7 +268,7 @@ if ($checkdate === true && empty($id) && !$add)
 			$Template->assign_block_vars('action', array(
 				'TITLE' => '&nbsp;',
 				'LOGIN' => '',
-				'DATE' => gmdate_format('date_format_short', mktime(0, 0, 0, $month, $day, $year, 0)),
+				'DATE' => gmdate_format('date_format_short', mktime(0, 0, 0, $month, $day, $year)),
 				'CONTENTS' => '<p style="text-align:center;">' . $LANG['no_current_action'] . '</p>'
 			));
 		}
@@ -279,7 +279,7 @@ if ($checkdate === true && empty($id) && !$add)
 		));
 	}
 	
-	//Affichage commentaires.
+	
 	if (isset($_GET['com']))
 	{
 		$Template->assign_vars(array(
@@ -291,14 +291,14 @@ if ($checkdate === true && empty($id) && !$add)
 }
 elseif (!empty($id))
 {
-	if (!$User->check_level(ADMIN_LEVEL)) //Admins seulement autorisés à editer/supprimer!
+	if (!$User->check_level(ADMIN_LEVEL)) 
 		$Errorh->handler('e_auth', E_USER_REDIRECT);
 	
-	if ($delete) //Suppression simple.
+	if ($delete) 
 	{
 		$Sql->query_inject("DELETE FROM " . PREFIX . "calendar WHERE id = '" . $id . "'", __LINE__, __FILE__);
 		
-		//Suppression des commentaires associés.
+		
 		$Sql->query_inject("DELETE FROM " . DB_TABLE_COM . " WHERE idprov = '" . $id . "' AND script = 'calendar'", __LINE__, __FILE__);
 		
 		redirect(HOST . SCRIPT . SID2);
@@ -310,7 +310,7 @@ elseif (!empty($id))
 			$contents = retrieve(POST, 'contents', '', TSTRING_PARSE);
 			$title = retrieve(POST, 'title', '');
 			
-			//Cacul du timestamp à partir de la date envoyé.
+			
 			$date = retrieve(POST, 'date', '', TSTRING_UNCHANGE);
 			$hour = retrieve(POST, 'hour', 0);
 			$min = retrieve(POST, 'min', 0);
@@ -321,9 +321,9 @@ elseif (!empty($id))
 			else
 				$timestamp = 0;
 				
-			if ($timestamp > 0 && ($hour >= 0 && $hour <= 23) && ($min >= 0 && $min <= 59)) //Validité de la date entrée.
+			if ($timestamp > 0 && ($hour >= 0 && $hour <= 23) && ($min >= 0 && $min <= 59)) 
 			{
-				if (!empty($title) && !empty($contents)) //succès
+				if (!empty($title) && !empty($contents)) 
 				{
 					$Sql->query_inject("UPDATE " . PREFIX . "calendar SET title = '" . $title . "', contents = '" . $contents . "', timestamp = '" . $timestamp . "' WHERE id = '" . $id . "'", __LINE__, __FILE__);
 					
@@ -339,13 +339,13 @@ elseif (!empty($id))
 			else
 				redirect(HOST . SCRIPT . url('?add=1&error=invalid_date', '', '&') . '#errorh');
 		}
-		else //Formulaire d'édition
+		else 
 		{
 			$Template->set_filenames(array(
 				'calendar'=> 'calendar/calendar.tpl'
 			));
 			
-			//Récupération des infos
+			
 			$row = $Sql->query_array(PREFIX . 'calendar', 'timestamp', 'title', 'contents', "WHERE id = '" . $id . "'", __LINE__, __FILE__);
 			
 			$Template->assign_vars(array(
@@ -372,7 +372,7 @@ elseif (!empty($id))
 				'L_RESET' => $LANG['reset']
 			));
 		
-			//Gestion erreur.
+			
 			$get_error = retrieve(GET, 'error', '');
 			switch ($get_error)
 			{
@@ -394,17 +394,17 @@ elseif (!empty($id))
 	else
 		redirect(HOST . SCRIPT . SID2);
 }
-elseif ($add) //Ajout d'un évenement
+elseif ($add) 
 {
-	if (!$User->check_level($CONFIG_CALENDAR['calendar_auth'])) //Autorisation de poster?
+	if (!$User->check_level($CONFIG_CALENDAR['calendar_auth'])) 
 		$Errorh->handler('e_auth', E_USER_REDIRECT);
 
-	if (!empty($_POST['valid'])) //Enregistrement
+	if (!empty($_POST['valid'])) 
 	{
 		$contents = retrieve(POST, 'contents', '', TSTRING_PARSE);
 		$title = retrieve(POST, 'title', '');
 		
-		//Cacul du timestamp à partir de la date envoyé.
+		
 		$date = retrieve(POST, 'date', '', TSTRING_UNCHANGE);
 		$hour = retrieve(POST, 'hour', 0);
 		$min = retrieve(POST, 'min', 0);
@@ -415,9 +415,9 @@ elseif ($add) //Ajout d'un évenement
 		else
 			$timestamp = 0;
 			
-		if ($timestamp > 0 && ($hour >= 0 && $hour <= 23) && ($min >= 0 && $min <= 59)) //Validité de la date entrée.
+		if ($timestamp > 0 && ($hour >= 0 && $hour <= 23) && ($min >= 0 && $min <= 59)) 
 		{
-			if (!empty($title) && !empty($contents)) //succès
+			if (!empty($title) && !empty($contents)) 
 			{
 				$Sql->query_inject("INSERT INTO " . PREFIX . "calendar (timestamp,title,contents,user_id,nbr_com) VALUES ('" . $timestamp . "', '" . $title . "', '" . $contents . "', '" . $User->get_attribute('user_id') . "', 0)", __LINE__, __FILE__);
 				
@@ -427,7 +427,7 @@ elseif ($add) //Ajout d'un évenement
 				
 				redirect(HOST . DIR . '/calendar/calendar' . url('.php?d=' . $day . '&m=' . $month . '&y=' . $year, '-' . $day . '-' . $month . '-' . $year . '.php', '&') . '#act');
 			}
-			else //Champs incomplet!
+			else 
 				redirect(HOST . SCRIPT . url('?add=1&error=incomplete', '', '&') . '#errorh');
 		}
 		else
@@ -473,7 +473,7 @@ elseif ($add) //Ajout d'un évenement
 			'L_RESET' => $LANG['reset']
 		));
 		
-		//Gestion erreur.
+		
 		$get_error = retrieve(GET, 'error', '');
 		switch ($get_error)
 		{

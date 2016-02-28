@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               shoutbox_mini.php
- *                            -------------------
- *   begin                : July 29, 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
-  *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if (defined('PHPBOOST') !== true) exit;
 
@@ -31,28 +31,28 @@ function shoutbox_mini($position, $block)
 {
     global $Cache, $LANG, $User, $CONFIG_SHOUTBOX, $nbr_members, $last_member_id, $last_member_login, $Sql;
     
-    //Mini Shoutbox non activée si sur la page archive shoutbox.
+    
     if (strpos(SCRIPT, '/shoutbox/shoutbox.php') === false)
     {
     	load_module_lang('shoutbox');
-    	$Cache->load('shoutbox'); //Chargement du cache
+    	$Cache->load('shoutbox'); 
     	
     	###########################Insertion##############################
     	$shoutbox = retrieve(POST, 'shoutbox', false);
     	if ($shoutbox)
     	{
-    		//Membre en lecture seule?
+    		
     		if ($User->get_attribute('user_readonly') > time())
     			$Errorh->handler('e_readonly', E_USER_REDIRECT);
     			
-    		$shout_pseudo = substr(retrieve(POST, 'shout_pseudo', $LANG['guest']), 0, 25); //Pseudo posté.
+    		$shout_pseudo = substr(retrieve(POST, 'shout_pseudo', $LANG['guest']), 0, 25); 
     		$shout_contents = retrieve(POST, 'shout_contents', '', TSTRING_UNCHANGE);
     		if (!empty($shout_pseudo) && !empty($shout_contents))
     		{
-    			//Accès pour poster.
+    			
     			if ($User->check_level($CONFIG_SHOUTBOX['shoutbox_auth']))
     			{
-    				//Mod anti-flood, autorisé aux membres qui bénificie de l'autorisation de flooder.
+    				
     				$check_time = ($User->get_attribute('user_id') !== -1 && $CONFIG['anti_flood'] == 1) ? $Sql->query("SELECT MAX(timestamp) as timestamp FROM " . PREFIX . "shoutbox WHERE user_id = '" . $User->get_attribute('user_id') . "'", __LINE__, __FILE__) : '';
     				if (!empty($check_time) && !$User->check_max_value(AUTH_FLOOD))
     				{
@@ -60,18 +60,18 @@ function shoutbox_mini($position, $block)
     						redirect(HOST . DIR . '/shoutbox/shoutbox.php' . url('?error=flood', '', '&'));
     				}
     				
-    				//Vérifie que le message ne contient pas du flood de lien.
+    				
     				$shout_contents = strparse($shout_contents, $CONFIG_SHOUTBOX['shoutbox_forbidden_tags']);
-    				if (!check_nbr_links($shout_pseudo, 0)) //Nombre de liens max dans le pseudo.
+    				if (!check_nbr_links($shout_pseudo, 0)) 
     					redirect(HOST . DIR . '/shoutbox/shoutbox.php' . url('?error=lp_flood', '', '&'));
-    				if (!check_nbr_links($shout_contents, $CONFIG_SHOUTBOX['shoutbox_max_link'])) //Nombre de liens max dans le message.
+    				if (!check_nbr_links($shout_contents, $CONFIG_SHOUTBOX['shoutbox_max_link'])) 
     					redirect(HOST . DIR . '/shoutbox/shoutbox.php' . url('?error=l_flood', '', '&'));
     					
     				$Sql->query_inject("INSERT INTO " . PREFIX . "shoutbox (login, user_id, level, contents, timestamp) VALUES ('" . $shout_pseudo . "', '" . $User->get_attribute('user_id') . "', '" . $User->get_attribute('level') . "', '" . $shout_contents . "', '" . time() . "')", __LINE__, __FILE__);
     				
     				redirect(HOST . url(SCRIPT . '?' . QUERY_STRING, '', '&'));
     			}
-    			else //utilisateur non autorisé!
+    			else 
     				redirect(HOST . DIR . '/shoutbox/shoutbox.php' . url('?error=auth', '', '&'));
     		}
     	}
@@ -81,7 +81,7 @@ function shoutbox_mini($position, $block)
         import('core/menu_service');
         MenuService::assign_positions_conditions($tpl, $block);
     
-    	//Pseudo du membre connecté.
+    	
     	if ($User->get_attribute('user_id') !== -1)
     		$tpl->assign_vars(array(
     			'SHOUTBOX_PSEUDO' => $User->get_attribute('login'),
@@ -136,7 +136,7 @@ function shoutbox_mini($position, $block)
     		$tpl->assign_block_vars('shout', array(
     			'IDMSG' => $row['id'],
     			'PSEUDO' => $row['login'],
-    			'CONTENTS' => ucfirst(second_parse($row['contents'])) //Majuscule premier caractère.
+    			'CONTENTS' => ucfirst(second_parse($row['contents'])) 
     		));
     	}
     	$Sql->query_close($result);

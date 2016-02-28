@@ -1,46 +1,46 @@
 <?php
-/*##################################################
- *                               admin_poll.php
- *                            -------------------
- *   begin                : June 29, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('poll'); //Chargement de la langue du module.
+load_module_lang('poll'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
-//On recupère les variables.
+
 $id = retrieve(GET, 'id', 0);
 $id_post = retrieve(POST, 'id', 0);
 $del = !empty($_GET['delete']) ? true : false;
 
-if ($del && !empty($id)) //Suppresion poll
+if ($del && !empty($id)) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	$Cache->load('poll');
 	
-	//On supprime des tables config et reponses des polls.
+	
 	$Sql->query_inject("DELETE FROM " . PREFIX . "poll WHERE id = '" . $id . "'", __LINE__, __FILE__);	
 	
 	###### Régénération du cache du mini poll #######
@@ -52,9 +52,9 @@ if ($del && !empty($id)) //Suppresion poll
 	}
 	redirect(HOST . SCRIPT);
 }
-elseif (!empty($_POST['valid']) && !empty($id_post)) //inject
+elseif (!empty($_POST['valid']) && !empty($id_post)) 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	$Cache->load('poll');
 	
@@ -68,7 +68,7 @@ elseif (!empty($_POST['valid']) && !empty($id_post)) //inject
 	$min = retrieve(POST, 'min', '', TSTRING_UNCHANGE);	
 	$get_visible = retrieve(POST, 'visible', 0);
 	
-	//On verifie les conditions!
+	
 	if (!empty($question) && !empty($id_post))
 	{
 		$start_timestamp = strtotimestamp($start, $LANG['date_format_short']);
@@ -81,12 +81,12 @@ elseif (!empty($_POST['valid']) && !empty($id_post)) //inject
 				$visible = 2;
 			elseif ($start_timestamp == 0)
 				$visible = 1;
-			else //Date inférieur à celle courante => inutile.
+			else 
 				$start_timestamp = 0;
 
 			if ($end_timestamp > time() && $end_timestamp > $start_timestamp && $start_timestamp != 0)
 				$visible = 2;
-			elseif ($start_timestamp != 0) //Date inférieur à celle courante => inutile.
+			elseif ($start_timestamp != 0) 
 				$end_timestamp = 0;
 		}
 		elseif ($get_visible == 1)
@@ -103,7 +103,7 @@ elseif (!empty($_POST['valid']) && !empty($id_post)) //inject
 		
 		$timestamp = strtotimestamp($current_date, $LANG['date_format_short']);
 		if ($timestamp > 0)
-			//Ajout des heures et minutes
+			
 			$timestamp += ($hour * 3600) + ($min * 60);
 		else
 			$timestamp = time();
@@ -132,7 +132,7 @@ elseif (!empty($_POST['valid']) && !empty($id_post)) //inject
 			###### Régénération du cache #######
 			$Cache->Generate_module_file('poll');
 		}	
-		//Régénaration du cache du mini poll, si celui-ci a été modifié.
+		
 		if ($id_post == $CONFIG_POLL['poll_mini'])
 			$Cache->Generate_module_file('poll');
 		
@@ -201,7 +201,7 @@ elseif (!empty($id))
 		'L_DELETE' => $LANG['delete'],
 	));
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['incomplete'], E_USER_NOTICE);
@@ -210,9 +210,9 @@ elseif (!empty($id))
 	$array_vote = explode('|', $row['votes']);
 	
 	$sum_vote = array_sum($array_vote);	
-	$sum_vote = ($sum_vote == 0) ? 1 : $sum_vote; //Empêche la division par 0.
+	$sum_vote = ($sum_vote == 0) ? 1 : $sum_vote; 
 	
-	//Liste des choix des sondages => 20 maxi
+	
 	$i = 0;
 	$array_poll = array_combine($array_answer, $array_vote);
 	foreach ($array_poll as $answer => $nbrvote)
@@ -282,7 +282,7 @@ else
 			
 		$archive = ( $row['archive'] == 1) ?  $LANG['yes'] : $LANG['no'];
 		
-		//On reccourci le lien si il est trop long pour éviter de déformer l'administration.
+		
 		$question = strlen($row['question']) > 45 ? substr($row['question'], 0, 45) . '...' : $row['question'];
 		
 		$visible = '';

@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                                register.php
- *                            -------------------
- *   begin                : August 04 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *   
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 define('TITLE', $LANG['title_register']);
@@ -66,7 +66,7 @@ if (empty($key))
 			'register' => 'member/register.tpl'
 		));
 		
-		//Gestion des erreurs.
+		
 		switch ($get_error)
 		{
 			case 'verif_code':
@@ -103,7 +103,7 @@ if (empty($key))
 			'C_REGISTER' => true
 		));	
 			
-		//Mode d'activation du membre.
+		
 		if ($CONFIG_USER['activ_mbr'] == '1')
 		{
 			$Template->assign_block_vars('activ_mbr', array(
@@ -117,7 +117,7 @@ if (empty($key))
 			));
 		}
 		
-		//Code de vérification, anti-bots.
+		
 		import('util/captcha');
 		$Captcha = new Captcha();
 		if ($Captcha->is_available() && $CONFIG_USER['verif_code'] == '1')
@@ -130,7 +130,7 @@ if (empty($key))
 			));		
 		}
 		
-		//Autorisation d'uploader un avatar sur le serveur.
+		
 		if ($CONFIG_USER['activ_up_avatar'] == 1)
 		{
 			$Template->assign_block_vars('upload_avatar', array(
@@ -140,7 +140,7 @@ if (empty($key))
 			));
 		}		
 		
-		//Gestion langue par défaut.
+		
 		$array_identifier = '';
 		$lang_identifier = '../images/stats/other.png';
 		foreach($LANGS_CONFIG as $lang => $array_info)
@@ -164,7 +164,7 @@ if (empty($key))
 			}
 		}
 		
-		//Gestion éditeur par défaut.
+		
 		$editors = array('bbcode' => 'BBCode', 'tinymce' => 'Tinymce');
 		$select_editors = '';
 		foreach ($editors as $code => $name)
@@ -173,7 +173,7 @@ if (empty($key))
 			$select_editors .= '<option value="' . $code . '" ' . $selected . '>' . $name . '</option>';
 		}
 		
-		//Gestion fuseau horaire par défaut.
+		
 		$select_timezone = '';
 		for ($i = -12; $i <= 14; $i++)
 		{
@@ -247,8 +247,8 @@ if (empty($key))
 			'L_WIDTH_MAX' => $LANG['width_max']
 		));		
 		
-		//Gestion thème par défaut.
-		if ($CONFIG_USER['force_theme'] == 0) //Thèmes aux membres autorisés.
+		
+		if ($CONFIG_USER['force_theme'] == 0) 
 		{
 			foreach($THEME_CONFIG as $theme => $array_info)
 			{
@@ -264,7 +264,7 @@ if (empty($key))
 				}
 			}
 		}
-		else //Thème par défaut forcé.
+		else 
 		{
 			$theme_info = load_ini_file('/config/', get_ulang());
 			$Template->assign_block_vars('select_theme', array(
@@ -273,7 +273,7 @@ if (empty($key))
 			));
 		}
 
-		//Champs supplémentaires.
+		
 		$extend_field_exist = $Sql->query("SELECT COUNT(*) FROM " . DB_TABLE_MEMBER_EXTEND_CAT . " WHERE display = 1", __LINE__, __FILE__);
 		if ($extend_field_exist > 0)
 		{
@@ -288,7 +288,7 @@ if (empty($key))
 			ORDER BY exc.class", __LINE__, __FILE__);
 			while ($row = $Sql->fetch_assoc($result))
 			{	
-				// field: 0 => base de données, 1 => text, 2 => textarea, 3 => select, 4 => select multiple, 5=> radio, 6 => checkbox
+				
 				$field = '';
 				switch ($row['field'])
 				{
@@ -367,7 +367,7 @@ if (empty($key))
 	else
 		redirect(get_start_page());
 }
-elseif (!empty($key) && $User->check_level(MEMBER_LEVEL) !== true) //Activation du compte membre
+elseif (!empty($key) && $User->check_level(MEMBER_LEVEL) !== true) 
 {
 	$Template->set_filenames(array(
 		'register' => 'member/register.tpl'
@@ -378,7 +378,7 @@ elseif (!empty($key) && $User->check_level(MEMBER_LEVEL) !== true) //Activation 
 	));	
 	
 	$check_mbr = $Sql->query("SELECT COUNT(*) as compt FROM " . DB_TABLE_MEMBER . " WHERE activ_pass = '" . $key . "'", __LINE__, __FILE__);
-	if ($check_mbr == '1') //Activation du compte.
+	if ($check_mbr == '1') 
 	{
 		$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET user_aprob = 1, activ_pass = '' WHERE activ_pass = '" . $key . "'", __LINE__, __FILE__);
 		

@@ -1,55 +1,55 @@
 <?php
-/*************************************************************************************
- * delphi.php
- * ----------
- * Author: J�rja Norbert (jnorbi@vipmail.hu), Benny Baumann (BenBE@omorphia.de)
- * Copyright: (c) 2004 J�rja Norbert, Benny Baumann (BenBE@omorphia.de), Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.8.3
- * Date Started: 2004/07/26
- *
- * Delphi (Object Pascal) language file for GeSHi.
- *
- * CHANGES
- * -------
- * 2008/05/23 (1.0.7.22)
- *   -  Added description of extra language features (SF#1970248)
- * 2005/11/19 (1.0.3)
- *   -  Updated the very incomplete keyword and type lists
- * 2005/09/03 (1.0.2)
- *   -  Added support for hex numbers and string entities
- * 2004/11/27 (1.0.1)
- *   -  Added support for multiple object splitters
- * 2004/10/27 (1.0.0)
- *   -  First Release
- *
- * TODO (updated 2004/11/27)
- * -------------------------
- *
- *************************************************************************************
- *
- *   This file is part of GeSHi.
- *
- *   GeSHi is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *   GeSHi is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with GeSHi; if not, write to the Free Software
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- ************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $language_data = array (
     'LANG_NAME' => 'Delphi',
     'COMMENT_SINGLE' => array(1 => '//'),
     'COMMENT_MULTI' => array('(*' => '*)', '{' => '}'),
-    //Compiler directives
+    
     'COMMENT_REGEXP' => array(2 => '/{\\$.*?}|\\(\\*\\$.*?\\*\\)/U'),
     'CASE_KEYWORDS' => 0,
     'QUOTEMARKS' => array("'"),
@@ -273,9 +273,9 @@ $language_data = array (
         1 => '.'
         ),
     'REGEXPS' => array(
-        //Hex numbers
+        
         0 => '\$[0-9a-fA-F]+',
-        //Characters
+        
         1 => '\#\$?[0-9]{1,3}'
         ),
     'STRICT_MODE_APPLIES' => GESHI_NEVER,

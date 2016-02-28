@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                             download_cats.class.php
- *                            -------------------
- *   begin                : April 3, 2008
- *   copyright            : (C) 2008 Benoït Sautel
- *   email                : ben.popeye@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 global $Cache;
 
@@ -36,20 +36,20 @@ class DownloadCats extends CategoriesManager
 {
 	## Public methods ##
 	
-	//Constructor
+	
 	function DownloadCats()
 	{
 		global $DOWNLOAD_CATS;
 		parent::CategoriesManager('download_cat', 'download', $DOWNLOAD_CATS);
 	}
 	
-	//Method which removes all subcategories and their content
+	
 	function Delete_category_recursively($id)
 	{
 		global $Cache;
-		//We delete the content of the category
+		
 		$this->_delete_category_with_content($id);
-		//Then its sub categories
+		
 		foreach ($this->cache_var as $id_cat => $properties)
 		{
 			if ($id_cat != 0 && $properties['id_parent'] == $id)
@@ -61,7 +61,7 @@ class DownloadCats extends CategoriesManager
 		$this->recount_sub_files();
 	}
 	
-	//Method which deletes a category and move its content in another category
+	
 	function Delete_category_and_move_content($id_category, $new_id_cat_content)
 	{
 		global $Sql;
@@ -86,7 +86,7 @@ class DownloadCats extends CategoriesManager
 		return true;
 	}
 	
-	//Function which adds a category
+	
 	function add($id_parent, $name, $description, $image, $auth, $visible)
 	{
 		global $Sql;
@@ -94,14 +94,14 @@ class DownloadCats extends CategoriesManager
 		{
 			$new_id_cat = parent::add($id_parent, $name);
 			$Sql->query_inject("UPDATE " . PREFIX . "download_cat SET contents = '" . $description . "', icon = '" . $image . "', auth = '" . $auth . "', visible = '" . (int)$visible . "' WHERE id = '" . $new_id_cat . "'", __LINE__, __FILE__);
-			//We don't recount the number of questions because this category is empty
+			
 			return 'e_success';
 		}
 		else
 			return 'e_unexisting_cat';
 	}
 	
-	//Function which updates a category
+	
 	function Update_category($id_cat, $id_parent, $name, $description, $icon, $auth, $visible)
 	{
 		global $Sql, $Cache;
@@ -131,7 +131,7 @@ class DownloadCats extends CategoriesManager
 			return 'e_unexisting_category';
 	}
 	
-	//Function which moves a category
+	
 	function move_into_another($id, $new_id_cat, $position = 0)
 	{
 		$result = parent::move_into_another($id, $new_id_cat, $position);
@@ -140,7 +140,7 @@ class DownloadCats extends CategoriesManager
 		return $result;
 	}
 	
-	//Function which recounts the number of subquestions of each category (it should be unuseful but if they are errors it will correct them)
+	
 	function recount_sub_files($no_cache_generation = false)
 	{
 		global $Cache, $DOWNLOAD_CATS;
@@ -151,7 +151,7 @@ class DownloadCats extends CategoriesManager
 		return;
 	}
 	
-	//Method which determines if a category is writable by the current user
+	
 	function check_auth($id)
 	{
 		global $User, $CONFIG_DOWNLOAD, $DOWNLOAD_CATS;
@@ -159,7 +159,7 @@ class DownloadCats extends CategoriesManager
 		
 		$id_cat = $id;
 
-		//We read the categories recursively
+		
 		while ($id_cat > 0)
 		{
 			if (!empty($DOWNLOAD_CATS[$id_cat]['auth']))
@@ -170,7 +170,7 @@ class DownloadCats extends CategoriesManager
 		return $auth_write;
 	}
 	
-	//Method which determines if a category is writable by the current user
+	
 	function check_contribution_auth($id)
 	{
 		global $User, $CONFIG_DOWNLOAD, $DOWNLOAD_CATS;
@@ -178,7 +178,7 @@ class DownloadCats extends CategoriesManager
 		
 		$id_cat = $id;
 
-		//We read the categories recursively
+		
 		while ($id_cat > 0)
 		{
 			if (!empty($DOWNLOAD_CATS[$id_cat]['auth']))
@@ -189,7 +189,7 @@ class DownloadCats extends CategoriesManager
 		return $contribution_auth;
 	}
 	
-	//Method which changes the visibility of a category
+	
 	function change_visibility($category_id, $visibility, $generate_cache = LOAD_CACHE)
 	{
 		$result = parent::change_visibility($category_id, $visibility, $generate_cache = LOAD_CACHE);
@@ -198,15 +198,15 @@ class DownloadCats extends CategoriesManager
 	}
 	
 	## Private methods ##
-	//method which deletes a category and its content (not recursive)
+	
 	function _delete_category_with_content($id)
 	{
 		global $Sql;
 		
-		//If the category is successfully deleted
+		
 		if ($test = parent::delete($id))
 		{
-			//We remove its whole content
+			
 			$Sql->query_inject("DELETE FROM " . PREFIX . "download WHERE idcat = '" . $id . "'", __LINE__, __FILE__);
 			return true;
 		}
@@ -214,7 +214,7 @@ class DownloadCats extends CategoriesManager
 			return false;
 	}
 	
-	//Recursive function which counts for each category
+	
 	function _recount_cat_subquestions($categories, $cat_id)
 	{
 		global $Sql;
@@ -227,10 +227,10 @@ class DownloadCats extends CategoriesManager
 				$num_subquestions += $this->_recount_cat_subquestions($categories, $id);
 		}
 		
-		//If its not the root we save it into the database
+		
 		if ($cat_id != 0)
 		{
-			//We add to this number the number of questions of this category
+			
 			$num_subquestions += (int) $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "download WHERE idcat = '" . $cat_id . "' AND visible = 1 AND approved = 1", __LINE__, __FILE__);
 			
 			$Sql->query_inject("UPDATE " . PREFIX . "download_cat SET num_files = '" . $num_subquestions . "' WHERE id = '" . $cat_id . "' AND visible = 1", __LINE__, __FILE__);

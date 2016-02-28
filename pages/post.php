@@ -1,29 +1,29 @@
 <?php
-/*##################################################
-*                               post.php
-*                            -------------------
-*   begin                : August 12, 2007
-*   copyright            : (C) 2007 Sautel Benoit
-*   email                : ben.popeye@phpboost.com
-*
-*
-###################################################
-*
-*   This program is free software; you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation; either version 2 of the License, or
-*   (at your option) any later version.
-* 
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 require_once('../pages/pages_begin.php'); 
@@ -42,7 +42,7 @@ $id_cat = retrieve(POST, 'id_cat', 0);
 $preview = !empty($_POST['preview']);
 $del_article = retrieve(GET, 'del', 0);
 
-//Variable d'erreur
+
 $error = '';
 if ($id_edit > 0)
 	define('TITLE', $LANG['pages_edition']);
@@ -69,68 +69,68 @@ else
 	
 require_once('../kernel/header.php');
 
-//On crée ou on édite une page
+
 if (!empty($contents))
 {
 	if ($own_auth)
 	{
-		//Génération du tableau des droits.
+		
 		$array_auth_all = Authorizations::build_auth_array_from_form(READ_PAGE, EDIT_PAGE, READ_COM);
 		$page_auth = addslashes(serialize($array_auth_all));
 	}
 	else
 		$page_auth = '';
 	
-	//on ne prévisualise pas, donc on poste le message ou on l'édite
+	
 	if (!$preview)
 	{
-		//Edition d'une page
+		
 		if ($id_edit > 0)
 		{
 			$page_infos = $Sql->query_array(PREFIX . 'pages', 'id', 'title', 'contents', 'auth', 'encoded_title', 'is_cat', 'id_cat', "WHERE id = '" . $id_edit . "'", __LINE__, __FILE__);
 			
-			//Autorisation particulière ?
+			
 			$special_auth = !empty($page_infos['auth']);
 			$array_auth = unserialize($page_infos['auth']);
-			//Vérification de l'autorisation d'éditer la page
+			
 			if (($special_auth && !$User->check_auth($array_auth, EDIT_PAGE)) || (!$special_auth && !$User->check_auth($_PAGES_CONFIG['auth'], EDIT_PAGE)))
 				redirect(HOST . DIR . url('/pages/pages.php?error=e_auth', '', '&'));
 			
-			//on vérifie que la catégorie ne s'insère pas dans un de ses filles
+			
 			if ($page_infos['is_cat'] == 1)
 			{
 				$sub_cats = array();
 				pages_find_subcats($sub_cats, $page_infos['id_cat']);
 				$sub_cats[] = $page_infos['id_cat'];
-				if (in_array($id_cat, $sub_cats)) //Si l'ancienne catégorie ne contient pas la nouvelle (sinon boucle infinie)
+				if (in_array($id_cat, $sub_cats)) 
 					$error = 'cat_contains_cat';
 			}
 			
-			//Articles (on édite l'entrée de l'article pour la catégorie donc aucun problème)
+			
 			if ($page_infos['is_cat'] == 0)
 			{		
-				//On met à jour la table
+				
 				$Sql->query_inject("UPDATE " . PREFIX . "pages SET contents = '" . pages_parse($contents) . "', count_hits = '" . $count_hits . "', activ_com = '" . $enable_com . "', auth = '" . $page_auth . "', id_cat = '" . $id_cat . "' WHERE id = '" . $id_edit . "'", __LINE__, __FILE__);
-				//On redirige vers la page mise à jour
+				
 				redirect(HOST . DIR . '/pages/' . url('pages.php?title=' . $page_infos['encoded_title'], $page_infos['encoded_title'], '&'));
 			}
-			//catégories : risque de boucle infinie
+			
 			elseif ($page_infos['is_cat'] == 1 && empty($error))
 			{
-				//Changement de catégorie mère ? => on met à jour la table catégories
+				
 				if ($id_cat != $page_infos['id_cat'])
 				{
 					$Sql->query_inject("UPDATE " . PREFIX . "pages_cats SET id_parent = '" . $id_cat . "' WHERE id = '" . $page_infos['id_cat'] . "'", __LINE__, __FILE__);
 				}
-				//On met à jour la table
+				
 				$Sql->query_inject("UPDATE " . PREFIX . "pages SET contents = '" . pages_parse($contents) . "', count_hits = '" . $count_hits . "', activ_com = '" . $enable_com . "', auth = '" . $page_auth . "' WHERE id = '" . $id_edit . "'", __LINE__, __FILE__);
-				//Régénération du cache
+				
 				$Cache->Generate_module_file('pages');
-				//On redirige vers la page mise à jour
+				
 				redirect(HOST . DIR . '/pages/' . url('pages.php?title=' . $page_infos['encoded_title'], $page_infos['encoded_title'], '&'));
 			}
 		}
-		//Création d'une page
+		
 		elseif (!empty($title))
 		{
 			if (!$User->check_auth($_PAGES_CONFIG['auth'], EDIT_PAGE))
@@ -139,24 +139,24 @@ if (!empty($contents))
 			$encoded_title = url_encode_rewrite($title);
 			$is_already_page = $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "pages WHERE encoded_title = '" . $encoded_title . "'", __LINE__, __FILE__);
 			
-			//Si l'article n'existe pas déjà, on enregistre
+			
 			if ($is_already_page == 0)
 			{
 				$Sql->query_inject("INSERT INTO " . PREFIX . "pages (title, encoded_title, contents, user_id, count_hits, activ_com, timestamp, auth, is_cat, id_cat) VALUES ('" . $title . "', '" . $encoded_title . "', '" .  pages_parse($contents) . "', '" . $User->get_attribute('user_id') . "', '" . $count_hits . "', '" . $enable_com . "', '" . time() . "', '" . $page_auth . "', '" . $is_cat . "', '" . $id_cat . "')", __LINE__, __FILE__);
-				//Si c'est une catégorie
+				
 				if ($is_cat > 0)
 				{
 					$last_id_page = $Sql->insert_id("SELECT MAX(id) FROM " . PREFIX . "pages");  
 					$Sql->query_inject("INSERT INTO " . PREFIX . "pages_cats (id_parent, id_page) VALUES ('" . $id_cat . "', '" . $last_id_page . "')", __LINE__, __FILE__);
 					$last_id_pages_cat = $Sql->insert_id("SELECT MAX(id) FROM " . PREFIX . "pages_cats");
 					$Sql->query_inject("UPDATE " . PREFIX . "pages SET id_cat = '" . $last_id_pages_cat . "' WHERE id = '" . $last_id_page . "'", __LINE__, __FILE__);
-					//Régénération du cache
+					
 					$Cache->Generate_module_file('pages');
 				}
-				//On redirige vers la page mise à jour
+				
 				redirect(HOST . DIR . '/pages/' . url('pages.php?title=' . $encoded_title, $encoded_title, '&'));
 			}
-			//Sinon, message d'erreur
+			
 			else
 			{
 				$error = 'page_already_exists';
@@ -166,21 +166,21 @@ if (!empty($contents))
 	else
 		$error = 'preview';
 }
-//Suppression d'une page
+
 elseif ($del_article > 0)
 {
-    //Vérification de la validité du jeton
+    
     $Session->csrf_get_protect();
     
 	$page_infos = $Sql->query_array(PREFIX . 'pages', 'id', 'title', 'encoded_title', 'contents', 'auth', 'count_hits', 'activ_com', 'id_cat', 'is_cat', "WHERE id = '" . $del_article . "'", __LINE__, __FILE__);
 	
-	//Autorisation particulière ?
+	
 	$special_auth = !empty($page_infos['auth']);
 	$array_auth = unserialize($page_infos['auth']);
 	if (($special_auth && !$User->check_auth($array_auth, EDIT_PAGE)) || (!$special_auth && !$User->check_auth($_PAGES_CONFIG['auth'], EDIT_PAGE)))
 		redirect(HOST . DIR . url('/pages/pages.php?error=e_auth', '', '&'));
 		
-	//la page existe bien, on supprime
+	
 	if (!empty($page_infos['title']))
 	{
 		$Sql->query_inject("DELETE FROM " . PREFIX . "pages WHERE id = '" . $del_article . "'", __LINE__, __FILE__);
@@ -196,14 +196,14 @@ $Template->set_filenames(array('post'=> 'pages/post.tpl'));
 
 if ($id_edit > 0)
 {
-	//Autorisation particulière ?
+	
 	$special_auth = !empty($page_infos['auth']);
 	$array_auth = unserialize($page_infos['auth']);
-	//Vérification de l'autorisation d'éditer la page
+	
 	if (($special_auth && !$User->check_auth($array_auth, EDIT_PAGE)) || (!$special_auth && !$User->check_auth($_PAGES_CONFIG['auth'], EDIT_PAGE)))
 		redirect(HOST . DIR . url('/pages/pages.php?error=e_auth', '', '&'));
 	
-	//Erreur d'enregistrement ?
+	
 	if ($error == 'cat_contains_cat')
 		$Errorh->handler($LANG['pages_cat_contains_cat'], E_USER_WARNING);
 	elseif ($error == 'preview')
@@ -215,14 +215,14 @@ if ($id_edit > 0)
 		));
 	}
 
-	//Génération de l'arborescence des catégories
+	
 	$cats = array();
-	//numéro de la catégorie de la page ou de la catégorie
+	
 	$id_cat_display = $page_infos['is_cat'] == 1 ? $_PAGES_CATS[$page_infos['id_cat']]['id_parent'] : $page_infos['id_cat'];
 	$cat_list = display_cat_explorer($id_cat_display, $cats, 1);
 	
 	$Template->assign_vars(array(
-		'CONTENTS' => !empty($error) ? htmlspecialchars(stripslashes($contents)) : pages_unparse($page_infos['contents']),
+		'CONTENTS' => !empty($error) ? htmlspecialchars(stripslashes($contents), ENT_COMPAT, 'ISO-8859-1') : pages_unparse($page_infos['contents']),
 		'COUNT_HITS_CHECKED' => !empty($error) ? ($count_hits == 1 ? 'checked="checked"' : '') : ($page_infos['count_hits'] == 1 ? 'checked="checked"' : ''),
 		'ACTIV_COM_CHECKED' => !empty($error) ? ($enable_com == 1 ? 'checked="checked"' : '') : ($page_infos['activ_com'] == 1 ? 'checked="checked"' : ''),
 		'OWN_AUTH_CHECKED' => !empty($page_infos['auth']) ? 'checked="checked"' : '',
@@ -234,11 +234,11 @@ if ($id_edit > 0)
 }
 else
 {
-	//Autorisations
+	
 	if (!$User->check_auth($_PAGES_CONFIG['auth'], EDIT_PAGE))
 		redirect(HOST . DIR . '/pages/pages.php?error=e_auth');
 		
-	//La page existe déjà !
+	
 	if ($error == 'page_already_exists')
 		$Errorh->handler($LANG['pages_already_exists'], E_USER_WARNING);
 	elseif ($error == 'preview')
@@ -251,13 +251,13 @@ else
 	}
 	if (!empty($error))
 		$Template->assign_vars(array(
-			'CONTENTS' => htmlspecialchars(stripslashes($contents)),
+			'CONTENTS' => htmlspecialchars(stripslashes($contents), ENT_COMPAT, 'ISO-8859-1'),
 			'PAGE_TITLE' => stripslashes($title)
 		));
 	
 	$Template->assign_block_vars('create', array());
 	
-	//Génération de l'arborescence des catégories
+	
 	$cats = array();
 	$cat_list = display_cat_explorer(0, $cats, 1);
 	$current_cat = $LANG['pages_root'];

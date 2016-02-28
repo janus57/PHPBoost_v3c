@@ -1,33 +1,33 @@
 <?php
-/*##################################################
- *                               admin_gallery_add.php
- *                            -------------------
- *   begin                : August 17, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('gallery'); //Chargement de la langue du module.
+load_module_lang('gallery'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
@@ -40,7 +40,7 @@ $idcat_post = !empty($_POST['idcat_post']) ? numeric($_POST['idcat_post']) : 0;
 $add_pic = !empty($_GET['add']) ? numeric($_GET['add']) : 0;
 $nbr_pics_post = !empty($_POST['nbr_pics']) ? numeric($_POST['nbr_pics']) : 0;
 
-if (isset($_FILES['gallery']) && isset($_POST['idcat_post'])) //Upload
+if (isset($_FILES['gallery']) && isset($_POST['idcat_post'])) 
 { 
 	$dir = 'pics/';
 	import('io/upload');
@@ -52,17 +52,17 @@ if (isset($_FILES['gallery']) && isset($_POST['idcat_post'])) //Upload
 		if ($_FILES['gallery']['size'] > 0)
 		{
 			$Upload->file('gallery', '`([a-z0-9()_-])+\.(jpg|gif|png)+$`i', UNIQ_NAME, $CONFIG_GALLERY['weight_max']);
-			if (!empty($Upload->error)) //Erreur, on arrête ici
+			if (!empty($Upload->error)) 
 				redirect(HOST . DIR . '/gallery/admin_gallery_add.php?error=' . $Upload->error . '#errorh');
 			else
 			{
 				$path = $dir . $Upload->filename['gallery'];
 				$error = $Upload->validate_img($path, $CONFIG_GALLERY['width_max'], $CONFIG_GALLERY['height_max'], DELETE_ON_ERROR);
-				if (!empty($error)) //Erreur, on arrête ici
+				if (!empty($error)) 
 					redirect(HOST . DIR . '/gallery/admin_gallery_add.php?error=' . $error . '#errorh');
 				else
 				{					
-					//Enregistrement de l'image dans la bdd.
+					
 					$Gallery->Resize_pics($path);		
 					if (!empty($Gallery->error))
 						redirect(HOST . DIR . '/gallery/admin_gallery_add.php?error=' . $Gallery->error . '#errorh');
@@ -72,7 +72,7 @@ if (isset($_FILES['gallery']) && isset($_POST['idcat_post'])) //Upload
 					if (!empty($Gallery->error))
 						redirect(HOST . DIR . '/gallery/admin_gallery_add.php?error=' . $Gallery->error . '#errorh');
 					
-					//Régénération du cache des photos aléatoires.
+					
 					$Cache->Generate_module_file('gallery');
 				}				
 			}
@@ -81,13 +81,13 @@ if (isset($_FILES['gallery']) && isset($_POST['idcat_post'])) //Upload
 	
 	redirect(HOST . DIR . '/gallery/admin_gallery_add.php?add=' . $idpic);
 }
-elseif (!empty($_POST['valid']) && !empty($nbr_pics_post)) //Ajout massif d'images par ftp.
+elseif (!empty($_POST['valid']) && !empty($nbr_pics_post)) 
 {
 	for ($i = 1; $i <= $nbr_pics_post; $i++)
 	{
 		$activ = !empty($_POST[$i . 'activ']) ? trim($_POST[$i . 'activ']) : '';
 		$uniq = !empty($_POST[$i . 'uniq']) ? strprotect($_POST[$i . 'uniq']) : '';
-		if ($activ && !empty($uniq)) //Sélectionné.
+		if ($activ && !empty($uniq)) 
 		{
 			$name = !empty($_POST[$i . 'name']) ? strprotect($_POST[$i . 'name']) : 0;
 			$cat = !empty($_POST[$i . 'cat']) ? numeric($_POST[$i . 'cat']) : 0;
@@ -100,7 +100,7 @@ elseif (!empty($_POST['valid']) && !empty($nbr_pics_post)) //Ajout massif d'imag
 		}		
 	}
 	
-	//Régénération du cache des photos aléatoires.
+	
 	$Cache->Generate_module_file('gallery');
 
 	redirect(HOST . DIR . '/gallery/admin_gallery_add.php');
@@ -111,13 +111,13 @@ else
 		'admin_gallery_add'=> 'gallery/admin_gallery_add.tpl'
 	));
 	
-	//Gestion erreur.
+	
 	$get_error = !empty($_GET['error']) ? trim($_GET['error']) : '';
 	$array_error = array('e_upload_invalid_format', 'e_upload_max_weight', 'e_upload_max_dimension', 'e_upload_error', 'e_upload_failed_unwritable', 'e_upload_already_exist', 'e_unlink_disabled', 'e_unsupported_format', 'e_unabled_create_pics', 'e_error_resize', 'e_no_graphic_support', 'e_unabled_incrust_logo', 'delete_thumbnails');
 	if (in_array($get_error, $array_error))
 		$Errorh->handler($LANG[$get_error], E_USER_WARNING);
 	
-	//Création de la liste des catégories.
+	
 	$cat_list = '<option value="0" selected="selected">' . $LANG['root'] . '</option>';
 	$cat_list_unselect = '<option value="0" selected="selected">' . $LANG['root'] . '</option>';
 	$result = $Sql->query_while("SELECT id, level, name 
@@ -132,7 +132,7 @@ else
 	}
 	$Sql->query_close($result);
 	
-	//Aficchage de la photo uploadée.
+	
 	if (!empty($add_pic))
 	{	
 		$CAT_GALLERY[0]['name'] = $LANG['root'];
@@ -176,9 +176,9 @@ else
 		'L_SUBMIT' => $LANG['submit']
 	));
 		
-	//Affichage photos
+	
 	$dir = 'pics/';
-	if (is_dir($dir)) //Si le dossier existe
+	if (is_dir($dir)) 
 	{		
 		import('io/filesystem/folder');
 
@@ -193,14 +193,14 @@ else
 			FROM " . PREFIX . "gallery", __LINE__, __FILE__);
 			while ($row = $Sql->fetch_assoc($result))
 			{
-				//On recherche les clées correspondante à celles trouvée dans la bdd.
+				
 				$key = array_search($row['path'], $array_pics);
 				if ($key !== false)
-					unset($array_pics[$key]); //On supprime ces clées du tableau.
+					unset($array_pics[$key]); 
 			}
 			$Sql->query_close($result);
 			
-			//Colonnes des images.
+			
 			$nbr_pics = count($array_pics);
 			$nbr_column_pics = ($nbr_pics > $CONFIG_GALLERY['nbr_column']) ? $CONFIG_GALLERY['nbr_column'] : $nbr_pics;
 			$nbr_column_pics = !empty($nbr_column_pics) ? $nbr_column_pics : 1;
@@ -216,9 +216,9 @@ else
 			{
 				$height = 150;
 				$width = 150;
-				if (function_exists('getimagesize')) //On verifie l'existence de la fonction getimagesize.
+				if (function_exists('getimagesize')) 
 				{
-					// On recupère la hauteur et la largeur de l'image.
+					
 					list($width_source, $height_source) = @getimagesize($rep . $pics);
 					
 					$height_max = 150;
@@ -246,17 +246,17 @@ else
 					}
 				}
 				
-				//On genère le tableau pour x colonnes
+				
 				$tr_start = is_int($j / $nbr_column_pics) ? '<tr>' : '';
 				$j++;	
 				$tr_end = is_int($j / $nbr_column_pics) ? '</tr>' : '';
 
-				//On raccourci le nom du fichier pour ne pas déformer l'administration.
+				
 				$name = strlen($pics) > 20 ? substr($pics, 0, 20) . '...' : $pics;
 
-				//Si la miniature n'existe pas (cache vidé) on regénère la miniature à partir de l'image en taille réelle.
+				
 				if (!file_exists('pics/thumbnails/' . $pics) && file_exists('pics/' . $pics))
-					$Gallery->Resize_pics('pics/' . $pics); //Redimensionnement + création miniature
+					$Gallery->Resize_pics('pics/' . $pics); 
 
 				$Template->assign_block_vars('list', array(
 					'ID' => $j,
@@ -269,7 +269,7 @@ else
 				));
 			}
 			
-			//Création des cellules du tableau si besoin est.
+			
 			while (!is_int($j/$nbr_column_pics))
 			{		
 				$j++;

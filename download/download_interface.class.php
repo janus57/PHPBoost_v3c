@@ -1,35 +1,35 @@
 <?php
-/*##################################################
- *                          download_interface.class.php
- *                            -------------------
- *   begin                : June 22, 2008
- *   copyright            : (C) 2008 Loïc Rouchon
- *   email                : horn@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 define('DOWNLOAD_MAX_SEARCH_RESULTS', 100);
 
 import('modules/module_interface');
-// Class DownloadInterface
-//  Provides download module services to the kernel and extern modules
+
+
 class DownloadInterface extends ModuleInterface
 {
     ## Public Methods ##
@@ -38,22 +38,22 @@ class DownloadInterface extends ModuleInterface
         parent::ModuleInterface('download');
     }
   
-	//Récupération du cache.
+	
 	function get_cache()
 	{
 		global $Sql, $LANG, $Cache;
 	
 		$code = 'global $DOWNLOAD_CATS;' . "\n" . 'global $CONFIG_DOWNLOAD;' . "\n\n";
 			
-		//Récupération du tableau linéarisé dans la bdd.
+		
 		$CONFIG_DOWNLOAD = unserialize($Sql->query("SELECT value FROM " . DB_TABLE_CONFIGS . " WHERE name = 'download'", __LINE__, __FILE__));
 		
 		$code .= '$CONFIG_DOWNLOAD = ' . var_export($CONFIG_DOWNLOAD, true) . ';' . "\n";
 		
-		//Liste des catégories et de leurs propriétés
+		
 		$code .= '$DOWNLOAD_CATS = array();' . "\n\n";
 		
-		//Racine
+		
 		$code .= '$DOWNLOAD_CATS[0] = ' . var_export(array('name' => $LANG['root'], 'auth' => $CONFIG_DOWNLOAD['global_auth']) ,true) . ';' . "\n\n";
 		
 		$result = $Sql->query_while("SELECT id, id_parent, c_order, auth, name, visible, icon, num_files, contents
@@ -79,32 +79,32 @@ class DownloadInterface extends ModuleInterface
 		return $code;
 	}
 
-	//Changement de jour.
+	
 	function on_changeday()
 	{
 		global $Sql;
 		
-		//Publication des téléchargements en attente pour la date donnée.
+		
 		$result = $Sql->query_while("SELECT id, start, end
 		FROM " . PREFIX . "download
 		WHERE start > 0 AND end > 0", __LINE__, __FILE__);
 		$time = time();
 		while ($row = $Sql->fetch_assoc($result))
 		{
-			//If the file wasn't visible and it becomes visible
+			
 			if ($row['start'] <= $time && $row['end'] >= $time && $row['visible'] = 0)
 				$Sql->query_inject("UPDATE " . PREFIX . "download SET visible = 1 WHERE id = '" . $row['id'] . "'", __LINE__, __FILE__);
 			
-			//If it's not visible anymore
+			
 			if (($row['start'] >= $time || $row['end'] <= $time) && $row['visible'] = 1)
 				$Sql->query_inject("UPDATE " . PREFIX . "download SET visible = 0 WHERE id = '" . $row['id'] . "'", __LINE__, __FILE__);
 		}
 	}
 
 	function get_search_request($args)
-    /**
-     *  Renvoie la requête de recherche
-     */
+    
+
+
     {
         global $Sql, $Cache;
         $weight = isset($args['weight']) && is_numeric($args['weight']) ? $args['weight'] : 1;
@@ -131,11 +131,11 @@ class DownloadInterface extends ModuleInterface
 
     }
     
-    /**
-     * @desc Return the array containing the result's data list
-     * @param &string[][] $args The array containing the result's id list
-     * @return string[] The array containing the result's data list
-     */
+    
+
+
+
+
     function compute_search_results(&$args)
     {
         global $CONFIG, $Sql;
@@ -163,22 +163,22 @@ class DownloadInterface extends ModuleInterface
         return $results_data;
     }
     
-    /**
-     *  @desc Return the string to print the result
-     *  @param &string[] $result_data the result's data
-     *  @return string[] The string to print the result of a search element
-     */
+    
+
+
+
+
     function parse_search_result(&$result_data)
     {
         global $Cache, $CONFIG, $LANG, $DOWNLOAD_LANG, $CONFIG_DOWNLOAD;
         $Cache->load('download');
         
-        load_module_lang('download'); //Chargement de la langue du module.
+        load_module_lang('download'); 
         $tpl = new Template('download/download_generic_results.tpl');
         
         import('util/date');
         $date = new Date(DATE_TIMESTAMP, TIMEZONE_USER, $result_data['timestamp']);
-        import('content/note'); //Notes
+        import('content/note'); 
         
         $tpl->assign_vars(array(
             'L_ADDED_ON' => sprintf($DOWNLOAD_LANG['add_on_date'], $date->format(DATE_FORMAT_TINY, TIMEZONE_USER)),
@@ -196,7 +196,7 @@ class DownloadInterface extends ModuleInterface
     }
     
 	
-    // Generate the feed data structure used by RSS, ATOM and feed informations on the website
+    
     function get_feed_data_struct($idcat = 0, $name = '')
     {
         require_once(PATH_TO_ROOT . '/download/download_auth.php');
@@ -210,7 +210,7 @@ class DownloadInterface extends ModuleInterface
         $Cache->load('download');
         $data = new FeedData();
         
-        // Meta-informations generation
+        
         $data->set_title($DOWNLOAD_LANG['xml_download_desc']);
         $data->set_date(new Date());
         $data->set_link(new Url('/syndication.php?m=download&amp;cat=' . $idcat));
@@ -220,7 +220,7 @@ class DownloadInterface extends ModuleInterface
         $data->set_auth_bit(DOWNLOAD_READ_CAT_AUTH_BIT);
 		
         
-        // Building Categories to look in
+        
         $cats = new DownloadCats();
         $children_cats = array();
         $cats->build_children_id_list($idcat, $children_cats, RECURSIVE_EXPLORATION, ADD_THIS_CATEGORY_IN_LIST);
@@ -231,13 +231,13 @@ class DownloadInterface extends ModuleInterface
         ORDER BY timestamp DESC" . $Sql->limit(0, $CONFIG_DOWNLOAD['nbr_file_max']);
         $result = $Sql->query_while ($req, __LINE__, __FILE__);
         
-        // Generation of the feed's items
+        
         while ($row = $Sql->fetch_assoc($result))
         {
             $item = new FeedItem();
             
             $link = new Url('/download/download' . url('.php?id=' . $row['id'], '-' . $row['id'] .  '+' . url_encode_rewrite($row['title']) . '.php'));
-            // Adding item's informations
+            
             $item->set_title($row['title']);
             $item->set_link($link);
             $item->set_guid($link);
@@ -246,7 +246,7 @@ class DownloadInterface extends ModuleInterface
             $item->set_image_url($row['image']);
             $item->set_auth($cats->compute_heritated_auth($row['idcat'], DOWNLOAD_READ_CAT_AUTH_BIT, AUTH_PARENT_PRIORITY));
             
-            // Adding the item to the list
+            
             $data->add_item($item);
         }
         $Sql->query_close($result);
@@ -254,10 +254,10 @@ class DownloadInterface extends ModuleInterface
         return $data;
     }
     
-    /**
-     * @desc Return the list of the feeds available for this module.
-     * @return FeedsList The list
-     */
+    
+
+
+
     function get_feeds_list()
 	{
         require_once(PATH_TO_ROOT . '/download/download_cats.class.php');

@@ -1,28 +1,28 @@
 <?php
-/*##################################################
- *                       admin_modules_management.php
- *                            -------------------
- *   begin                : January 31, 2007
- *   copyright            : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
@@ -32,22 +32,22 @@ $uninstall = retrieve(GET, 'uninstall', false);
 $id = retrieve(GET, 'id', 0);
 $error = retrieve(GET, 'error', '');
 
-//Modification des propriétés des modules (activés et autorisations globales d'accès)
+
 if (isset($_POST['valid']))
 {
-	//Listage des modules
+	
 	$result = $Sql->query_while("SELECT id, name, auth, activ
 	FROM " . PREFIX . "modules", __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		//Récupération des propriétés du module courant
+		
 		$activ = retrieve(POST, 'activ' . $row['id'], 0);
 		$array_auth_all = Authorizations::auth_array_simple(ACCESS_MODULE, $row['id']);
 		
-		//Enregistrement en base de données
+		
 		$Sql->query_inject("UPDATE " . DB_TABLE_MODULES . " SET activ = '" . $activ . "', auth = '" . addslashes(serialize($array_auth_all)) . "' WHERE id = '" . $row['id'] . "'", __LINE__, __FILE__);
 	}
-	//Génération du cache des modules
+	
 	$Cache->Generate_file('modules');
 	$Cache->Load('modules', RELOAD_CACHE);
 	import('core/menu_service');
@@ -55,7 +55,7 @@ if (isset($_POST['valid']))
 	
 	redirect(HOST . SCRIPT);
 }
-elseif ($uninstall) //Désinstallation du module
+elseif ($uninstall) 
 {
 	if (!empty($_POST['valid_del']))
 	{
@@ -79,7 +79,7 @@ elseif ($uninstall) //Désinstallation du module
 	}
 	else
 	{
-		//Récupération de l'identifiant du module
+		
 		$idmodule = '';
 		foreach ($_POST as $key => $value)
 			if ($value == $LANG['uninstall'])
@@ -144,14 +144,14 @@ else
 		'L_RESET' => $LANG['reset']
 	));
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);
 	elseif (!empty($get_error) && isset($LANG[$get_error]))
 		$Errorh->handler($LANG[$get_error], E_USER_WARNING);
 		
-	//Modules installé
+	
 	$i = 0;
 	$array_modules = array();
 	$array_info_module = array();
@@ -161,7 +161,7 @@ else
 	ORDER BY name", __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		//Récupération des infos de config.
+		
 		$array_info_module[$row['name']] = load_ini_file('../' . $row['name'] . '/lang/', get_ulang());
 		$array_modules[$array_info_module[$row['name']]['name']] = array('id' => $row['id'], 'name' => $row['name'], 'auth' => $row['auth'], 'activ' => $row['activ']);
 	}
@@ -173,7 +173,7 @@ else
 		$row = $array_modules[$name];
 		$info_module = $array_info_module[$array_config['name']];
 		
-		//Récupération des tableaux des autorisations et des groupes.
+		
 		$array_auth = !empty($row['auth']) ? unserialize($row['auth']) : array();
 		
 		$l_tables = ($info_module['sql_table'] > 1) ? $LANG['tables'] : $LANG['table'];

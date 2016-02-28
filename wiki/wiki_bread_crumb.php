@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                              wiki_bread_crumb.php
- *                            -------------------
- *   begin                : May 5, 2007
- *   copyright          : (C) 2007 Sautel Benoit
- *   email                : ben.popeye@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if (defined('PHPBOOST') !== true)	exit;
 
@@ -40,9 +40,9 @@ switch ($bread_crumb_key)
 				$Bread_crumb->add($article_infos['title'], url('wiki.php?title=' . $article_infos['encoded_title'], $article_infos['encoded_title']));
 			$id_cat = (int)$article_infos['id_cat'];
 		}
-		if (!empty($id_cat)  && is_array($_WIKI_CATS)) //Catégories infinies
+		if (!empty($id_cat)  && is_array($_WIKI_CATS)) 
 		{
-			$id = $id_cat; //Premier id
+			$id = $id_cat; 
 			do
 			{
 				$Bread_crumb->add($_WIKI_CATS[$id]['name'], url('wiki.php?title=' . url_encode_rewrite($_WIKI_CATS[$id]['name']), url_encode_rewrite($_WIKI_CATS[$id]['name'])));
@@ -65,9 +65,9 @@ switch ($bread_crumb_key)
 		$Bread_crumb->add($article_infos['title'], url('wiki.php?title=' . url_encode_rewrite($article_infos['title'])), url_encode_rewrite($article_infos['title']));
 
 		$id_cat = (int)$article_infos['id_cat'];
-		if (!empty($id_cat)  && is_array($_WIKI_CATS)) //Catégories infinies
+		if (!empty($id_cat)  && is_array($_WIKI_CATS)) 
 		{
-			$id = $id_cat; //Premier id
+			$id = $id_cat; 
 			do
 			{
 				$Bread_crumb->add($_WIKI_CATS[$id]['name'], url('wiki.php?title=' . url_encode_rewrite($_WIKI_CATS[$id]['name']), url_encode_rewrite($_WIKI_CATS[$id]['name'])));
@@ -105,7 +105,7 @@ switch ($bread_crumb_key)
 			$Bread_crumb->add($article_infos['title'], url('wiki.php?title=' . url_encode_rewrite($article_infos['title']), url_encode_rewrite($article_infos['title'])));
 			
 		$id_cat = !empty($article_infos['id_cat']) ? (int)$article_infos['id_cat'] : 0;
-		if ($id_cat > 0 && is_array($_WIKI_CATS)) //Catégories infinies
+		if ($id_cat > 0 && is_array($_WIKI_CATS)) 
 		{
 			$id = $id_cat;
 			do

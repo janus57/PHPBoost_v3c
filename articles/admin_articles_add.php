@@ -1,33 +1,33 @@
 <?php
-/*##################################################
- *                               admin_articles_add.php
- *                            -------------------
- *   begin                : July 11, 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *   
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('articles'); //Chargement de la langue du module.
+load_module_lang('articles'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
@@ -60,12 +60,12 @@ if (!empty($_POST['valid']))
 				$visible = 2;
 			elseif ($start_timestamp == 0)
 				$visible = 1;
-			else //Date inférieur à celle courante => inutile.
+			else 
 				$start_timestamp = 0;
 
 			if ($end_timestamp > time() && $end_timestamp > $start_timestamp && $start_timestamp != 0)
 				$visible = 2;
-			elseif ($start_timestamp != 0) //Date inférieur à celle courante => inutile.
+			elseif ($start_timestamp != 0) 
 				$end_timestamp = 0;
 		}
 		elseif ($get_visible == 1)
@@ -83,11 +83,11 @@ if (!empty($_POST['valid']))
 		$timestamp = strtotimestamp($current_date, $LANG['date_format_short']);
 		if ($timestamp > 0)
 			$timestamp += ($hour * 3600) + ($min * 60);
-		else //Ajout des heures et minutes
+		else 
 			$timestamp = time();
 		
 		$Cache->load('articles');
-		if (empty($idcat))//Racine.
+		if (empty($idcat))
 		{
 			$CAT_ARTICLES[0]['id_left'] = 0;
 			$CAT_ARTICLES[0]['id_right'] = 0;
@@ -96,14 +96,14 @@ if (!empty($_POST['valid']))
 		$Sql->query_inject("INSERT INTO " . PREFIX . "articles (idcat, title, contents, icon, timestamp, visible, start, end, user_id, views, users_note, nbrnote, note, nbr_com) VALUES('" . $idcat . "', '" . $title . "', '" . str_replace('[page][/page]', '', $contents) . "', '" . $icon . "', '" . $timestamp . "', '" . $visible . "', '" . $start_timestamp . "', '" . $end_timestamp . "', '" . $User->get_attribute('user_id') . "', 0, 0, 0, 0, 0)", __LINE__, __FILE__);
 		$last_articles_id = $Sql->insert_id("SELECT MAX(id) FROM " . PREFIX . "articles");
 		
-		//Mise à jours du nombre d'articles des parents.
+		
 		$clause_update = ($visible == 1) ? 'nbr_articles_visible = nbr_articles_visible + 1' : 'nbr_articles_unvisible = nbr_articles_unvisible + 1';
 		$Sql->query_inject("UPDATE " . PREFIX . "articles_cats SET " . $clause_update . " WHERE id_left <= '" . $CAT_ARTICLES[$idcat]['id_left'] . "' AND id_right >= '" . $CAT_ARTICLES[$idcat]['id_right'] . "'", __LINE__, __FILE__);
 		
         ###### Regénération du cache #######
 		$Cache->Generate_module_file('articles');
 		
-		// Feeds Regeneration
+		
         import('content/syndication/feed');
         Feed::clear_cache('articles');
 		
@@ -122,7 +122,7 @@ elseif (!empty($_POST['previs']))
 	$icon = retrieve(POST, 'icon', '', TSTRING_UNCHANGE);
 	$icon_path = retrieve(POST, 'icon_path', '', TSTRING_UNCHANGE);
 	$contents = retrieve(POST, 'contents', '', TSTRING_AS_RECEIVED);
-	$contents_preview = htmlspecialchars(retrieve(POST, 'contents', '' , TSTRING_UNCHANGE));
+	$contents_preview = htmlspecialchars(retrieve(POST, 'contents', '' , TSTRING_UNCHANGE), ENT_COMPAT, 'ISO-8859-1');
 	$idcat = retrieve(POST, 'idcat', 0);
 	$current_date = retrieve(POST, 'current_date', '', TSTRING_UNCHANGE);
 	$start = retrieve(POST, 'start', '', TSTRING_UNCHANGE);
@@ -177,7 +177,7 @@ elseif (!empty($_POST['previs']))
 		'PSEUDO_PRW' => $pseudo
 	));
 	
-	//Catégories.	
+	
 	$i = 0;	
 	$categories = '<option value="0" %s>' . $LANG['root'] . '</option>';
 	$result = $Sql->query_while("SELECT id, level, name 
@@ -192,7 +192,7 @@ elseif (!empty($_POST['previs']))
 	}		
 	$Sql->query_close($result);
 	
-	//Images disponibles
+	
 	$img_direct_path = (strpos($icon, '/') !== false);
 	$image_list = '<option value=""' . ($img_direct_path ? ' selected="selected"' : '') . '>--</option>';
 	import('io/filesystem/folder');
@@ -268,7 +268,7 @@ else
 	
 	$user_pseudo = !empty($user_pseudo) ? $user_pseudo : '';
 	
-	//Catégories.	
+	
 	$i = 0;	
 	$categories = '<option value="0">' . $LANG['root'] . '</option>';
 	$result = $Sql->query_while("SELECT id, level, name 
@@ -282,7 +282,7 @@ else
 	}		
 	$Sql->query_close($result);
 	
-	//Images disponibles
+	
 	$image_list = '<option value="" selected="selected">--</option>';
 	import('io/filesystem/folder');
 	$image_list = '<option value="">--</option>';
@@ -327,7 +327,7 @@ else
 		'L_RESET' => $LANG['reset']
 	));
 		
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);

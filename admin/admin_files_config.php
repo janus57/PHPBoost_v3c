@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                           admin_files_config.php
- *                            -------------------
- *   begin                : July 09, 2007
- *   copyright            : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
@@ -42,7 +42,7 @@ if (!empty($_POST['valid']) )
 	{	
 		foreach ($auth_extensions_sup as $extension)
 		{
-		    //Suppression de tous les caractères interdits dans les extensions
+		    
 		    $extension = str_replace('-', '', url_encode_rewrite($extension));
 		    
 			if ($extension != '' && !isset($auth_extensions[$extension]) && $extension != 'php') 
@@ -53,7 +53,7 @@ if (!empty($_POST['valid']) )
 	}
 	$CONFIG_UPLOADS['auth_extensions'] = $auth_extensions;
 
-	//Génération du tableau des droits.
+	
 	$array_auth_all = Authorizations::build_auth_array_from_form(AUTH_FILES);
 	$CONFIG_UPLOADS['auth_files'] = serialize($array_auth_all);
 	
@@ -62,12 +62,12 @@ if (!empty($_POST['valid']) )
 	###### Régénération du cache dela configuration #######
 	$Cache->Generate_file('uploads');
 	
-	//Régénération du htaccess.
-	$Cache->Generate_file('htaccess'); //Régénération du htaccess.	
+	
+	$Cache->Generate_file('htaccess'); 
 	
 	redirect(HOST . SCRIPT);	
 }
-//Sinon on rempli le formulaire
+
 else	
 {		
 	$Template->set_filenames(array(
@@ -104,8 +104,8 @@ else
 		$auth_extensions .= '</optgroup>';
 	}
 	
-	$array_ranks = array(0 => $LANG['member'], 1 => $LANG['modo'], 2 => $LANG['admin']); //Création du tableau des rangs.	 
-	$array_auth = isset($CONFIG_UPLOADS['auth_files']) ? $CONFIG_UPLOADS['auth_files'] : array(); //Récupération des tableaux des autorisations et des groupes.
+	$array_ranks = array(0 => $LANG['member'], 1 => $LANG['modo'], 2 => $LANG['admin']); 
+	$array_auth = isset($CONFIG_UPLOADS['auth_files']) ? $CONFIG_UPLOADS['auth_files'] : array(); 
 	
 	$Template->assign_vars(array(
 		'NBR_EXTENSIONS' => $i,
@@ -134,7 +134,7 @@ else
 		'L_RESET' => $LANG['reset']
 	));
 	
-	$Template->pparse('admin_files_config'); // traitement du modele	
+	$Template->pparse('admin_files_config'); 
 }
 
 require_once('../admin/admin_footer.php');

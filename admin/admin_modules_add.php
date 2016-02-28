@@ -1,28 +1,28 @@
 <?php
-/*##################################################
- *                           admin_modules_add.php
- *                            -------------------
- *   begin                : January 31, 2007
- *   copyright            : (C) 2007 Régis Viarre, Loïc Rouchon
- *   email                : crowkait@phpboost.com, horn@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
@@ -30,9 +30,9 @@ require_once('../admin/admin_header.php');
 
 $install = !empty($_GET['install']) ? true : false;
 
-if ($install) //Installation du module
+if ($install) 
 {	
-	//Récupération de l'identifiant du module
+	
 	$module_name = '';
 	foreach ($_POST as $key => $value)
 		if ($value == $LANG['install'])
@@ -59,12 +59,12 @@ if ($install) //Installation du module
 			redirect(HOST . DIR . '/admin/admin_modules.php');
 	}
 }			
-elseif (!empty($_FILES['upload_module']['name'])) //Upload et décompression de l'archive Zip/Tar
+elseif (!empty($_FILES['upload_module']['name'])) 
 {
 	$ext_name = strrchr($_FILES['upload_module']['name'], '.');
 	$module_name = str_replace($ext_name, '', $_FILES['upload_module']['name']);
 	
-	//Si le dossier n'est pas en écriture on tente un CHMOD 777
+	
 	@clearstatcache();
 	$dir = '../';
 	if (!is_writable($dir))
@@ -74,7 +74,7 @@ elseif (!empty($_FILES['upload_module']['name'])) //Upload et décompression de l
 		
 	@clearstatcache();	
 	$error = '';
-	if (is_writable($dir)) //Dossier en écriture, upload possible
+	if (is_writable($dir)) 
 	{
 		$ckeck_module = $Sql->query("SELECT COUNT(*) FROM " . DB_TABLE_MODULES . " WHERE name = '" . addslashes($module_name) . "'", __LINE__, __FILE__);
 		if (empty($ckeck_module) && !is_dir('../' . $module_name))
@@ -84,7 +84,7 @@ elseif (!empty($_FILES['upload_module']['name'])) //Upload et décompression de l
 			if ($Upload->file('upload_module', '`([a-z0-9()_-])+\.(gzip|zip)+$`i'))
 			{					
 				$archive_path = '../' . $Upload->filename['upload_module'];
-				//Place à la décompression.
+				
 				if ($Upload->extension['upload_module'] == 'gzip')
 				{
 					import('lib/pcl/pcltar', LIB_IMPORT);
@@ -101,7 +101,7 @@ elseif (!empty($_FILES['upload_module']['name'])) //Upload et décompression de l
 				else
 					$error = 'e_upload_invalid_format';
 				
-				//Suppression de l'archive désormais inutile.
+				
 				if (!@unlink($archive_path))
 					$error = 'unlink_disabled';
 			}
@@ -150,7 +150,7 @@ else
 		'L_INSTALL' => $LANG['install']
 	));
 
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	$array_error = array('e_upload_invalid_format', 'e_upload_max_weight', 'e_upload_error', 'e_upload_failed_unwritable', 'e_upload_already_exist', 'e_unlink_disabled', 'e_config_conflict', 'e_php_version_conflict');
 	if (in_array($get_error, $array_error))
@@ -158,7 +158,7 @@ else
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);
 		
-	//Modules installé
+	
 	$i = 0;
 	$installed_modules = array();
 	$result = $Sql->query_while("SELECT id, name
@@ -169,10 +169,10 @@ else
 	
 	$Sql->query_close($result);
 	
-	//Modules disponibles
+	
 	$root = PATH_TO_ROOT . '/';
 	$i = 0;
-	if (is_dir($root)) //Si le dossier existe
+	if (is_dir($root)) 
 	{
 		import('io/filesystem/folder');
 		$dir_array = array();
@@ -182,7 +182,7 @@ else
 			$dir = $odir->get_name();
 			if (!in_array($dir, $installed_modules) && $dir != 'lang')
 			{
-				//Récupération des infos de config.
+				
 				$info_module = load_ini_file($root . $dir . '/lang/', get_ulang());
 				if (!empty($info_module) && is_array($info_module))
 				{

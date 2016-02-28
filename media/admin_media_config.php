@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                               admin_media_config.php
- *                            -------------------
- *   begin               	: October 20, 2008
- *   copyright        	: (C) 2007 Geoffrey ROGUELON
- *   email               	: liaght@gmail.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
@@ -35,11 +35,11 @@ if (!empty($_POST['valid']))
 {
 	$Session->csrf_get_protect();
 
-	// Paramètre afichage.
+	
 	$display_array = retrieve(POST, 'activ', 0, TARRAY);
 	$activ = is_array($display_array) ? array_sum($display_array) : 0;
 
-	// Génère le tableau de configuration.
+	
 	$config_media = array (
 		'pagin' => max(1, retrieve(POST, 'pagin', $MEDIA_CONFIG['pagin'], TINTEGER)),
 		'nbr_column' => max(1, retrieve(POST, 'num_cols', $MEDIA_CONFIG['nbr_column'], TINTEGER)),
@@ -60,7 +60,7 @@ if (!empty($_POST['valid']))
 		)
 	);
 
-	// Met à jour les notes des fichiers.
+	
 	if ($MEDIA_CONFIG['note_max'] != $config_media['note_max'] && !empty($MEDIA_CONFIG))
 	{
 		$Sql->Query_inject("UPDATE ".PREFIX."media SET note = note * " . ($config_media['note_max']/$MEDIA_CONFIG['note_max']), __LINE__, __FILE__);

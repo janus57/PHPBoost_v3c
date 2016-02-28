@@ -1,40 +1,40 @@
 <?php
-/*##################################################
-*                                 print.php
-*                            -------------------
-*   begin                : September 13, 2008
-*   copyright            : (C) 2008 Sautel Benoit
-*   email                : ben.popeye@phpboost.com
-*
-*
-###################################################
-*
-*   This program is free software; you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation; either version 2 of the License, or
-*   (at your option) any later version.
-* 
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 
 require_once('pages_defines.php');
 
-//Titre de l'article à afficher en version imprimable
+
 $encoded_title = retrieve(GET, 'title', '', TSTRING);
 
 $Cache->load('pages');
 
-if (!empty($encoded_title)) //Si on connait son titre
+if (!empty($encoded_title)) 
 {
 	$page_infos = $Sql->query_array(PREFIX . "pages", 'id', 'title', 'auth', 'is_cat', 'id_cat', 'hits', 'count_hits', 'activ_com', 'nbr_com', 'redirect', 'contents', "WHERE encoded_title = '" . $encoded_title . "'", __LINE__, __FILE__);
 	
@@ -49,11 +49,11 @@ if (!empty($encoded_title)) //Si on connait son titre
 	else
 		$redirect_title = '';
 		
-	//Autorisation particulière ?
+	
 	$special_auth = !empty($page_infos['auth']);
 	$array_auth = unserialize($page_infos['auth']);
 
-	//Vérification de l'autorisation de voir la page
+	
 	if (($special_auth && !$User->check_auth($array_auth, READ_PAGE)) || (!$special_auth && !$User->check_auth($_PAGES_CONFIG['auth'], READ_PAGE)))
 		redirect(HOST . DIR . url('/pages/pages.php?error=e_auth'));
 }

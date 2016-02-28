@@ -1,70 +1,70 @@
 <?php
-/*************************************************************************************
- * bash.php
- * --------
- * Author: Andreas Gohr (andi@splitbrain.org)
- * Copyright: (c) 2004 Andreas Gohr, Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.8.3
- * Date Started: 2004/08/20
- *
- * BASH language file for GeSHi.
- *
- * CHANGES
- * -------
- * 2008/06/21 (1.0.8)
- *  -  Added loads of keywords and commands of GNU/Linux
- *  -  Added support for parameters starting with a dash
- * 2008/05/23 (1.0.7.22)
- *  -  Added description of extra language features (SF#1970248)
- * 2007/09/05 (1.0.7.21)
- *  -  PARSER_CONTROL patch using SF #1788408 (BenBE)
- * 2007/06/11 (1.0.7.20)
- *  -  Added a lot of keywords (BenBE / Jan G)
- * 2004/11/27 (1.0.2)
- *  -  Added support for multiple object splitters
- * 2004/10/27 (1.0.1)
- *   -  Added support for URLs
- * 2004/08/20 (1.0.0)
- *   -  First Release
- *
- * TODO (updated 2004/11/27)
- * -------------------------
- * * Get symbols working
- * * Highlight builtin vars
- *
- *************************************************************************************
- *
- *     This file is part of GeSHi.
- *
- *   GeSHi is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *   GeSHi is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with GeSHi; if not, write to the Free Software
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- ************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $language_data = array (
     'LANG_NAME' => 'Bash',
-    // Bash DOES have single line comments with # markers. But bash also has
-    // the  $# variable, so comments need special handling (see sf.net
-    // 1564839)
+    
+    
+    
     'COMMENT_SINGLE' => array('#'),
     'COMMENT_MULTI' => array(),
     'COMMENT_REGEXP' => array(
-        //Variables
+        
         1 => "/\\$\\{[^\\n\\}]*?\\}/i",
-        //BASH-style Heredoc
+        
         2 => '/<<-?\s*?(\'?)([a-zA-Z0-9]+)\1\\n.*\\n\\2(?![a-zA-Z0-9])/siU',
-        //Escaped String Starters
+        
         3 => "/\\\\['\"]/siU"
         ),
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
@@ -73,15 +73,15 @@ $language_data = array (
     'HARDESCAPE' => array("\'"),
     'ESCAPE_CHAR' => '',
     'ESCAPE_REGEXP' => array(
-        //Simple Single Char Escapes
+        
         1 => "#\\\\[nfrtv\\$\\\"\n]#i",
-        // $var
+        
         2 => "#\\$[a-z_][a-z0-9_]*#i",
-        // ${...}
+        
         3 => "/\\$\\{[^\\n\\}]*?\\}/i",
-        // $(...)
+        
         4 => "/\\$\\([^\\n\\)]*?\\)/i",
-        // `...`
+        
         5 => "/`[^`]*`/"
         ),
     'KEYWORDS' => array(
@@ -251,15 +251,15 @@ $language_data = array (
     'OBJECT_SPLITTERS' => array(
         ),
     'REGEXPS' => array(
-        //Variables (will be handled by comment_regexps)
+        
         0 => "\\$\\{[a-zA-Z_][a-zA-Z0-9_]*?\\}",
-        //Variables without braces
+        
         1 => "\\$[a-zA-Z_][a-zA-Z0-9_]*",
-        //Variable assignment
+        
         2 => "(?<![\.a-zA-Z_\-])([a-zA-Z_][a-zA-Z0-9_]*?)(?==)",
-        //Shorthand shell variables
+        
         4 => "\\$[*#\$\\-\\?!]",
-        //Parameters of commands
+        
         5 => "(?<=\s)--?[0-9a-zA-Z\-]+(?=[\s=]|$)"
         ),
     'STRICT_MODE_APPLIES' => GESHI_NEVER,

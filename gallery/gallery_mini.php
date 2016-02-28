@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                              gallery_mini.php
- *                            -------------------
- *   begin                : August 03, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if (defined('PHPBOOST') !== true) exit;
 
@@ -34,11 +34,11 @@ function gallery_mini($position, $block)
     import('core/menu_service');
     MenuService::assign_positions_conditions($tpl, $block);
 
-    //Chargement de la langue du module.
+    
     load_module_lang('gallery');
-    $Cache->load('gallery'); //Requête des configuration générales (gallery), $CONFIG_ALBUM variable globale.
+    $Cache->load('gallery'); 
 	
-    //Affichage des miniatures disponibles
+    
     $i = 0;
     $array_pics_mini = 'var array_pics_mini = new Array();' . "\n";
     list($nbr_pics, $sum_height, $sum_width, $scoll_mode, $height_max, $width_max) = array(0, 0, 0, 0, 142, 142);
@@ -48,11 +48,11 @@ function gallery_mini($position, $block)
     		define('READ_CAT_GALLERY', 0x01);
     	
     	$gallery_mini = array();
-    	shuffle($_array_random_pics); //On mélange les éléments du tableau.
+    	shuffle($_array_random_pics); 
     	
-    	//Autorisations de la racine.
+    	
     	$CAT_GALLERY[0]['auth'] = $CONFIG_GALLERY['auth_root'];
-    	//Vérification des autorisations.
+    	
     	$break = 0;
     	foreach ($_array_random_pics as $array_pics_info)
     	{
@@ -65,7 +65,7 @@ function gallery_mini($position, $block)
     			break;
     	}
     	
-    	//Aucune photo ne correspond, on fait une requête pour vérifier.
+    	
     	if (count($gallery_mini) == 0)
     	{
 			$_array_random_pics = array();
@@ -80,7 +80,7 @@ function gallery_mini($position, $block)
 				$_array_random_pics[] = $row;
 			}
 			
-    		//Vérification des autorisations.
+    		
     		$break = 0;
     		foreach ($_array_random_pics as $key => $array_pics_info)
     		{
@@ -123,11 +123,11 @@ function gallery_mini($position, $block)
     	
     	foreach ($gallery_mini as $key => $row)
     	{
-    		//Si la miniature n'existe pas (cache vidé) on regénère la miniature à partir de l'image en taille réelle.
-    		if (!is_file(PATH_TO_ROOT . '/gallery/pics/thumbnails/' . $row['path']))
-    			$Gallery->Resize_pics(PATH_TO_ROOT . '/gallery/pics/' . $row['path']); //Redimensionnement + création miniature
     		
-    		// On recupère la hauteur et la largeur de l'image.
+    		if (!is_file(PATH_TO_ROOT . '/gallery/pics/thumbnails/' . $row['path']))
+    			$Gallery->Resize_pics(PATH_TO_ROOT . '/gallery/pics/' . $row['path']); 
+    		
+    		
     		if ($row['width'] == 0 || $row['height'] == 0)
     			list($row['width'], $row['height']) = @getimagesize(PATH_TO_ROOT . '/gallery/pics/thumbnails/' . $row['path']);
     		if ($row['width'] == 0 || $row['height'] == 0)

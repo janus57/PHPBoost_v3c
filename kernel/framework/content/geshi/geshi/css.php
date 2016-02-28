@@ -1,53 +1,53 @@
 <?php
-/*************************************************************************************
- * css.php
- * -------
- * Author: Nigel McNie (nigel@geshi.org)
- * Copyright: (c) 2004 Nigel McNie (http://qbnz.com/highlighter/)
- * Release Version: 1.0.8.3
- * Date Started: 2004/06/18
- *
- * CSS language file for GeSHi.
- *
- * CHANGES
- * -------
- * 2008/05/23 (1.0.7.22)
- *  -  Added description of extra language features (SF#1970248)
- * 2004/11/27 (1.0.3)
- *  -  Added support for multiple object splitters
- * 2004/10/27 (1.0.2)
- *   -  Changed regexps to catch "-" symbols
- *   -  Added support for URLs
- * 2004/08/05 (1.0.1)
- *   -  Added support for symbols
- * 2004/07/14 (1.0.0)
- *   -  First Release
- *
- * TODO (updated 2004/11/27)
- * -------------------------
- * * Improve or drop regexps for class/id/psuedoclass highlighting
- * * Re-look at keywords - possibly to make several CSS language
- *   files, all with different versions of CSS in them
- *
- *************************************************************************************
- *
- *     This file is part of GeSHi.
- *
- *   GeSHi is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *   GeSHi is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with GeSHi; if not, write to the Free Software
- *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- ************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $language_data = array (
     'LANG_NAME' => 'CSS',
@@ -186,14 +186,14 @@ $language_data = array (
     'OBJECT_SPLITTERS' => array(
         ),
     'REGEXPS' => array(
-        //DOM Node ID
+        
         0 => '\#[a-zA-Z0-9\-_]+(?:\\\\:[a-zA-Z0-9\-_]+)*',
-        //CSS classname
+        
         1 => '\.(?!\d)[a-zA-Z0-9\-_]+(?:\\\\:[a-zA-Z0-9\-_]+)*\b(?=[\{\.#\s,:].|<\|)',
-        //CSS Pseudo classes
-        //note: & is needed for &gt; (i.e. > )
+        
+        
         2 => '(?<!\\\\):(?!\d)[a-zA-Z0-9\-]+\b(?:\s*(?=[\{\.#a-zA-Z,:+*&](.|\n)|<\|))',
-        //Measurements
+        
         3 => '[+\-]?(\d+|(\d*\.\d+))(em|ex|pt|px|cm|in|%)',
         ),
     'STRICT_MODE_APPLIES' => GESHI_NEVER,

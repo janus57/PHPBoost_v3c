@@ -1,37 +1,37 @@
 <?php
-/*##################################################
- *                              news_english.php
- *                            -------------------
- *   begin                : June 20, 2005
- *   last modified		: July 31, 2009 - Forensic
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
- ###################################################
- *
- *   This program is a free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
 #                                                           English                                                                             #
 ####################################################
 
-//Admin
+
 $LANG['confirm_del_news'] = 'Delete this piece of news?';
 $LANG['add_news'] = 'Add an item of news';
 $LANG['configuration_news'] = 'News configuration';
@@ -67,16 +67,16 @@ $LANG['news_date_explain'] = '(dd/mm/yy) Leave empty to set today date';
 $LANG['nbr_news_column'] = 'Column number to display news';
 $LANG['no_img'] = 'No picture';
 
-//Errors
+
 $LANG['e_unexist_news'] = 'This news doesn\'t exist';
 
-//Title
+
 $LANG['title_news'] = 'News';
 
-//Alerts
+
 $LANG['alert_delete_news'] = 'Delete this piece of news?';
 
-//News
+
 $LANG['news'] = 'News';
 $LANG['propose_news'] = 'Suggest an item of news';
 $LANG['xml_news_desc'] = 'Track the last news on';
@@ -89,7 +89,7 @@ $LANG['archive'] = 'Archives';
 $LANG['display_archive'] = 'Display archives';
 $LANG['read_feed'] = 'Read';
 
-//Add news.
+
 $MAIL['new_news_website'] = 'New news on your website';
 $MAIL['new_news'] = 'A new item of news was added on your website ' . HOST . ', 
 it will have to be approved before being visible on the website by everyone. 

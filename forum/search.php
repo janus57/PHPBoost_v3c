@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                                search.php
- *                            -------------------
- *   begin                : May 18 2006
- *   copyright          : (C) 2006 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *   
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 require_once('../forum/forum_begin.php');
@@ -37,7 +37,7 @@ require_once('../kernel/header.php');
 
 $search = retrieve(POST, 'search', '');
 $idcat = retrieve(POST, 'idcat', -1);
-$time = retrieve(POST, 'time', 0) * 3600 * 24; //X jour en secondes.
+$time = retrieve(POST, 'time', 0) * 3600 * 24; 
 $where = retrieve(POST, 'where', '');
 $colorate_result = retrieve(POST, 'colorate_result', false);
 $valid_search = retrieve(POST, 'valid_search', '');
@@ -54,7 +54,7 @@ $Template->assign_vars(array(
 	'LANG' => get_ulang(),
 	'SID' => SID,
 	'SEARCH' => stripslashes($search),
-	'SELECT_CAT' => forum_list_cat(0, 0), //Retourne la liste des catégories, avec les vérifications d'accès qui s'imposent.
+	'SELECT_CAT' => forum_list_cat(0, 0), 
 	'CONTENTS_CHECKED' => ($where == 'contents' || empty($where)) ? 'checked="checked"' : '',
 	'TITLE_CHECKED' => ($where == 'title') ? 'checked="checked"' : '',
 	'ALL_CHECKED' => ($where == 'all') ? 'checked="checked"' : '',
@@ -176,16 +176,16 @@ if (!empty($valid_search) && !empty($search))
 		$max_relevance = 4.5;		
 		$check_result = false;
 		$result = $Sql->query_while ($req, __LINE__, __FILE__);
-		while ($row = $Sql->fetch_assoc($result)) //On execute la requête dans une boucle pour afficher tout les résultats.
+		while ($row = $Sql->fetch_assoc($result)) 
 		{ 
 			$title = $row['title'];
 			if (!empty($row['title']))
-				$title = (strlen(html_entity_decode($row['title'])) > 45 ) ? substr_html($row['title'], 0, 45) . '...' : $row['title'];
+				$title = (strlen(html_entity_decode($row['title'], ENT_COMPAT, 'ISO-8859-1')) > 45 ) ? substr_html($row['title'], 0, 45) . '...' : $row['title'];
 			
-			//On encode l'url pour un éventuel rewriting, c'est une opération assez gourmande
+			
 			$rewrited_title = ($CONFIG['rewrite'] == 1) ? '+' . url_encode_rewrite($row['title']) : '';
 			
-			//Pertinance du résultat.
+			
 			$relevance = max($row['relevance'], $row['relevance2']);
 			
 			$contents = $row['contents'];
@@ -221,13 +221,13 @@ if (!empty($valid_search) && !empty($search))
 			));
 		}
 	}
-	else //Gestion erreur.
+	else 
 		$Errorh->handler($LANG['invalid_req'], E_USER_NOTICE);
 }
 elseif (!empty($valid_search))
 	$Errorh->handler($LANG['invalid_req'], E_USER_WARNING);
 	
-//Listes les utilisateurs en lignes.
+
 list($users_list, $total_admin, $total_modo, $total_member, $total_visit, $total_online) = forum_list_user_online("AND s.session_script = '/forum/search.php'");
 	
 $Template->assign_vars(array(

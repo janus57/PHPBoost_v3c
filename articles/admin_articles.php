@@ -1,67 +1,67 @@
 <?php
-/*##################################################
- *                      admin_articles_management.php
- *                            -------------------
- *   begin                : July 10, 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('articles'); //Chargement de la langue du module.
+load_module_lang('articles'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
-//On recupère les variables.
+
 $id = retrieve(GET, 'id', 0);
 $idcat = retrieve(GET, 'idcat', 0);
 $id_post = retrieve(POST, 'id', 0);
 $del = !empty($_GET['delete']) ? true : false;
 
-if ($del && !empty($id)) //Suppression de l'article.
+if ($del && !empty($id)) 
 {    
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
-	//Visibilité de l'article.
+	
 	$visible = $Sql->query("SELECT visible FROM " . PREFIX . "articles WHERE id = '" . $id . "'", __LINE__, __FILE__);	
 	
-	//On supprime dans la bdd.
+	
 	$Sql->query_inject("DELETE FROM " . PREFIX . "articles WHERE id = '" . $id . "'", __LINE__, __FILE__);	
 	
 	$Cache->load('articles');
-	if (empty($idcat))//Racine.
+	if (empty($idcat))
 	{
 		$CAT_ARTICLES[0]['id_left'] = 0;
 		$CAT_ARTICLES[0]['id_right'] = 0;
 	}
 	
-	//Mise à jours du nombre d'articles des parents.
+	
 	$clause_update = ($visible == '1') ? 'nbr_articles_visible = nbr_articles_visible - 1' : 'nbr_articles_unvisible = nbr_articles_unvisible - 1';
 	$Sql->query_inject("UPDATE " . PREFIX . "articles_cats SET " . $clause_update . " WHERE id_left <= '" . $CAT_ARTICLES[$idcat]['id_left'] . "' AND id_right >= '" . $CAT_ARTICLES[$idcat]['id_right'] . "'", __LINE__, __FILE__);
 	
-	//On supprimes les éventuels commentaires associés.
+	
 	$Sql->query_inject("DELETE FROM " . DB_TABLE_COM . " WHERE idprov = " . $id . " AND script = 'articles'", __LINE__, __FILE__);
 	
-	// Feeds Regeneration
+	
     import('content/syndication/feed');
     Feed::clear_cache('articles');
     
@@ -107,7 +107,7 @@ elseif (!empty($id))
 		'L_RESET' => $LANG['reset']
 	));
 		
-	//Catégories.
+	
 	$categories = '<option value="0">' . $LANG['root'] . '</option>';
 	$result = $Sql->query_while("SELECT id, level, name 
 	FROM " . PREFIX . "articles_cats
@@ -120,20 +120,20 @@ elseif (!empty($id))
 	}
 	$Sql->query_close($result);
 	
-	//Images disponibles
+	
 	$img_direct_path = (strpos($articles['icon'], '/') !== false);
 	$rep = './';
 	$image_list = '<option value=""' . ($img_direct_path ? ' selected="selected"' : '') . '>--</option>';
-	if (is_dir($rep)) //Si le dossier existe
+	if (is_dir($rep)) 
 	{
 		$img_array = array();
 		$dh = @opendir( $rep);
 		while (! is_bool($lang = readdir($dh)))
 		{
 			if (preg_match('`\.(gif|png|jpg|jpeg|tiff)+$`i', $lang))
-				$img_array[] = $lang; //On crée un tableau, avec les different fichiers.
+				$img_array[] = $lang; 
 		}
-		closedir($dh); //On ferme le dossier
+		closedir($dh); 
 
 		foreach ($img_array as $key => $img_path)
 		{	
@@ -172,7 +172,7 @@ elseif (!empty($id))
 		'DATE' => gmdate_format('date_format_short', $articles['timestamp'])	
 	));
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);
@@ -227,7 +227,7 @@ elseif (!empty($_POST['previs']) && !empty($id_post))
             break;
 	}
 	
-	//Catégories.	
+	
 	$i = 0;	
 	$categories = '<option value="0">' . $LANG['root'] . '</option>';
 	$result = $Sql->query_while("SELECT id, level, name 
@@ -242,20 +242,20 @@ elseif (!empty($_POST['previs']) && !empty($id_post))
 	}
 	$Sql->query_close($result);
 	
-	//Images disponibles
+	
 	$img_direct_path = (strpos($icon, '/') !== false);
 	$rep = './';
 	$image_list = '<option value=""' . ($img_direct_path ? ' selected="selected"' : '') . '>--</option>';
-	if (is_dir($rep)) //Si le dossier existe
+	if (is_dir($rep)) 
 	{
 		$img_array = array();
 		$dh = @opendir( $rep);
 		while (! is_bool($lang = readdir($dh)))
 		{	
 			if (preg_match('`\.(gif|png|jpg|jpeg|tiff)+$`i', $lang))
-				$img_array[] = $lang; //On crée un tableau, avec les different fichiers.
+				$img_array[] = $lang; 
 		}
-		closedir($dh); //On ferme le dossier
+		closedir($dh); 
 
 		foreach ($img_array as $key => $img_path)
 		{
@@ -338,7 +338,7 @@ elseif (!empty($_POST['previs']) && !empty($id_post))
 	
 	$Template->pparse('admin_articles_management'); 
 }
-elseif (!empty($_POST['valid']) && !empty($id_post)) //inject
+elseif (!empty($_POST['valid']) && !empty($id_post)) 
 {
 	$title = retrieve(POST, 'title', '');
 	$icon = retrieve(POST, 'icon', '');
@@ -355,7 +355,7 @@ elseif (!empty($_POST['valid']) && !empty($id_post)) //inject
 	if (!empty($icon_path))
 		$icon = $icon_path;
 			
-	//On met à jour la config de base du sondage
+	
 	if (!empty($title) && !empty($contents))
 	{
 		$start_timestamp = strtotimestamp($start, $LANG['date_format_short']);
@@ -368,12 +368,12 @@ elseif (!empty($_POST['valid']) && !empty($id_post)) //inject
 				$visible = 2;
 			elseif ($start_timestamp == 0)
 				$visible = 1;
-			else //Date inférieur à celle courante => inutile.
+			else 
 				$start_timestamp = 0;
 
 			if ($end_timestamp > time() && $end_timestamp > $start_timestamp && $start_timestamp != 0)
 				$visible = 2;
-			elseif ($start_timestamp != 0) //Date inférieur à celle courante => inutile.
+			elseif ($start_timestamp != 0) 
 				$end_timestamp = 0;
 		}
 		elseif ($get_visible == 1)
@@ -390,13 +390,13 @@ elseif (!empty($_POST['valid']) && !empty($id_post)) //inject
 		
 		$timestamp = strtotimestamp($current_date, $LANG['date_format_short']);
 		if ($timestamp > 0)
-			//Ajout des heures et minutes
+			
 			$timestamp += ($hour * 3600) + ($min * 60);
 		else
 			$timestamp = time();
 		
 		$cat_clause = ' ';
-		//Changement de catégorie parente?
+		
 		$articles_info = $Sql->query_array(PREFIX . "articles", "id", "idcat", "visible", "WHERE id = '" . $id_post . "'", __LINE__, __FILE__);		
 		if ($articles_info['idcat'] != $idcat && !empty($articles_info['id']))
 		{
@@ -411,7 +411,7 @@ elseif (!empty($_POST['valid']) && !empty($id_post)) //inject
 		
 		$Sql->query_inject("UPDATE " . PREFIX . "articles SET" . $cat_clause . "title = '" . $title . "', contents = '" . str_replace('[page][/page]', '', $contents) . "', icon = '" . $icon . "', visible = '" . $visible . "', start = '" .  $start_timestamp . "', end = '" . $end_timestamp . "', timestamp = '" . $timestamp . "' WHERE id = '" . $id_post . "'", __LINE__, __FILE__);
 		
-		// Feeds Regeneration
+		
         import('content/syndication/feed');
         Feed::clear_cache('articles');
 		
@@ -428,7 +428,7 @@ else
 	
 	$nbr_articles = $Sql->count_table('articles', __LINE__, __FILE__);
 	
-	//On crée une pagination si le nombre d'articles est trop important.
+	
 	import('util/pagination');
 	$Pagination = new Pagination();
 	
@@ -472,7 +472,7 @@ else
 		else
 			$aprob = $LANG['no'];
 
-		//On reccourci le lien si il est trop long pour éviter de déformer l'administration.
+		
 		$title = strlen($row['title']) > 45 ? substr_html($row['title'], 0, 45) . '...' : $row['title'];
 
 		$visible = '';

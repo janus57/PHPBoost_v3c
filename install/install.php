@@ -1,31 +1,31 @@
 <?php
-/*##################################################
- *                                install.php
- *                            -------------------
- *   begin                : September 27, 2008
- *   copyright            : (C) 2008    SAUTEL Benoit
- *   email                : ben.popeye@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
 
-//A personnaliser
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 define('UPDATE_VERSION', '3.0');
 define('DEFAULT_LANGUAGE', 'french');
 define('STEPS_NUMBER', 7);
@@ -45,18 +45,18 @@ define('PATH_TO_ROOT', '..');
 define('TPL_PATH_TO_ROOT', PATH_TO_ROOT);
 
 header('Content-type: text/html; charset=iso-8859-1');
-header('Cache-Control: no-cache, must-revalidate'); // HTTP/1.1
+header('Cache-Control: no-cache, must-revalidate'); 
 header('Pragma: no-cache');
 
-//Inclusion des fichiers
-require_once(PATH_TO_ROOT . '/kernel/framework/functions.inc.php'); //Fonctions de base.
-require_once(PATH_TO_ROOT . '/kernel/constant.php'); //Constante utiles.
+
+require_once(PATH_TO_ROOT . '/kernel/framework/functions.inc.php'); 
+require_once(PATH_TO_ROOT . '/kernel/constant.php'); 
 import('core/errors');
 import('io/template');
 
 @error_reporting(ERROR_REPORTING);
 
-$Errorh = new Errors; //!\\Initialisation  de la class des erreurs//!\\
+$Errorh = new Errors; 
 
 define('HOST', 'http://' . (!empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : getenv('HTTP_HOST')));
 $server_path = !empty($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : getenv('PHP_SELF');
@@ -69,15 +69,15 @@ $step = $step > STEPS_NUMBER ? 1 : $step;
 
 $lang = retrieve(GET, 'lang', DEFAULT_LANGUAGE);
 
-//Inclusion du fichier langue
+
 if (!@include_once('lang/' . $lang . '/install_' . $lang . '.php'))
 {
 	include_once('lang/' . DEFAULT_LANGUAGE . '/install_' . DEFAULT_LANGUAGE . '.php');
 	$lang = DEFAULT_LANGUAGE;
 }
-@include_once('../lang/' . $lang . '/errors.php'); //Inclusion fichier d'erreur.
+@include_once('../lang/' . $lang . '/errors.php'); 
 
-//Chargement de la configuration de la distribution
+
 if (is_file('distribution/distribution_' . $lang . '.php'))
 {
 	include('distribution/distribution_' . $lang . '.php');
@@ -95,28 +95,28 @@ else
 	}
 	else
 	{
-		//Distribution par défaut
-		//Nom de la distribution
+		
+		
 		define('DISTRIBUTION_NAME', 'Default distribution');
 		
-		//Description de la distribution
+		
 		define('DISTRIBUTION_DESCRIPTION', 'This distribution is the default distribution. You will manage to install PHPBoost with the default configuration but it will install only the kernel without any module.');
 		
-		//Thème de la distribution
+		
 		define('DISTRIBUTION_THEME', 'base');
 		
-		//Page de démarrage de la distribution (commencer à la racine du site avec /)
+		
 		define('DISTRIBUTION_START_PAGE', '/member/member.php');
 		
-		//Espace membre activé ? (Est-ce que les membres peuvent s'inscrire et participer au site ?)
+		
 		define('DISTRIBUTION_ENABLE_USER', false);
 		
-		//Liste des modules
+		
 		$DISTRIBUTION_MODULES = array();
 	}
 }
 
-//Création de l'utilisateur
+
 import('members/user');
 $user_data = array(
 	'm_user_id' => 1,
@@ -137,22 +137,22 @@ $user_data = array(
 $user_groups = array();
 $User = new User($user_data, $user_groups);
 
-//On vérifie que le dossier cache/tpl existe et est inscriptible, sans quoi on ne peut pas mettre en cache les fichiers et donc afficher l'installateur
+
 if (!is_dir('../cache') || !is_writable('../cache') || !is_dir('../cache/tpl') || !is_writable('../cache/tpl'))
 {
 	die($LANG['cache_tpl_must_exist_and_be_writable']);
 }
 	
-//Reprise de l'installation depuis le début
+
 if (retrieve(GET, 'restart', false))
 {
 	redirect(HOST . add_lang(FILE, true));
 }
 
-//Template d'installation
+
 $template = new Template('install/install.tpl', DO_NOT_AUTO_LOAD_FREQUENT_VARS);
 
-//Fonction pour gérer la langue
+
 function add_lang($url, $header_location = false)
 {
 	global $lang;
@@ -174,7 +174,7 @@ function add_lang($url, $header_location = false)
 	}
 }
 
-//Changement de langue
+
 $new_language = retrieve(POST, 'new_language', '');
 if (!empty($new_language) && is_file('lang/' . $new_language . '/install_' . $new_language . '.php') && $new_language != $lang)
 {
@@ -184,7 +184,7 @@ if (!empty($new_language) && is_file('lang/' . $new_language . '/install_' . $ne
 
 switch($step)
 {
-    //Préambule
+    
     case STEP_INTRO:
     	$template->assign_vars(array(
     		'C_INTRO' => true,
@@ -197,11 +197,11 @@ switch($step)
     		'L_START_INSTALL' => $LANG['start_install']
     	));
         break;
-    //Licence
+    
     case STEP_LICENSE:
     	$submit = !empty($_POST['submit']) ? true : false;
     	$license_agreement = !empty($_POST['license_agreement']) ? true : false;
-    	//On vérifie l'étape et si elle est validée on passe à la suivante
+    	
     	if ($submit && $license_agreement)
     	{
     		redirect(HOST . FILE . add_lang('?step=' . (STEP_LICENSE + 1), true));
@@ -221,9 +221,9 @@ switch($step)
     		'L_LICENSE_TERMS' => file_get_contents_emulate('license.txt')
     	));
     	break;
-    //Configuration du serveur
+    
     case STEP_SERVER_CONFIG:
-    	//Url rewriting
+    	
     	if (function_exists('apache_get_modules'))
     	{
     		$get_rewrite = apache_get_modules();
@@ -242,21 +242,21 @@ switch($step)
     		'C_URL_REWRITING_ENABLED' => $check_rewrite == 1
     	));
     	
-    	//Mise à jour du cache de Apache à propos du système de fichiers
+    	
     	@clearstatcache();
     	
     	$chmod_dir = array('../cache', '../cache/backup', '../cache/syndication', '../cache/tpl', '../images/avatars', '../images/group', '../images/maths', '../images/smileys', '../kernel/db', '../lang', '../menus', '../templates', '../upload');
     	
     	$all_dirs_ok = true;
     	
-    	//Vérifications et le cas échéant tentative de changement des autorisations en écriture.
+    	
     	foreach ($chmod_dir as $dir)
     	{
     		$is_writable = $is_dir = true;
-    		//If the file exists and is a directory
+    		
     		if (file_exists($dir) && is_dir($dir))
     		{
-    			//Si il n'est pas inscriptible, on demande à Apache de le rendre inscriptible en espérant qu'il soit configurer pour accepter de telles requêtes
+    			
     			if (!is_writable($dir))
     			{
     				$is_writable = (@chmod($dir, 0777)) ? true : false;
@@ -279,7 +279,7 @@ switch($step)
     		}
     	}
     	
-    	//On empêche de passer à l'étape suivant si cette étape n'est pas validée
+    	
     	if (retrieve(POST, 'submit', false))
     	{
     		if (!$all_dirs_ok)
@@ -327,7 +327,7 @@ switch($step)
     		'U_NEXT_STEP' => add_lang('install.php?step=' . (STEP_SERVER_CONFIG + 1))
     	));
         break;
-    //Mise en place de la base de données
+    
     case STEP_DB_CONFIG:
 
     	require_once('functions.php');
@@ -336,7 +336,7 @@ switch($step)
     	
     	if (retrieve(POST, 'submit', false))
     	{
-    		//Récupération de la configuration de connexion
+    		
     		$host = retrieve(POST, 'host', 'localhost');
     		$login = retrieve(POST, 'login', '');
     		$password = retrieve(POST, 'password', '');
@@ -353,15 +353,15 @@ switch($step)
     			$result = DB_UNKNOW_ERROR;
     		}
     			
-    		//If PHPBoost is already installed
+    		
     		if ($result == DB_CONFIG_ERROR_TABLES_ALREADY_EXIST)
     		{
-    		    //If the user has not said that he wants to overwrite the existing data, we show him the message
+    		    
     		    if (!retrieve(POST, 'overwrite_db', false))
     		    {
     		        $display_message_already_installed = true;
     		    }
-    		    //He wants to overwrite, we continue the installation
+    		    
     		    else
     		    {
     		         $result = DB_CONFIG_SUCCESS;
@@ -375,10 +375,10 @@ switch($step)
     				import('core/errors');
     				$Errorh = new Errors;
     				$Sql = new Sql();
-    	            //Connexion
+    	            
     				$Sql->connect($host, $login, $password, $database, ERRORS_MANAGEMENT_BY_RETURN);
     					
-    				//Création du fichier de configuration
+    				
     				import('io/filesystem/file');
     				
     				$file_path = '../kernel/db/config.php';
@@ -402,24 +402,24 @@ switch($step)
                         '}' . "\n" .
                         '?>';
     				
-    				//Ouverture du fichier kernel/db/config.php
+    				
     				$db_config_file = new File($file_path);
-    				//Ecriture de son contenu (les variables de configuration)
+    				
     				$db_config_file->write($db_config_content);
-    				//Fermeture du fichier dont on n'a plus besoin
+    				
     				$db_config_file->close();
     	
-    				//On crée la structure de la base de données et on y insère la configuration de base
+    				
     				$Sql->parse('db/mysql.sql', $tables_prefix);
-    				//Insertion des données variables selon la langue
+    				
     				$Sql->parse('lang/' . $lang . '/mysql_install_' . $lang . '.sql', $tables_prefix);
     				
-    				//Fermeture de la connexion BDD
+    				
     				$Sql->close();
     				
     				redirect(HOST . FILE . add_lang('?step=' . (STEP_DB_CONFIG + 1), true));
     				break;
-    			//This case has been treated before the switch
+    			
     			case DB_CONFIG_ERROR_TABLES_ALREADY_EXIST:
     			    $error = '';
     			    break;
@@ -434,7 +434,7 @@ switch($step)
     				$error = '<div class="error">' . $LANG['db_unknown_error'] . '</div>';
     		}
     	}
-    	//Default values for the variables
+    	
     	else
     	{
     	    $host = 'localhost';
@@ -502,9 +502,9 @@ switch($step)
     	    'L_ALREADY_INSTALLED_OVERWRITE' => $LANG['already_installed_overwrite']
     	));
     	break;
-    // Configuration du site
+    
     case STEP_SITE_CONFIG:
-    	//Variables serveur.
+    	
     	$server_path = !empty($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : getenv('PHP_SELF');
     	if (!$server_path)
     	{
@@ -514,7 +514,7 @@ switch($step)
     	$server_path = ($server_path == '/') ? '' : $server_path;
     	$server_name = 'http://' . (!empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : getenv('HTTP_HOST'));
     	
-    	//Enregistrement de la réponse
+    	
     	if (retrieve(POST, 'submit', false))
     	{
     		$server_url = strprotect(retrieve(POST, 'site_url', $server_name, TSTRING_AS_RECEIVED), HTML_PROTECT, ADDSLASHES_NONE);
@@ -526,7 +526,7 @@ switch($step)
             
     		$CONFIG = array();
     		$CONFIG['server_name'] = $server_url;
-    		//Si le chemin de PHPBoost n'est pas vide, on y ajoute un / devant
+    		
     		if ($server_path != '')
     		{
     			$CONFIG['server_path'] = '/' . $server_path;
@@ -572,26 +572,26 @@ switch($step)
     		$CONFIG['html_auth'] = array ('r2' => 1);
     		$CONFIG['forbidden_tags'] = array ();
     		
-            //Connexion à la base de données
+            
             require_once('functions.php');
     		load_db_connection();
     		
-    		//On insère dans la base de données
+    		
             $Sql->query_inject("UPDATE " . DB_TABLE_CONFIGS . " SET value = '" . addslashes(serialize($CONFIG)) . "' WHERE name = 'config'", __LINE__, __FILE__);
             
-    		//On installe la langue
+    		
     		$Sql->query_inject("INSERT INTO " . DB_TABLE_LANG . " (lang, activ, secure) VALUES ('" . strprotect($CONFIG['lang']) . "', 1, -1)", __LINE__, __FILE__);
     		
-    		//On installe le thème
+    		
     		$info_theme = load_ini_file('../templates/' . $CONFIG['theme'] . '/config/', get_ulang());
     		$Sql->query_inject("INSERT INTO " . DB_TABLE_THEMES . " (theme, activ, secure, left_column, right_column) VALUES ('" . strprotect($CONFIG['theme']) . "', 1, -1, '" . $info_theme['left_column'] . "', '" . $info_theme['right_column'] . "')", __LINE__, __FILE__);
     		
-    		//On génère le cache
+    		
     		include '../kernel/framework/core/cache.class.php';
     		include '../lang/' . $lang . '/main.php';
     		$Cache = new Cache;
     		
-            //Installation des modules de la distribution
+            
     		import('modules/packages_manager');
     		foreach ($DISTRIBUTION_MODULES as $module_name)
     		{
@@ -602,7 +602,7 @@ switch($step)
             $Cache->generate_file('modules');
             $Cache->load('modules', RELOAD_CACHE);
             
-            // Ajout du menu de lien par défaut tout en haut à gauche
+            
             import('core/menu_service');
             MenuService::enable_all(true);
             
@@ -621,14 +621,14 @@ switch($step)
     		redirect(HOST . FILE . add_lang('?step=' . (STEP_SITE_CONFIG + 1), true));
     	}
     		
-    	//Interface configuration du site
+    	
     	$template->assign_vars(array(
     		'C_SITE_CONFIG' => true,
     		'SITE_URL' => $server_name,
     		'SITE_PATH' => $server_path
     	));
     
-    	//Balayage des fuseaux horaires
+    	
     	$site_timezone = number_round(date('Z')/3600, 0) - (int)date('I');
     	for ($i = -12; $i <= 14; $i++)
     	{
@@ -679,10 +679,10 @@ switch($step)
     		'L_CONFIRM_SITE_PATH' => $LANG['confirm_site_path']
     	));
         break;
-    //Compte administrateur
+    
     case STEP_ADMIN_ACCOUNT:
     	$template->assign_block_vars('admin', array());
-    	//Validation de l'étape
+    	
     	if (retrieve(POST, 'submit', false))
     	{
     		import('io/mail');
@@ -736,21 +736,21 @@ switch($step)
     		}
     		$error = check_admin_account($login, $password, $password_repeat, $user_mail);
     
-    		//Si il n'y a pas d'erreur on enregistre dans la table
+    		
     		if (empty($error))
     		{
     			require_once('functions.php');
     			load_db_connection();
     			
-    			//On crée le code de déverrouillage
+    			
     			import('core/cache');
     			$Cache = new Cache;
     			$Cache->load('config');
     			
-    			//On enregistre le membre (l'entrée était au préalable créée)
+    			
     			$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET login = '" . strprotect($login) . "', password = '" . strhash($password) . "', level = '2', user_lang = '" . $CONFIG['lang'] . "', user_theme = '" . $CONFIG['theme'] . "', user_mail = '" . $user_mail . "', user_show_mail = '1', timestamp = '" . time() . "', user_aprob = '1', user_timezone = '" . $CONFIG['timezone'] . "' WHERE user_id = '1'",__LINE__, __FILE__);
     			
-    			//Génération de la clé d'activation, en cas de verrouillage de l'administration
+    			
     			$unlock_admin = substr(strhash(uniqid(mt_rand(), true)), 0, 12);
     			$CONFIG['unlock_admin'] = strhash($unlock_admin);
     			$CONFIG['mail_exp'] = $user_mail;
@@ -760,7 +760,7 @@ switch($step)
     			
     			$Cache->Generate_file('config');
     			
-    			//Configuration des membres
+    			
     			$Cache->load('member');
     			
     			$CONFIG_USER['activ_register'] = (int)DISTRIBUTION_ENABLE_USER;
@@ -771,35 +771,35 @@ switch($step)
     			
     			$Cache->generate_file('member');
     			
-    			//On envoie un mail à l'administrateur
+    			
     			$LANG['admin'] = '';
     			import('io/mail');
     			$mail = new Mail();
     			
-    			//Paramètres du mail
+    			
     			$mail->set_sender('admin');
     			$mail->set_recipients($user_mail);
     			$mail->set_object($LANG['admin_mail_object']);
     			$mail->set_content(sprintf($LANG['admin_mail_unlock_code'], stripslashes($login), stripslashes($login), $password, $unlock_admin, HOST . DIR));
     			
-    			//On envoie le mail
+    			
     			$mail->send();
     			
-    			//On connecte directement l'administrateur si il l'a demandé
+    			
     			if ($create_session)
     			{
     				import('members/session');
     				$Session = new Session;
     				
-    				//Remise à zéro du compteur d'essais.
+    				
     				$Sql->query_inject("UPDATE " . DB_TABLE_MEMBER . " SET last_connect='" . time() . "' WHERE user_id = '1'", __LINE__, __FILE__);
-    				//Lancement de la session (avec ou sans autoconnexion selon la demande de l'utilisateur)
+    				
     				$Session->start(1, $password, 2, '/install/install.php', '', $LANG['page_title'], $auto_connection);
     			}
     			
     			$Cache->generate_file('stats');
     			
-    			//On redirige vers l'étape suivante
+    			
     			redirect(HOST . FILE . add_lang('?step=' . (STEP_ADMIN_ACCOUNT + 1), true));
     		}
     		else
@@ -845,7 +845,7 @@ switch($step)
     		'CHECKED_CREATE_SESSION' => !empty($error) ? ($create_session ? 'checked="checked"' : '') : 'checked="checked"'
     	));
         break;
-    //Fin
+    
     case STEP_END:
     	require_once('functions.php');
     	load_db_connection();
@@ -934,13 +934,13 @@ $template->assign_vars(array(
 	'U_RESTART' => add_lang('install.php')
 ));
 
-//Images de la barre de progression
+
 for ($i = 1; $i <= floor($steps[$step - 1][2] * 24 / 100); $i++)
 {
 	$template->assign_block_vars('progress_bar', array());
 }
 
-//Etapes de l'installation
+
 for ($i = 1; $i <= STEPS_NUMBER; $i++)
 {
 	if ($i < $step)

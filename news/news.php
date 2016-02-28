@@ -1,38 +1,38 @@
 <?php
-/*##################################################
- *                                news.php
- *                            -------------------
- *   begin              : June 20, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email              : crowkait@phpboost.com
- *
- *
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 require_once('../news/news_begin.php');
 require_once('../kernel/header.php');
 
-//$idnews, $idcat, $show_archive définies dans news_begin.php
+
 
 $is_admin = $User->check_level(ADMIN_LEVEL);
-if (empty($idnews) && empty($idcat)) // Accueil du module de news
+if (empty($idnews) && empty($idcat)) 
 {
 	import('modules/modules_discovery_service');
 	$modulesLoader = new ModulesDiscoveryService();
@@ -48,7 +48,7 @@ if (empty($idnews) && empty($idcat)) // Accueil du module de news
 		exit;
 	}
 }
-elseif (!empty($idnews)) //On affiche la news correspondant à l'id envoyé.
+elseif (!empty($idnews)) 
 {
 	if (empty($news['id']))
 		$Errorh->handler('e_unexist_news', E_USER_REDIRECT);
@@ -131,7 +131,7 @@ elseif (!empty($idcat))
 	}
 }
 	
-//Affichage commentaires.
+
 if (isset($_GET['com']) && $idnews > 0)
 {
 	$tpl_news->assign_vars(array(

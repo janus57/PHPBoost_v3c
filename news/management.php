@@ -1,33 +1,33 @@
 <?php
-/*##################################################
- *                               management.php
- *                            -------------------
- *   begin                :  August 13, 2008
- *   copyright          : (C) 2008 Viarre Régis
- *   email                : regis.viarre@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 
-load_module_lang('news'); //Chargement de la langue du module.
+load_module_lang('news'); 
 $Cache->load('news');
 
 import('util/date');
@@ -40,7 +40,7 @@ $submit = retrieve(POST, 'submit', false);
 $selected_cat = retrieve(GET, 'idcat', 0);
 $delete_news = retrieve(GET, 'del', 0);
 
-//Form variables
+
 $news_title = retrieve(POST, 'title', '');
 $news_image = retrieve(POST, 'image', '');
 $news_contents = retrieve(POST, 'contents', '', TSTRING_UNCHANGE);
@@ -50,7 +50,7 @@ $news_cat_id = retrieve(POST, 'idcat', 0);
 $news_visibility = retrieve(POST, 'visibility', 0);
 $ignore_release_date = retrieve(POST, 'ignore_release_date', false);
 
-//Instanciations of objects required
+
 $news_creation_date = new Date(DATE_FROM_STRING, TIMEZONE_AUTO, retrieve(POST, 'creation', '', TSTRING_UNCHANGE), $LANG['date_format_short']);
 
 if (!$ignore_release_date)
@@ -62,7 +62,7 @@ else
 $begining_date = new Date(DATE_FROM_STRING, TIMEZONE_AUTO, retrieve(POST, 'begining_date', '', TSTRING_UNCHANGE), $LANG['date_format_short']);
 $end_date = new Date(DATE_FROM_STRING, TIMEZONE_AUTO, retrieve(POST, 'end_date', '', TSTRING_UNCHANGE), $LANG['date_format_short']);
 
-//Deleting a news
+
 if ($delete_news > 0)
 {
 	$news_infos = $Sql->query_array(PREFIX . 'news', '*', "WHERE id = '" . $delete_news . "'", __LINE__, __FILE__);
@@ -72,17 +72,17 @@ if ($delete_news > 0)
 	if ($news_categories->check_auth($news_infos['idcat']))
 	{
 		$Sql->query_inject("DELETE FROM " . PREFIX . "news WHERE id = '" . $delete_news . "'", __LINE__, __FILE__);
-		//Deleting comments if the news has
+		
 		if ($news_infos['nbr_com'] > 0)
 		{
 			import('content/comments');
 			$Comments = new Comments('news', $delete_news, url('news.php?id=' . $delete_news . '&amp;com=%s', 'news-' . $delete_news . '.php?com=%s'));
-			//$Comments->set_arg($news_id);
+			
 			$Comments->delete_all($delete_news);
 		}
 		redirect(HOST. DIR . '/news/' . ($news_infos['idcat'] > 0 ? url('news.php?cat=' . $news_infos['idcat'], 'category-' . $news_infos['idcat'] . '+' . url_encode_rewrite($NEWS_CATS[$news_infos['idcat']]['name']) . '.php') : url('news.php')));
         
-        // Feeds Regeneration
+        
         import('content/syndication/feed');
         Feed::clear_cache('news');
 	}
@@ -96,7 +96,7 @@ elseif ($edit_news_id > 0)
 		redirect(HOST. DIR . url('/news/news.php'));
 	define('TITLE', $NEWS_LANG['news_management']);
 	
-	//Barre d'arborescence
+	
 	$auth_write = $User->check_auth($CONFIG_NEWS['global_auth'], WRITE_CAT_NEWS);
 	
 	$Bread_crumb->add($NEWS_LANG['news_management'], url('management.php?edit=' . $edit_news_id));
@@ -105,7 +105,7 @@ elseif ($edit_news_id > 0)
 	
 	$id_cat = $news_infos['idcat'];
 
-	//Bread_crumb : we read categories list recursively
+	
 	while ($id_cat > 0)
 	{
 		$Bread_crumb->add($NEWS_CATS[$id_cat]['name'], url('news.php?id=' . $id_cat, 'category-' . $id_cat . '+' . url_encode_rewrite($NEWS_CATS[$id_cat]['name']) . '.php'));
@@ -141,7 +141,7 @@ if ($edit_news_id > 0)
 {
 	if ($submit)
 	{
-		//The form is ok
+		
 		if (!empty($news_title) && $news_categories->check_auth($news_cat_id) && !empty($news_url) && !empty($news_contents))
 		{
 			$visible = 1;
@@ -169,25 +169,25 @@ if ($edit_news_id > 0)
 			
 			$Sql->query_inject("UPDATE " . PREFIX . "news SET title = '" . $news_title . "', idcat = '" . $news_cat_id . "', url = '" . $news_url . "', size = '" . $news_size . "', count = '" . $news_hits . "', contents = '" . strparse($news_contents) . "', short_contents = '" . strparse($news_short_contents) . "', image = '" . $news_image . "', timestamp = '" . $news_creation_date->get_timestamp() . "', release_timestamp = '" . ($ignore_release_date ? 0 : $news_release_date->get_timestamp()) . "', start = '" . $start_timestamp . "', end = '" . $end_timestamp . "', visible = '" . $visible . "' WHERE id = '" . $edit_news_id . "'", __LINE__, __FILE__);
 			
-			//Updating the number of subnewss in each category
+			
 			if ($news_cat_id != $news_infos['idcat'])
 			{
 				$news_categories->Recount_sub_newss();
 			}
             
-            // Feeds Regeneration
+            
             import('content/syndication/feed');
             Feed::clear_cache('news');
             
 			redirect(HOST . DIR . '/news/' . url('news.php?id=' . $edit_news_id, 'news-' . $edit_news_id . '+' . url_encode_rewrite($news_title) . '.php'));
 		}
-		//Error (which souldn't happen because of the javascript checking)
+		
 		else
 		{
 			redirect(HOST . DIR . '/news/' . url('news.php'));
 		}
 	}
-	//Previewing a news
+	
 	elseif ($preview)
 	{
 		$begining_calendar = new MiniCalendar('begining_date');
@@ -205,7 +205,7 @@ if ($edit_news_id > 0)
 		else
 			$size_tpl = $NEWS_LANG['unknown_size'];
 		
-		//Crï¿½ation des calendriers
+		
 		$creation_calendar = new MiniCalendar('creation');
 		$creation_calendar->set_date($news_creation_date);
 		$release_calendar = new MiniCalendar('release_date');
@@ -231,7 +231,7 @@ if ($edit_news_id > 0)
 			'U_IMG' => $news_image,
 			'IMAGE_ALT' => str_replace('"', '\"', $news_title),
 			'LANG' => get_ulang(),
-			// Those langs are required by the template inclusion
+			
 			'L_DATE' => $LANG['date'],
 			'L_SIZE' => $LANG['size'],
 			'L_NEWS' => $NEWS_LANG['news'],
@@ -267,7 +267,7 @@ if ($edit_news_id > 0)
 			'END_CALENDAR' => $end_calendar->display(),
 		));
 	}
-	//Default formulary, with news infos from the database
+	
 	else
 	{
 		$news_creation_date = new Date(DATE_TIMESTAMP, TIMEZONE_AUTO, $news_infos['timestamp']);
@@ -321,12 +321,12 @@ if ($edit_news_id > 0)
 		));
 	}
 }
-//Adding a news
+
 elseif ($add_news)
 {
 	if ($submit)
 	{
-		//The form is ok
+		
 		if (!empty($news_title) && $news_categories->check_auth($news_cat_id) && !empty($news_url) && !empty($news_contents))
 		{
 			$visible = 1;
@@ -356,25 +356,25 @@ elseif ($add_news)
 			
 			$new_id_news = $Sql->insert_id("SELECT MAX(id) FROM " . PREFIX . "news");
 			
-			//Updating the number of subnewss in each category
+			
 			if ($news_cat_id != $news_infos['idcat'])
 			{
 				$news_categories->Recount_sub_newss();
 			}
             
-            // Feeds Regeneration
+            
             import('content/syndication/feed');
             Feed::clear_cache('news');
             
 			redirect(HOST . DIR . '/news/' . url('news.php?id=' . $new_id_news, 'news-' . $new_id_news . '+' . url_encode_rewrite($news_title) . '.php'));
 		}
-		//Error (which souldn't happen because of the javascript checking)
+		
 		else
 		{
 			redirect(HOST . DIR . '/news/' . url('news.php'));
 		}
 	}
-	//Previewing a news
+	
 	elseif ($preview)
 	{
 		$begining_calendar = new MiniCalendar('begining_date');
@@ -392,7 +392,7 @@ elseif ($add_news)
 		else
 			$size_tpl = $NEWS_LANG['unknown_size'];
 		
-		//Crï¿½ation des calendriers
+		
 		$creation_calendar = new MiniCalendar('creation');
 		$creation_calendar->set_date($news_creation_date);
 		$release_calendar = new MiniCalendar('release_date');
@@ -418,7 +418,7 @@ elseif ($add_news)
 			'U_IMG' => $news_image,
 			'IMAGE_ALT' => str_replace('"', '\"', $news_title),
 			'LANG' => get_ulang(),
-			// Those langs are required by the template inclusion
+			
 			'L_DATE' => $LANG['date'],
 			'L_SIZE' => $LANG['size'],
 			'L_NEWS' => $NEWS_LANG['news'],

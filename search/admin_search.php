@@ -1,72 +1,72 @@
 <?php
-/*##################################################
- *                               admin_forum_config.php
- *                            -------------------
- *   begin                : March 22, 2008
- *   copyright            : (C) 2008 LoÃ¯c Rouchon
- *   email                : horn@phpboost.com
- *
- *
- *
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 
-//------------------------------------------------------------------- Language
-load_module_lang('search'); //Chargement de la langue du module.
+
+load_module_lang('search'); 
 define('TITLE', $LANG['administration']);
 
-//--------------------------------------------------------------------- Header
+
 require_once('../admin/admin_header.php');
 
-//--------------------------------------------------------------------- Params
+
 $clearOutCache = !empty($_GET['clear']) ? true : false;
 $weighting = retrieve(GET, 'weighting', false);
 
 $Cache->load('search');
 
-//Si c'est confirmé on execute
+
 if (!empty($_POST['valid']))
 {
     if (!$weighting)
     {
-        // Configuration de la classe search.class.php
+        
         $CONFIG['search_cache_time'] = retrieve(POST, 'cache_time', 15);
         $CONFIG['search_max_use'] = retrieve(POST, 'max_use', 200);
 
-        // Configuration du module 'Search'
+        
         if (!is_array($SEARCH_CONFIG))
         $SEARCH_CONFIG = array();
         $SEARCH_CONFIG['nb_results_per_page'] = retrieve(POST, 'nb_results_p', 15);
         $SEARCH_CONFIG['unauthorized_modules'] = retrieve(POST, 'authorized_modules', array());
         
-        // Enregistrement des modifications de la config
+        
         $config_string = addslashes(serialize($CONFIG));
         $request = "UPDATE " . DB_TABLE_CONFIGS . " SET value = '".$config_string."' WHERE name = 'config'";
         $Sql->query_inject($request, __LINE__, __FILE__);
 
-        // Enregistrement des modifications de la config du module 'Search'
+        
         $search_cfg = addslashes(serialize($SEARCH_CONFIG));
         $request = "UPDATE " . DB_TABLE_CONFIGS . " SET value = '".$search_cfg."' WHERE name = 'search'";
         $Sql->query_inject($request, __LINE__, __FILE__);
 
-        // Génération des nouveaux fichiers de cache
+        
         $Cache->Generate_file('config');
         $Cache->Generate_module_file('search');
 
@@ -79,7 +79,7 @@ if (!empty($_POST['valid']))
 		$Modules = new ModulesDiscoveryService();
 		$searchModules = $Modules->get_available_modules('get_search_request');
 
-        // Configuration du module 'Search'
+        
 		foreach ($searchModules as $module)
 		{
 			if (!in_array($module->get_id(), $SEARCH_CONFIG['unauthorized_modules']))
@@ -88,18 +88,18 @@ if (!empty($_POST['valid']))
 			}
 		}
 
-        // Enregistrement des modifications de la config du module 'Search'
+        
         $search_cfg = addslashes(serialize($SEARCH_CONFIG));
         $request = "UPDATE " . DB_TABLE_CONFIGS . " SET value = '".$search_cfg."' WHERE name = 'search'";
         $Sql->query_inject($request, __LINE__, __FILE__);
 
-        // Génération des nouveaux fichiers de cache
+        
         $Cache->Generate_module_file('search');
 
         redirect(HOST . SCRIPT . '?weighting=true');
     }
 }
-elseif ($clearOutCache) // On vide le contenu du cache de la recherche
+elseif ($clearOutCache) 
 {
     $Sql->query_inject("TRUNCATE " . PREFIX . "search_results", __LINE__, __FILE__);
     $Sql->query_inject("TRUNCATE " . PREFIX . "search_index", __LINE__, __FILE__);
@@ -188,7 +188,7 @@ else
     $Tpl->parse();
 }
 
-//--------------------------------------------------------------------- Footer
+
 require_once('../admin/admin_footer.php');
 
 ?>

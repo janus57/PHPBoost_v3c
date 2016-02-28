@@ -1,35 +1,35 @@
 <?php
-/*##################################################
- *                               web.php
- *                            -------------------
- *   begin                : July 28, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 require_once('../web/web_begin.php'); 
 require_once('../kernel/header.php'); 
 
-if (!empty($idweb) && !empty($CAT_WEB[$idcat]['name']) && !empty($idcat)) //Contenu du lien.
+if (!empty($idweb) && !empty($CAT_WEB[$idcat]['name']) && !empty($idcat)) 
 {
 	$Template->set_filenames(array('web'=> 'web/web.tpl'));
 	
@@ -64,7 +64,7 @@ if (!empty($idweb) && !empty($CAT_WEB[$idcat]['name']) && !empty($idcat)) //Cont
 		'DEL' => $del
 	));
 		
-	//Affichage notation.
+	
 	import('content/note'); 
 	$Note = new Note('web', $idweb, url('web.php?cat=' . $idcat . '&amp;id=' . $idweb, 'web-' . $idcat . '-' . $idweb . '.php'), $CONFIG_WEB['note_max'], '', NOTE_DISPLAY_NOTE);
 	
@@ -92,7 +92,7 @@ if (!empty($idweb) && !empty($CAT_WEB[$idcat]['name']) && !empty($idcat)) //Cont
 		'L_VIEWS' => $LANG['views']
 	));
 	
-	//Affichage commentaires.
+	
 	if (isset($_GET['com']))
 	{
 		$Template->assign_vars(array(
@@ -102,7 +102,7 @@ if (!empty($idweb) && !empty($CAT_WEB[$idcat]['name']) && !empty($idcat)) //Cont
 
 	$Template->pparse('web');
 }
-elseif (!empty($idcat) && empty($idweb)) //Catégories.
+elseif (!empty($idcat) && empty($idweb)) 
 {
 	$Template->set_filenames(array('web'=> 'web/web.tpl'));
 	
@@ -162,7 +162,7 @@ elseif (!empty($idcat) && empty($idweb)) //Catégories.
 	$mode = ($get_mode == 'asc') ? 'ASC' : 'DESC';	
 	$unget = (!empty($get_sort) && !empty($mode)) ? '?sort=' . $get_sort . '&amp;mode=' . $get_mode : '';
 
-	//On crée une pagination si le nombre de lien est trop important.
+	
 	import('util/pagination'); 
 	$Pagination = new Pagination();
 		
@@ -170,7 +170,7 @@ elseif (!empty($idcat) && empty($idweb)) //Catégories.
 		'PAGINATION' => $Pagination->display('web' . url('.php' . (!empty($unget) ? $unget . '&amp;' : '?') . 'cat=' . $idcat . '&amp;p=%d', '-' . $idcat . '-0-%d.php' . (!empty($unget) ? '?' . $unget : '')), $nbr_web, 'p', $CONFIG_WEB['nbr_web_max'], 3)
 	));
 
-	//Notes
+	
 	import('content/note');
 
 	$result = $Sql->query_while("SELECT id, title, timestamp, compt, note, nbrnote, nbr_com
@@ -180,8 +180,8 @@ elseif (!empty($idcat) && empty($idweb)) //Catégories.
 	$Sql->limit($Pagination->get_first_msg($CONFIG_WEB['nbr_web_max'], 'p'), $CONFIG_WEB['nbr_web_max']), __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		//On reccourci le lien si il est trop long.
-		$row['title'] = (strlen($row['title']) > 45 ) ? substr(html_entity_decode($row['title']), 0, 45) . '...' : $row['title'];
+		
+		$row['title'] = (strlen($row['title']) > 45 ) ? substr(html_entity_decode($row['title'], ENT_COMPAT, 'ISO-8859-1'), 0, 45) . '...' : $row['title'];
 		
 		$Template->assign_block_vars('web', array(			
 			'NAME' => $row['title'],
@@ -206,7 +206,7 @@ else
 	WHERE w.aprob = 1 AND wc.aprob = 1 AND wc.secure <= '" . $User->get_attribute('level') . "'", __LINE__, __FILE__);
 	$total_cat = $Sql->query("SELECT COUNT(*) as compt FROM " . PREFIX . "web_cat WHERE aprob = 1 AND secure <= '" . $User->get_attribute('level') . "'", __LINE__, __FILE__);
 	
-	//On crée une pagination si le nombre de catégories est trop important.
+	
 	import('util/pagination'); 
 	$Pagination = new Pagination();
 
@@ -224,7 +224,7 @@ else
 		'U_WEB_ADD' => url('.php?web=true')
 	));
 	
-	//Catégorie disponibles	
+	
 	$column_width = floor(100/$CONFIG_WEB['nbr_column']);
 	$result = $Sql->query_while(
 	"SELECT aw.id, aw.name, aw.contents, aw.icon, COUNT(w.id) as count

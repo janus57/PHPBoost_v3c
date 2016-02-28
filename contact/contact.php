@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               contact.php
- *                            -------------------
- *   begin                : July 29, 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php');
 require_once('../contact/contact_begin.php');
@@ -42,27 +42,27 @@ $captcha->set_difficulty($CONFIG_CONTACT['contact_difficulty_verifcode']);
 ###########################Envoi##############################
 if (!empty($mail_valid))
 {
-    //Code de vérification si activé
-    if (!$CONFIG_CONTACT['contact_verifcode'] || $captcha->is_valid()) //Code de vérification si activé
+    
+    if (!$CONFIG_CONTACT['contact_verifcode'] || $captcha->is_valid()) 
     {
         import('io/mail');
         $mail = new Mail();
 
-        if ($mail->send_from_properties($CONFIG['mail'], $mail_object, $mail_contents, $mail_from, '', 'user')) //Succès mail
+        if ($mail->send_from_properties($CONFIG['mail'], $mail_object, $mail_contents, $mail_from, '', 'user')) 
         {
             $get_error = 'success';
         }
-        else //Erreur mail
+        else 
         {
             $get_error = 'error';
         }
     }
-    else //Champs incomplet!
+    else 
     {
         $get_error = 'verif';
     }
 }
-elseif (!empty($_POST['mail_valid']) && ( empty($mail_email) || empty($mail_contents) )) //Champs incomplet!
+elseif (!empty($_POST['mail_valid']) && ( empty($mail_email) || empty($mail_contents) )) 
 {
     $get_error = 'incomplete';
 }
@@ -72,7 +72,7 @@ $Template->set_filenames(array(
 	'contact'=> 'contact/contact.tpl'
 ));
 
-//Gestion erreur.
+
 if ($get_error == 'incomplete')
 {
     $Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);
@@ -81,16 +81,16 @@ elseif ($get_error == 'verif')
 {
     $Errorh->handler($LANG['e_incorrect_verif_code'], E_USER_WARNING);
 }
-elseif ($get_error == 'success')//Message de succés.
+elseif ($get_error == 'success')
 {
     $Errorh->handler($LANG['success_mail'], E_USER_SUCCESS);
 }
-elseif ($get_error == 'error')//Message de succés.
+elseif ($get_error == 'error')
 {
     $Errorh->handler($LANG['error_mail'], E_USER_WARNING);
 }
 
-//Code de vérification, anti-bots.
+
 if ($captcha->is_available() && $CONFIG_CONTACT['contact_verifcode'])
 {
     $Template->assign_vars(array(

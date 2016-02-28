@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                             forum_tools.php
- *                            -------------------
- *   begin                : March 26, 2008
- *   copyright          : (C) 2008 Viarre régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if (defined('PHPBOOST') !== true)	
 	exit;
@@ -38,10 +38,10 @@ $is_guest = ($User->get_attribute('user_id') !== -1) ? false : true;
 $nbr_msg_not_read = 0;
 if (!$is_guest)
 {
-	//Calcul du temps de péremption, ou de dernière vue des messages par à rapport à la configuration.
+	
 	$max_time_msg = forum_limit_time_msg();
 	
-	//Vérification des autorisations.
+	
 	$unauth_cats = '';
 	if (is_array($AUTH_READ_FORUM))
 	{
@@ -53,7 +53,7 @@ if (!$is_guest)
 		$unauth_cats = !empty($unauth_cats) ? " AND c.id NOT IN (" . trim($unauth_cats, ',') . ")" : '';
 	}
 
-	//Si on est sur un topic, on le supprime dans la requête => si ce topic n'était pas lu il ne sera plus dans la liste car désormais lu.
+	
 	$clause_topic = '';
 	if (strpos(SCRIPT, '/forum/topic.php') !== false)
 	{
@@ -61,7 +61,7 @@ if (!$is_guest)
 		$clause_topic = " AND t.id != '" . $id_get . "'";
 	}
 	
-	//Requête pour compter le nombre de messages non lus.
+	
 	$nbr_msg_not_read = $Sql->query("SELECT COUNT(*)
 	FROM " . PREFIX . "forum_topics t
 	LEFT JOIN " . PREFIX . "forum_cats c ON c.id = t.idcat
@@ -69,7 +69,7 @@ if (!$is_guest)
 	WHERE t.last_timestamp >= '" . $max_time_msg . "' AND (v.last_view_id != t.last_msg_id OR v.last_view_id IS NULL)" . $clause_topic . $unauth_cats, __LINE__, __FILE__);
 }
 
-//Formulaire de connexion sur le forum.
+
 if ($CONFIG_FORUM['display_connexion'])
 {
 	$Template->assign_vars(array(	

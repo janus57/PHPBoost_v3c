@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               history.php
- *                            -------------------
- *   begin                : October 09, 2006
- *   copyright          : (C) 2006 Sautel Benoit
- *   email                : ben.popeye@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 load_module_lang('wiki');
@@ -57,7 +57,7 @@ if (!empty($id_article))
 	$restore_auth = (!$general_auth || $User->check_auth($_WIKI_CONFIG['auth'], WIKI_RESTORE_ARCHIVE)) && ($general_auth || $User->check_auth($article_auth , WIKI_RESTORE_ARCHIVE)) ? true : false;
 	$delete_auth = (!$general_auth || $User->check_auth($_WIKI_CONFIG['auth'], WIKI_DELETE_ARCHIVE)) && ($general_auth || $User->check_auth($article_auth , WIKI_DELETE_ARCHIVE)) ? true : false;
 	
-	//on va chercher le contenu de la page
+	
 	$result = $Sql->query_while("SELECT a.title, a.encoded_title, c.timestamp, c.id_contents, c.user_id, c.user_ip, m.login, c.id_article, c.activ
 		FROM " . PREFIX . "wiki_contents c
 		LEFT JOIN " . PREFIX . "wiki_articles a ON a.id = c.id_article
@@ -67,10 +67,10 @@ if (!empty($id_article))
 	
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		//Restauration
+		
 		$actions = ($row['activ'] != 1 && $restore_auth) ? '<a href="' . url('action.php?restore=' . $row['id_contents']. '&amp;token=' . $Session->get_token()) . '" title="' . $LANG['wiki_restore_version'] . '"><img src="templates/images/restore.png" alt="' . $LANG['wiki_restore_version'] . '" /></a> &nbsp; ' : '';
 		
-		//Suppression
+		
 		$actions .= ($row['activ'] != 1 && $delete_auth) ? '<a href="' . url('action.php?del_contents=' . $row['id_contents']. '&amp;token=' . $Session->get_token()) . '" title="' . $LANG['delete'] . '" onclick="javascript: return confirm(\'' . str_replace('\'', '\\\'', $LANG['wiki_confirm_delete_archive']) . '\');"><img src="' . $Template->get_module_data_path('wiki') . '/images/delete.png" alt="' . $LANG['delete'] . '" /></a>' : '';
 		
 		
@@ -94,18 +94,18 @@ if (!empty($id_article))
 	
 	$Template->pparse('wiki_history');	
 }
-else //On affiche la liste des modifications 
+else 
 {
 	$_WIKI_NBR_ARTICLES_A_PAGE_IN_HISTORY = 25;
 	
-	//Champs sur lesquels on ordonne
+	
 	$field = ($field == 'title') ? 'title' : 'timestamp';
 	$order = $order == 'asc' ? 'asc' : 'desc';
 	
-	//On compte le nombre d'articles
+	
 	$nbr_articles = $Sql->query("SELECT COUNT(*) FROM " . PREFIX . "wiki_articles WHERE redirect = '0'", __LINE__, __FILE__);
 	
-	//On instancie la classe de pagination
+	
 	import('util/pagination');
 	$Pagination = new Pagination();
 	$show_pagin = $Pagination->display(url('history.php?field=' . $field . '&amp;order=' . $order . '&amp;p=%d'), $nbr_articles, 'p', $_WIKI_NBR_ARTICLES_A_PAGE_IN_HISTORY, 3); 
@@ -121,7 +121,7 @@ else //On affiche la liste des modifications
 		'ARROW_BOTTOM_TITLE' => ($field == 'title' && $order == 'desc') ? '' : '<a href="' . url('history.php?p=' . $Pagination->page . '&amp;field=title&amp;order=desc') . '"><img src="../templates/' . get_utheme() . '/images/bottom.png" alt="desc" /></a>',
 		'ARROW_TOP_DATE' => ($field == 'timestamp' && $order == 'asc') ? '' : '<a href="' . url('history.php?p=' . $Pagination->page . '&amp;field=timestamp&amp;order=asc') . '"><img src="../templates/' . get_utheme() . '/images/top.png" alt="asc" /></a>',
 		'ARROW_BOTTOM_DATE' => ($field == 'timestamp' && $order == 'desc') ? '' : '<a href="' . url('history.php?p=' . $Pagination->page . '&amp;field=timestamp&amp;order=desc') . '"><img src="../templates/' . get_utheme() . '/images/bottom.png" alt="desc" /></a>',
-		'PAGINATION' => ($nbr_articles > $_WIKI_NBR_ARTICLES_A_PAGE_IN_HISTORY  ?  $show_pagin : '') //Affichage de la pagination si il le faut
+		'PAGINATION' => ($nbr_articles > $_WIKI_NBR_ARTICLES_A_PAGE_IN_HISTORY  ?  $show_pagin : '') 
 	));	
 
 	$result = $Sql->query_while("SELECT a.title, a.encoded_title, c.timestamp, c.id_contents AS id, c.user_id, c.user_ip, m.login, c.id_article, c.activ,  a.id_contents

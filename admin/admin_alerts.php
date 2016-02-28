@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                              admin_alerts.php
- *                            -------------------
- *   begin                : August 30, 2008
- *   copyright            : (C) 2008 Sautel Benoit
- *   email                : ben.popeye@phpboost.com
- *
- *   
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
@@ -39,7 +39,7 @@ import('util/pagination');
 
 $pagination = new Pagination();
 
-//Gestion des critères de tri
+
 $criteria = retrieve(GET, 'criteria', 'current_status');
 $order = retrieve(GET, 'order', 'asc');
 
@@ -47,7 +47,7 @@ if (!in_array($criteria, array('entitled', 'current_status', 'creation_date', 'p
 	$criteria = 'current_status';
 $order = $order == 'desc' ? 'desc' : 'asc';
 
-//On va chercher la liste des alertes
+
 $alerts_list = AdministratorAlertService::get_all_alerts($criteria, $order, ($pagination->_get_var_page('p') - 1) * NUM_ALERTS_PER_PAGE, NUM_ALERTS_PER_PAGE);
 foreach ($alerts_list as $alert)
 {

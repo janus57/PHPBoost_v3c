@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                             connect_mini.php
- *                            -------------------
- *   begin                : December 10, 2007
- *   copyright            : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if (defined('PHPBOOST') !== true) exit;
 
@@ -35,30 +35,30 @@ function connect_mini($position, $block)
     $tpl = new Template('connect/connect_mini.tpl');
     import('core/menu_service');
     MenuService::assign_positions_conditions($tpl, $block);
-    if ($User->check_level(MEMBER_LEVEL)) //Connecté.
+    if ($User->check_level(MEMBER_LEVEL)) 
     {
-    	//Vaut 0 si l'utilisateur n'a aucune contribution. Est > 0 si on connait le nombre de contributions
-    	//Vaut -1 si l'utilisateur a au moins une contribution (mais on ne sait pas combien à cause des recoupements entre les groupes)
+    	
+    	
     	$contribution_number = 0;
     	
-    	//Panneau de contributions, y-a-t'il des contributions que le membre peut lire ?
+    	
     	if ($User->check_level(ADMIN_LEVEL))
     		$contribution_number = $CONTRIBUTION_PANEL_UNREAD['r2'];
     	elseif ($User->check_level(MODERATOR_LEVEL))
     		$contribution_number = $CONTRIBUTION_PANEL_UNREAD['r1'];
-    	//On vérifie les groupes et les levels ou tout simplement si il y en a pour les membres
+    	
     	else
     	{
-    		//Si tous les membres ont une contribution non lue
+    		
     		if ($CONTRIBUTION_PANEL_UNREAD['r0'] > 0)
     			$contribution_number = -1;
     		
-    		//On regarde si ce membre en particulier en a une
+    		
     		if ($contribution_number == 0)
     			if (!empty($CONTRIBUTION_PANEL_UNREAD['m' . $User->get_attribute('user_id')]) && $CONTRIBUTION_PANEL_UNREAD['m' . $User->get_attribute('user_id')] == 1)
     				$contribution_number = -1;
     		
-    		//On regarde dans ses groupes
+    		
     		if ($contribution_number == 0)
     		{
     			foreach ($User->get_groups() as $id_group)

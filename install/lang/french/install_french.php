@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                                install.php
- *                            -------------------
- *   begin                : September 28, 2008
- *   copyright            : (C) 2008 	Sautel Benoit
- *   email                : ben.popeye@phpboost.com
- *
- *  
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
@@ -32,12 +32,12 @@
 
 $LANG = array();
 
-//Erreur générée par le moteur de template
+
 $LANG['cache_tpl_must_exist_and_be_writable'] = '<h1>Installation de PHPBoost</h1>
 <p><strong>Attention</strong> : le dossier cache/tpl n\'existe pas ou n\'est pas inscriptible. Veuillez le créer et/ou changer son CHMOD (mettre 777) pour pouvoir lancer l\'installation.</p>
 <p>Une fois ceci fait, actualisez la page pour continuer ou cliquez <a href="">ici</a>.</p>';
 
-//Variables générales
+
 $LANG['page_title'] = 'Installation de PHPBoost';
 $LANG['steps_list'] = 'Liste des étapes';
 $LANG['introduction'] = 'Préambule';
@@ -56,7 +56,7 @@ $LANG['query_processing'] = 'Traitement de la requête en cours';
 $LANG['query_success'] = 'Traitement terminé';
 $LANG['query_failure'] = 'Traitement échoué';
 
-//Introduction
+
 $LANG['intro_title'] = 'Bienvenue dans l\'assistant d\'installation de PHPBoost';
 $LANG['intro_explain'] = '<p>Merci d\'avoir accordé votre confiance à PHPBoost pour créer votre site web.</p>
 <p>Pour installer PHPBoost vous devez disposer d\'un minimum d\'informations concernant votre hébergement qui devraient être fournies par votre hébergeur. L\'installation est entièrement automatisée, elle ne devrait prendre que quelques minutes. Cliquez sur la flèche ci-dessous pour démarrer le processus d\'installation.</p>
@@ -66,7 +66,7 @@ $LANG['intro_distribution_intro'] = '<p>Il existe différentes distributions de P
 <p>PHPBoost va s\'installer selon la configuration de cette distribution, vous pourrez évidemment par la suite modifier sa configuration et ajouter ou supprimer des modules.</p>';
 $LANG['start_install'] = 'Commencer l\'installation';
 
-//licence
+
 $LANG['license'] = 'Licence';
 $LANG['require_license_agreement'] = '<p>Vous devez accepter les termes de la licence GNU/GPL pour installer PHPBoost.</p><p>Vous trouverez une traduction non officielle de cette licence en français <img src="../images/stats/countries/fr.png" alt="Français" /> <a href="http://www.linux-france.org/article/these/gpl.html">ici</a>.</p>';
 $LANG['license_agreement'] = 'Acceptation des termes de la licence';
@@ -74,7 +74,7 @@ $LANG['license_terms'] = 'Termes de la licence';
 $LANG['please_agree_license'] = 'J\'ai pris connaissance des termes de la licence et je les accepte';
 $LANG['alert_agree_license'] = 'Vous devez accepter la licence en cochant le formulaire associé pour pouvoir continuer !';
 
-//Configuration du serveur
+
 $LANG['config_server_title'] = 'Vérification de la configuration du serveur';
 $LANG['config_server_explain'] = '<p>Avant de commencer les étapes d\'installation de PHPBoost, la configuration de votre serveur va être vérifiée afin d\'établir sa compatibilité avec PHPBoost.</p>
 <div class="notice">Veillez à ce que chaque condition obligatoire soit vérifiée sans quoi vous risquez d\'avoir des problèmes en utilisant le logiciel.</div>
@@ -98,7 +98,7 @@ $LANG['unwritable'] = 'Non inscriptible';
 $LANG['unknown'] = 'Indéterminable';
 $LANG['config_server_dirs_not_ok'] = 'Les répertoires ne sont pas tous existants et/ou inscriptibles. Merci de le faire à la main pour pouvoir continuer.';
 
-//Base de données
+
 $LANG['db_title'] = 'Paramètres de connexion à la base de données';
 $LANG['db_explain'] = '<p>Cette étape permet de générer le fichier de configuration qui retiendra les identifiants de connexion à votre base de données. Les tables permettant de faire fonctionner PHPBoost seront automatiquement créées lors de cette étape. Si vous ne connaissez pas les informations ci-dessous, contactez votre hébergeur qui vous les transmettra.</p>';
 $LANG['dbms_paramters'] = 'Paramètres d\'accès au <acronym title="Système de Gestion de Base de Données">SGBD</acronym>';
@@ -136,7 +136,7 @@ $LANG['already_installed_explain'] = '<p>La base de données sur laquelle vous so
 <p>Si vous effectuez l\'installation sur cette base de données avec cette configuration, vous écraserez les données présentes actuellement. Si vous voulez installer deux fois PHPBoost sur la même base de données, utilisez des préfixes différents.</p>';
 $LANG['already_installed_overwrite'] = 'Je souhaite écraser l\'installation de PHPBoost déjà existante';
 
-//configuraton du site
+
 $LANG['site_config_title'] = 'Configuration du site';
 $LANG['site_config_explain'] = '<p>La configuration de base du site va être créée dans cette étape afin de permettre à PHPBoost de fonctionner. Sachez cependant que toutes les données que vous allez rentrer seront ultérieurement modifiables dans le panneau d\'administration dans la rubrique configuration du site. Vous pourrez dans ce même panneau renseigner davantage d\'informations facultatives à propos de votre site.</p>';
 $LANG['your_site'] = 'Votre site';
@@ -162,7 +162,7 @@ $LANG['site_config_msg_register'] = 'Vous vous apprêtez à vous enregistrer sur l
 <br />
 Merci, l\'équipe du site.';
 
-//administration
+
 $LANG['admin_account_creation'] = 'Création du compte administrateur';
 $LANG['admin_account_creation_explain'] = '<p>Ce compte donne accès au panneau d\'administration par lequel vous configurerez votre site. Vous pourrez modifier les informations concernant ce compte par la suite en consultant votre profil.</p>
 <p>Par la suite, il sera possible de donner à plusieurs personnes le statut d\'administrateur, ce compte est celui du premier administrateur, sans lequel vous ne pourriez pas gérer le site.</p>';
@@ -202,7 +202,7 @@ Ce code permet le déverrouillage de l\'administration en cas de tentative d\'int
 
 Cordialement l\'équipe PHPBoost.';
 
-//Fin de l'installation
+
 $LANG['end_installation'] = '<fieldset>
 							<legend>PHPBoost est désormais installé !</legend>
 							<p class="success">L\'installation de PHPBoost s\'est déroulée avec succès. L\'équipe PHPBoost vous remercie de lui avoir fait confiance et est heureuse de vous compter parmi ses utilisateurs.</p>
@@ -242,7 +242,7 @@ $LANG['end_installation'] = '<fieldset>
 $LANG['site_index'] = 'Aller à l\'accueil du site';
 $LANG['admin_index'] = 'Aller dans le panneau d\'administration';
 
-//Divers
+
 $LANG['yes'] = 'Oui';
 $LANG['no'] = 'Non';
 $LANG['appendices'] = 'Annexes';

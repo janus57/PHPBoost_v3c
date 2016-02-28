@@ -1,32 +1,32 @@
 <?php
-/*##################################################
- *                              admin_database_tools.php
- *                            -------------------
- *   begin                : August 06, 2008
- *   copyright            : (C) 2008 SViarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('database'); //Chargement de la langue du module.
+load_module_lang('database'); 
 define('TITLE', $LANG['database_management']);
 require_once('../admin/admin_header.php');
 
@@ -37,7 +37,7 @@ $Template->set_filenames(array(
 	'admin_database_tools'=> 'database/admin_database_tools.tpl'
 ));
 
-//outils de sauvegarde de la base de données
+
 import('db/backup');
 $backup = new Backup();
 
@@ -59,13 +59,13 @@ $Template->assign_vars(array(
 
 if (!empty($table) && $action == 'data')
 {
-	//On crée une pagination (si activé) si le nombre de news est trop important.
+	
 	import('util/pagination'); 
 	$Pagination = new Pagination();
 	
-	$table_structure = $backup->extract_table_structure(array($table)); //Extraction de la structure de la table.
+	$table_structure = $backup->extract_table_structure(array($table)); 
 	
-	//Détection de la clée primaire.
+	
 	$primary_key = '';
 	foreach ($table_structure['fields'] as $fields_info)
 	{
@@ -80,7 +80,7 @@ if (!empty($table) && $action == 'data')
 		}
 	}
 
-	//On éxécute la requête
+	
 	$nbr_lines = $Sql->query("SELECT COUNT(*) FROM ".$table, __LINE__, __FILE__);
 	$query = "SELECT * FROM ".$table.$Sql->limit($Pagination->get_first_msg(30, 'p'), 30);
 	$result = $Sql->query_while ($query, __LINE__, __FILE__);			
@@ -88,7 +88,7 @@ if (!empty($table) && $action == 'data')
 	while ($row = $Sql->fetch_assoc($result))
 	{
 		$Template->assign_block_vars('line', array());
-		//Premier passage: on liste le nom des champs sélectionnés
+		
 		if ($i == 1)
 		{
 			$Template->assign_block_vars('line.field', array(
@@ -107,11 +107,11 @@ if (!empty($table) && $action == 'data')
 			$Template->assign_block_vars('line', array());
 		}
 		
-		//On parse les valeurs de sortie
+		
 		$j = 0;
 		foreach ($row as $field_name => $field_value)
 		{
-			if ($j == 0 && !empty($primary_key)) //Clée primaire détectée.
+			if ($j == 0 && !empty($primary_key)) 
 			{
 				$Template->assign_block_vars('line.field', array(
 					'FIELD' => '<a href="admin_database_tools.php?table=' . $table . '&amp;field=' . $field_name . '&amp;value=' . $field_value . '&amp;action=update&amp;token=' . $Session->get_token() . '" title="' . $LANG['update'] . '"><img src="../templates/' . get_utheme() . '/images/' . get_ulang() . '/edit.png" alt="" class="valign_middle" /></a> <a href="admin_database_tools.php?table=' . $table . '&amp;field=' . $field_name . '&amp;value=' . $field_value . '&amp;action=delete&amp;token=' . $Session->get_token() . '" onclick="javascript:return Confirm_del_entry()" title="' . $LANG['delete'] . '"><img src="../templates/' . get_utheme() . '/images/' . get_ulang() . '/delete.png" alt="" class="valign_middle" /></a>',
@@ -147,7 +147,7 @@ if (!empty($table) && $action == 'data')
 }
 elseif (!empty($table) && $action == 'delete')
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	$field = retrieve(GET, 'field', '');
 	$value = retrieve(GET, 'value', '');
@@ -156,16 +156,16 @@ elseif (!empty($table) && $action == 'delete')
 		$Sql->query_inject("DELETE FROM ".$table." WHERE " . $field . " = '" . $value . "'", __LINE__, __FILE__);
 	redirect(HOST . DIR . '/database/admin_database_tools.php?table=' . $table . '&action=data');
 }
-elseif (!empty($table) && $action == 'update') //Mise à jour.
+elseif (!empty($table) && $action == 'update') 
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
-	$table_structure = $backup->extract_table_structure(array($table)); //Extraction de la structure de la table.
+	$table_structure = $backup->extract_table_structure(array($table)); 
 	
 	$value = retrieve(GET, 'value', '');
 	$field = retrieve(GET, 'field', '');
 	$submit = retrieve(POST, 'submit', '');
-	if (!empty($submit)) //On exécute une requête
+	if (!empty($submit)) 
 	{
 		$request = '';
 		foreach ($table_structure['fields'] as $fields_info)
@@ -189,9 +189,9 @@ elseif (!empty($table) && $action == 'update') //Mise à jour.
 			'L_EXECUTE' => $LANG['db_submit_query']
 		));
 		
-		//On éxécute la requête
-		$row = $Sql->query_array(preg_replace('`^' . PREFIX . '`', '', $table), '*', "WHERE " . $field . " = '" . $value . "'", __LINE__, __FILE__);
-		//On parse les valeurs de sortie
+		
+		$row = $Sql->query_array($table, '*', "WHERE " . $field . " = '" . $value . "'", __LINE__, __FILE__);
+		
 		$i = 0;
 		foreach ($row as $field_name => $field_value)
 		{
@@ -206,16 +206,16 @@ elseif (!empty($table) && $action == 'update') //Mise à jour.
 		}
 	}
 }
-elseif (!empty($table) && $action == 'insert') //Mise à jour.
+elseif (!empty($table) && $action == 'insert') 
 {
-	$table_structure = $backup->extract_table_structure(array($table)); //Extraction de la structure de la table.
+	$table_structure = $backup->extract_table_structure(array($table)); 
 	
 	$submit = retrieve(POST, 'submit', '');
-	if (!empty($submit)) //On exécute une requête
+	if (!empty($submit)) 
 	{
-		$Session->csrf_get_protect(); //Protection csrf
+		$Session->csrf_get_protect(); 
 		
-		//Détection de la clée primaire.
+		
 		$primary_key = '';
 		foreach ($table_structure['fields'] as $fields_info)
 		{
@@ -233,7 +233,7 @@ elseif (!empty($table) && $action == 'insert') //Mise à jour.
 		$fields = '';
 		foreach ($table_structure['fields'] as $fields_info)
 		{
-			if ($fields_info['name'] == $primary_key  && empty($field_value)) //Clée primaire vide => on ignore.
+			if ($fields_info['name'] == $primary_key  && empty($field_value)) 
 				continue;
 			$values .= "'" . retrieve(POST, $fields_info['name'], '', TSTRING_HTML) . "', ";
 			$fields .= $fields_info['name'] . ', ';
@@ -276,14 +276,14 @@ elseif (!empty($table) && $action == 'optimize')
 }
 elseif (!empty($table) && $action == 'truncate')
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	$Sql->truncate_tables(array($table));
 	redirect(HOST . DIR . '/database/admin_database_tools.php?table=' . $table);
 }
 elseif (!empty($table) && $action == 'drop')
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	$Sql->drop_tables(array($table));
 	redirect(HOST . DIR . '/database/admin_database_tools.php?table=' . $table);
@@ -296,24 +296,24 @@ elseif (!empty($table) && $action == 'query')
 		'C_DATABASE_TABLE_QUERY' => true
 	));
 
-	if (!empty($query)) //On exécute une requête
+	if (!empty($query)) 
 	{
-		$Session->csrf_get_protect(); //Protection csrf
+		$Session->csrf_get_protect(); 
 		
 		$Template->assign_vars(array(
 			'C_QUERY_RESULT' => true
 		));
 	
 		$lower_query = strtolower($query);		
-		if (strtolower(substr($query, 0, 6)) == 'select') //il s'agit d'une requête de sélection
+		if (strtolower(substr($query, 0, 6)) == 'select') 
 		{
-			//On éxécute la requête
+			
 			$result = $Sql->query_while (str_replace('phpboost_', PREFIX, $query), __LINE__, __FILE__);			
 			$i = 1;
 			while ($row = $Sql->fetch_assoc($result))
 			{
 				$Template->assign_block_vars('line', array());
-				//Premier passage: on liste le nom des champs sélectionnés
+				
 				if ($i == 1)
 				{
 					foreach ($row as $field_name => $field_value)
@@ -323,7 +323,7 @@ elseif (!empty($table) && $action == 'query')
 						));
 					$Template->assign_block_vars('line', array());
 				}
-				//On parse les valeurs de sortie
+				
 				foreach ($row as $field_name => $field_value)
 				$Template->assign_block_vars('line.field', array(
 					'FIELD' => strprotect($field_value),
@@ -334,7 +334,7 @@ elseif (!empty($table) && $action == 'query')
 				$i++;
 			}
 		}
-		elseif (substr($lower_query, 0, 11) == 'insert into' || substr($lower_query, 0, 6) == 'update' || substr($lower_query, 0, 11) == 'delete from' || substr($lower_query, 0, 11) == 'alter table'  || substr($lower_query, 0, 8) == 'truncate' || substr($lower_query, 0, 10) == 'drop table') //Requêtes d'autres types
+		elseif (substr($lower_query, 0, 11) == 'insert into' || substr($lower_query, 0, 6) == 'update' || substr($lower_query, 0, 11) == 'delete from' || substr($lower_query, 0, 11) == 'alter table'  || substr($lower_query, 0, 8) == 'truncate' || substr($lower_query, 0, 10) == 'drop table') 
 		{
 			$result = $Sql->query_inject($query, __LINE__, __FILE__);
 			$affected_rows = @$Sql->affected_rows($result, "");			
@@ -356,14 +356,14 @@ elseif (!empty($table) && $action == 'query')
 }
 elseif (!empty($table))
 {
-	$table_structure = $backup->extract_table_structure(array($table)); //Extraction de la structure de la table.
-	if (!isset($backup->tables[$table])) //Table non existante.
+	$table_structure = $backup->extract_table_structure(array($table)); 
+	if (!isset($backup->tables[$table])) 
 		redirect(HOST . DIR . '/database/admin_database.php');
 		
 	foreach ($table_structure['fields'] as $fields_info)
 	{
 		$primary_key = false;
-		foreach ($table_structure['index'] as $index_info) //Détection de la clée primaire.
+		foreach ($table_structure['index'] as $index_info) 
 		{
 			if ($index_info['type'] == 'PRIMARY KEY' && in_array($fields_info['name'], explode(',', $index_info['fields'])))
 			{
@@ -372,7 +372,7 @@ elseif (!empty($table))
 			}
 		}
 		
-		//Champs.
+		
 		$Template->assign_block_vars('field', array(
 			'FIELD_NAME' => ($primary_key) ? '<span style="text-decoration:underline">' . $fields_info['name'] . '<span>' : $fields_info['name'],
 			'FIELD_TYPE' => $fields_info['type'],
@@ -383,7 +383,7 @@ elseif (!empty($table))
 		));
 	}
 	
-	//index
+	
 	foreach ($table_structure['index'] as $index_info)
 	{
 		$Template->assign_block_vars('index', array(
@@ -393,7 +393,7 @@ elseif (!empty($table))
 		));
 	}
 	
-	//Infos sur la table.
+	
 	$free = number_round($backup->tables[$table]['data_free']/1024, 1);
 	$data = number_round($backup->tables[$table]['data_length']/1024, 1);
 	$index = number_round($backup->tables[$table]['index_lenght']/1024, 1);

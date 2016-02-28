@@ -1,31 +1,31 @@
 <?php
-/*##################################################
- *                                xmlhttprequest.php
- *                            -------------------
- *   begin                : December 20, 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
 
-define('NO_SESSION_LOCATION', true); //Permet de ne pas mettre jour la page dans la session.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+define('NO_SESSION_LOCATION', true); 
 require_once('../kernel/begin.php');
 require_once('../shoutbox/shoutbox_begin.php');
 require_once('../kernel/header_no_display.php');
@@ -36,7 +36,7 @@ $refresh = !empty($_GET['refresh']) ? true : false;
 
 if ($add)
 {
-	//Membre en lecture seule?
+	
 	if ($User->get_attribute('user_readonly') > time()) 
 	{
 		echo -6;
@@ -47,10 +47,10 @@ if ($add)
 	$shout_contents = !empty($_POST['contents']) ? trim(utf8_decode($_POST['contents'])) : '';
 	if (!empty($shout_pseudo) && !empty($shout_contents))
 	{
-		//Accès pour poster.		
+		
 		if ($User->check_level($CONFIG_SHOUTBOX['shoutbox_auth']))
 		{
-			//Mod anti-flood, autorisé aux membres qui bénificie de l'autorisation de flooder.
+			
 			$check_time = ($User->get_attribute('user_id') !== -1 && $CONFIG['anti_flood'] == 1) ? $Sql->query("SELECT MAX(timestamp) as timestamp FROM " . PREFIX . "shoutbox WHERE user_id = '" . $User->get_attribute('user_id') . "'", __LINE__, __FILE__) : '';
 			if (!empty($check_time) && !$User->check_max_value(AUTH_FLOOD))
 			{
@@ -61,14 +61,14 @@ if ($add)
 				}
 			}
 			
-			//Vérifie que le message ne contient pas du flood de lien.
+			
 			$shout_contents = strparse($shout_contents, $CONFIG_SHOUTBOX['shoutbox_forbidden_tags']);		
-			if (!check_nbr_links($shout_pseudo, 0)) //Nombre de liens max dans le pseudo.
+			if (!check_nbr_links($shout_pseudo, 0)) 
 			{	
 				echo -3;
 				exit;
 			}
-			if (!check_nbr_links($shout_contents, $CONFIG_SHOUTBOX['shoutbox_max_link'])) //Nombre de liens max dans le message.
+			if (!check_nbr_links($shout_contents, $CONFIG_SHOUTBOX['shoutbox_max_link'])) 
 			{	
 				echo -4;
 				exit;
@@ -88,7 +88,7 @@ if ($add)
 			echo "array_shout[1] = '" . addslashes(second_parse(str_replace(array("\n", "\r"), array('', ''), ucfirst(stripslashes($shout_contents))))) . "';";
 			echo "array_shout[2] = '" . $last_msg_id . "';";
 		}
-		else //utilisateur non autorisé!
+		else 
 			echo -1;
 	}
 	else
@@ -120,7 +120,7 @@ elseif ($refresh)
 }
 elseif ($del)
 {
-	$Session->csrf_get_protect(); //Protection csrf
+	$Session->csrf_get_protect(); 
 	
 	$shout_id = !empty($_POST['idmsg']) ? numeric($_POST['idmsg']) : '';
 	if (!empty($shout_id))

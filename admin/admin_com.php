@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                               admin_com.php
- *                            -------------------
- *   begin                : January 11, 2008
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
@@ -39,10 +39,10 @@ $Template->set_filenames(array(
 	'admin_com_management'=> 'admin/admin_com_management.tpl'
 ));
 
-//Chargement du cache
+
 $Cache->load('com');
 
-//On récupère le nombre de commentaires dans chaque modules.
+
 $array_com = array();
 $result = $Sql->query_while ("SELECT script, COUNT(*) as total
 FROM " . DB_TABLE_COM . " 
@@ -53,7 +53,7 @@ while ($row = $Sql->fetch_assoc($result))
 
 $Sql->query_close($result);
 
-//On crée une pagination si le nombre de commentaires est trop important.
+
 import('util/pagination'); 
 $Pagination = new Pagination();
 
@@ -72,16 +72,16 @@ $Template->assign_vars(array(
 	'L_COM_CONFIG' => $LANG['com_config'],
 ));
 
-//Modules disponibles
+
 import('io/filesystem/folder');
 $folder_path = new Folder('../');
 foreach ($folder_path->get_folders('`^[a-z0-9_ -]+$`i') as $modules)
 {
 	$modulef = $modules->get_name();
-	//Désormais on vérifie que le fichier de configuration est présent.
+	
 	if (@file_exists('../' . $modulef . '/lang/' . get_ulang() . '/config.ini'))
 	{
-		//Récupération des infos de config.
+		
 		$info_module = load_ini_file('../' . $modulef . '/lang/', get_ulang());
 		if (isset($info_module['info']) && !empty($info_module['com']))
 		{
@@ -93,7 +93,7 @@ foreach ($folder_path->get_folders('`^[a-z0-9_ -]+$`i') as $modules)
 	}
 }
 
-//Gestion des rangs.
+
 $Cache->load('ranks');
 
 $cond = !empty($module) ? "WHERE script = '" . $module . "'" : '';
@@ -110,22 +110,22 @@ while ($row = $Sql->fetch_assoc($result))
 	$row['user_id'] = (int)$row['user_id'];
 	$is_guest = ($row['user_id'] === -1);
 
-	//Pseudo.
+	
 	if (!$is_guest) 
 		$com_pseudo = '<a class="msg_link_pseudo" href="../member/member' . url('.php?id=' . $row['user_id'], '-' . $row['user_id'] . '.php') . '" title="' . $row['mlogin'] . '"><span style="font-weight: bold;">' . wordwrap_html($row['mlogin'], 13) . '</span></a>';
 	else
 		$com_pseudo = '<span style="font-style:italic;">' . (!empty($row['login']) ? wordwrap_html($row['login'], 13) : $LANG['guest']) . '</span>';
 	
-	//Rang de l'utilisateur.
+	
 	$user_rank = ($row['level'] === '0') ? $LANG['member'] : $LANG['guest'];
 	$user_group = $user_rank;
-	if ($row['level'] === '2') //Rang spécial (admins).  
+	if ($row['level'] === '2') 
 	{
 		$user_rank = $_array_rank[-2][0];
 		$user_group = $user_rank;
 		$user_rank_icon = $_array_rank[-2][1];
 	}
-	elseif ($row['level'] === '1') //Rang spécial (modos).  
+	elseif ($row['level'] === '1') 
 	{
 		$user_rank = $_array_rank[-1][0];
 		$user_group = $user_rank;
@@ -144,10 +144,10 @@ while ($row = $Sql->fetch_assoc($result))
 		}
 	}
 	
-	//Image associée au rang.
+	
 	$user_assoc_img = isset($user_rank_icon) ? '<img src="../templates/' . get_utheme() . '/images/ranks/' . $user_rank_icon . '" alt="" />' : '';
 	
-	//Affichage des groupes du membre.		
+	
 	if (!empty($row['user_groups']) && $_array_groups_auth) 
 	{	
 		$user_groups = '';
@@ -161,26 +161,26 @@ while ($row = $Sql->fetch_assoc($result))
 	else
 		$user_groups = $LANG['group'] . ': ' . $user_group;
 	
-	//Membre en ligne?
+	
 	$user_online = !empty($row['connect']) ? 'online' : 'offline';
 	
-	//Avatar			
+	
 	if (empty($row['user_avatar'])) 
 		$user_avatar = ($CONFIG_USER['activ_avatar'] == '1' && !empty($CONFIG_USER['avatar_url'])) ? '<img src="../templates/' . get_utheme() . '/images/' .  $CONFIG_USER['avatar_url'] . '" alt="" />' : '';
 	else
 		$user_avatar = '<img src="' . $row['user_avatar'] . '" alt=""	/>';
 	
-	//Affichage du sexe et du statut (connecté/déconnecté).	
+	
 	$user_sex = '';
 	if ($row['user_sex'] == 1)	
 		$user_sex = $LANG['sex'] . ': <img src="../templates/' . get_utheme() . '/images/man.png" alt="" /><br />';	
 	elseif ($row['user_sex'] == 2) 
 		$user_sex = $LANG['sex'] . ': <img src="../templates/' . get_utheme() . '/images/woman.png" alt="" /><br />';
 			
-	//Nombre de message.
+	
 	$user_msg = ($row['user_msg'] > 1) ? $LANG['message_s'] . ': ' . $row['user_msg'] : $LANG['message'] . ': ' . $row['user_msg'];
 	
-	//Localisation.
+	
 	if (!empty($row['user_local'])) 
 	{
 		$user_local = $LANG['place'] . ': ' . $row['user_local'];
@@ -217,7 +217,7 @@ while ($row = $Sql->fetch_assoc($result))
 	));
 }
 
-$Template->pparse('admin_com_management'); // traitement du modele	
+$Template->pparse('admin_com_management'); 
 
 require_once('../admin/admin_footer.php');
 

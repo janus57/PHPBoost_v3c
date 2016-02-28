@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                                lastread.php
- *                            -------------------
- *   begin                : April 02, 2007
- *   copyright          : (C) 2007 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 require_once('../forum/forum_begin.php');
@@ -35,14 +35,14 @@ $Bread_crumb->add($LANG['show_last_read'], '');
 define('TITLE', $LANG['title_forum'] . ' - ' . $LANG['show_last_read']);
 require_once('../kernel/header.php'); 
 
-//Redirection changement de catégorie.
+
 $change_cat = retrieve(POST, 'change_cat', '');
 if (!empty($change_cat))
 	redirect(HOST . DIR . '/forum/forum' . url('.php?id=' . $change_cat, '-' . $change_cat . $rewrited_title . '.php', '&'));
-if (!$User->check_level(MEMBER_LEVEL)) //Réservé aux membres.
+if (!$User->check_level(MEMBER_LEVEL)) 
 	redirect(HOST . DIR . '/member/error.php'); 
 
-if ($User->check_level(MEMBER_LEVEL)) //Affichage des message()s non lu(s) du membre.
+if ($User->check_level(MEMBER_LEVEL)) 
 {
 	$Template->set_filenames(array(
 		'forum_topics'=> 'forum/forum_forum.tpl',
@@ -53,7 +53,7 @@ if ($User->check_level(MEMBER_LEVEL)) //Affichage des message()s non lu(s) du me
 	import('util/pagination'); 
 	$Pagination = new Pagination();
 
-	//Calcul du temps de péremption, ou de dernière vue des messages par à rapport à la configuration.
+	
 	$max_time = (time() - $CONFIG_FORUM['view_time']);
 	$max_time_msg = forum_limit_time_msg();
 	
@@ -72,19 +72,19 @@ if ($User->check_level(MEMBER_LEVEL)) //Affichage des message()s non lu(s) du me
 	{
 		$last_msg = $LANG['on'] . ' ' . gmdate_format('date_format', $row['last_timestamp']) . '<br /> ' . $LANG['by'] . ' <a class="small_link" href="../member/member.php?id=' . $row['last_user_id'] . '">' . $row['last_login'] . '</a>';
 		
-		//On définit un array pour l'appelation correspondant au type de champ
+		
 		$type = array('2' => $LANG['forum_announce'] . ':', '1' => $LANG['forum_postit'] . ':', '0' => '');
 			
-		//Vérifications des topics Lu/non Lus.
+		
 		$img_announce = 'announce';		
-		if ($row['last_view_id'] != $row['last_msg_id'] && $row['last_timestamp'] >= $max_time_msg) //Nouveau message (non lu).
-				$img_announce =  'new_' . $img_announce; //Image affiché aux visiteurs.
+		if ($row['last_view_id'] != $row['last_msg_id'] && $row['last_timestamp'] >= $max_time_msg) 
+				$img_announce =  'new_' . $img_announce; 
 		$img_announce .= ($row['type'] == '1') ? '_post' : '';
 		$img_announce .= ($row['type'] == '2') ? '_top' : '';
 		$img_announce .= ($row['status'] == '0' && $row['type'] == '0') ? '_lock' : '';
 		
-		//Si le dernier message lu est présent on redirige vers lui, sinon on redirige vers le dernier posté.		
-		if (!empty($row['last_view_id'])) //Calcul de la page du last_view_id réalisé dans topic.php
+		
+		if (!empty($row['last_view_id'])) 
 		{
 			$last_msg_id = $row['last_view_id']; 
 			$last_page = 'idm=' . $row['last_view_id'] . '&amp;';
@@ -98,13 +98,13 @@ if ($User->check_level(MEMBER_LEVEL)) //Affichage des message()s non lu(s) du me
 			$last_page = ($last_page > 1) ? 'pt=' . $last_page . '&amp;' : '';
 		}	
 		
-		//On encode l'url pour un éventuel rewriting, c'est une opération assez gourmande
+		
 		$rewrited_title = ($CONFIG['rewrite'] == 1) ? '+' . url_encode_rewrite($row['title']) : '';
 		
-		//Affichage du dernier message posté.
+		
 		$last_msg = '<a href="topic' . url('.php?' . $last_page . 'id=' . $row['id'], '-' . $row['id'] . $last_page_rewrite .  $rewrited_title . '.php') . '#m' . $last_msg_id . '" title=""><img src="../templates/' . get_utheme() . '/images/ancre.png" alt="" /></a>' . ' ' . $LANG['on'] . ' ' . gmdate_format('date_format', $row['last_timestamp']) . '<br /> ' . $LANG['by'] . ' ' . (!empty($row['last_login']) ? '<a class="small_link" href="../member/member' . url('.php?id=' . $row['last_user_id'], '-' . $row['last_user_id'] . '.php') . '">' . wordwrap_html($row['last_login'], 13) . '</a>' : '<em>' . $LANG['guest'] . '</em>');
 		
-		//Ancre ajoutée aux messages non lus.	
+		
 		$new_ancre = '<a href="topic' . url('.php?' . $last_page . 'id=' . $row['id'], '-' . $row['id'] . $last_page_rewrite . $rewrited_title . '.php') . '#m' . $last_msg_id . '" title=""><img src="../templates/' . get_utheme() . '/images/ancre.png" alt="" /></a>';
 		
 		$Template->assign_block_vars('topics', array(
@@ -133,7 +133,7 @@ if ($User->check_level(MEMBER_LEVEL)) //Affichage des message()s non lu(s) du me
 	LEFT JOIN " . PREFIX . "forum_topics t ON t.id = v.idtopic
 	WHERE t.last_timestamp >= '" . $max_time . "' AND v.user_id = '" . $User->get_attribute('user_id') . "'", __LINE__, __FILE__);
 	
-	//Le membre a déjà lu tous les messages.
+	
 	if ($nbr_topics == 0)
 	{
 		$Template->assign_vars(array(
@@ -163,7 +163,7 @@ if ($User->check_level(MEMBER_LEVEL)) //Affichage des message()s non lu(s) du me
 		'L_LAST_MESSAGE' => $LANG['last_message'],
 	));	
 	
-	//Listes les utilisateurs en lignes.
+	
 	list($users_list, $total_admin, $total_modo, $total_member, $total_visit, $total_online) = forum_list_user_online("AND s.session_script = '/forum/lastread.php'");
 
 	$Template->assign_vars(array(
@@ -173,7 +173,7 @@ if ($User->check_level(MEMBER_LEVEL)) //Affichage des message()s non lu(s) du me
 		'MODO' => $total_modo,
 		'MEMBER' => $total_member,
 		'GUEST' => $total_visit,
-		'SELECT_CAT' => forum_list_cat(0, 0), //Retourne la liste des catégories, avec les vérifications d'accès qui s'imposent.
+		'SELECT_CAT' => forum_list_cat(0, 0), 
 		'L_USER' => ($total_online > 1) ? $LANG['user_s'] : $LANG['user'],
 		'L_ADMIN' => ($total_admin > 1) ? $LANG['admin_s'] : $LANG['admin'],
 		'L_MODO' => ($total_modo > 1) ? $LANG['modo_s'] : $LANG['modo'],

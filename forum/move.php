@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               move.php
- *                            -------------------
- *   begin                : October 30, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *  
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../kernel/begin.php'); 
 require_once('../forum/forum_begin.php');
@@ -32,16 +32,16 @@ $Bread_crumb->add($CONFIG_FORUM['forum_name'], 'index.php' . SID);
 define('TITLE', $LANG['title_forum']);
 require_once('../kernel/header.php'); 
 
-//Variables $_GET.
-$id_get = retrieve(GET, 'id', 0); //Id du topic à déplacer.
-$id_post = retrieve(POST, 'id', 0); //Id du topic à déplacer.
-$id_get_msg = retrieve(GET, 'idm', 0); //Id du message à partir duquel il faut scinder le topic.
-$id_post_msg = retrieve(POST, 'idm', 0); //Id du message à partir duquel il faut scinder le topic.
-$error_get = retrieve(GET, 'error', ''); //Gestion des erreurs.
-$post_topic = retrieve(POST, 'post_topic', ''); //Création du topic scindé.
-$preview_topic = retrieve(POST, 'prw_t', ''); //Prévisualisation du topic scindé.
 
-if (!empty($id_get)) //Déplacement du sujet.
+$id_get = retrieve(GET, 'id', 0); 
+$id_post = retrieve(POST, 'id', 0); 
+$id_get_msg = retrieve(GET, 'idm', 0); 
+$id_post_msg = retrieve(POST, 'idm', 0); 
+$error_get = retrieve(GET, 'error', ''); 
+$post_topic = retrieve(POST, 'post_topic', ''); 
+$preview_topic = retrieve(POST, 'prw_t', ''); 
+
+if (!empty($id_get)) 
 {
 	$Template->set_filenames(array(
 		'forum_move'=> 'forum/forum_move.tpl',
@@ -50,7 +50,7 @@ if (!empty($id_get)) //Déplacement du sujet.
 	));
 
 	$topic = $Sql->query_array(PREFIX . 'forum_topics', 'idcat', 'title', "WHERE id = '" . $id_get . "'", __LINE__, __FILE__);
-	if (!$User->check_auth($CAT_FORUM[$topic['idcat']]['auth'], EDIT_CAT_FORUM)) //Accès en édition
+	if (!$User->check_auth($CAT_FORUM[$topic['idcat']]['auth'], EDIT_CAT_FORUM)) 
 		$Errorh->handler('e_auth', E_USER_REDIRECT); 
 
 	$cat = $Sql->query_array(PREFIX . 'forum_cats', 'id', 'name', "WHERE id = '" . $topic['idcat'] . "'", __LINE__, __FILE__);
@@ -66,7 +66,7 @@ if (!empty($id_get)) //Déplacement du sujet.
 		$auth_cats = !empty($auth_cats) ? "AND id NOT IN (" . trim($auth_cats, ',') . ")" : '';
 	}
 
-	//Listing des catégories disponibles, sauf celle qui va être supprimée.			
+	
 	$cat_forum = '<option value="0" checked="checked">' . $LANG['root'] . '</option>';
 	$result = $Sql->query_while("SELECT id, name, level
 	FROM " . PREFIX . "forum_cats 
@@ -95,7 +95,7 @@ if (!empty($id_get)) //Déplacement du sujet.
 		'L_SUBMIT' => $LANG['submit']
 	));	
 
-	//Listes les utilisateurs en lignes.
+	
 	list($users_list, $total_admin, $total_modo, $total_member, $total_visit, $total_online) = forum_list_user_online("AND s.session_script LIKE '/forum/%'");
 
 	$Template->assign_vars(array(
@@ -116,20 +116,20 @@ if (!empty($id_get)) //Déplacement du sujet.
 	
 	$Template->pparse('forum_move');
 }
-elseif (!empty($id_post)) //Déplacement du topic
+elseif (!empty($id_post)) 
 {
 	$idcat = $Sql->query("SELECT idcat FROM " . PREFIX . "forum_topics WHERE id = '" . $id_post . "'", __LINE__, __FILE__);
-	if ($User->check_auth($CAT_FORUM[$idcat]['auth'], EDIT_CAT_FORUM)) //Accès en édition
+	if ($User->check_auth($CAT_FORUM[$idcat]['auth'], EDIT_CAT_FORUM)) 
 	{		
-		$to = retrieve(POST, 'to', $idcat); //Catégorie cible.
+		$to = retrieve(POST, 'to', $idcat); 
 		$level = $Sql->query("SELECT level FROM " . PREFIX . "forum_cats WHERE id = '" . $to . "'", __LINE__, __FILE__);
 		if (!empty($to) && $level > 0 && $idcat != $to)
 		{
-			//Instanciation de la class du forum.
+			
 			include_once('../forum/forum.class.php');
 			$Forumfct = new Forum;
 
-			$Forumfct->Move_topic($id_post, $idcat, $to); //Déplacement du topic
+			$Forumfct->Move_topic($id_post, $idcat, $to); 
 
 			redirect(HOST . DIR . '/forum/topic' . url('.php?id=' . $id_post, '-' .$id_post  . '.php', '&'));
 		}
@@ -139,7 +139,7 @@ elseif (!empty($id_post)) //Déplacement du topic
 	else
 		$Errorh->handler('e_auth', E_USER_REDIRECT); 
 }
-elseif ((!empty($id_get_msg) || !empty($id_post_msg)) && empty($post_topic)) //Choix de la nouvelle catégorie, titre, sous-titre du topic à scinder.
+elseif ((!empty($id_get_msg) || !empty($id_post_msg)) && empty($post_topic)) 
 {
 	$Template->set_filenames(array(
 		'forum_move'=> 'forum/forum_post.tpl',
@@ -151,16 +151,16 @@ elseif ((!empty($id_get_msg) || !empty($id_post_msg)) && empty($post_topic)) //C
 	$msg =  $Sql->query_array(PREFIX . 'forum_msg', 'idtopic', 'contents', "WHERE id = '" . $idm . "'", __LINE__, __FILE__);
 	$topic = $Sql->query_array(PREFIX . 'forum_topics', 'idcat', 'title', "WHERE id = '" . $msg['idtopic'] . "'", __LINE__, __FILE__);
 	
-	if (!$User->check_auth($CAT_FORUM[$topic['idcat']]['auth'], EDIT_CAT_FORUM)) //Accès en édition
+	if (!$User->check_auth($CAT_FORUM[$topic['idcat']]['auth'], EDIT_CAT_FORUM)) 
 		$Errorh->handler('e_auth', E_USER_REDIRECT); 
 
 	$id_first = $Sql->query("SELECT MIN(id) as id FROM " . PREFIX . "forum_msg WHERE idtopic = '" . $msg['idtopic'] . "'", __LINE__, __FILE__);
-	//Scindage du premier message interdite.
+	
 	if ($id_first == $idm)
 		$Errorh->handler('e_unable_cut_forum', E_USER_REDIRECT); 
 			
 	$cat = $Sql->query_array(PREFIX . 'forum_cats', 'id', 'name', "WHERE id = '" . $topic['idcat'] . "'", __LINE__, __FILE__);
-	$to = retrieve(POST, 'to', $cat['id']); //Catégorie cible.
+	$to = retrieve(POST, 'to', $cat['id']); 
 	
 	$auth_cats = '';
 	if (is_array($CAT_FORUM))
@@ -173,7 +173,7 @@ elseif ((!empty($id_get_msg) || !empty($id_post_msg)) && empty($post_topic)) //C
 		$auth_cats = !empty($auth_cats) ? "AND id NOT IN (" . trim($auth_cats, ',') . ")" : '';
 	}
 	
-	//Listing des catégories disponibles, sauf celle qui va être supprimée.			
+	
 	$cat_forum = '<option value="0" checked="checked">' . $LANG['root'] . '</option>';
 	$result = $Sql->query_while("SELECT id, name, level
 	FROM " . PREFIX . "forum_cats 
@@ -222,7 +222,7 @@ elseif ((!empty($id_get_msg) || !empty($id_post_msg)) && empty($post_topic)) //C
 		
 	if (empty($post_topic) && empty($preview_topic))
 	{
-		//Liste des choix des sondages => 20 maxi
+		
 		$nbr_poll_field = 0;
 		for ($i = 0; $i < 5; $i++)
 		{	
@@ -262,7 +262,7 @@ elseif ((!empty($id_get_msg) || !empty($id_post_msg)) && empty($post_topic)) //C
 		$checked_postit = ($type == 1) ? 'checked="ckecked"' : '';
 		$checked_annonce = ($type == 2) ? 'checked="ckecked"' : '';
 
-		//Liste des choix des sondages => 20 maxi
+		
 		$nbr_poll_field = 0;
 		for ($i = 0; $i < 20; $i++)
 		{	
@@ -275,7 +275,7 @@ elseif ((!empty($id_get_msg) || !empty($id_post_msg)) && empty($post_topic)) //C
 				));
 				$nbr_poll_field++;
 			}	
-			elseif ($i <= 5) //On complète s'il y a moins de 5 réponses.
+			elseif ($i <= 5) 
 			{
 				$Template->assign_block_vars('answers_poll', array(
 					'ID' => $i,
@@ -285,7 +285,7 @@ elseif ((!empty($id_get_msg) || !empty($id_post_msg)) && empty($post_topic)) //C
 			}			
 		}
 		
-		//Type de réponses du sondage.
+		
 		$poll_type = retrieve(POST, 'poll_type', 0);
 		
 		$Template->assign_vars(array(	
@@ -314,7 +314,7 @@ elseif ((!empty($id_get_msg) || !empty($id_post_msg)) && empty($post_topic)) //C
 		));
 	}
 	
-	//Listes les utilisateurs en lignes.
+	
 	list($users_list, $total_admin, $total_modo, $total_member, $total_visit, $total_online) = forum_list_user_online("AND s.session_script LIKE '/forum/%'");
 
 	$Template->assign_vars(array(
@@ -335,17 +335,17 @@ elseif ((!empty($id_get_msg) || !empty($id_post_msg)) && empty($post_topic)) //C
 	
 	$Template->pparse('forum_move');
 }
-elseif (!empty($id_post_msg) && !empty($post_topic)) //Scindage du topic
+elseif (!empty($id_post_msg) && !empty($post_topic)) 
 {
 	$msg =  $Sql->query_array(PREFIX . 'forum_msg', 'idtopic', 'user_id', 'timestamp', 'contents', "WHERE id = '" . $id_post_msg . "'", __LINE__, __FILE__);
 	$topic = $Sql->query_array(PREFIX . 'forum_topics', 'idcat', 'title', 'last_user_id', 'last_msg_id', 'last_timestamp', "WHERE id = '" . $msg['idtopic'] . "'", __LINE__, __FILE__);
-	$to = retrieve(POST, 'to', 0); //Catégorie cible.
+	$to = retrieve(POST, 'to', 0); 
 	
-	if (!$User->check_auth($CAT_FORUM[$topic['idcat']]['auth'], EDIT_CAT_FORUM)) //Accès en édition
+	if (!$User->check_auth($CAT_FORUM[$topic['idcat']]['auth'], EDIT_CAT_FORUM)) 
 		$Errorh->handler('e_auth', E_USER_REDIRECT); 
 	
 	$id_first = $Sql->query("SELECT MIN(id) FROM " . PREFIX . "forum_msg WHERE idtopic = '" . $msg['idtopic'] . "'", __LINE__, __FILE__);
-	//Scindage du premier message interdite.
+	
 	if ($id_first == $id_post_msg)
 		$Errorh->handler('e_unable_cut_forum', E_USER_REDIRECT); 
 	
@@ -357,16 +357,16 @@ elseif (!empty($id_post_msg) && !empty($post_topic)) //Scindage du topic
 		$contents = retrieve(POST, 'contents', '', TSTRING_PARSE);
 		$type = retrieve(POST, 'type', 0); 
 		
-		//Requête de "scindage" du topic.
+		
 		if (!empty($to) && !empty($contents) && !empty($title))
 		{
-			//Instanciation de la class du forum.
+			
 			include_once('../forum/forum.class.php');
 			$Forumfct = new Forum;
 
-			$last_topic_id = $Forumfct->Cut_topic($id_post_msg, $msg['idtopic'], $topic['idcat'], $to, $title, $subtitle, $contents, $type, $msg['user_id'], $topic['last_user_id'], $topic['last_msg_id'], $topic['last_timestamp']); //Scindement du topic
+			$last_topic_id = $Forumfct->Cut_topic($id_post_msg, $msg['idtopic'], $topic['idcat'], $to, $title, $subtitle, $contents, $type, $msg['user_id'], $topic['last_user_id'], $topic['last_msg_id'], $topic['last_timestamp']); 
 			
-			//Ajout d'un sondage en plus du topic.
+			
 			$question = retrieve(POST, 'question', '');
 			if (!empty($question))
 			{
@@ -384,7 +384,7 @@ elseif (!empty($id_post_msg) && !empty($post_topic)) //Scindage du topic
 						$nbr_votes++;
 					}
 				}
-				$Forumfct->Add_poll($last_topic_id, $question, $answers, $nbr_votes, $poll_type); //Ajout du sondage.
+				$Forumfct->Add_poll($last_topic_id, $question, $answers, $nbr_votes, $poll_type); 
 			}
 			
 			redirect(HOST . DIR . '/forum/topic' . url('.php?id=' . $last_topic_id, '-' . $last_topic_id . '.php', '&'));

@@ -1,30 +1,30 @@
 <?php
-/***************************************************************************
- *                                fatal.php
- *                            -------------------
- *   begin                : April 12, 2007
- *   copyright          : (C) 2007 CrowkaiT
- *   email                : crowkait@phpboost.com
- *
- *
- *
- ***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-***************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once '../kernel/begin.php';
 
@@ -42,7 +42,7 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.or
 </head>
 <body><br /><br /><br />';
 
-//Récupération de l'erreur dans les logs.
+
 $errinfo = $Errorh->get_last__error_log();
 if (empty($errinfo))
 	list($errinfo['errno'], $errinfo['errstr'], $errinfo['errline'], $errinfo['errfile']) = array('-1', '???', '0', 'unknow');

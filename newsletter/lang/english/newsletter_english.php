@@ -1,37 +1,37 @@
 <?php
-/*##################################################
- *                             newsletter_english.php
- *                            -------------------
- *   begin                : July 11 2006
- *   last modified		: July 31, 2009 - Forensic
- *   copyright          : (C) 2006 ben.popeye
- *   email                : ben.popeye@phpboost.com
- *
- *  
- ###################################################
- *
- *   This program is a free software. You can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
 #                                                           English                                                                             #
 ####################################################
 
-//Admin
+
 $LANG['newsletter'] = 'Newsletter';
 $LANG['newsletter_select_type'] = 'You have to choose a message type';
 $LANG['newsletter_select_type_text'] = 'Simple text';
@@ -55,7 +55,7 @@ $LANG['newsletter_member_list'] = 'Member list';
 $LANG['newsletter_test_sent'] = 'A trial newsletter has been sent to the mail address %s, you will have a preview of your newsletter.';
 $LANG['newsletter_bbcode_warning'] = 'When you send a newsletter written in BBCode, this language will be transformed into HTML. But some tags are not defined by mail providers, we advise you to preview your newsletter by sending a test.';
 
-//Newsletter
+
 $LANG['newsletter'] = 'Newsletter';
 $LANG['subscribe'] = 'Subscribe';
 $LANG['unsubscribe'] = 'Unsubscribe';
@@ -73,7 +73,7 @@ $LANG['newsletter_email_address_is_not_valid'] = 'The email address you have giv
 $LANG['newsletter_error_list'] = 'The newsletter hasn\'t been sent to the following addresses : <em>%s</em>';
 $LANG['archives'] = 'Archives';
 
-//Config
+
 $LANG['newsletter_config'] = 'Newsletter configuration';
 $LANG['newsletter_sender_mail'] = 'Sending address';
 $LANG['newsletter_name'] = 'Newsletter name';

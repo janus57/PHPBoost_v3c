@@ -1,30 +1,30 @@
 <?php
-/*##################################################
- *                               admin_wiki.php
- *                            -------------------
- *   begin                : November 11, 2006
- *   copyright            : (C) 2006 Sautel Benoit
- *   email                : ben.popeye@phpboost.com
- *
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 load_module_lang('wiki');
@@ -40,7 +40,7 @@ $last_articles = retrieve(POST, 'last_articles', 0);
 $display_cats = !empty($_POST['display_cats']) ? 1 : 0;
 $count_hits = !empty($_POST['count_hits']) ? 1 : 0;
 
-if (!empty($_POST['update']))  //Mise à jour
+if (!empty($_POST['update']))  
 {
 	$_WIKI_CONFIG['wiki_name'] = $wiki_name;
 	$_WIKI_CONFIG['last_articles'] = $last_articles;
@@ -50,7 +50,7 @@ if (!empty($_POST['update']))  //Mise à jour
 	$_WIKI_CONFIG['auth'] = serialize($_WIKI_CONFIG['auth']);
 
 	$Sql->query_inject("UPDATE " . DB_TABLE_CONFIGS . " SET value = '" . addslashes(serialize($_WIKI_CONFIG)) . "' WHERE name = 'wiki'", __LINE__, __FILE__);
-	//Régénération du cache
+	
 	$Cache->Generate_module_file('wiki');	
 }
 
@@ -60,7 +60,7 @@ $Template->set_filenames(array(
 	'wiki_config'=> 'wiki/admin_wiki.tpl'
 ));
 
-//On travaille uniquement en BBCode, on force le langage de l'éditeur
+
 $content_editor = new ContentFormattingFactory(BBCODE_LANGUAGE);
 $editor = $content_editor->get_editor();
 $editor->set_identifier('contents');

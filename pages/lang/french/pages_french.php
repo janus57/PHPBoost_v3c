@@ -1,41 +1,41 @@
 <?php
-/*##################################################
- *                              pages_french.php
- *                            -------------------
- *   begin                : August 07, 2007
- *   copyright            : (C) 2007 Benoît Sautel
- *   email                : ben.popeye@phpboost.com
- *
- *  
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
 #                                                          French                                                                        #
 ####################################################
 
-//Généralités
+
 $LANG['pages'] = 'Pages';
 
 $LANG['page_hits'] = 'Cette page a été consultée %d fois';
 
-//Administration
+
 $LANG['pages_count_hits'] = 'Compter le nombre de fois que la page est consultée';
 $LANG['pages_count_hits_explain'] = 'Peut-être choisi au cas par cas pour chaque page';
 $LANG['pages_auth_read'] = 'Lecture des pages';
@@ -47,7 +47,7 @@ $LANG['select_none'] = 'Tout désélectionner';
 $LANG['ranks'] = 'Rangs';
 $LANG['groups'] = 'Groupes';
 
-//Création / édition d'une page
+
 $LANG['pages_edition'] = 'Modification d\'une page';
 $LANG['pages_creation'] = 'Création d\'une page';
 $LANG['pages_edit_page'] = 'Modification de la page <em>%s</em>';
@@ -70,7 +70,7 @@ $LANG['pages_delete_success'] = 'La page a été supprimée avec succès';
 $LANG['pages_delete_failure'] = 'La page n\'a pu être supprimée avec succès';
 $LANG['pages_confirm_delete'] = 'Etes-vous sur de vouloir supprimer cette page ?';
 
-//Divers
+
 $LANG['pages_links_list'] = 'Outils';
 $LANG['pages_com'] = 'Commentaires';
 $LANG['pages_explorer'] = 'Explorateur';
@@ -80,7 +80,7 @@ $LANG['pages_display_coms'] = 'Commentaires (%d)';
 $LANG['pages_post_com'] = 'Poster un commentaire';
 $LANG['pages_page_com'] = 'Commentaires de la page %s';
 
-//Accueil
+
 $LANG['pages_explain'] = 'Vous êtes sur le panneau de contrôle des pages. Vous pouvez ici gérer l\'ensemble de vos pages.
 <div class="question"><p>Vous utilisez l\'éditeur que vous avez choisi dans votre profil pour mettre en forme les pages. Pour insérer du code HTML, utilisez la balise BBCode <span style="font-family:courier new;">[html]code html[/html]</span>, que vous soyez en BBCode ou avez TinyMCE.</p>
 <p>Pour des raisons de sécurité il est interdit d\'insérer du code PHP dans les pages.</p>
@@ -91,7 +91,7 @@ $LANG['pages_num_coms'] = '%d commentaire(s) sur l\'ensemble des pages soit %1.1
 $LANG['pages_stats'] = 'Statistiques';
 $LANG['pages_tools'] = 'Outils';
 
-//Redirections et renommer
+
 $LANG['pages_rename'] = 'Renommer';
 $LANG['pages_redirection_management'] = 'Gestion des redirections';
 $LANG['pages_rename_page'] = 'Renommer la page <em>%s</em>';
@@ -118,7 +118,7 @@ $LANG['pages_change_cat'] = 'Changer de catégorie';
 $LANG['pages_delete_cat'] = 'Suppression d\'une catégorie';
 $LANG['pages_confirm_remove_cat'] = 'Etes-vous sur de vouloir supprimer cette catégorie ?';
  
-//Erreurs
+
 $LANG['pages_not_found'] = 'La page que vous demandez n\'existe pas';
 $LANG['pages_error_auth_read'] = 'Vous n\'avez pas l\'autorisation de lire cette page';
 $LANG['pages_error_auth_com'] = 'Vous n\'avez pas l\'autorisation de lire les commentaires liés à cette page';
@@ -129,7 +129,7 @@ $LANG['pages_already_exists'] = 'Le titre que vous avez choisi pour la page exis
 $LANG['pages_cat_contains_cat'] = 'La catégorie que vous avez sélectionnée pour placer cette catégorie est contenue par cette même catégorie, ce qui n\'est pas possible. Merci de choisir une autre catégorie';
 $LANG['pages_notice_previewing'] = 'Vous êtes en train de prévisualiser ce que vous avez entré. Aucune modification n\'a été apportée dans la base de données, vous devez valider votre page afin que les modifications soient prises en compte';
 
-//Admin
+
 $LANG['pages_config'] = 'Configuration des pages';
 $LANG['pages_management'] = 'Gestion des pages';
 

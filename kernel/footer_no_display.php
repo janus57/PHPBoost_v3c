@@ -25,11 +25,11 @@
 
 
 
-if(defined('PHPBOOST')!==true)
+if (defined('PHPBOOST') !== true)
 {
-exit;
+    exit;
 }
 
-$Sql->close();
+$Sql->close(); 
 ob_end_flush();
 ?>

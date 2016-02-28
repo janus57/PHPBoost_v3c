@@ -1,36 +1,36 @@
 <?php
-/*##################################################
- *                               admin_smileys_add.php
- *                            -------------------
- *   begin                : June 29, 2005
- *   copyright          : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *   Admin_theme_ajout, v 2.0.1 
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
 
-//Si c'est confirmé on execute
+
 if (!empty($_POST['add']))
 {
 	$code_smiley = retrieve(POST, 'code_smiley', '');
@@ -54,9 +54,9 @@ if (!empty($_POST['add']))
 	else
 		redirect(HOST . DIR . '/admin/admin_smileys_add.php?error=incomplete#errorh');
 }
-elseif (!empty($_FILES['upload_smiley']['name'])) //Upload et décompression de l'archive Zip/Tar
+elseif (!empty($_FILES['upload_smiley']['name'])) 
 {
-	//Si le dossier n'est pas en écriture on tente un CHMOD 777
+	
 	@clearstatcache();
 	$dir = '../images/smileys/';
 	if (!is_writable($dir))
@@ -64,7 +64,7 @@ elseif (!empty($_FILES['upload_smiley']['name'])) //Upload et décompression de l
 	
 	@clearstatcache();
 	$error = '';
-	if (is_writable($dir)) //Dossier en écriture, upload possible
+	if (is_writable($dir)) 
 	{
 		import('io/upload');
 		$Upload = new Upload($dir);
@@ -83,7 +83,7 @@ else
 		'admin_smileys_add'=> 'admin/admin_smileys_add.tpl'
 	));
 	
-	//Gestion erreur.
+	
 	$get_error = retrieve(GET, 'error', '');
 	$array_error = array('e_upload_invalid_format', 'e_upload_max_weight', 'e_upload_error', 'e_upload_failed_unwritable', 'e_smiley_already_exist');
 	if (in_array($get_error, $array_error))
@@ -91,7 +91,7 @@ else
 	if ($get_error == 'incomplete')
 		$Errorh->handler($LANG['e_incomplete'], E_USER_NOTICE);
 		
-	//On recupère les dossier des thèmes contenu dans le dossier images/smiley.
+	
 	import('io/filesystem/folder');
 	$smileys_array = array();
 	$smileys_folder_path = new Folder('../images/smileys');
@@ -102,10 +102,10 @@ else
 	FROM " . PREFIX . "smileys", __LINE__, __FILE__);
 	while ($row = $Sql->fetch_assoc($result))
 	{
-		//On recherche les clées correspondante à celles trouvée dans la bdd.
+		
 		$key = array_search($row['url_smiley'], $smileys_array);
 		if ($key !== false)
-			unset($smileys_array[$key]); //On supprime ces clées du tableau.
+			unset($smileys_array[$key]); 
 	}
 	$Sql->query_close($result);
 	

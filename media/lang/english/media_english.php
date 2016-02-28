@@ -1,31 +1,31 @@
 <?php
-/*##################################################
- *                              media_english.php
- *                            -------------------
- *   begin               	: October 20, 2008
- *   last modified		: October 3rd, 2009 - JMNaylor
- *   copyright        	    : (C) 2007 
- *   email               	: sgtforensic@gmail.com
- *
- *
- *
-###################################################
- *
- *   This program is a free software. You can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program. If not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####################################################
@@ -35,14 +35,14 @@
 global $MEDIA_LANG;
 
 $MEDIA_LANG = array(
-// admin_media.php
+
 'aprob_media' => 'Approve this multimedia file',
 'confirm_delete_media' => 'Are you sure you want to delete this multimedia file?',
 'hide_media' => 'Hide this multimedia file',
 'recount_per_cat' => 'Recount the number of multimedia files per category',
 'show_media' => 'Show this multimedia file',
 
-// admin_media_cats.php
+
 'auth_read' => 'Read permissions',
 'auth_contrib' => 'Contribute permissions',
 'auth_write' => 'Write permissions',
@@ -74,7 +74,7 @@ $MEDIA_LANG = array(
 'successful_operation' => 'The operation you asked for was successfully executed',
 'unexisting_category' => 'The category you want to select does\'nt exist',
 
-// admin_media_config.php
+
 'config_auth' => 'General permissions',
 'config_auth_explain' => 'You can configure here general reading and writing permissions for the MEDIA module. Later, you will be able to apply particular permissions for each category.',
 'config_display' => 'Display configuration',
@@ -91,7 +91,7 @@ $MEDIA_LANG = array(
 'type_music' => 'Music',
 'type_video' => 'Video',
 
-// admin_media_menu.php
+
 'add_cat' => 'Add a category',
 'add_media' => 'Add a multimedia file',
 'configuration' => 'Configuration',
@@ -99,12 +99,12 @@ $MEDIA_LANG = array(
 'management_cat' => 'Category management',
 'management_media' => 'Multimedia management',
 
-// contribution.php
+
 'contribution_confirmation' => 'Contribution confirmation',
 'contribution_confirmation_explain' => '<p>You will be able to follow the validation process of your contribution in the <a href="' . url('../member/contribution_panel.php') . '">contribution panel of PHPBoost</a>. You also will manage to chat with the validators if they are skeptical about your participation.</p><p>Thanks for having participated to the website life!</p>',
 'contribution_success' => 'Your contribution has been saved.',
 
-// media.php
+
 'add_on_date' => 'Added on %s',
 'n_time' => '%d time',
 'n_times' => '%d times',
@@ -120,7 +120,7 @@ $MEDIA_LANG = array(
 'media_added_by' => 'By <a href="%2$s"%3$s>%1$s</a>',
 'view_n_times' => 'Seen %d time(s)',
 
-// media_action.php
+
 'action_success' => 'The operation you asked for was successfully executed!',
 'add_success' => 'The file was successfully added!',
 'contribution_counterpart' => 'Contribution counterpart',
@@ -144,12 +144,12 @@ $MEDIA_LANG = array(
 'require_name' => 'Please enter a title for your multimedia file!',
 'require_url' => 'Please enter a link for your multimedia file!',
 
-// media_interface.class.php
+
 'media' => 'Multimedia file',
 'all_cats' => 'All categories',
 'xml_media_desc' => 'Last multimedia file',
 
-// moderation_media.php
+
 'all_file' => 'All files',
 'confirm_delete_media_all' => 'Do you really want to delete this multimedia file?',
 'display_file' => 'Display the files',

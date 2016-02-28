@@ -1,29 +1,29 @@
 <?php
-/*##################################################
- *                               themeswitcher.php
- *                            -------------------
- *   begin                : November 16, 2008
- *   copyright          : (C) 2008 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function menu_themeswitcher_themeswitcher($position, $block)
 {
@@ -39,7 +39,7 @@ function menu_themeswitcher_themeswitcher($position, $block)
         
     	if (preg_match('`[ a-z0-9_-]{3,20}`i', $switchtheme) && strpos($switchtheme, '\'') === false)
     	{
-    		$User->update_user_theme($switchtheme); //Mise à jour du thème du membre.
+    		$User->update_user_theme($switchtheme); 
     		if (QUERY_STRING != '')
     			redirect(trim(HOST . SCRIPT . '?' . preg_replace('`switchtheme=[^&]+`', '', QUERY_STRING), '?'));
     		else

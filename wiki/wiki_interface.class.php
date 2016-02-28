@@ -1,48 +1,48 @@
 <?php
-/*##################################################
- *                              wiki_interface.class.php
- *                            -------------------
- *   begin                : Februar 24, 2008
- *   copyright            : (C) 2008 LoÃ¯c ROUCHON
- *   email                : horn@phpboost.com
- *
- *
- ###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
 
-// Inclusion du fichier contenant la classe ModuleInterface
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import('modules/module_interface');
 
-// Classe WikiInterface qui hérite de la classe ModuleInterface
+
 class WikiInterface extends ModuleInterface
 {
 	## Public Methods ##
-	function WikiInterface() //Constructeur de la classe WikiInterface
+	function WikiInterface() 
 	{
 		parent::ModuleInterface('wiki');
 	}
 
-	//Récupération du cache.
+	
 	function get_cache()
 	{
 		global $Sql;
 
-		//Catégories du wiki
+		
 		$config = 'global $_WIKI_CATS;' . "\n";
 		$config .= '$_WIKI_CATS = array();' . "\n";
 		$result = $Sql->query_while("SELECT c.id, c.id_parent, c.article_id, a.title
@@ -54,7 +54,7 @@ class WikiInterface extends ModuleInterface
 			$config .= '$_WIKI_CATS[\'' . $row['id'] . '\'] = array(\'id_parent\' => ' . ( !empty($row['id_parent']) ? $row['id_parent'] : '0') . ', \'name\' => ' . var_export($row['title'], true) . ');' . "\n";
 		}
 
-		//Configuration du wiki
+		
 		$code = 'global $_WIKI_CONFIG;' . "\n" . '$_WIKI_CONFIG = array();' . "\n";
 		$CONFIG_WIKI = unserialize($Sql->query("SELECT value FROM " . DB_TABLE_CONFIGS . " WHERE name = 'wiki'", __LINE__, __FILE__));
 
@@ -66,18 +66,18 @@ class WikiInterface extends ModuleInterface
 		return $config . "\n\r" . $code;
 	}
 
-	//Actions journalière.
-	/*
-	function on_changeday()
-	{
-	}
-	*/
+	
+	
 
-	// Recherche
+
+
+
+
+	
 	function get_search_form($args=null)
-	/**
-	 *  Renvoie le formulaire de recherche du wiki
-	 */
+	
+
+
 	{
 		require_once(PATH_TO_ROOT . '/kernel/begin.php');
 		load_module_lang('wiki');
@@ -101,17 +101,17 @@ class WikiInterface extends ModuleInterface
 	}
 
 	function get_search_args()
-	/**
-	 *  Renvoie la liste des arguments de la méthode <GetSearchRequest>
-	 */
+	
+
+
 	{
 		return Array('WikiWhere');
 	}
 
 	function get_search_request($args)
-	/**
-	 *  Renvoie la requÃªte de recherche dans le wiki
-	 */
+	
+
+
 	{
 		$weight = isset($args['weight']) && is_numeric($args['weight']) ? $args['weight'] : 1;
 		if ( !isset($args['WikiWhere']) || !in_array($args['WikiWhere'], explode(',','title,contents,all')) )
@@ -162,9 +162,9 @@ class WikiInterface extends ModuleInterface
 				$id = $cats[$i]['id'];
 				$feeds_cat = new FeedsCat('wiki', $id, $cats[$i]['title']);
 
-				// Decrease the complexity
+				
 				unset($cats[$i]);
-				$cats = array_merge($cats); // re-index the array
+				$cats = array_merge($cats); 
 				$nb_cats = count($cats);
 
 				WikiInterface::_build_wiki_cat_children($feeds_cat, $cats, $id);
@@ -208,12 +208,12 @@ class WikiInterface extends ModuleInterface
 		load_module_lang('wiki');
 		$Cache->load('wiki');
 
-		if (($idcat > 0) && array_key_exists($idcat, $_WIKI_CATS))//Catégorie
+		if (($idcat > 0) && array_key_exists($idcat, $_WIKI_CATS))
 		{
 			$desc = sprintf($LANG['wiki_rss_cat'], $_WIKI_CATS[$idcat]['name']);
 			$where = "AND a.id_cat = '" . $idcat . "'";
 		}
-		else //Sinon derniers messages
+		else 
 		{
 			$desc = sprintf($LANG['wiki_rss_last_articles'], (!empty($_WIKI_CONFIG['wiki_name']) ? $_WIKI_CONFIG['wiki_name'] : $LANG['wiki']));
 			$where = "";
@@ -232,10 +232,10 @@ class WikiInterface extends ModuleInterface
 		$data->set_desc($desc);
 		$data->set_lang($LANG['xml_lang']);
 
-		// Load the new's config
+		
 		$Cache->load('wiki');
 
-		// Last news
+		
 		$result = $Sql->query_while("SELECT a.title, a.encoded_title, c.content, c.timestamp
             FROM " . PREFIX . "wiki_articles a
             LEFT JOIN " . PREFIX . "wiki_contents c ON c.id_contents = a.id_contents
@@ -243,7 +243,7 @@ class WikiInterface extends ModuleInterface
             ORDER BY c.timestamp DESC
             " . $Sql->limit(0, 2 * 10), __LINE__, __FILE__);
 
-		// Generation of the feed's items
+		
 		while ($row = $Sql->fetch_assoc($result))
 		{
 			$item = new FeedItem();
@@ -314,7 +314,7 @@ class WikiInterface extends ModuleInterface
 					));
 				}
 			}
-			//Affichage de toutes les catégories si c'est activé
+			
 			if ($_WIKI_CONFIG['display_cats'] != 0)
 			{
 				$Template->assign_block_vars('cat_list', array(
@@ -323,7 +323,7 @@ class WikiInterface extends ModuleInterface
 				$i = 0;
 				foreach ($_WIKI_CATS as $id => $infos)
 				{
-					//Si c'est une catégorie mère
+					
 					if ($infos['id_parent'] == 0)
 					{
 						$Template->assign_block_vars('cat_list.list', array(

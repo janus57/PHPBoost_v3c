@@ -1,31 +1,31 @@
 <?php
-/*##################################################
- *                           admin_poll_config.php
- *                            -------------------
- *   begin                : June 21, 2005
- *   copyright            : (C) 2005 Viarre Régis
- *   email                : crowkait@phpboost.com
- *
- *
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-###################################################*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 require_once('../admin/admin_begin.php');
-load_module_lang('poll'); //Chargement de la langue du module.
+load_module_lang('poll'); 
 define('TITLE', $LANG['administration']);
 require_once('../admin/admin_header.php');
 
@@ -53,7 +53,7 @@ else
 	$Cache->load('poll');
 	
 	$i = 0;
-	//Mini poll courant	
+	
 	$mini_poll_list = '';
 	$result = $Sql->query_while("SELECT id, question 
 	FROM " . PREFIX . "poll
@@ -88,7 +88,7 @@ else
 		'L_RESET' => $LANG['reset']
 	));
 	
-	//Rang d'autorisation.
+	
 	$CONFIG_POLL['poll_auth'] = isset($CONFIG_POLL['poll_auth']) ? $CONFIG_POLL['poll_auth'] : '-1';	
 	for ($i = -1; $i <= 2; $i++)
 	{
