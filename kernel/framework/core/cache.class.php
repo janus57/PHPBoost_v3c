@@ -58,7 +58,7 @@ class Cache
 
 
 
-    static function load($file, $reload_cache = false)
+    function load($file, $reload_cache = false)
     {
         global $Errorh, $Sql;
 
